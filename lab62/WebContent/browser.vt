@@ -1,0 +1,82 @@
+<html>
+<head>
+	<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+	<title>Wall v.6.2</title>
+	<link href="blogstyle.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body class="blogbody">
+<div class ="login">
+#if (!$sessionUserNICK)
+	#if (!$errors.loginUser && $loginForm.user) #set ( $loginUser = $loginForm.user ) #end
+    <form action = "login.do" method="post">
+	user's nick: <input name="user" value="$!loginUser" size=20>
+	<span class="errorMsg2">$!errors.wrongUserNick.get(0)
+	$!errors.loginUser.get(0)</span>
+	password: <input type="password" name="password" size=20>
+	<span class="errorMsg2">$!errors.wrongPassword.get(0)
+	$!errors.loginPassword.get(0)</span>
+	<input type="submit" name="action" value="login">
+	</form>
+#else
+    <form action = "logout.do" method="post">
+    logged as <em>$sessionUserNICK</em> ($sessionUserName)
+	<input type="submit" name="action" value="logout">
+	</form>
+#end
+
+
+</div>
+<div class ="heading">
+	<h1 class="blogtitle">Wall v.6.2</h1>
+    #if ($sessionUserNICK)
+		</div>
+        <div class="blogitem">
+		<center>You have published <strong>$deletable</strong> posts
+		#if ($deletable > 0)
+		- <a href="showToDelete.do"><strong>Delete</strong></a> posts
+		#end
+		</center>
+        <div class="afegir">
+        <form action = "insert.do" method="post">
+		<textarea name="message_body" rows="3" cols="90" wrap></textarea>
+		<input type="submit" name="action" value="new post"> by $sessionUserNICK
+		</form>
+		<span class="errorMsg">$!errors.wrongPostContent.get(0)</span>
+		</div>
+	#else
+	    <p><strong><a href="wall_register.vt">Click Here To Register</a></strong></p>
+	#end
+</div>
+
+<div class="search">
+	<form action = "search.do" method="post">
+	search: <input name="searchKey" size=20>
+	<input type="submit" name="action" value="search">
+	</form>
+	#if ($sessionSearchKey) <b>$sessionSearchKey</b> #end
+</div>
+
+#set( $inDate = $currentDate )
+
+#foreach ($post in $wallPosts)
+
+	#if (!($post.postDate == $inDate))
+	    <br><h3>...... $post.postDate</h3>
+	    #set( $inDate = $post.postDate )
+	#end
+
+	<div class="blogitem">
+		<div class="vots">
+			<span class="numvots">$post.votes</span><br/>votes<br/><br/>
+			<a href=vote.do?postid=$post.postID>vote me</a>
+		</div>
+		<div class="item">
+		<h4>$post.authorNICK @ $post.postHour</h4>
+		<p>$post.content</p>
+		</div>
+	</div>
+#end
+
+</body>
+</html>

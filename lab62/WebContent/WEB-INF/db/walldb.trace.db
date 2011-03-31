@@ -1,0 +1,152 @@
+10-03 18:40:12 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Error de Sintaxis en sentencia SQL "CREATE TABLE WALLUSERS (
+WUSNICK  CHAR(20) PRIMARY KEY,
+WUSNAME  CHAR(40),
+WUSPWD   CHAR(32) NOT NULL) ENGINE=[*]INNODB "; se esperaba "identifier"
+Syntax error in SQL statement "CREATE TABLE WALLUSERS (
+WUSNICK  CHAR(20) PRIMARY KEY,
+WUSNAME  CHAR(40),
+WUSPWD   CHAR(32) NOT NULL) ENGINE=[*]INNODB "; expected "identifier"; SQL statement:
+CREATE TABLE wallusers (
+wusNICK  char(20) primary key,
+wusNAME  char(40),
+wusPWD   char(32) not null) engine=InnoDB [42001-142]
+10-03 18:40:12 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Error de Sintaxis en sentencia SQL "CREATE TABLE WALLPOSTS (
+WPOID     INT AUTO_INCREMENT PRIMARY KEY,
+WUSNICK   CHAR(20) NOT NULL,
+WPOTEXT   VARCHAR(800) NOT NULL,
+WPOVOTES  INT NOT NULL DEFAULT 0,
+WPOTIME   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+FOREIGN KEY (WUSNICK) REFERENCES WALLUSERS(WUSNICK)) ENGINE=[*]INNODB "; se esperaba "identifier"
+Syntax error in SQL statement "CREATE TABLE WALLPOSTS (
+WPOID     INT AUTO_INCREMENT PRIMARY KEY,
+WUSNICK   CHAR(20) NOT NULL,
+WPOTEXT   VARCHAR(800) NOT NULL,
+WPOVOTES  INT NOT NULL DEFAULT 0,
+WPOTIME   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+FOREIGN KEY (WUSNICK) REFERENCES WALLUSERS(WUSNICK)) ENGINE=[*]INNODB "; expected "identifier"; SQL statement:
+CREATE TABLE wallposts (
+wpoID     int auto_increment primary key,
+wusNICK   char(20) not null,
+wpoTEXT   varchar(800) not null,
+wpoVOTES  int not null DEFAULT 0,
+wpoTIME   timestamp DEFAULT CURRENT_TIMESTAMP,
+FOREIGN KEY (wusNICK) REFERENCES wallusers(wusNICK)) engine=InnoDB [42001-142]
+10-03 18:40:12 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Tabla "WPOSTS" no encontrada
+Table "WPOSTS" not found; SQL statement:
+CREATE TABLE wallvotes (
+wpoID     int,
+wusNICK   char(20),
+wpvTIME   timestamp DEFAULT CURRENT_TIMESTAMP,
+PRIMARY  KEY (wpoID, wusNICK),
+FOREIGN  KEY (wpoID)   REFERENCES wposts(wpoID),
+FOREIGN  KEY (wusNICK) REFERENCES wusers(wusNICK)) [42102-142]
+10-03 18:40:47 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Tabla "WPOSTS" no encontrada
+Table "WPOSTS" not found; SQL statement:
+CREATE TABLE wallvotes (
+wpoID     int,
+wusNICK   char(20),
+wpvTIME   timestamp DEFAULT CURRENT_TIMESTAMP,
+PRIMARY  KEY (wpoID, wusNICK),
+FOREIGN  KEY (wpoID)   REFERENCES wposts(wpoID),
+FOREIGN  KEY (wusNICK) REFERENCES wusers(wusNICK)) [42102-142]
+10-03 18:58:23 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Error de Sintaxis en sentencia SQL "INSERT INTO WALLPOSTS (WPOID, WUSNICK, WPOTEXT, WPOVOTES, WPOTIME) VALUES('1','albert','Let\'S[*] NOT BURN THE UNIVERSITIES YET. AFTER ALL, THE DAMAGE THEY DO MIGHT BE WORSE. ','73','2010-09-20 11:55:44');
+insert into wallposts (wpoID, wusNICK, wpoTEXT, wpoVOTES, wpoTIME) values('2','RINGO','IT IS NOT MATERIALISM THAT IS THE CHIEF CURSE OF THE WORLD, AS PASTORS TEACH, BUT IDEALISM. MEN GET INTO TROUBLE BY TAKING THEIR VISIONS AND HALLUCINATIONS TOO SERIOUSLY. ','44','2010-09-20 21:35:44');
+insert into wallposts (wpoID, wusNICK, wpoTEXT, wpoVOTES, wpoTIME) values('3','ALBERT','NO ONE IN THIS WORLD HAS EVER LOST MONEY BY UNDERESTIMATING THE INTELLIGENCE OF THE GREAT MASSES OF THE PLAIN PEOPLE. NOR HAS ANYONE EVER LOST PUBLIC OFFICE THEREBY','34','2010-09-21 10:10:44');
+insert into wallposts (wpoID, wusNICK, wpoTEXT, wpoVOTES, wpoTIME) values('4','RINGO','NEVERTHELESS, IT IS EVEN HARDER FOR THE AVERAGE APE TO BELIEVE THAT HE HAS DESCENDED FROM MAN. ','51','2010-09-22 10:01:44');
+insert into wallposts (wpoID, wusNICK, wpoTEXT, wpoVOTES, wpoTIME) values('5','ALBERT','THE CAPACITY OF HUMAN BEINGS TO BORE ONE ANOTHER SEEMS TO BE VASTLY GREATER THAN THAT OF ANY OTHER ANIMAL.','52','2010-09-22 12:22:44');
+insert into wallposts (wpoID, wusNICK, wpoTEXT, wpoVOTES, wpoTIME) values('6','RINGO','WEALTH: ANY INCOME THAT IS AT LEAST ONE HUNDRED DOLLARS MORE A YEAR THAN THE INCOME OF ONE\'s wife\'S SISTER\'s husband.','89','2010-09-23 01:58:44') "; se esperaba ")"
+Syntax error in SQL statement "INSERT INTO WALLPOSTS (WPOID, WUSNICK, WPOTEXT, WPOVOTES, WPOTIME) VALUES('1','albert','Let\'S[*] NOT BURN THE UNIVERSITIES YET. AFTER ALL, THE DAMAGE THEY DO MIGHT BE WORSE. ','73','2010-09-20 11:55:44');
+insert into wallposts (wpoID, wusNICK, wpoTEXT, wpoVOTES, wpoTIME) values('2','RINGO','IT IS NOT MATERIALISM THAT IS THE CHIEF CURSE OF THE WORLD, AS PASTORS TEACH, BUT IDEALISM. MEN GET INTO TROUBLE BY TAKING THEIR VISIONS AND HALLUCINATIONS TOO SERIOUSLY. ','44','2010-09-20 21:35:44');
+insert into wallposts (wpoID, wusNICK, wpoTEXT, wpoVOTES, wpoTIME) values('3','ALBERT','NO ONE IN THIS WORLD HAS EVER LOST MONEY BY UNDERESTIMATING THE INTELLIGENCE OF THE GREAT MASSES OF THE PLAIN PEOPLE. NOR HAS ANYONE EVER LOST PUBLIC OFFICE THEREBY','34','2010-09-21 10:10:44');
+insert into wallposts (wpoID, wusNICK, wpoTEXT, wpoVOTES, wpoTIME) values('4','RINGO','NEVERTHELESS, IT IS EVEN HARDER FOR THE AVERAGE APE TO BELIEVE THAT HE HAS DESCENDED FROM MAN. ','51','2010-09-22 10:01:44');
+insert into wallposts (wpoID, wusNICK, wpoTEXT, wpoVOTES, wpoTIME) values('5','ALBERT','THE CAPACITY OF HUMAN BEINGS TO BORE ONE ANOTHER SEEMS TO BE VASTLY GREATER THAN THAT OF ANY OTHER ANIMAL.','52','2010-09-22 12:22:44');
+insert into wallposts (wpoID, wusNICK, wpoTEXT, wpoVOTES, wpoTIME) values('6','RINGO','WEALTH: ANY INCOME THAT IS AT LEAST ONE HUNDRED DOLLARS MORE A YEAR THAN THE INCOME OF ONE\'s wife\'S SISTER\'s husband.','89','2010-09-23 01:58:44') "; expected ")"; SQL statement:
+insert into wallposts (wpoID, wusNICK, wpoTEXT, wpoVOTES, wpoTIME) values('1','albert','Let\'s not burn the universities yet. After all, the damage they do might be worse. ','73','2010-09-20 11:55:44');
+insert into wallposts (wpoID, wusNICK, wpoTEXT, wpoVOTES, wpoTIME) values('2','ringo','It is not materialism that is the chief curse of the world, as pastors teach, but idealism. Men get into trouble by taking their visions and hallucinations too seriously. ','44','2010-09-20 21:35:44');
+insert into wallposts (wpoID, wusNICK, wpoTEXT, wpoVOTES, wpoTIME) values('3','albert','No one in this world has ever lost money by underestimating the intelligence of the great masses of the plain people. Nor has anyone ever lost public office thereby','34','2010-09-21 10:10:44');
+insert into wallposts (wpoID, wusNICK, wpoTEXT, wpoVOTES, wpoTIME) values('4','ringo','Nevertheless, it is even harder for the average ape to believe that he has descended from man. ','51','2010-09-22 10:01:44');
+insert into wallposts (wpoID, wusNICK, wpoTEXT, wpoVOTES, wpoTIME) values('5','albert','The capacity of human beings to bore one another seems to be vastly greater than that of any other animal.','52','2010-09-22 12:22:44');
+insert into wallposts (wpoID, wusNICK, wpoTEXT, wpoVOTES, wpoTIME) values('6','ringo','Wealth: Any income that is at least one hundred dollars more a year than the income of one\'s wife\'s sister\'s husband.','89','2010-09-23 01:58:44') [42001-142]
+10-03 19:12:09 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Columna "wpID" no encontrada
+Column "wpID" not found [42122-142]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
+	at org.h2.message.DbException.get(DbException.java:167)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:2883)
+	at org.h2.jdbc.JdbcResultSet.get(JdbcResultSet.java:2959)
+	at org.h2.jdbc.JdbcResultSet.getString(JdbcResultSet.java:283)
+	at wallcode.Browser.doGet(Browser.java:91)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:627)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:729)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:269)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:188)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:213)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:172)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:117)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:108)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:174)
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:875)
+	at org.apache.coyote.http11.Http11BaseProtocol$Http11ConnectionHandler.processConnection(Http11BaseProtocol.java:665)
+	at org.apache.tomcat.util.net.PoolTcpEndpoint.processSocket(PoolTcpEndpoint.java:528)
+	at org.apache.tomcat.util.net.LeaderFollowerWorkerThread.runIt(LeaderFollowerWorkerThread.java:81)
+	at org.apache.tomcat.util.threads.ThreadPool$ControlRunnable.run(ThreadPool.java:689)
+	at java.lang.Thread.run(Unknown Source)
+10-03 21:40:03 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Imposible interpretar la constante de fecha y hora timestamp , causa: "format yyyy-mm-dd"
+Cannot parse timestamp constant , cause: "format yyyy-mm-dd"; SQL statement:
+INSERT INTO "PUBLIC"."WALLVOTES"("WPOID","WUSNICK","WPVTIME")VALUES(?,?,?) -- (?1, ?2, ?3) [90011-142]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
+	at org.h2.message.DbException.get(DbException.java:167)
+	at org.h2.util.DateTimeUtils.parseDateTime(DateTimeUtils.java:257)
+	at org.h2.value.ValueTimestamp.parseTimestamp(ValueTimestamp.java:81)
+	at org.h2.value.Value.convertTo(Value.java:758)
+	at org.h2.table.Column.convert(Column.java:146)
+	at org.h2.command.dml.Insert.insertRows(Insert.java:109)
+	at org.h2.command.dml.Insert.update(Insert.java:82)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:70)
+	at org.h2.command.Command.executeUpdate(Command.java:199)
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdateInternal(JdbcPreparedStatement.java:141)
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdate(JdbcPreparedStatement.java:127)
+	at org.h2.result.UpdatableRow.insertRow(UpdatableRow.java:275)
+	at org.h2.jdbc.JdbcResultSet.insertRow(JdbcResultSet.java:2735)
+	at org.h2.server.web.WebApp.editResult(WebApp.java:1025)
+	at org.h2.server.web.WebApp.process(WebApp.java:223)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:166)
+	at org.h2.server.web.WebThread.process(WebThread.java:132)
+	at org.h2.server.web.WebThread.run(WebThread.java:88)
+	at java.lang.Thread.run(Unknown Source)
+10-03 21:40:03 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Imposible interpretar la constante de fecha y hora timestamp , causa: "format yyyy-mm-dd"
+Cannot parse timestamp constant , cause: "format yyyy-mm-dd"; SQL statement:
+INSERT INTO "PUBLIC"."WALLVOTES"("WPOID","WUSNICK","WPVTIME")VALUES(?,?,?) -- (?1, ?2, ?3) [90011-142]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
+	at org.h2.message.DbException.get(DbException.java:167)
+	at org.h2.util.DateTimeUtils.parseDateTime(DateTimeUtils.java:257)
+	at org.h2.value.ValueTimestamp.parseTimestamp(ValueTimestamp.java:81)
+	at org.h2.value.Value.convertTo(Value.java:758)
+	at org.h2.table.Column.convert(Column.java:146)
+	at org.h2.command.dml.Insert.insertRows(Insert.java:109)
+	at org.h2.command.dml.Insert.update(Insert.java:82)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:70)
+	at org.h2.command.Command.executeUpdate(Command.java:199)
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdateInternal(JdbcPreparedStatement.java:141)
+	at org.h2.jdbc.JdbcPreparedStatement.executeUpdate(JdbcPreparedStatement.java:127)
+	at org.h2.result.UpdatableRow.insertRow(UpdatableRow.java:275)
+	at org.h2.jdbc.JdbcResultSet.insertRow(JdbcResultSet.java:2735)
+	at org.h2.server.web.WebApp.editResult(WebApp.java:1025)
+	at org.h2.server.web.WebApp.process(WebApp.java:223)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:166)
+	at org.h2.server.web.WebThread.process(WebThread.java:132)
+	at org.h2.server.web.WebThread.run(WebThread.java:88)
+	at java.lang.Thread.run(Unknown Source)
+10-04 17:02:24 jdbc[2]: SQLException
+org.h2.jdbc.JdbcSQLException: Error de Sintaxis en sentencia SQL "WALLPOSTS[*] SELECT * FROM WALLUSERS"; se esperaba "WITH, {"
+Syntax error in SQL statement "WALLPOSTS[*] SELECT * FROM WALLUSERS"; expected "WITH, {"; SQL statement:
+WALLPOSTS SELECT * FROM WALLUSERS [42001-142]

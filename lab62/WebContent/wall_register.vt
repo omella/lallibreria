@@ -1,0 +1,64 @@
+<html>
+<head>
+<title>New User Registration</title>
+
+<link href="blogstyle.css" rel="stylesheet" type="text/css">
+</head>
+
+<body class="blogbody">
+
+<center>
+<h1 class="blogtitle">New User Registration</h1>
+</center>
+
+<br>
+
+
+<div class="blogitem">
+<form action="register.do" method="post">
+<table border="0" cellpadding="8">
+
+	<tbody>
+		<tr>
+			<td><b>User's Nickname:</b></td>
+			<td><input name="userNick" value="$!registrationForm.userNick"
+				size="40"> <span class="errorMsg">$!errors.wrongUserNick.get(0)</span></td>
+		</tr>
+		<tr>
+			<td><b>Full Name:</b></td>
+			<td><input name="userFullName" value="$!registrationForm.userFullName"
+				size="40"> <span class="errorMsg">$!errors.wrongUserFullName.get(0)</span></td>
+		</tr>
+		<tr>
+		<tr>
+			<td><b>Password:</b></td>
+			<td><input name="userPassword" size="40" type="password">
+			<span class="errorMsg">$!errors.wrongPassword.get(0)</span></td>
+		</tr>
+		<tr>
+			<td colspan="2"><script type="text/javascript"
+				src="http://api.recaptcha.net/challenge?k=6Lc_QgUAAAAAAFyWFhYONWN22eeUrgGoF5W7EZ3D"></script>
+
+			<noscript><iframe
+				src="http://api.recaptcha.net/noscript?k=6Lc_QgUAAAAAAFyWFhYONWN22eeUrgGoF5W7EZ3D"
+				height="300" width="500" frameborder="0"></iframe><br />
+			<textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
+			<input type="hidden" name="recaptcha_response_field"
+				value="manual_challenge" /></noscript>
+			<span class="errorMsg">$!errors.wrongCAPTCHA.get(0)</span></td>
+		</tr>
+		<tr>
+			<td colspan="2"><input name="action" value="register"
+				type="submit"></td>
+		</tr>
+
+	</tbody>
+</table>
+
+</form>
+<center><span class="errorMsg">$!errors.regDuplicate.get(0)</span></center>
+</div>
+<center><a href="wall">Back to the main page</a></center>
+</body>
+
+</html>
