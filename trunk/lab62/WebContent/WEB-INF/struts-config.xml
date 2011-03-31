@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+
+<!-- ================================================ Form Bean Definitions -->
+
+     <form-beans>
+
+        <form-bean name="insertForm" type="wallFront.InsertForm"/>
+
+        <form-bean name="registrationForm" type="wallFront.RegistrationForm"/>
+
+        <form-bean name="loginForm" type="wallFront.LoginForm"/>
+        
+        <form-bean name="searchForm" type="wallFront.SearchForm"/>
+
+        <form-bean name="voteForm" type="org.apache.struts.action.DynaActionForm">
+              <form-property name="postid" type="java.lang.Integer"/>
+        </form-bean>
+
+        <form-bean name="deleteForm" type="org.apache.struts.action.DynaActionForm">
+			<form-property name="deletePostID" type="java.lang.String[]" />
+		</form-bean>
+      
+    </form-beans>
+
+
+<!-- =========================================== Action Mapping Definitions -->
+
+    <action-mappings>
+
+        <action path="/insert"
+            type="wallFront.InsertAction"
+            name="insertForm"
+            scope="request"
+            validate="true"
+            input="/wall">
+            <forward name="failure" path="/error.vt"/>
+            <forward name="success" path="/wall" redirect="true"/>
+        </action>
+
+        <action path="/vote" 
+			type="wallFront.VoteAction" 
+			name="voteForm">
+			<forward name="failure" path="/error.vt" />
+			<forward name="success" path="/wall" redirect="true"/>
+		</action>
+
+        <action path="/logout"
+            type="wallFront.LogoutAction"
+            scope="request">
+            <forward name="success" path="/wall" redirect="true"/>
+        </action>
+
+        <action path="/register"
+            type="wallFront.RegisterAction"
+            name="registrationForm"
+            scope="request"
+            validate="true"
+            input="/registerBack.do">
+            <forward name="failure" path="/error.vt"/>
+            <forward name="duplicateUser" path="/registerBack.do"/>
+            <forward name="success" path="/wall" redirect="true"/>
+        </action>
+
+	<action path="/registerBack" forward="/wall_register.vt">
+	</action>
+
+        <action path="/delete"
+        	type="wallFront.DeleteAction" 
+        	name="deleteForm">
+            <forward name="failure" path="/error.vt" />
+            <forward name="wrongPassword" path="/wall"/>
+            <forward name="success" path="/wall" redirect="true"/>
+        </action>
+
+        <action path="/browse"
+            type="wallFront.BrowserAction">
+            <forward name="failure" path="/error.vt" />
+            <forward name="success" path="/browser.vt" />
+        </action>
+
+        <action path="/showToDelete"
+            type="wallFront.ShowToDeleteAction">
+            <forward name="failure" path="/error.vt" />
+            <forward name="success" path="/todelete.vt" />
+        </action>
+
+        <action path="/login"
+            type="wallFront.LoginAction"
+            name="loginForm"
+            scope="request"
+            validate="true"
+            input="/loginBack.do">
+            <forward name="failure" path="/error.vt"/>
+            <forward name="wrongData" path="/loginBack.do"/>
+            <forward name="success" path="/wall" redirect="true"/>
+        </action>
+        
+        <action path="/search"
+            type="wallFront.SearchAction"
+            name="searchForm"
+            scope="request"
+            validate="true"
+            input="/loginBack.do">
+            <forward name="failure" path="/error.vt"/>
+            <forward name="wrongData" path="/loginBack.do"/>
+            <forward name="success" path="/wall" redirect="true"/>
+        </action>
+
+	<action path="/loginBack" forward="/wall" >
+	</action>
+	
+
+    </action-mappings>
+
+
+<!-- ============================================= Controller Configuration -->
+
+    <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
+
+
+<!-- ======================================== Message Resources Definitions -->
+
+    <message-resources parameter="MessageResources"/>
+
+
+<!-- =============================================== Plug Ins Configuration -->
+
+    <plug-in className="org.apache.struts.tiles.TilesPlugin">
+       <set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml"/>
+       <set-property property="moduleAware" value="true"/>
+    </plug-in>
+
+    <plug-in className="wallBack.TransactionFactory">
+	<set-property property="dbDriverClass" value="org.h2.Driver"/>
+	<set-property property="dbUsername" value="sa"/>
+	<set-property property="dbPassword" value=""/>
+	<set-property property="dbURI" value="jdbc:h2:file:"/>
+	<set-property property="dbPath" value="/WEB-INF/db/walldb"/>
+	</plug-in>
+
+
+</struts-config>

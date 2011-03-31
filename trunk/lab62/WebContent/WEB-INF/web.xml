@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>test</display-name>
+  <welcome-file-list>
+    <welcome-file>browser.jsp</welcome-file>
+    <welcome-file>browser.vt</welcome-file>
+  </welcome-file-list>
+
+    <display-name>Wall WebApp v.6.2</display-name>
+    <description>
+	This is a simple web application with a source code organization
+	based on the recommendations of the Application Developer's Guide.
+    </description>
+
+    <servlet>
+        <servlet-name>browser</servlet-name>
+        <jsp-file>/browser.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>browser</servlet-name>
+        <url-pattern>/wall</url-pattern>
+    </servlet-mapping>
+
+
+  <!-- Standard Action Servlet Configuration -->
+  <servlet>
+    <servlet-name>action</servlet-name>
+    <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+    <init-param>
+      <param-name>config</param-name>
+      <param-value>/WEB-INF/struts-config.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+
+  <!-- Standard Action Servlet Mapping -->
+  <servlet-mapping>
+    <servlet-name>action</servlet-name>
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+
+
+<servlet>
+    <servlet-name>velocity</servlet-name>
+    <servlet-class>org.apache.velocity.tools.view.servlet.VelocityViewServlet</servlet-class>
+    <init-param>
+      <param-name>org.apache.velocity.toolbox</param-name>
+      <param-value>/WEB-INF/toolbox.xml</param-value>
+    </init-param>
+    <init-param>
+      <param-name>org.apache.velocity.properties</param-name>
+      <param-value>/WEB-INF/velocity.properties</param-value>
+    </init-param>
+  </servlet>
+
+ <servlet-mapping>
+    <servlet-name>velocity</servlet-name>
+    <url-pattern>*.vt</url-pattern>
+  </servlet-mapping>
+
+</web-app>

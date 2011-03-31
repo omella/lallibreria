@@ -1,0 +1,37 @@
+<html>
+<head>
+	<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
+	<title>Delete Wall Posts</title>
+	<link href="blogstyle.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body class="blogbody">
+<div class ="login">
+    <form action = "logout.do" method="post">
+    logged as <em>$sessionUserNICK</em> ($sessionUserName)
+	<input type="submit" name="action" value="logout">
+	</form>
+</div>
+<div class ="heading">
+	<h1 class="blogtitle">Delete Wall Posts</h1>
+</div>
+
+<form action="delete.do" method="post">
+#foreach ($post in $wallPosts)
+	<div class="blogitem">
+		<div class="vots">
+			<strong>delete?</strong> <input name="deletePostID" value="$post.postID" type="checkbox">
+		</div>
+		<div class="item">
+		<p><em>Posted on $post.postDate @ $post.postHour</em> : <strong>$post.votes</strong> votes<p>
+		<p>$post.content</p>
+		</div>
+	</div>
+#end
+<div class="blogitem">
+<center><strong>Delete</strong> selected posts -&gt; <input name="action" value="delete" type="submit">
+ | Go to the <a href="wall">main page</a></center>
+</div>
+</form>
+</body>
+</html>
