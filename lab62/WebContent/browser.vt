@@ -1,7 +1,7 @@
 <html>
 <head>
 	<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type" />
-	<title>Wall v.6.2</title>
+	<title>lallibreria.cat</title>
 	<link href="blogstyle.css" rel="stylesheet" type="text/css" />
 </head>
 
@@ -24,11 +24,12 @@
 	<input type="submit" name="action" value="logout">
 	</form>
 #end
+<p><strong><a href="wall_register.vt">Click Here To Register</a></strong></p>
 
 
 </div>
 <div class ="heading">
-	<h1 class="blogtitle">Wall v.6.2</h1>
+	<h1 class="blogtitle">LA LLIBRERIA . CAT</h1>
     #if ($sessionUserNICK)
 		</div>
         <div class="blogitem">
@@ -44,39 +45,45 @@
 		</form>
 		<span class="errorMsg">$!errors.wrongPostContent.get(0)</span>
 		</div>
-	#else
-	    <p><strong><a href="wall_register.vt">Click Here To Register</a></strong></p>
 	#end
 </div>
 
 <div class="search">
-	<form action = "search.do" method="post">
+	<center><form action = "search.do" method="post">
 	search: <input name="searchKey" size=20>
 	<input type="submit" name="action" value="search">
 	</form>
-	#if ($sessionSearchKey) <b>$sessionSearchKey</b> #end
-</div>
+	</center>
+	#if ($results) 
+		#foreach ($result in $results)
+			<div><br>
+			<h2><a href=error.vt>$result</a></h2>
+			<br>
+			</div>
+		#end
+		 
+		#set( $inDate = $currentDate )
 
-#set( $inDate = $currentDate )
-
-#foreach ($post in $wallPosts)
-
-	#if (!($post.postDate == $inDate))
-	    <br><h3>...... $post.postDate</h3>
-	    #set( $inDate = $post.postDate )
+		#foreach ($post in $wallPosts)
+		
+			#if (!($post.postDate == $inDate))
+			    <br><h3>...... $post.postDate</h3>
+			    #set( $inDate = $post.postDate )
+			#end
+		
+			<div class="blogitem">
+				<div class="vots">
+					<span class="numvots">$post.votes</span><br/>votes<br/><br/>
+					<a href=vote.do?postid=$post.postID>vote me</a>
+				</div>
+				<div class="item">
+				<h4>$post.authorNICK @ $post.postHour</h4>
+				<p>$post.content</p>
+				</div>
+			</div>
+		#end
 	#end
-
-	<div class="blogitem">
-		<div class="vots">
-			<span class="numvots">$post.votes</span><br/>votes<br/><br/>
-			<a href=vote.do?postid=$post.postID>vote me</a>
-		</div>
-		<div class="item">
-		<h4>$post.authorNICK @ $post.postHour</h4>
-		<p>$post.content</p>
-		</div>
-	</div>
-#end
+</div>
 
 </body>
 </html>
