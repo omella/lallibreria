@@ -57,7 +57,8 @@
 	#if ($results) 
 		#foreach ($result in $results)
 			<div><br>
-			<h2><a href=error.vt>$result</a></h2>
+			<h2><a href=error.vt>$result.titol</a></h2>
+			<h1>$result.autor</h1>
 			<br>
 			</div>
 		#end
