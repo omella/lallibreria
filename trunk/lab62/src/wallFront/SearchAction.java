@@ -7,6 +7,8 @@
 package wallFront;
 
 
+import java.util.Vector;
+
 import wallFront.SearchForm;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +29,18 @@ public class SearchAction extends Action {
 
 	{
 		String searchKey = ((SearchForm) form).getSearchKey();
-		request.getSession().setAttribute("sessionSearchKey",searchKey);
+		
+		//Connectar-se amb el Webservice passant-li el titol i tractar la informacio que es rebi
+		
+		//Guardar a la sessio els resultats obtinguts
+		
+		Vector<String> results = new Vector<String>();
+		
+		results.add(searchKey);
+		
+		results.add("result2");
+		
+		request.getSession().setAttribute("results",results);
 		return (mapping.findForward("success"));
 	}
 
