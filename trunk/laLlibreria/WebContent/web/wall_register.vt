@@ -1,0 +1,132 @@
+<html>
+<head>
+<title>New User Registration</title>
+
+<link href="blogstyle.css" rel="stylesheet" type="text/css">
+</head>
+
+<body class="blogbody">
+
+<center>
+<h1 class="blogtitle">New User Registration</h1>
+</center>
+
+<br>
+<div id="fb-root"></div>
+	<script type="text/javascript">
+		window.fbAsyncInit = function() {
+			FB.init({appId: '177068509007802', status: true, cookie: true, xfbml: true});
+
+			FB.Event.subscribe('auth.login', function(response) {
+				login();
+			});
+			FB.Event.subscribe('auth.logout', function(response) {
+				logout();
+			});
+
+			FB.getLoginStatus(function(response) {
+				if (response.session) {
+					greet();
+				}
+			});
+		};
+		(function() {
+			var e = document.createElement('script');
+			e.type = 'text/javascript';
+			e.src = document.location.protocol +
+				'//connect.facebook.net/en_US/all.js';
+			e.async = true;
+			document.getElementById('fb-root').appendChild(e);
+		}());
+
+		function login(){
+			FB.api('/me', function(response) {
+				alert('You have successfully logged in, '+response.name+"!");
+			});
+		}
+		function logout(){
+			alert('You have successfully logged out!');
+		}
+		function greet(){
+			FB.api('/me', function(response) {
+				alert('Welcome, '+response.name+" "+response.id+"!");
+			});
+		}
+
+		function setStatus(){
+		
+			// check if user is logged in:
+			FB.getLoginStatus(function(response) {
+			  if (response.session) {
+					new_status = document.getElementById('status').value;
+					FB.api(
+					  {
+						method: 'status.set',
+						status: new_status
+					  },
+					  function(response) {
+						if (response == 0){
+							alert('Your facebook status not updated. Give Status Update Permission.');
+						}
+						else{
+							alert('Your facebook status updated');
+						}
+					  }
+					);
+			  } else {
+					alert('please log in first :)');
+			  }
+			});
+		
+			
+		}
+	</script>
+<fb:login-button autologoutlink='true' perms='email,user_checkins,user_about_me'></fb:login-button>
+
+<div class="blogitem">
+<form action="register.do" method="post">
+<table border="0" cellpadding="8">
+
+	<tbody>
+		<tr>
+			<td><b>User's Nickname:</b></td>
+			<td><input name="userNick" value="$!registrationForm.userNick"
+				size="40"> <span class="errorMsg">$!errors.wrongUserNick.get(0)</span></td>
+		</tr>
+		<tr>
+			<td><b>Full Name:</b></td>
+			<td><input name="userFullName" value="$!registrationForm.userFullName"
+				size="40"> <span class="errorMsg">$!errors.wrongUserFullName.get(0)</span></td>		
+		</tr>
+		<tr>
+		<tr>
+			<td><b>Password:</b></td>
+			<td><input name="userPassword" size="40" type="password">
+			<span class="errorMsg">$!errors.wrongPassword.get(0)</span></td>
+		</tr>
+		<tr>
+			<td colspan="2"><script type="text/javascript"
+				src="http://api.recaptcha.net/challenge?k=6Lc_QgUAAAAAAFyWFhYONWN22eeUrgGoF5W7EZ3D"></script>
+
+			<noscript><iframe
+				src="http://api.recaptcha.net/noscript?k=6Lc_QgUAAAAAAFyWFhYONWN22eeUrgGoF5W7EZ3D"
+				height="300" width="500" frameborder="0"></iframe><br />
+			<textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
+			<input type="hidden" name="recaptcha_response_field"
+				value="manual_challenge" /></noscript>
+			<span class="errorMsg">$!errors.wrongCAPTCHA.get(0)</span></td>
+		</tr>
+		<tr>
+			<td colspan="2"><input name="action" value="register"
+				type="submit"></td>
+		</tr>
+	</tbody>
+</table>
+
+</form>
+<center><span class="errorMsg">$!errors.regDuplicate.get(0)</span></center>
+</div>
+<center><a href="wall">Back to the main page</a></center>
+</body>
+
+</html>
