@@ -1,0 +1,20 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="default" extends="hibernate-default">
+		<action name="addUser" method="add" class="com.vaannila.web.UserAction">
+			<result name="success" type="redirect">listUser</result>
+		</action>
+		<action name="listUser" method="list" class="com.vaannila.web.UserAction">
+			<result name="success">/web/register.jsp</result>
+		</action>
+		<action name="searchBook" method="list" class="com.vaannila.web.SearchAction">
+			<result name="success">/web/result.jsp</result>
+		</action>
+		<action name="showBook" method="show" class="com.vaannila.web.SearchAction">
+			<result name="success">/web/error.vt</result>
+		</action>
+	</package>
+</struts>
