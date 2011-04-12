@@ -13,6 +13,7 @@
 </head>
 <body>
 <s:form action="addUser">
+	<s:textfield name="id" label="ID" />
 	<s:textfield name="name" label="User Name" />
 	<s:password name="password" label="Password" />
 	<s:radio name="gender" label="Gender" list="{'Male','Female'}" />

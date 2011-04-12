@@ -3,29 +3,34 @@ package com.vaannila.web;
 import java.util.ArrayList;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.ModelDriven;
 import com.vaannila.dao.searchDAO;
-import com.vaannila.domain.Llibre;
+import com.vaannila.dao.searchDAOImpl;
+import com.vaannila.domain.Cerca;
 
 
-public class SearchAction extends ActionSupport{
+
+
+public class SearchAction extends ActionSupport implements ModelDriven<Cerca>{
 
 
 	private static final long serialVersionUID = -4978596336944380865L;
-
+	private Cerca cerca = new Cerca();
 	private ArrayList<String> results = new ArrayList<String>();
+	private searchDAO searchDAO = new searchDAOImpl();
 	
-	private Llibre book = new Llibre();
-		
+	
+
 
 	public String list()
 	{
-		results = searchDAO.listResults();
+		//searchDAO.saveCerca(cerca);
+		System.out.println("ABANS: " + cerca.getKey());
 		return SUCCESS;
 	}
 	
 	public String show()
 	{
-		book = searchDAO.getInfoLlibre();
 		return SUCCESS;
 	}
 	
@@ -37,11 +42,8 @@ public class SearchAction extends ActionSupport{
 		this.results = results;
 	}
 
-	public Llibre getBook() {
-		return book;
-	}
-
-	public void setBook(Llibre book) {
-		this.book = book;
+	@Override
+	public Cerca getModel() {
+		return cerca;
 	}
 }
