@@ -13,8 +13,17 @@
 		<action name="searchBook" method="list" class="com.vaannila.web.SearchAction">
 			<result name="success">index.jsp</result>
 		</action>
-		<action name="showBook" method="show" class="com.vaannila.web.SearchAction">
+		<action name="showBook" method="show" class="com.vaannila.web.BookAction">
 			<result name="success">/web/error.vt</result>
 		</action>
+		
+		<action name="addPuntuacio" method="addMark" class="com.vaannila.web.BookAction">
+			<result name="success" type="redirect">showBook</result>
+		</action>
+		
+		<action name="addComentari" method="addComment" class="com.vaannila.web.BookAction">
+			<result name="success" type="redirect">showBook</result>
+		</action>
+
 	</package>
 </struts>
