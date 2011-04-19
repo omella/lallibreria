@@ -34,7 +34,6 @@ var latlng = new google.maps.LatLng(mylat, mylong);
     };
 
 var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-   alert("Funciona");
 
 //Add marker
 var marker = new google.maps.Marker({
@@ -55,7 +54,17 @@ function errorFunction(pos){
 
  <body>
    <div id=page>
-     <div id=top></div>
+     <div id=top>
+     	<div id=login>
+     		<p>Usuario
+     		<input name="usr" type="text"> </p>
+     		<p>Password
+     		<input name="pass" type="password"> </p>
+     	</div>
+     	<div id=buscador>
+     		<h1>Llibre</h1> <input name="busca" size="40" type="text">  
+     	</div>
+     </div>
      <div id=leftContent></div>
      <div id=rightContent>
      	<div id=map_canvas></div>
