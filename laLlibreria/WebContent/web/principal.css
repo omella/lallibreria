@@ -46,9 +46,21 @@ p, ul, ol {
   height: 50px;
   float:left;
 }
+#ofertas{
+  border-top: 1px #3C3D3F solid;
+  border-left: 2px #3C3D3F solid;
+  border-right: 2px #3C3D3F solid;
+}
+#seccionOfertas{
+  width: 40%;
+  margin-top: 20px;
+  margin-left: 100px;
+  height: 80px;
+  float:left;
+}
+
 #login{	
   margin-right: 10px;
-  height: 20px;
   float:right;
   margin-top: 20px;
 }

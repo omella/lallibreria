@@ -56,7 +56,7 @@ function errorFunction(pos){
    <div id=page>
      <div id=top>
      	<div id=login>
-     		<p>Usuario
+     		<p>Usuario&nbsp;&nbsp;&nbsp;
      		<input name="usr" type="text"> </p>
      		<p>Password
      		<input name="pass" type="password"> </p>
@@ -64,6 +64,12 @@ function errorFunction(pos){
      	<div id=buscador>
      		<h1>Llibre</h1> <input name="busca" size="40" type="text">  
      	</div>
+     	<div id=seccionOfertas>
+     		Mejores ofertas:
+	     	<div id=ofertas>
+	     		
+	     	</div>
+	    </div>
      </div>
      <div id=leftContent></div>
      <div id=rightContent>
