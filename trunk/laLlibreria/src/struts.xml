@@ -26,12 +26,12 @@
 		</action>
 
 		<action name="showLogin">
-			<result>/web/login.vm</result>
+			<result type="velocity">/WEB-INF/templates/login.vm</result>
 		</action>
 
 		<action name="doLogin" class="com.vaannila.web.LoginAction">
-			<result name="input" type="velocity">/web/login.vm</result>
-			<result name="error" type="velocity">/web/login.vm</result>
+			<result name="input" type="velocity">/WEB-INF/templates/login.vm</result>
+			<result name="error" type="velocity">/WEB-INF/templates/login.vm</result>
 			<result>/web/loginsuccess.vm</result>
 		</action>
 		
