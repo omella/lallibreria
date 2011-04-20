@@ -1,0 +1,49 @@
+## Velocity Template.  
+<html>
+    <head>
+        <title>Struts 2 Login Application Example!</title>		  
+	</head>
+    <body>
+    	<h1>Exemple de Login</h1>
+		<form id="doLogin" name="doLogin" onsubmit="return true;" action="/laLlibreria/src/com/vaannila/web/doLogin.action" method="POST">
+			<table>
+				<tr>
+					<td colspan="2">
+				    	Name: "Admin" - Password: "Admin"
+					</td>
+				</tr>
+    			#if ($error)
+					<tr>
+						<td colspan="2">
+							<font color="red">
+				    			${error}
+							</font>
+						</td>
+					</tr>
+				#end
+				<tr>
+					<td><label for="doLogin_username" class="label">
+				     	Name:</label>
+				    </td>
+				    <td>
+				    	<input type="text" name="username" value="" id="doLogin_username"/>
+				   	</td>
+				</tr>
+				<tr>
+				    <td><label for="doLogin_password" class="label">
+				    	Password:</label></td>
+				    <td>
+				    	<input type="password" name="password" id="doLogin_password"/>
+					</td>
+				</tr>
+				 <tr>
+				    <td colspan="2">
+				    	<div align="center">
+				    		<input type="submit" id="doLogin_0" value="Login"/>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</form>
+    </body>
+</html>
