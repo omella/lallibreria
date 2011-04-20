@@ -37,7 +37,7 @@ public  class LoginAction  extends ActionSupport {
 		logger.fatal("Sample fatal message");
         System.out.println("Validating login");
     if(!getUsername().equals("Admin") || !getPassword().equals("Admin")){
-            this.error = "Invalid user name or password! Please try again!";
+            this.error = "Has possat la pota! Mira aqui dalt i torna-ho a intentar!";
             //Map session = ActionContext.getContext().getSession();
             //session.put("sessionLoginFail", error);
             //session.remove("sessionLoginFail");

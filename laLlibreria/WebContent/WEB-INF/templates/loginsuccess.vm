@@ -4,5 +4,8 @@
 </head>
 <body>
 <p align="center"><font color="#000080" size="5">Login correcte!</font></p>
+<p>
+<a href=/laLlibreria/showLogin.action> <- Enrere</a>
+<p>
 </body>
 </html>

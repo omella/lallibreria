@@ -5,6 +5,7 @@
 	</head>
     <body>
     	<h1>Exemple de Login</h1>
+
 		<form id="doLogin" name="doLogin" onsubmit="return true;" action="/laLlibreria/src/com/vaannila/web/doLogin.action" method="POST">
 			<table>
 				<tr>
@@ -21,6 +22,11 @@
 						</td>
 					</tr>
 				#end
+				<tr>
+					<td>
+						<h2>Form fet amb html<h2>
+					</td>
+				</tr>
 				<tr>
 					<td><label for="doLogin_username" class="label">
 				     	Name:</label>
@@ -45,5 +51,16 @@
 				</tr>
 			</table>
 		</form>
+		<h2>Form fet amb Velocity</h2>
+		#sform ("action=doLogin")
+            #stextfield ("label=Name"     "name=username")
+			#spassword  ("label=Password" "name=password")
+            #ssubmit ("value=Login")
+        #end
+		<p>
+		Aixo es un emple de com pasar parametres al domini saltant-nos l'Hibernate per a que no calgui crear els objectes.
+		Ja funciona el Velocity. Aquesta plantilla esta feta amb Velocity. Els templates ara es fan desen a /WEB-INF/templates/
+		</p>
+		<a href=/laLlibreria>Inici</a>
     </body>
 </html>
