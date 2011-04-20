@@ -39,6 +39,7 @@
 		<!-- Drop and re-create the database schema on startup -->
 		<property name="hbm2ddl.auto">update</property>
 
+		<!-- Class Mapping -->
 		<mapping class="com.vaannila.domain.User" />
 		<mapping class="com.vaannila.domain.Cerca" />
 		<mapping class="com.vaannila.domain.Comentari" />
