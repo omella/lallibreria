@@ -27,5 +27,6 @@
 		<h2><a href=error.vt>$result.titol</a></h2>
 
 </div>
+<a href=/laLlibreria/web/login.vm>Exemple de pas de parametres</a>
 </body>
 </html>
