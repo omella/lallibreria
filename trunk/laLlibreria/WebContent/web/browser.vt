@@ -78,8 +78,7 @@ function errorFunction(pos){
      	<div id=map_canvas></div>
      </div>
      <div id=foot>
-     	Esto es el pie
-     	<p> Esto es el pie con p </p>
+     	#parse("footer.vt")
      </div>
    </div>
  </body>
