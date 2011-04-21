@@ -38,12 +38,12 @@ public  class LoginAction  extends ActionSupport {
         System.out.println("Validating login");
     if(!getUsername().equals("Admin") || !getPassword().equals("Admin")){
             this.error = "Has possat la pota! Mira aqui dalt i torna-ho a intentar!";
-            //Map session = ActionContext.getContext().getSession();
-            //session.put("sessionLoginFail", error);
-            //session.remove("sessionLoginFail");
             return ERROR;
     }
     else{
+      Map session = ActionContext.getContext().getSession();
+      session.put("username", getUsername());
+      //session.remove("sessionLoginFail");
       return SUCCESS;
     }
   }
