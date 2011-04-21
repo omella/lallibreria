@@ -46,7 +46,7 @@ public class BookAction extends ActionSupport{
 	public String show(){
 		
 		//BookList te tota la informacio de volem mostrar sobre el llibre (titol, titol llarg, autor, any, descripcio)
-		bookList = bookDAO.getInfoBook(this.isbn);
+		//bookList = bookDAO.getInfoBook(this.isbn);
 		return SUCCESS;
 	}
 

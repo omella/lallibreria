@@ -15,7 +15,7 @@ public class SearchAction extends ActionSupport {
 
 	private static final long serialVersionUID = -4978596336944380865L;
 	//private Cerca cerca = new Cerca();
-	//private ArrayList<String> results = new ArrayList<String>();
+	//private ArrayList<HashMap<String,String> > results = new ArrayList<HashMap<String,String> >();
 	//private searchDAO searchDAO = new searchDAOImpl();
 	private String msg = null;
 	private String key = null;
@@ -42,7 +42,7 @@ public class SearchAction extends ActionSupport {
 	public String list()
 	{
 		System.out.println(">"+this.key+"<");
-		//searchDAO.saveCerca(cerca);
+		//results=obtenirResultats(key)
 		this.msg = "Estas buscant \""+this.getKey()+"\", ens sap greu, pero aquesta funcio no esta implementada... :-(";
 		return SUCCESS;
 	}
@@ -52,16 +52,4 @@ public class SearchAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
-	//public ArrayList<String> getResults() {
-	//	return this.results;
-	//}
-
-	//public void setResults(ArrayList<String> results) {
-	//	this.results = results;
-	//}
-
-	//@Override
-	//public Cerca getModel() {
-	//	return cerca;
-	//}
 }
