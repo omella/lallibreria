@@ -4,23 +4,23 @@ package com.vaannila.web;
 import java.util.HashMap;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.ModelDriven;
+
 import com.vaannila.dao.ComentariDAO;
 import com.vaannila.dao.ComentariDAOImpl;
 import com.vaannila.dao.BookDAO;
 import com.vaannila.dao.BookDAOImpl;
 import com.vaannila.domain.Comentari;
-import com.vaannila.domain.Llibre;
 
 
-public class BookAction extends ActionSupport implements ModelDriven<Llibre>{
+
+public class BookAction extends ActionSupport{
 
 	private static final long serialVersionUID = -9113041734859241965L;
-	private Llibre book = new Llibre();
 	private HashMap<String,String> bookList = new HashMap<String,String>();
 	private Comentari comment = new Comentari();
 	private BookDAO bookDAO = new BookDAOImpl();
 	private ComentariDAO comentariDAO = new ComentariDAOImpl();
+	private String isbn;
 	
 	
 	public String addMark(){
@@ -30,7 +30,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Llibre>{
 	
 	public String addComment(){
 		
-		comment.setIsbn(book.getIsbn());
+		comment.setIsbn(this.isbn);
 		comentariDAO.saveComentari(comment);
 		return SUCCESS;
 	}
@@ -46,12 +46,12 @@ public class BookAction extends ActionSupport implements ModelDriven<Llibre>{
 	public String show(){
 		
 		//BookList te tota la informacio de volem mostrar sobre el llibre (titol, titol llarg, autor, any, descripcio)
-		bookList = bookDAO.getInfoBook(book.getIsbn());
+		bookList = bookDAO.getInfoBook(this.isbn);
 		return SUCCESS;
 	}
 
-	@Override
-	public Llibre getModel() {
-		return book;
-	}
+//	@Override
+//	public Llibre getModel() {
+//		return book;
+//	}
 }
