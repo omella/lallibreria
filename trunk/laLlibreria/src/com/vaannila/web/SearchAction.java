@@ -1,31 +1,49 @@
 package com.vaannila.web;
 
 import java.util.ArrayList;
-
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.ModelDriven;
-import com.vaannila.dao.searchDAO;
-import com.vaannila.dao.searchDAOImpl;
-import com.vaannila.domain.Cerca;
+//import com.opensymphony.xwork2.ModelDriven;
+//import com.vaannila.dao.searchDAO;
+//import com.vaannila.dao.searchDAOImpl;
+//import com.vaannila.domain.Cerca;
 
 
 
 
-public class SearchAction extends ActionSupport implements ModelDriven<Cerca>{
-
+//public class SearchAction extends ActionSupport implements ModelDriven<Cerca>{
+public class SearchAction extends ActionSupport {
 
 	private static final long serialVersionUID = -4978596336944380865L;
-	private Cerca cerca = new Cerca();
-	private ArrayList<String> results = new ArrayList<String>();
-	private searchDAO searchDAO = new searchDAOImpl();
+	//private Cerca cerca = new Cerca();
+	//private ArrayList<String> results = new ArrayList<String>();
+	//private searchDAO searchDAO = new searchDAOImpl();
+	private String msg = null;
+	private String key = null;
 	
+
+
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
+	}
 	
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
 
 
 	public String list()
 	{
+		System.out.println(">"+this.key+"<");
 		//searchDAO.saveCerca(cerca);
-		System.out.println("ABANS: " + cerca.getKey());
+		this.msg = "Estas buscant \""+this.getKey()+"\", ens sap greu, pero aquesta funcio no esta implementada... :-(";
 		return SUCCESS;
 	}
 	
@@ -34,16 +52,16 @@ public class SearchAction extends ActionSupport implements ModelDriven<Cerca>{
 		return SUCCESS;
 	}
 	
-	public ArrayList<String> getResults() {
-		return this.results;
-	}
+	//public ArrayList<String> getResults() {
+	//	return this.results;
+	//}
 
-	public void setResults(ArrayList<String> results) {
-		this.results = results;
-	}
+	//public void setResults(ArrayList<String> results) {
+	//	this.results = results;
+	//}
 
-	@Override
-	public Cerca getModel() {
-		return cerca;
-	}
+	//@Override
+	//public Cerca getModel() {
+	//	return cerca;
+	//}
 }
