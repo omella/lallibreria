@@ -11,7 +11,7 @@
 			<result name="success">/web/register.jsp</result>
 		</action>
 		<action name="searchBook" method="list" class="com.vaannila.web.SearchAction">
-			<result name="success">index.jsp</result>
+			<result name="success" type="velocity">/WEB-INF/templates/index.vm</result>
 		</action>
 		<action name="showBook" method="show" class="com.vaannila.web.BookAction">
 			<result name="success">/web/error.vt</result>
@@ -33,6 +33,21 @@
 			<result name="input" type="velocity">/WEB-INF/templates/login.vm</result>
 			<result name="error" type="velocity">/WEB-INF/templates/login.vm</result>
 			<result>/WEB-INF/templates/loginsuccess.vm</result>
+		</action>
+		
+		<action name="alexLogin">
+			<result>/WEB-INF/templates/alex_login.vm</result>
+		</action>
+		
+		<action name="index">
+			<result type="velocity">/WEB-INF/templates/index.vm</result>
+		</action>
+		
+		
+		<!-- Si no és troba cap acció anem a la pagina d'inici -->
+		<!-- Aquesta acció ha de ser l'ultima ja que ho accepta tot -->
+		<action name="*">
+			<result type="velocity">/WEB-INF/templates/index.vm</result>
 		</action>
 		
 	</package>
