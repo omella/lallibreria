@@ -56,13 +56,27 @@ function errorFunction(pos){
    <div id=page>
      <div id=top>
      	<div id=login>
-     		<p>Usuario&nbsp;&nbsp;&nbsp;
-     		<input name="usr" type="text"> </p>
-     		<p>Password
-     		<input name="pass" type="password"> </p>
+			Usuario: "Admin" - Password: "Admin"
+			#if ($error)
+				<p><font color="red">${error}</font></p>
+			#end
+			
+     		#sform ("action=doLogin")
+				#stextfield ("label=Usuario"  "name=username")
+				#spassword  ("label=Password" "name=password")
+				#ssubmit ("value=Login")
+        	#end
      	</div>
      	<div id=buscador>
-     		<h1>Llibre</h1> <input name="busca" size="40" type="text">  
+     		<h1>Llibre</h1> 
+			#sform ("action=searchBook")
+				#stextfield ("name=key")
+				#ssubmit ("value=Search")
+        	#end
+
+            #if ($msg)
+            	<p><font color="red">${msg}</font></p>
+            #end
      	</div>
      	<div id=seccionOfertas>
      		Mejores ofertas:
@@ -78,7 +92,7 @@ function errorFunction(pos){
      	<div id=map_canvas></div>
      </div>
      <div id=foot>
-     	#parse("footer.vt")
+     	##parse("footer.vt")
      </div>
    </div>
  </body>
