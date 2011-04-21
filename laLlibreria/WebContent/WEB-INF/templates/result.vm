@@ -1,0 +1,31 @@
+## Velocity Template.
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>Resultats per ${key}</title>		  
+	</head>
+<body>
+<div class="search">
+
+	#sform ("action=searchBook")
+		#stextfield ("label=Search" "name=key")
+		#ssubmit ("value=Search")
+    #end
+    
+	#if ($msg)
+		<font color="red">${msg}<font>
+	#end
+</div>
+#if ($results)
+	<div class="content">
+		#foreach ($result in $results)
+		<h2><a href=/laLlibreria/showBook.action> ${result.titol}</h2>
+		<h1>${result.autor}</h1>
+		
+		#end
+	</div>
+#end
+<p>
+<a href=/laLlibreria>Inici</a>
+</body>
+</html>
