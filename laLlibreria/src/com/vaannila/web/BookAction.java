@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -56,8 +58,11 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>{
 		Date data = new Date();
 		
 		comment.setData(data);
-
-		comment.setUsername("rodonako");
+		Map session = ActionContext.getContext().getSession();
+	    String username = null;
+	    username= (String) session.get("username");
+	    if (username==null)username = "rodonako";
+		comment.setUsername(username);
 
 		//comment.setIsbn("0001");
 		
