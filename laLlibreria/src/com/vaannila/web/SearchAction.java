@@ -53,6 +53,7 @@ public class SearchAction extends ActionSupport {
 
 	public String list()
 	{
+		long start = System.currentTimeMillis();
 		Vector <HashMap<String,String> > results = new Vector <HashMap<String,String> >();
 		this.results = com.vaannila.ws.ISBNdbWS.search(this.key);
 
@@ -68,7 +69,11 @@ public class SearchAction extends ActionSupport {
 		//book2.put("isbn", "0002");
 		//this.results.add(book2);
 		
-		this.msg = "Resultats trobats per la paraula clau \""+this.key+"\", en 0.00002 segons";
+		long end = System.currentTimeMillis();
+
+		Double elapsed = (end-start)/1000.0;
+		
+		this.msg = "Resultats trobats per la paraula clau \""+this.key+"\", en "+Double.toString(elapsed)+" segons";
 		return SUCCESS;
 	}
 	
