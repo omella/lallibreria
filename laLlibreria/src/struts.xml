@@ -11,7 +11,7 @@
 			<result name="success">/web/register.jsp</result>
 		</action>
 		<action name="searchBook" method="list" class="com.vaannila.web.SearchAction">
-			<result name="success" type="velocity">/WEB-INF/templates/index.vm</result>
+			<result name="success" type="velocity">/WEB-INF/templates/result.vm</result>
 		</action>
 		<action name="showBook" method="show" class="com.vaannila.web.BookAction">
 			<result name="success">/web/error.vt</result>

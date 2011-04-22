@@ -18,11 +18,19 @@ public class BookAction extends ActionSupport{
 	private static final long serialVersionUID = -9113041734859241965L;
 	private HashMap<String,String> bookList = new HashMap<String,String>();
 	private Comentari comment = new Comentari();
-	private BookDAO bookDAO = new BookDAOImpl();
+	//private BookDAO bookDAO = new BookDAOImpl();
 	private ComentariDAO comentariDAO = new ComentariDAOImpl();
-	private String isbn;
+	private String isbn = null;
 	
 	
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+
 	public String addMark(){
 		
 		return SUCCESS;
@@ -45,8 +53,19 @@ public class BookAction extends ActionSupport{
 
 	public String show(){
 		
-		//BookList te tota la informacio de volem mostrar sobre el llibre (titol, titol llarg, autor, any, descripcio)
-		//bookList = bookDAO.getInfoBook(this.isbn);
+		//Aqui disposem de l'isbn que ha demanat l'usuari
+		//cal anar al ws i aconseguir la resta d'informacio
+		
+		System.out.println(this.isbn);
+		
+		bookList.put("titol", "La Biblia");
+		bookList.put("autor", "UnDonNadie");
+		bookList.put("any", "FaTemps");
+		
+		//Cal mirar a la base de dades si tenim una puntuacio associada a aquest llibre
+		//Si no la tenim cal inicialitzar-la
+		bookList.put("puntuacio", "5");
+		
 		return SUCCESS;
 	}
 

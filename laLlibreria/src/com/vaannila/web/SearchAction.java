@@ -1,6 +1,8 @@
 package com.vaannila.web;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import com.opensymphony.xwork2.ActionSupport;
 //import com.opensymphony.xwork2.ModelDriven;
 //import com.vaannila.dao.searchDAO;
@@ -15,12 +17,21 @@ public class SearchAction extends ActionSupport {
 
 	private static final long serialVersionUID = -4978596336944380865L;
 	//private Cerca cerca = new Cerca();
-	//private ArrayList<HashMap<String,String> > results = new ArrayList<HashMap<String,String> >();
+	
 	//private searchDAO searchDAO = new searchDAOImpl();
+	private ArrayList<HashMap<String,String> > results = new ArrayList<HashMap<String,String> >();
 	private String msg = null;
 	private String key = null;
 	
 
+
+	public ArrayList<HashMap<String, String>> getResults() {
+		return results;
+	}
+
+	public void setResults(ArrayList<HashMap<String, String>> results) {
+		this.results = results;
+	}
 
 	public String getKey() {
 		return key;
@@ -42,8 +53,18 @@ public class SearchAction extends ActionSupport {
 	public String list()
 	{
 		System.out.println(">"+this.key+"<");
-		//results=obtenirResultats(key)
-		this.msg = "Estas buscant \""+this.getKey()+"\", ens sap greu, pero aquesta funcio no esta implementada... :-(";
+		HashMap<String,String> book = new HashMap<String,String>();
+		book.put("titol", "El Angel Perdido");
+		book.put("autor", "Javier Sierra");
+		book.put("isbn", "0001");
+		this.results.add(book);
+		
+		HashMap<String,String> book2 = new HashMap<String,String>();
+		book2.put("titol", "Quijote");
+		book2.put("autor", "Cervantes");
+		book2.put("isbn", "0002");
+		this.results.add(book2);
+		this.msg = "Resultats trobats per la paraula clau \""+this.key+"\", en 0.00002 segons";
 		return SUCCESS;
 	}
 	
