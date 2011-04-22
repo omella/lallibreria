@@ -26,14 +26,16 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>{
 	private List <Comentari> commentList = new ArrayList<Comentari>();
 
 	private ComentariDAO comentariDAO = new ComentariDAOImpl();
-	private String isbn = null;
+	private String id = null;
 	
-	public String getIsbn() {
-		return isbn;
+
+
+	public String getId() {
+		return id;
 	}
 
-	public void setIsbn(String isbn) {
-		this.isbn = isbn;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String addMark(){
@@ -84,20 +86,20 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>{
 
 	public String show(){
 		
-		//No funciona isbn actualment realment
+		//El id es el isbn del llibre actual
 		//cal anar al ws i aconseguir la resta d'informacio
 
 		bookList.put("titol", "La Biblia");
 		bookList.put("autor", "UnDonNadie");
 		bookList.put("any", "FaTemps");
-		bookList.put("isbn","0001");
+		bookList.put("isbn",this.id);
 		
 		//Cal mirar a la base de dades si tenim una puntuacio associada a aquest llibre
 		//Si no la tenim cal inicialitzar-la
 		bookList.put("puntuacio", "5");
 		
 		//Agafem els comentaris associats a aquest isbn
-		this.commentList = comentariDAO.getComentariList("0001");
+		this.commentList = comentariDAO.getComentariList(this.id);
 
 		
 		return SUCCESS;
