@@ -25,6 +25,20 @@
 #else
 	<h1> No hi ha resultats </h1>
 #end
+
+#if ($commentList)
+	#foreach ($comment in $commentList)
+		${comment.text}
+	#end
+#else
+	<h4> No hi ha comentaris per aquest llibre. Sigues el primer en opinar. </h4>
+#end
+
+#sform ("action=addComentari")
+	#stextarea ("name=text")
+	#ssubmit ("value=Publicar")
+#end
+
 <p>
 <a href=/laLlibreria>Inici</a>
 </body>
