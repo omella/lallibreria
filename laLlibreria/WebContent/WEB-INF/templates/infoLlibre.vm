@@ -18,7 +18,7 @@
 		
 		<center><h1> Títol: ${bookList.titol} </h1>			
 		<h2> Autor: ${bookList.autor} </h2>			
-		<h3> Any: ${bookList.any} </h3>			
+		<h3> Any: ${bookList.any} ISBN: ${bookList.isbn}</h3>			
 		
 		<h3> Puntuació ${bookList.puntuacio} </h3></center>
 	</div>
@@ -36,6 +36,7 @@
 
 #sform ("action=addComentari")
 	#stextarea ("name=text")
+	#shidden ("name=isbn" "value=$bookList.isbn")
 	#ssubmit ("value=Publicar")
 #end
 

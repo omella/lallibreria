@@ -20,6 +20,7 @@ public class ComentariDAOImpl implements ComentariDAO {
 	@Override
 	public void saveComentari(Comentari comentari){
 		try {
+			System.out.println(comentari.getText());
 			session.save(comentari);
 		} catch (Exception e) {
 			transaction.rollback();
