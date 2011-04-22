@@ -1,0 +1,31 @@
+## Velocity Template.
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>${bookList.titol}</title>		  
+	</head>
+<body>
+<div class="search">
+
+	#sform ("action=searchBook")
+		#stextfield ("label=Search" "name=key")
+		#ssubmit ("value=Search")
+    #end
+    
+</div>
+#if ($bookList)
+	<div class="content">
+		
+		<center><h1> Títol: ${bookList.titol} </h1>			
+		<h2> Autor: ${bookList.autor} </h2>			
+		<h3> Any: ${bookList.any} </h3>			
+		
+		<h3> Puntuació ${bookList.puntuacio} </h3></center>
+	</div>
+#else
+	<h1> No hi ha resultats </h1>
+#end
+<p>
+<a href=/laLlibreria>Inici</a>
+</body>
+</html>
