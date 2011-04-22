@@ -2,6 +2,7 @@ package com.vaannila.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Vector;
 
 import com.opensymphony.xwork2.ActionSupport;
 //import com.opensymphony.xwork2.ModelDriven;
@@ -52,18 +53,21 @@ public class SearchAction extends ActionSupport {
 
 	public String list()
 	{
-		System.out.println(">"+this.key+"<");
-		HashMap<String,String> book = new HashMap<String,String>();
-		book.put("titol", "El Angel Perdido");
-		book.put("autor", "Javier Sierra");
-		book.put("isbn", "0001");
-		this.results.add(book);
+		Vector <HashMap<String,String> > results = new Vector <HashMap<String,String> >();
+		this.results = com.vaannila.ws.ISBNdbWS.search(this.key);
+
+		//HashMap<String,String> book = new HashMap<String,String>();
+		//book.put("titol", "El Angel Perdido");
+		//book.put("autor", "Javier Sierra");
+		//book.put("isbn", "0001");
+		//this.results.add(book);
 		
-		HashMap<String,String> book2 = new HashMap<String,String>();
-		book2.put("titol", "Quijote");
-		book2.put("autor", "Cervantes");
-		book2.put("isbn", "0002");
-		this.results.add(book2);
+		//HashMap<String,String> book2 = new HashMap<String,String>();
+		//book2.put("titol", "Quijote");
+		//book2.put("autor", "Cervantes");
+		//book2.put("isbn", "0002");
+		//this.results.add(book2);
+		
 		this.msg = "Resultats trobats per la paraula clau \""+this.key+"\", en 0.00002 segons";
 		return SUCCESS;
 	}
