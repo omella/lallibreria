@@ -1,6 +1,7 @@
 package com.vaannila.dao;
 
 
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -24,6 +25,19 @@ public class ComentariDAOImpl implements ComentariDAO {
 			transaction.rollback();
 			e.printStackTrace();
 		} 
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Comentari> getComentariList(String isbn) {
+		List<Comentari> result= null;
+		try {
+			result = session.createQuery("from Comentari where ISBN="+isbn).list();
+		}
+		catch(Exception e){
+			
+		}
+		return result;
 	}
 
 }
