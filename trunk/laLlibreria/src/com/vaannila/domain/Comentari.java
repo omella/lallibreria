@@ -16,7 +16,7 @@ public class Comentari {
 	Date data;
 	String text;
 	
-	@Id
+
 	@Column(name="ISBN")
 	public String getIsbn() {
 		return isbn;
@@ -25,7 +25,7 @@ public class Comentari {
 		this.isbn = isbn;
 	}
 	
-	@Id
+
 	@Column(name="USER")
 	public String getUsername() {
 		return username;
