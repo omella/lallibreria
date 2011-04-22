@@ -1,6 +1,7 @@
 package com.vaannila.ws;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Vector;
 
@@ -22,8 +23,8 @@ public class ISBNdbWS {
 	//private String accessKey = "3TL9RX6R";
 	//private boolean details;
 	//private boolean texts;
-	
-    public static Vector<HashMap<String,String>> search(String keySearch) {
+
+    public static ArrayList<HashMap<String, String>> search(String keySearch) {
         String title = keySearch;
         String author = keySearch;
         title = title.replace(" ", "+");
@@ -34,8 +35,8 @@ public class ISBNdbWS {
         return fetchISBN(isbndbUrl);
     }
 
-    private static Vector<HashMap<String,String>> fetchISBN(String requestUrl) {
-    	Vector <HashMap<String,String> > results = new Vector <HashMap<String,String> >();
+    private static ArrayList<HashMap<String, String>> fetchISBN(String requestUrl) {
+    	ArrayList<HashMap<String, String>> results = new ArrayList<HashMap<String, String>>();
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -43,11 +44,11 @@ public class ISBNdbWS {
             
             NodeList elementNodeList = doc.getElementsByTagName("BookData");
             for(int i=0; i<elementNodeList.getLength(); i++) {    
-            	HashMap<String,String> resultHash = new HashMap<String, String>();
+            	HashMap<String,String> book = new HashMap<String,String>();
             	
             	Node bookData = elementNodeList.item(i);
             	
-            	resultHash.put("resultID", bookData.getAttributes().item(2).getNodeValue());
+            	book.put("isbn", bookData.getAttributes().item(2).getNodeValue());
             	
             	NodeList nl = bookData.getChildNodes();
 
@@ -55,9 +56,9 @@ public class ISBNdbWS {
             	
             	Element title = (Element) llibre.getElementsByTagName("TitleLong").item(0);
             	
-	    		resultHash.put("titol", title.getTextContent());
-	    		resultHash.put("autor", nl.item(5).getTextContent());
-    			results.addElement(resultHash);
+	    		book.put("titol", title.getTextContent());
+	    		book.put("autor", nl.item(5).getTextContent());
+    			results.add(book);
             }
             
             return results;
@@ -65,11 +66,11 @@ public class ISBNdbWS {
         } catch (Exception e) {
             HashMap<String,String> resultHash = new HashMap<String, String>();
 
-			resultHash.put("resultID", "");
+			resultHash.put("isbn", "");
 			resultHash.put("titol", "Error");
 			resultHash.put("autor", "ISBNdb does not have a record for that title/author.");
 	
-			results.addElement(resultHash);
+			results.add(resultHash);
             return results;
         }
     }
