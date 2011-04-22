@@ -64,7 +64,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>{
 		
 		comentariDAO.saveComentari(comment);
 		
-		this.commentList.add(comment);
+		this.commentList = comentariDAO.getComentariList(comment.getIsbn());
 		return SUCCESS;
 	}
 	
