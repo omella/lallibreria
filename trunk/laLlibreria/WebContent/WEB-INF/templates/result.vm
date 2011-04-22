@@ -13,17 +13,20 @@
     #end
     
 	#if ($msg)
-		<font color="red">${msg}<font>
+		<font color="red">${msg}</font>
 	#end
 </div>
 #if ($results)
 	<div class="content">
 		#foreach ($result in $results)
-		<h2><a href=/laLlibreria/showBook.action> ${result.titol}</h2>
-		<h1>${result.autor}</h1>
+		<h1><a href=/laLlibreria/showBook.action?isbn=${result.isbn}> ${result.titol}</a></h1>
+		<h2>${result.autor}</h2>
+		<br>
 		
 		#end
 	</div>
+#else
+	<h1> No hi ha resultats </h1>
 #end
 <p>
 <a href=/laLlibreria>Inici</a>
