@@ -29,6 +29,7 @@
 #if ($commentList)
 	#foreach ($comment in $commentList)
 		${comment.text}
+		<br><br>
 	#end
 #else
 	<h4> No hi ha comentaris per aquest llibre. Sigues el primer en opinar. </h4>
