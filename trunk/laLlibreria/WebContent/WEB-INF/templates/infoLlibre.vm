@@ -16,11 +16,11 @@
 #if ($bookList)
 	<div class="content">
 		
-		<center><h1> Títol: ${bookList.titol} </h1>			
+		<center><h1> Titol: ${bookList.titol} </h1>			
 		<h2> Autor: ${bookList.autor} </h2>			
 		<h3> Any: ${bookList.any} ISBN: ${bookList.isbn}</h3>			
 		
-		<h3> Puntuació ${bookList.puntuacio} </h3></center>
+		<h3> Puntuacio ${bookList.puntuacio} </h3></center>
 	</div>
 #else
 	<h1> No hi ha resultats </h1>
