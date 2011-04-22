@@ -2,17 +2,19 @@ package com.vaannila.web;
 
 import java.util.Map;
 
+import com.googlecode.sslplugin.annotation.Secured;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
+import org.apache.struts2.interceptor.SessionAware;
 
 
 /**
  * <p> Validate a user login. </p>
  */
-public  class LoginAction  extends ActionSupport {
+public  class LoginAction extends ActionSupport implements SessionAware {
     /**
 	 * 
 	 */
@@ -27,7 +29,8 @@ public  class LoginAction  extends ActionSupport {
 	public void setError(String error) {
 		this.error = error;
 	}
-
+ 
+	@Secured()
 	public String execute() throws Exception {
 		DOMConfigurator.configure("/laLlibreria/workspace/laLlibreria/src/log4j.xml");
 		logger.debug("Sample debug message");
@@ -102,5 +105,11 @@ public  class LoginAction  extends ActionSupport {
     public void setPassword(String value) {
         password = value;
     }
+
+	@Override
+	public void setSession(Map<String, Object> arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
