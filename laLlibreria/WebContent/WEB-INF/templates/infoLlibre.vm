@@ -26,19 +26,29 @@
 	<h1> No hi ha resultats </h1>
 #end
 
-#if ($commentList)
-	#foreach ($comment in $commentList)
-		${comment.text}
-		<br><br>
-	#end
-#else
-	<h4> No hi ha comentaris per aquest llibre. Sigues el primer en opinar. </h4>
-#end
-
+Afegeix el teu comentari
 #sform ("action=addComentari")
-	#stextarea ("name=text")
+	#stextarea ("name=text" "cols=40")
 	#shidden ("name=isbn" "value=$bookList.isbn")
 	#ssubmit ("value=Publicar")
+#end
+
+#if ($commentList)
+	Comentaris:
+	<table border="1">
+	#foreach ($comment in $commentList)
+		<tr>
+			<td>
+				<b>${comment.username}</b> <i>${comment.data}</i>
+				<p>
+				${comment.text}
+				</p>
+			</td>
+		</tr>
+	#end
+	</table>
+#else
+	<h4> No hi ha comentaris per aquest llibre. Sigues el primer en opinar. </h4>
 #end
 
 <p>
