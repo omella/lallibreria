@@ -3,7 +3,6 @@ package com.vaannila.ws;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Vector;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -15,6 +14,7 @@ import javax.xml.transform.stream.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+
 
 //import com.vaannila.domain.Llibre;
 
@@ -32,10 +32,10 @@ public class ISBNdbWS {
 
         String isbndbUrl = "http://isbndb.com/api/books.xml?access_key=3TL9RX6R&index1=combined&value1="+title+"+by+"+author;
         
-        return fetchISBN(isbndbUrl);
+        return fetchList(isbndbUrl);
     }
 
-    private static ArrayList<HashMap<String, String>> fetchISBN(String requestUrl) {
+    private static ArrayList<HashMap<String, String>> fetchList(String requestUrl) {
     	ArrayList<HashMap<String, String>> results = new ArrayList<HashMap<String, String>>();
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -90,5 +90,43 @@ public class ISBNdbWS {
             e.printStackTrace();
         }
         return null;
+    }
+
+	public static HashMap<String, String> searchISBN(String isbn) {
+		
+		String requestUrl = "http://isbndb.com/api/books.xml?access_key=3TL9RX6R&index1=isbn&value1="+isbn;
+		
+		HashMap<String, String> book = new HashMap<String, String>();
+		
+        try {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(requestUrl);
+            
+            NodeList elementNodeList = doc.getElementsByTagName("BookData");            	
+            Node bookData = elementNodeList.item(0);
+            NodeList nl = bookData.getChildNodes();
+
+            Element llibre = (Element)bookData;
+            
+            Element title = (Element) llibre.getElementsByTagName("TitleLong").item(0);
+            	
+	    	book.put("titol", title.getTextContent());
+	    	book.put("autor", nl.item(5).getTextContent());
+
+    		book.put("any", "No implementat");
+    		book.put("isbn",isbn);
+            return book;
+                        
+        } catch (Exception e) {
+        	HashMap<String, String> resultHash = new HashMap<String, String>();
+        	
+			resultHash.put("isbn", "");
+			resultHash.put("titol", "Error");
+			resultHash.put("any", "");
+			resultHash.put("autor", "ISBNdb does not have a record for that title/author.");
+
+            return resultHash;
+        }
     }
 }
