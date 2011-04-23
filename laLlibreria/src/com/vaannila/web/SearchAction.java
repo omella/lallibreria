@@ -2,8 +2,10 @@ package com.vaannila.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 //import com.opensymphony.xwork2.ModelDriven;
 //import com.vaannila.dao.searchDAO;
@@ -23,8 +25,16 @@ public class SearchAction extends ActionSupport {
 	private ArrayList<HashMap<String,String> > results = new ArrayList<HashMap<String,String> >();
 	private String msg = null;
 	private String key = null;
-	
+	private Integer page = null;
 
+
+	public Integer getPage() {
+		return page;
+	}
+
+	public void setPage(Integer page) {
+		this.page = page;
+	}
 
 	public ArrayList<HashMap<String, String>> getResults() {
 		return results;
@@ -55,8 +65,11 @@ public class SearchAction extends ActionSupport {
 	{
 		long start = System.currentTimeMillis();
 		Vector <HashMap<String,String> > results = new Vector <HashMap<String,String> >();
-		this.results = com.vaannila.ws.ISBNdbWS.search(this.key);
-
+		this.setPage(1);
+		this.results = com.vaannila.ws.ISBNdbWS.search(this.key, Integer.toString(this.page));
+		Map session = ActionContext.getContext().getSession();
+	    session.put("searchPage", this.page);
+	    
 		//HashMap<String,String> book = new HashMap<String,String>();
 		//book.put("titol", "El Angel Perdido");
 		//book.put("autor", "Javier Sierra");
@@ -68,6 +81,42 @@ public class SearchAction extends ActionSupport {
 		//book2.put("autor", "Cervantes");
 		//book2.put("isbn", "0002");
 		//this.results.add(book2);
+		
+		long end = System.currentTimeMillis();
+
+		Double elapsed = (end-start)/1000.0;
+		
+		this.msg = "Resultats trobats per la paraula clau \""+this.key+"\", en "+Double.toString(elapsed)+" segons";
+		return SUCCESS;
+	}
+	
+	public String next()
+	{
+		long start = System.currentTimeMillis();
+		Vector <HashMap<String,String> > results = new Vector <HashMap<String,String> >();
+		Map session = ActionContext.getContext().getSession();
+		this.setPage((Integer) session.get("searchPage"));
+		this.page++;
+		session.put("searchPage", this.page);
+		this.results = com.vaannila.ws.ISBNdbWS.search(this.key, Integer.toString(this.page));
+		
+		long end = System.currentTimeMillis();
+
+		Double elapsed = (end-start)/1000.0;
+		
+		this.msg = "Resultats trobats per la paraula clau \""+this.key+"\", en "+Double.toString(elapsed)+" segons";
+		return SUCCESS;
+	}
+	
+	public String previous()
+	{
+		long start = System.currentTimeMillis();
+		Vector <HashMap<String,String> > results = new Vector <HashMap<String,String> >();
+		Map session = ActionContext.getContext().getSession();
+		this.setPage((Integer) session.get("searchPage"));
+		this.page--;
+		session.put("searchPage", this.page);
+		this.results = com.vaannila.ws.ISBNdbWS.search(this.key, Integer.toString(this.page));
 		
 		long end = System.currentTimeMillis();
 
