@@ -24,13 +24,13 @@ public class ISBNdbWS {
 	//private boolean details;
 	//private boolean texts;
 
-    public static ArrayList<HashMap<String, String>> search(String keySearch) {
+    public static ArrayList<HashMap<String, String>> search(String keySearch, String page) {
         String title = keySearch;
         String author = keySearch;
         title = title.replace(" ", "+");
         author = author.replace(" ", "+");
 
-        String isbndbUrl = "http://isbndb.com/api/books.xml?access_key=3TL9RX6R&index1=combined&value1="+title+"+by+"+author;
+        String isbndbUrl = "http://isbndb.com/api/books.xml?access_key=3TL9RX6R&page_number="+page+"&index1=combined&value1="+title+"+by+"+author;
         
         return fetchList(isbndbUrl);
     }
@@ -43,6 +43,9 @@ public class ISBNdbWS {
             Document doc = db.parse(requestUrl);
             
             NodeList elementNodeList = doc.getElementsByTagName("BookData");
+            
+            if(elementNodeList.getLength()==0) return null;
+            
             for(int i=0; i<elementNodeList.getLength(); i++) {    
             	HashMap<String,String> book = new HashMap<String,String>();
             	

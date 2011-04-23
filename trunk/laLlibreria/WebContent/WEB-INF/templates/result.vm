@@ -17,6 +17,8 @@
 	#end
 </div>
 #if ($results)
+	Aquesta es la pagina ${page} de resultats
+
 	<div class="content">
 		<table border="1">
 		#foreach ($result in $results)
@@ -34,6 +36,12 @@
 	<h1> No hi ha resultats </h1>
 #end
 <p>
-<a href=/laLlibreria>Inici</a>
+<a href=/laLlibreria>Inici</a> 
+#if ($results)
+	#if ($page > 1)
+		<a href=/laLlibreria/previousSearch.action?key=${key}>Previous</a>
+	#end
+	<a href=/laLlibreria/nextSearch.action?key=${key}>Next</a>
+#end
 </body>
 </html>
