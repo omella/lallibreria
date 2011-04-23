@@ -24,6 +24,30 @@ public class ISBNdbWS {
 	//private boolean details;
 	//private boolean texts;
 
+    public static Integer numberResults(String keySearch) {
+        String title = keySearch;
+        String author = keySearch;
+        title = title.replace(" ", "+");
+        author = author.replace(" ", "+");
+
+        String isbndbUrl = "http://isbndb.com/api/books.xml?access_key=3TL9RX6R&index1=combined&value1="+title+"+by+"+author;
+
+        try {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(isbndbUrl);
+            
+            NodeList elementNodeList = doc.getElementsByTagName("BookList");
+            
+            Node bookData = elementNodeList.item(0);
+            
+            return Integer.parseInt(bookData.getAttributes().item(3).getNodeValue());
+            
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+	
     public static ArrayList<HashMap<String, String>> search(String keySearch, String page) {
         String title = keySearch;
         String author = keySearch;

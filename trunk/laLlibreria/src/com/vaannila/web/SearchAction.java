@@ -26,10 +26,27 @@ public class SearchAction extends ActionSupport {
 	private String msg = null;
 	private String key = null;
 	private Integer page = null;
+    private Integer numberResults = null;
+    private Integer totalPages = null;
+    
+	public Integer getTotalPages() {
+		return totalPages;
+	}
 
+	public void setTotalPages(Integer totalPages) {
+		this.totalPages = totalPages;
+	}
 
 	public Integer getPage() {
 		return page;
+	}
+
+	public Integer getNumberResults() {
+		return numberResults;
+	}
+
+	public void setNumberResults(Integer numberResults) {
+		this.numberResults = numberResults;
 	}
 
 	public void setPage(Integer page) {
@@ -66,6 +83,9 @@ public class SearchAction extends ActionSupport {
 		long start = System.currentTimeMillis();
 		Vector <HashMap<String,String> > results = new Vector <HashMap<String,String> >();
 		this.setPage(1);
+		this.numberResults = com.vaannila.ws.ISBNdbWS.numberResults(this.key);
+		this.totalPages = this.numberResults/10;
+		if((this.numberResults%10)!=0) this.totalPages++;
 		this.results = com.vaannila.ws.ISBNdbWS.search(this.key, Integer.toString(this.page));
 		Map session = ActionContext.getContext().getSession();
 	    session.put("searchPage", this.page);
@@ -86,7 +106,7 @@ public class SearchAction extends ActionSupport {
 
 		Double elapsed = (end-start)/1000.0;
 		
-		this.msg = "Resultats trobats per la paraula clau \""+this.key+"\", en "+Double.toString(elapsed)+" segons";
+		this.msg = " resultats trobats per la paraula clau \""+this.key+"\", en "+Double.toString(elapsed)+" segons";
 		return SUCCESS;
 	}
 	
@@ -98,13 +118,16 @@ public class SearchAction extends ActionSupport {
 		this.setPage((Integer) session.get("searchPage"));
 		this.page++;
 		session.put("searchPage", this.page);
+		this.numberResults = com.vaannila.ws.ISBNdbWS.numberResults(this.key);
+		this.totalPages = this.numberResults/10;
+		if((this.numberResults%10)!=0) this.totalPages++;
 		this.results = com.vaannila.ws.ISBNdbWS.search(this.key, Integer.toString(this.page));
 		
 		long end = System.currentTimeMillis();
 
 		Double elapsed = (end-start)/1000.0;
 		
-		this.msg = "Resultats trobats per la paraula clau \""+this.key+"\", en "+Double.toString(elapsed)+" segons";
+		this.msg = " resultats trobats per la paraula clau \""+this.key+"\", en "+Double.toString(elapsed)+" segons";
 		return SUCCESS;
 	}
 	
@@ -116,13 +139,16 @@ public class SearchAction extends ActionSupport {
 		this.setPage((Integer) session.get("searchPage"));
 		this.page--;
 		session.put("searchPage", this.page);
+		this.numberResults = com.vaannila.ws.ISBNdbWS.numberResults(this.key);
+		this.totalPages = this.numberResults/10;
+		if((this.numberResults%10)!=0) this.totalPages++;
 		this.results = com.vaannila.ws.ISBNdbWS.search(this.key, Integer.toString(this.page));
 		
 		long end = System.currentTimeMillis();
 
 		Double elapsed = (end-start)/1000.0;
 		
-		this.msg = "Resultats trobats per la paraula clau \""+this.key+"\", en "+Double.toString(elapsed)+" segons";
+		this.msg = " resultats trobats per la paraula clau \""+this.key+"\", en "+Double.toString(elapsed)+" segons";
 		return SUCCESS;
 	}
 	
