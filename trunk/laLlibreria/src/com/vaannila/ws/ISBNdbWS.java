@@ -74,17 +74,22 @@ public class ISBNdbWS {
             	HashMap<String,String> book = new HashMap<String,String>();
             	
             	Node bookData = elementNodeList.item(i);
+            	for(int j=0; j<bookData.getAttributes().getLength(); j++) {
+            		if(bookData.getAttributes().item(j).getNodeName().equals("isbn13")) {
+            			book.put("isbn", bookData.getAttributes().item(j).getNodeValue());
+            		}
+            	}
+            	for(int j=0; j<bookData.getChildNodes().getLength(); j++) {
+            		if(bookData.getChildNodes().item(j).getNodeName().equals("Title")) {
+            			book.put("titol", bookData.getChildNodes().item(j).getTextContent());
+            		}
+            	}
+            	for(int j=0; j<bookData.getChildNodes().getLength(); j++) {
+            		if(bookData.getChildNodes().item(j).getNodeName().equals("AuthorsText")) {
+            			book.put("autor", bookData.getChildNodes().item(j).getTextContent());
+            		}
+            	}
             	
-            	book.put("isbn", bookData.getAttributes().item(2).getNodeValue());
-            	
-            	NodeList nl = bookData.getChildNodes();
-
-            	Element llibre = (Element)bookData;
-            	
-            	Element title = (Element) llibre.getElementsByTagName("TitleLong").item(0);
-            	
-	    		book.put("titol", title.getTextContent());
-	    		book.put("autor", nl.item(5).getTextContent());
     			results.add(book);
             }
             
@@ -94,8 +99,8 @@ public class ISBNdbWS {
             HashMap<String,String> resultHash = new HashMap<String, String>();
 
 			resultHash.put("isbn", "");
-			resultHash.put("titol", "Error");
-			resultHash.put("autor", "ISBNdb does not have a record for that title/author.");
+			resultHash.put("titol", "");
+			resultHash.put("autor", "Error: ISBNdb does not have a record for that title/author.");
 	
 			results.add(resultHash);
             return results;
@@ -130,16 +135,21 @@ public class ISBNdbWS {
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document doc = db.parse(requestUrl);
             
-            NodeList elementNodeList = doc.getElementsByTagName("BookData");            	
-            Node bookData = elementNodeList.item(0);
-            NodeList nl = bookData.getChildNodes();
-
-            Element llibre = (Element)bookData;
+            NodeList elementNodeList = doc.getElementsByTagName("BookData");
             
-            Element title = (Element) llibre.getElementsByTagName("TitleLong").item(0);
+            if(elementNodeList.getLength()==0) return null;
             	
-	    	book.put("titol", title.getTextContent());
-	    	book.put("autor", nl.item(5).getTextContent());
+            Node bookData = elementNodeList.item(0);
+            for(int j=0; j<bookData.getChildNodes().getLength(); j++) {
+            	if(bookData.getChildNodes().item(j).getNodeName().equals("Title")) {
+            		book.put("titol", bookData.getChildNodes().item(j).getTextContent());
+            	}
+            }
+            for(int j=0; j<bookData.getChildNodes().getLength(); j++) {
+            	if(bookData.getChildNodes().item(j).getNodeName().equals("AuthorsText")) {
+            		book.put("autor", bookData.getChildNodes().item(j).getTextContent());
+            	}
+            }
 
     		book.put("any", "No implementat");
     		book.put("isbn",isbn);
@@ -149,9 +159,9 @@ public class ISBNdbWS {
         	HashMap<String, String> resultHash = new HashMap<String, String>();
         	
 			resultHash.put("isbn", "");
-			resultHash.put("titol", "Error");
+			resultHash.put("titol", "");
 			resultHash.put("any", "");
-			resultHash.put("autor", "ISBNdb does not have a record for that title/author.");
+			resultHash.put("autor", "Error: ISBNdb does not have a record for that title/author.");
 
             return resultHash;
         }

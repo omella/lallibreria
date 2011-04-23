@@ -104,10 +104,12 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>{
 		//Cal mirar a la base de dades si tenim una puntuacio associada a aquest llibre
 		//Si no la tenim cal inicialitzar-la
 	
-		Puntuacio p = puntuacioDAO.getPuntuacioIsbn(this.id);
-		bookList.put("puntuacio",p.getPuntuacio().toString());
-		bookList.put("numVots", p.getNumVots().toString());
+		//Puntuacio p = puntuacioDAO.getPuntuacioIsbn(this.id);
+		//bookList.put("puntuacio",p.getPuntuacio().toString());
+		//bookList.put("numVots", p.getNumVots().toString());
 		
+		bookList.put("puntuacio", "10");
+		bookList.put("numVots", "10");
 		
 		//Agafem els comentaris associats a aquest isbn
 		this.commentList = comentariDAO.getComentariList(this.id);
