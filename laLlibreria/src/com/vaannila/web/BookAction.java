@@ -68,8 +68,9 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>{
 		
 		
 		comentariDAO.saveComentari(comment);
-		
-		this.commentList = comentariDAO.getComentariList(comment.getIsbn());
+		this.setId(comment.getIsbn());
+		this.show();
+		//this.commentList = comentariDAO.getComentariList(comment.getIsbn());
 		return SUCCESS;
 	}
 	
@@ -93,12 +94,8 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>{
 		
 		//El id es el isbn del llibre actual
 		//cal anar al ws i aconseguir la resta d'informacio
+		this.setBookList(com.vaannila.ws.ISBNdbWS.searchISBN(this.id));
 
-		bookList.put("titol", "La Biblia");
-		bookList.put("autor", "UnDonNadie");
-		bookList.put("any", "FaTemps");
-		bookList.put("isbn",this.id);
-		
 		//Cal mirar a la base de dades si tenim una puntuacio associada a aquest llibre
 		//Si no la tenim cal inicialitzar-la
 		bookList.put("puntuacio", "5");
