@@ -14,8 +14,11 @@ import com.opensymphony.xwork2.ModelDriven;
 
 import com.vaannila.dao.ComentariDAO;
 import com.vaannila.dao.ComentariDAOImpl;
+import com.vaannila.dao.PuntuacioDAO;
+import com.vaannila.dao.PuntuacioDAOImpl;
 
 import com.vaannila.domain.Comentari;
+import com.vaannila.domain.Puntuacio;
 
 
 
@@ -28,6 +31,8 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>{
 	private List <Comentari> commentList = new ArrayList<Comentari>();
 
 	private ComentariDAO comentariDAO = new ComentariDAOImpl();
+	
+	private PuntuacioDAO puntuacioDAO = new PuntuacioDAOImpl();
 	private String id = null;
 	
 
@@ -98,7 +103,11 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>{
 
 		//Cal mirar a la base de dades si tenim una puntuacio associada a aquest llibre
 		//Si no la tenim cal inicialitzar-la
-		bookList.put("puntuacio", "5");
+	
+		Puntuacio p = puntuacioDAO.getPuntuacioIsbn(this.id);
+		bookList.put("puntuacio",p.getPuntuacio().toString());
+		bookList.put("numVots", p.getNumVots().toString());
+		
 		
 		//Agafem els comentaris associats a aquest isbn
 		this.commentList = comentariDAO.getComentariList(this.id);

@@ -9,8 +9,8 @@ import javax.persistence.Column;
 @Table(name="PUNTUACIO")
 public class Puntuacio {
 	String isbn;
-	int numVots;
-	int puntuacio;
+	Integer numVots;
+	Integer puntuacio;
 	
 	@Id
 	@Column(name="ISBN")
@@ -22,18 +22,18 @@ public class Puntuacio {
 	}
 	
 	@Column(name="NOMBRE")
-	public int getNumVots() {
+	public Integer getNumVots() {
 		return numVots;
 	}
-	public void setNumVots(int numVots) {
+	public void setNumVots(Integer numVots) {
 		this.numVots = numVots;
 	}
 	
 	@Column(name="PUNTS")
-	public int getPuntuacio() {
+	public Integer getPuntuacio() {
 		return puntuacio;
 	}
-	public void setPuntuacio(int puntuacio) {
+	public void setPuntuacio(Integer puntuacio) {
 		this.puntuacio = puntuacio;
 	}
 	
