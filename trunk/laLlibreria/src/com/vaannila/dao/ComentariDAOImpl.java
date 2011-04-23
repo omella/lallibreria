@@ -33,7 +33,7 @@ public class ComentariDAOImpl implements ComentariDAO {
 	public List<Comentari> getComentariList(String isbn) {
 		List<Comentari> result= null;
 		try {
-			result = session.createQuery("from Comentari where ISBN="+isbn).list();
+			result = session.createQuery("from Comentari where ISBN="+isbn+" order by DATA desc").list();
 		}
 		catch(Exception e){
 			
