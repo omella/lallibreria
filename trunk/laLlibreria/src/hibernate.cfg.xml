@@ -44,6 +44,7 @@
 		<mapping class="com.vaannila.domain.Cerca" />
 		<mapping class="com.vaannila.domain.Comentari" />
 		<mapping class="com.vaannila.domain.Puntuacio" />
+		<mapping class="com.vaannila.domain.Vist" />
 		
 	</session-factory>
 
