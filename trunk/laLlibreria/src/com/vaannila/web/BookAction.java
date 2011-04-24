@@ -87,7 +87,11 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>{
 			puntuacio.setNumVots(puntuacio.getNumVots()+1);
 		}
 		puntuacioDAO.savePuntuacio(puntuacio);
+		this.setBookList(com.vaannila.ws.ISBNdbWS.searchISBN(this.id));
 		bookList.put("puntuacio", puntuacio.getPuntuacio().toString());
+		bookList.put("numVots", puntuacio.getNumVots().toString());		
+		this.commentList = comentariDAO.getComentariList(this.id);
+		
 		return SUCCESS;
 	}
 	
@@ -115,7 +119,15 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>{
 		
 		comentariDAO.saveComentari(comment);
 		this.setId(comment.getIsbn());
-		this.show();
+		
+		this.setBookList(com.vaannila.ws.ISBNdbWS.searchISBN(this.id));
+		this.puntuacio = puntuacioDAO.getPuntuacioIsbn(this.id);
+		if (puntuacio!=null) 
+		{
+			bookList.put("puntuacio", puntuacio.getPuntuacio().toString());
+			bookList.put("numVots", puntuacio.getNumVots().toString());
+		}
+		this.commentList = comentariDAO.getComentariList(this.id);
 		//this.commentList = comentariDAO.getComentariList(comment.getIsbn());
 		return SUCCESS;
 	}
@@ -150,13 +162,12 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>{
 		//Cal mirar a la base de dades si tenim una puntuacio associada a aquest llibre
 		//Si no la tenim cal inicialitzar-la
 	
-		//Puntuacio p = puntuacioDAO.getPuntuacioIsbn(this.id);
-		//bookList.put("puntuacio",p.getPuntuacio().toString());
-		//bookList.put("numVots", p.getNumVots().toString());
-				
-		bookList.put("puntuacio", "10");
-		bookList.put("numVots", "10");
-		
+		puntuacio = puntuacioDAO.getPuntuacioIsbn(this.id);
+		if (puntuacio!=null) 
+		{
+			bookList.put("puntuacio",puntuacio.getPuntuacio().toString());
+			bookList.put("numVots", puntuacio.getNumVots().toString());
+		}
 		//Agafem els comentaris associats a aquest isbn
 		this.commentList = comentariDAO.getComentariList(this.id);
 
