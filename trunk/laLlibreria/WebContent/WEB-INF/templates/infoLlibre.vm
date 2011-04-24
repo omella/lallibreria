@@ -20,7 +20,14 @@
 		<h2> Autor: ${bookList.autor} </h2>			
 		<h3> Any: ${bookList.any} ISBN: ${bookList.isbn}</h3>			
 		
-		<h3> Puntuacio ${bookList.puntuacio} </h3></center>
+		<h3> Puntuacio ${bookList.puntuacio} </h3>
+		#sform ("action=addPuntuacio")
+			#shidden ("name=id" "value=$bookList.isbn")
+			#sradio ("name=punts" "list={'0','1','2','3','4','5'}")
+
+			#ssubmit ("value=Votar")
+		#end
+		</center>
 	</div>
 #else
 	<h1> No hi ha resultats </h1>

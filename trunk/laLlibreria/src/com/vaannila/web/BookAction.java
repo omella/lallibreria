@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -28,14 +29,33 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>{
 	private HashMap<String,String> bookList = new HashMap<String,String>();
 	private Comentari comment = new Comentari();
 	
+	private Puntuacio puntuacio = new Puntuacio();
+	
 	private List <Comentari> commentList = new ArrayList<Comentari>();
 
 	private ComentariDAO comentariDAO = new ComentariDAOImpl();
 	
 	private PuntuacioDAO puntuacioDAO = new PuntuacioDAOImpl();
 	private String id = null;
+	private Integer punts;
 	
 
+
+	public Puntuacio getPuntuacio() {
+		return puntuacio;
+	}
+
+	public void setPuntuacio(Puntuacio puntuacio) {
+		this.puntuacio = puntuacio;
+	}
+
+	public Integer getPunts() {
+		return punts;
+	}
+
+	public void setPunts(Integer punts) {
+		this.punts = punts;
+	}
 
 	public String getId() {
 		return id;
@@ -47,6 +67,22 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>{
 
 	public String addMark(){
 		
+		this.puntuacio = puntuacioDAO.getPuntuacioIsbn(this.id);
+		
+		if (this.puntuacio == null)
+		{
+			this.puntuacio = new Puntuacio();
+			this.puntuacio.setIsbn(this.id);
+			this.puntuacio.setNumVots(1);
+			this.puntuacio.setPuntuacio(this.punts);
+		}
+		else
+		{
+			puntuacio.setPuntuacio(((puntuacio.getPuntuacio()*puntuacio.getNumVots())+this.punts)/(puntuacio.getNumVots()+1));
+			puntuacio.setNumVots(puntuacio.getNumVots()+1);
+		}
+		puntuacioDAO.savePuntuacio(puntuacio);
+		bookList.put("puntuacio", puntuacio.getPuntuacio().toString());
 		return SUCCESS;
 	}
 	
