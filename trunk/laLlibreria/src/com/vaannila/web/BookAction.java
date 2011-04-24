@@ -17,9 +17,12 @@ import com.vaannila.dao.ComentariDAO;
 import com.vaannila.dao.ComentariDAOImpl;
 import com.vaannila.dao.PuntuacioDAO;
 import com.vaannila.dao.PuntuacioDAOImpl;
+import com.vaannila.dao.VistDAO;
+import com.vaannila.dao.VistDAOImpl;
 
 import com.vaannila.domain.Comentari;
 import com.vaannila.domain.Puntuacio;
+import com.vaannila.domain.Vist;
 
 
 
@@ -28,6 +31,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>{
 	private static final long serialVersionUID = -9113041734859241965L;
 	private HashMap<String,String> bookList = new HashMap<String,String>();
 	private Comentari comment = new Comentari();
+	private Vist viewed = new Vist();
 	
 	private Puntuacio puntuacio = new Puntuacio();
 	
@@ -36,6 +40,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>{
 	private ComentariDAO comentariDAO = new ComentariDAOImpl();
 	
 	private PuntuacioDAO puntuacioDAO = new PuntuacioDAOImpl();
+	private VistDAO vistDAO = new VistDAOImpl();
 	private String id = null;
 	private Integer punts;
 	
@@ -133,6 +138,11 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>{
 
 	public String show(){
 		
+		Date data = new Date();
+		viewed.setData(data);
+		viewed.setIsbn(this.id);
+		vistDAO.saveVist(viewed);
+		
 		//El id es el isbn del llibre actual
 		//cal anar al ws i aconseguir la resta d'informacio
 		this.setBookList(com.vaannila.ws.ISBNdbWS.searchISBN(this.id));
@@ -143,7 +153,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>{
 		//Puntuacio p = puntuacioDAO.getPuntuacioIsbn(this.id);
 		//bookList.put("puntuacio",p.getPuntuacio().toString());
 		//bookList.put("numVots", p.getNumVots().toString());
-		
+				
 		bookList.put("puntuacio", "10");
 		bookList.put("numVots", "10");
 		
