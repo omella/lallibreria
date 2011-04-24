@@ -94,5 +94,15 @@ function errorFunction(pos){
      <div id=foot>
      </div>
    </div>
+   <table border="1">
+   Llibres mes populars
+   #foreach ($popular in $populars)
+		<tr>
+			<td>
+				<a href=/laLlibreria/showBook.action?id=${popular.ISBN}> ${popular.ISBN}</a>
+			</td>
+		</tr>
+   #end
+   </table>
  </body>
 </html>
