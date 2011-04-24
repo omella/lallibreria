@@ -35,14 +35,14 @@
 			<result>/WEB-INF/templates/alex_login.vm</result>
 		</action>
 		
-		<action name="index">
+		<action name="index" method="home" class="com.vaannila.web.HomeAction">
 			<result type="velocity">/WEB-INF/templates/index.vm</result>
 		</action>
 		
 		
 		<!-- Si no és troba cap acció anem a la pagina d'inici -->
 		<!-- Aquesta acció ha de ser l'ultima ja que ho accepta tot -->
-		<action name="*">
+		<action name="*" method="home" class="com.vaannila.web.HomeAction">
 			<result type="velocity">/WEB-INF/templates/index.vm</result>
 		</action>
 		
