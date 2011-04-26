@@ -42,7 +42,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>{
 	private PuntuacioDAO puntuacioDAO = new PuntuacioDAOImpl();
 	private VistDAO vistDAO = new VistDAOImpl();
 	private String id = null;
-	private Integer punts;
+	private Double punts;
 	
 
 
@@ -54,11 +54,11 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>{
 		this.puntuacio = puntuacio;
 	}
 
-	public Integer getPunts() {
+	public Double getPunts() {
 		return punts;
 	}
 
-	public void setPunts(Integer punts) {
+	public void setPunts(Double punts) {
 		this.punts = punts;
 	}
 
@@ -127,8 +127,8 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>{
 			bookList.put("puntuacio", puntuacio.getPuntuacio().toString());
 			bookList.put("numVots", puntuacio.getNumVots().toString());
 		}
-		this.commentList = comentariDAO.getComentariList(this.id);
-		//this.commentList = comentariDAO.getComentariList(comment.getIsbn());
+		//this.commentList = comentariDAO.getComentariList(this.id);
+		this.commentList = comentariDAO.getComentariList(comment.getIsbn());
 		return SUCCESS;
 	}
 	
