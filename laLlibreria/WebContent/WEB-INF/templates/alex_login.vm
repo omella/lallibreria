@@ -98,7 +98,7 @@
    <script type="text/javascript">
     var SITE_ID = '06834717057300479661';
     var viewer, ownerFriends, activities;
-    google.friendconnect.container.setParentUrl('/lab62/' /* location of rpc_relay.html and canvas.html */);
+    google.friendconnect.container.setParentUrl('/laLlibreria/' /* location of rpc_relay.html and canvas.html */);
     google.friendconnect.container.loadOpenSocialApi({ 
             site: SITE_ID,
             onload: function() { initAllData(); }});
