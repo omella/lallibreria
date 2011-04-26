@@ -1,0 +1,47 @@
+<html>
+<head>
+<title>Registre Llibreria</title>
+</head>
+<body>
+	<div id=registreLlibreria>
+			#if ($error)
+				<p><font color="red">${error}</font></p>
+			#end
+			
+     		#sform ("action=addLlibreria")
+				#stextfield ("label=Nombre"  "name=name")
+				#stextfield ("label=E-mail"  "name=mail")
+				#stextfield ("label=Telefono"  "name=phone")
+				#stextfield ("label=Direccion"  "name=place")
+				#stextfield ("label=CIF"  "name=cif")
+				#ssubmit ("value=Enviar")
+        	#end
+        	
+        	<table border="1">
+        	#foreach ($llib in $llibreriaList)
+			<tr>
+				<td>
+					Id
+					${llib.id}
+				</td>
+				<td>
+					${llib.name}
+				</td>
+				<td>
+					${llib.mail}
+				</td>
+				<td>
+					${llib.phone}
+				</td>
+				<td>
+					${llib.place}
+				</td>
+				<td>
+					${llib.cif}
+				</td>
+			</tr>
+   			#end
+   			</table>
+    </div>
+</body>
+</html>
