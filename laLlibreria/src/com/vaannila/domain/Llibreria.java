@@ -14,10 +14,11 @@ public class Llibreria {
 	private String name;
 	private String mail;
 	private String phone;
-		
+	private String place;
+
 	@Id
 	@GeneratedValue
-	@Column(name="CERCA_ID")
+	@Column(name="LLIBRERIA_ID")
 	public Long getId() {
 		return id;
 	}
@@ -25,6 +26,7 @@ public class Llibreria {
 		this.id = id;
 	}
 	
+	@Column(name="LLIBRERIA_NAME")
 	public String getName() {
 		return name;
 	}
@@ -32,6 +34,7 @@ public class Llibreria {
 		this.name = name;
 	}
 	
+	@Column(name="LLIBRERIA_MAIL")
 	public String getMail() {
 		return mail;
 	}
@@ -39,6 +42,7 @@ public class Llibreria {
 		this.mail = mail;
 	}
 	
+	@Column(name="LLIBRERIA_PHONE")
 	public String getPhone() {
 		return phone;
 	}
@@ -46,4 +50,11 @@ public class Llibreria {
 		this.phone = phone;
 	}
 
+	@Column(name="LLIBRERIA_PLACE")
+	public String getPlace() {
+		return place;
+	}
+	public void setPlace(String place) {
+		this.place = place;
+	}
 }
