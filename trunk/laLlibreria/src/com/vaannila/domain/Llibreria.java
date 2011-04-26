@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.validator.NotEmpty;
+
 @Entity
 @Table(name="LLIBRERIA")
 public class Llibreria {
@@ -15,6 +17,7 @@ public class Llibreria {
 	private String mail;
 	private String phone;
 	private String place;
+	private String cif;
 
 	@Id
 	@GeneratedValue
@@ -26,6 +29,7 @@ public class Llibreria {
 		this.id = id;
 	}
 	
+	@NotEmpty(message="Nom no pot ser buit")
 	@Column(name="LLIBRERIA_NAME")
 	public String getName() {
 		return name;
@@ -56,5 +60,13 @@ public class Llibreria {
 	}
 	public void setPlace(String place) {
 		this.place = place;
+	}
+	
+	@Column(name="LLIBRERIA_CIF")
+	public String getCif() {
+		return cif;
+	}
+	public void setCif(String cif) {
+		this.cif = cif;
 	}
 }

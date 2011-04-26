@@ -9,8 +9,7 @@ import com.vaannila.dao.LlibreriaDAO;
 import com.vaannila.dao.LlibreriaDAOImpl;
 import com.vaannila.domain.Llibreria;
 
-public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibreria
-> {
+public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibreria> {
 
 	private static final long serialVersionUID = -6659925652584240539L;
 
@@ -26,6 +25,7 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	public String add()
 	{
 		llibreriaDAO.saveLlibreria(llibreria);
+		list();
 		return SUCCESS;
 	}
 	
@@ -43,12 +43,16 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 		this.llibreria = llibreria;
 	}
 
-	public List<Llibreria> getLLibreriaList() {
+	public List<Llibreria> getLlibreriaList() {
 		return llibreriaList;
 	}
 
 	public void setLlibreriaList(List<Llibreria> llibreriaList) {
 		this.llibreriaList = llibreriaList;
+	}
+	
+	public String show(){
+		return SUCCESS;
 	}
 
 }
