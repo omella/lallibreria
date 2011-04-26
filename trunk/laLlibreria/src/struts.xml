@@ -7,6 +7,17 @@
 		<action name="addUser" method="add" class="com.vaannila.web.UserAction">
 			<result name="success" type="redirect">listUser</result>
 		</action>
+		
+		<action name="showRegistreLlibreria" method="list" class="com.vaannila.web.LlibreriaAction">
+			<result type="velocity">/WEB-INF/templates/registreLlibreria.vm</result>
+		</action>
+		
+		<action name="addLlibreria" method="add" class="com.vaannila.web.LlibreriaAction">
+			<result name="input" type="velocity">/WEB-INF/templates/registreLlibreria.vm</result>
+			<result name="error" type="velocity">/WEB-INF/templates/registreLlibreria.vm</result>
+			<result name="success" type="velocity">/WEB-INF/templates/registreLlibreria.vm</result>
+		</action>
+				
 		<action name="listUser" method="list" class="com.vaannila.web.UserAction">
 			<result name="success">/web/register.jsp</result>
 		</action>
