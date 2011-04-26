@@ -5,6 +5,6 @@ import com.vaannila.domain.User;
 
 public interface LlibreriaDAO {
 
-	public void saveUser(User user);
-	public List<User> listUser();
+	public void saveLlibreria(Llibreria llibreria);
+	public List<Llibreria> listLlibreria();
 }

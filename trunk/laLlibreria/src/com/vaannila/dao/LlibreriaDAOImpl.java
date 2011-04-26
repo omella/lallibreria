@@ -9,19 +9,19 @@ import com.googlecode.s2hibernate.struts2.plugin.annotations.SessionTarget;
 import com.googlecode.s2hibernate.struts2.plugin.annotations.TransactionTarget;
 import com.vaannila.domain.User;
 
-public class LlibreriaDAOImpl implements UserDAO {
-
+public class LlibreriaDAOImpl implements LlibreriaDAO {
+//OJO
 	@SessionTarget
 	Session session;
 	@TransactionTarget
 	Transaction transaction;
-
+//OJO
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<User> listUser() {	
+	public List<Llibreria> listLlibreria() {	
 		List<User> courses = null;
 		try {
-			courses = session.createQuery("from User").list();
+			courses = session.createQuery("from LLIBRERIA").list();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
@@ -29,9 +29,9 @@ public class LlibreriaDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public void saveUser(User user) {
+	public void saveLlibreria(Llibreria llibreria) {
 		try {
-			session.save(user);
+			session.save(llibreria);
 		} catch (Exception e) {
 			transaction.rollback();
 			e.printStackTrace();
