@@ -10,7 +10,7 @@ import javax.persistence.Column;
 public class Puntuacio {
 	String isbn;
 	Integer numVots;
-	Integer puntuacio;
+	Double puntuacio;
 	
 	@Id
 	@Column(name="ISBN")
@@ -30,10 +30,10 @@ public class Puntuacio {
 	}
 	
 	@Column(name="PUNTS")
-	public Integer getPuntuacio() {
+	public Double getPuntuacio() {
 		return puntuacio;
 	}
-	public void setPuntuacio(Integer puntuacio) {
+	public void setPuntuacio(Double puntuacio) {
 		this.puntuacio = puntuacio;
 	}
 	
