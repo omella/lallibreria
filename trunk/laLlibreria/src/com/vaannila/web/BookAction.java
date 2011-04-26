@@ -88,7 +88,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>{
 		}
 		puntuacioDAO.savePuntuacio(puntuacio);
 		this.setBookList(com.vaannila.ws.ISBNdbWS.searchISBN(this.id));
-		bookList.put("puntuacio", puntuacio.getPuntuacio().toString());
+		bookList.put("puntuacio", this.unDecimal(puntuacio.getPuntuacio()).toString());
 		bookList.put("numVots", puntuacio.getNumVots().toString());		
 		this.commentList = comentariDAO.getComentariList(this.id);
 		
@@ -124,7 +124,8 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>{
 		this.puntuacio = puntuacioDAO.getPuntuacioIsbn(this.id);
 		if (puntuacio!=null) 
 		{
-			bookList.put("puntuacio", puntuacio.getPuntuacio().toString());
+			
+			bookList.put("puntuacio", this.unDecimal(puntuacio.getPuntuacio()).toString());
 			bookList.put("numVots", puntuacio.getNumVots().toString());
 		}
 		//this.commentList = comentariDAO.getComentariList(this.id);
@@ -148,6 +149,13 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>{
 		this.commentList = commentList;
 	}
 
+	private Double unDecimal(Double x)
+	{
+		Double p = x*10;
+		p = (double) Math.round(p);
+		p = p/10;
+		return p;
+	}
 	public String show(){
 		
 		Date data = new Date();
@@ -165,7 +173,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>{
 		puntuacio = puntuacioDAO.getPuntuacioIsbn(this.id);
 		if (puntuacio!=null) 
 		{
-			bookList.put("puntuacio",puntuacio.getPuntuacio().toString());
+			bookList.put("puntuacio", this.unDecimal(puntuacio.getPuntuacio()).toString());
 			bookList.put("numVots", puntuacio.getNumVots().toString());
 		}
 		//Agafem els comentaris associats a aquest isbn
