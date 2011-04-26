@@ -1,7 +1,7 @@
 package com.vaannila.dao;
 
 import java.util.List;
-import com.vaannila.domain.User;
+import com.vaannila.domain.Llibreria;
 
 public interface LlibreriaDAO {
 

@@ -7,7 +7,7 @@ import org.hibernate.Transaction;
 
 import com.googlecode.s2hibernate.struts2.plugin.annotations.SessionTarget;
 import com.googlecode.s2hibernate.struts2.plugin.annotations.TransactionTarget;
-import com.vaannila.domain.User;
+import com.vaannila.domain.Llibreria;
 
 public class LlibreriaDAOImpl implements LlibreriaDAO {
 //OJO
@@ -19,7 +19,7 @@ public class LlibreriaDAOImpl implements LlibreriaDAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Llibreria> listLlibreria() {	
-		List<User> courses = null;
+		List<Llibreria> courses = null;
 		try {
 			courses = session.createQuery("from LLIBRERIA").list();
 		} catch (Exception e) {
