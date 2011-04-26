@@ -21,7 +21,7 @@ public class LlibreriaDAOImpl implements LlibreriaDAO {
 	public List<Llibreria> listLlibreria() {	
 		List<Llibreria> courses = null;
 		try {
-			courses = session.createQuery("from LLIBRERIA").list();
+			courses = session.createQuery("from Llibreria").list();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
