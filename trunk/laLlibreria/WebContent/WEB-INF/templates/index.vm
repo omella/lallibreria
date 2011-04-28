@@ -128,21 +128,25 @@ function localizar(){
      			<span id=textBox><input id="localizacion" type="text" value="Calle, Ciudad" style="color:grey; width:350px">
      			<input name="localiza" type="button" value="Localizar" onclick="localizar()"></span>
      		</div>
+     		<div id=librosBuscados>
+     		   <table border="1">
+			   <span id=textoBlanco>Llibres mes populars</span>
+			   #foreach ($popular in $populars)
+					<tr>
+						<td>
+							<a href=/laLlibreria/showBook.action?id=${popular.ISBN}> ${popular.ISBN}</a>
+						</td>
+					</tr>
+			   #end
+			   </table>
+     		</div>
+     		
      	</div>
      </div>
      <div id=foot>
      	#parse( "WEB-INF/templates/pie.vm" )
      </div>
    </div>
-   <table border="1">
-   Llibres mes populars
-   #foreach ($popular in $populars)
-		<tr>
-			<td>
-				<a href=/laLlibreria/showBook.action?id=${popular.ISBN}> ${popular.ISBN}</a>
-			</td>
-		</tr>
-   #end
-   </table>
+
  </body>
 </html>
