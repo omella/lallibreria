@@ -36,6 +36,5 @@ public class Puntuacio {
 	public void setPuntuacio(Double puntuacio) {
 		this.puntuacio = puntuacio;
 	}
-	
-	
+
 }
