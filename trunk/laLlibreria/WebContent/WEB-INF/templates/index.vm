@@ -90,6 +90,12 @@ function errorFunction(pos){
      <div id=leftContent></div>
      <div id=rightContent>
      	<div id=map_canvas></div>
+     	<div id=ubicacion>
+     		<div id=textBlanco>
+     			¿Estas bien localizado?<br>
+     			<input name="localizacion" type="text">
+     		</div>
+     	</div>
      </div>
      <div id=foot>
      </div>
