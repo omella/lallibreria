@@ -7,7 +7,7 @@
 			#if ($error)
 				<p><font color="red">${error}</font></p>
 			#end
-			
+
      		#sform ("action=addLlibreria")
 				#stextfield ("label=Nombre"  "name=name")
 				#stextfield ("label=E-mail"  "name=mail")
