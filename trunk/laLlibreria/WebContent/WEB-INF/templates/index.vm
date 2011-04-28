@@ -81,6 +81,9 @@ function localizar(){
 </script>
 </head>
 
+
+
+
 <body>
    <div id=page>
      <div id=top>
@@ -99,7 +102,7 @@ function localizar(){
      	<div id=buscador>
      		<h1>Llibre</h1> 
 			#sform ("action=searchBook")
-				#stextfield ("name=key")
+				#stextfield ("name=key") 
 				#ssubmit ("value=Search")
         	#end
 
