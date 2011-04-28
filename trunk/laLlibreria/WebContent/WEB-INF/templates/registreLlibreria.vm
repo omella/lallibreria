@@ -3,8 +3,9 @@
 <body>
    <div id=page>
      <div id=top></div>
-     <div id=leftContent>
-     #if ($error)
+     <div id=leftContentLlibreria>
+       <h1>Registra't</h1>
+       #if ($error)
 				<p><font color="red">${error}</font></p>
 			#end
 
@@ -16,33 +17,22 @@
 				#stextfield ("label=CIF"  "name=cif")
 				#ssubmit ("value=Enviar")
         	#end
-        	
-        	<table border="1">
-        	#foreach ($llib in $llibreriaList)
-			<tr>
-				<td>
-					Id
-					${llib.id}
-				</td>
-				<td>
-					${llib.name}
-				</td>
-				<td>
-					${llib.mail}
-				</td>
-				<td>
-					${llib.phone}
-				</td>
-				<td>
-					${llib.place}
-				</td>
-				<td>
-					${llib.cif}
-				</td>
-			</tr>
-   			#end
-   			</table></div>
-     <div id=rightContent></div>
+
+   		</div>
+     <div id=rightContentLlibreria>
+        <h1>Entra</h1>
+     	<div id=loginLlibreria>
+     		#if ($error)
+				<p><font color="red">${error}</font></p>
+			#end
+			
+     		#sform ("action=doLogin")
+				#stextfield ("label=Usuario"  "name=username")
+				#spassword  ("label=Password" "name=password")
+				#ssubmit ("value=Login")
+        	#end
+        </div>
+     </div>
      <div id=foot>
      	#parse( "WEB-INF/templates/pie.vm" )
      </div>
