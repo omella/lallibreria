@@ -1,0 +1,14 @@
+#parse("WEB-INF/templates/header.vm")
+
+<body>
+   <div id=page>
+     <div id=top></div>
+     <div id=leftContent></div>
+     <div id=rightContent></div>
+     <div id=foot>
+     	#parse( "WEB-INF/templates/pie.vm" )
+     </div>
+   </div>
+
+ </body>
+</html>
