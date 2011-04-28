@@ -47,6 +47,7 @@ function errorFunction(pos){
 //FIN: Geolocalizacion Google
 
 //INICIO:Localizar "manualmente"
+
 var geocoder;
 function localizar(){
     geocoder = new google.maps.Geocoder();
@@ -69,7 +70,18 @@ function localizar(){
 
 }
 //FIN:Localizar "manualmente"
+//INICIO: Situar librerias
+function addLibreriaMapa(){
+	alert("hola");
+}
 
+
+//FIN
+function addLibreriaMapa() {
+
+
+
+}
 </script>
 </head>
 
@@ -115,6 +127,12 @@ function localizar(){
      <div id=rightContent>
      	<div id=map_canvas></div>
      	<div id=ubicacion>
+
+     	    #foreach ($llib in $llibreriaList)
+     			<script>
+					
+     			</script>	
+     		#end
      		<div id=inputCalle>
      			<span id=textoBlanco>&iquestEstas bien localizado?</span><br/><br/>
      			<span id=textBox><input id="localizacion" type="text" value="Calle, Ciudad" style="color:grey; width:350px">
