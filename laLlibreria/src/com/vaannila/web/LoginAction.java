@@ -30,7 +30,6 @@ public  class LoginAction extends ActionSupport implements SessionAware {
 		this.error = error;
 	}
  
-	@Secured()
 	public String execute() throws Exception {
 		DOMConfigurator.configure("/laLlibreria/workspace/laLlibreria/src/log4j.xml");
 		logger.debug("Sample debug message");

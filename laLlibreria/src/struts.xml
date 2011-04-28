@@ -42,6 +42,17 @@
 			<result name="success" type="velocity">/WEB-INF/templates/infoLlibre.vm</result>
 		</action>
 		
+		<action name="showLogin">
+			<result type="velocity">/WEB-INF/templates/index.vm</result>
+		</action>
+
+		<action name="doLogin" class="com.vaannila.web.LoginAction">
+			<result name="input" type="velocity">/WEB-INF/templates/index.vm</result>
+			<result name="error" type="velocity">/WEB-INF/templates/index.vm</result>
+			<result>/WEB-INF/templates/loginsuccess.vm</result>
+		</action>
+		
+		
 		<action name="alexLogin">
 			<result>/WEB-INF/templates/alex_login.vm</result>
 		</action>
@@ -69,16 +80,6 @@
          <interceptor-ref name="defaultStack"/>
         </interceptor-stack>
         </interceptors>
-
-        <action name="showLogin">
-			<result type="velocity">/WEB-INF/templates/index.vm</result>
-		</action>
-
-		<action name="doLogin" class="com.vaannila.web.LoginAction">
-			<result name="input" type="velocity">/WEB-INF/templates/index.vm</result>
-			<result name="error" type="velocity">/WEB-INF/templates/index.vm</result>
-			<result>/WEB-INF/templates/loginsuccess.vm</result>
-		</action>
 
     </package>
 </struts>
