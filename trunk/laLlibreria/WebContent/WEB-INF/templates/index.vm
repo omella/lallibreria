@@ -21,41 +21,59 @@ else{
 alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
 }
 
+var map;
 //success callback function
 function displayPosition(pos){
-var mylat = pos.coords.latitude;
-var mylong = pos.coords.longitude;
-var thediv = document.getElementById("map_canvas");
-thediv.innerHTML = "<p>Your longitude is :"+mylong+" and your latitude is "+mylat+"</p>";
-//Load Google Map
-var latlng = new google.maps.LatLng(mylat, mylong);
-    var myOptions = {
-      zoom: 15,
-      center: latlng,
-      mapTypeId: google.maps.MapTypeId.HYBRID
-    };
+	var mylat = pos.coords.latitude;
+	var mylong = pos.coords.longitude;
+	var thediv = document.getElementById("map_canvas");
+	thediv.innerHTML = "<p>Your longitude is :"+mylong+" and your latitude is "+mylat+"</p>";
+	//Load Google Map
+	var latlng = new google.maps.LatLng(mylat, mylong);
+	    var myOptions = {
+	      zoom: 15,
+	      center: latlng,
+	      mapTypeId: google.maps.MapTypeId.HYBRID
+	    };
+	
+	map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 
-var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-
-//Add marker
-var marker = new google.maps.Marker({
-	     position: latlng, 
-	     map: map, 
-	     title:"You are here"
-	 });    
-    
+	//Add marker
+	var marker = new google.maps.Marker({
+		     position: latlng, 
+		     map: map, 
+		     title:"You are here"
+		 });    
+	    
  }
 
 //error callback function
 function errorFunction(pos){
 	alert('Error!');
 }
+
 //FIN: Geolocalizacion Google
 
 //INICIO:Localizar "manualmente"
+var geocoder;
 function localizar(){
-	var direccion = document.getElementById("localizacion").value;
-    alert(direccion); 
+    geocoder = new google.maps.Geocoder();
+
+	var address = document.getElementById("localizacion").value;
+    if (geocoder) {
+      geocoder.geocode( { 'address': address}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          alert(results[0].geometry.location);
+          map.setCenter(results[0].geometry.location);
+          var marker = new google.maps.Marker({
+              map: map, 
+              position: results[0].geometry.location
+          });
+        } else {
+          alert("Geocode was not successful for the following reason: " + status);
+        }
+      });
+    }
 
 }
 //FIN:Localizar "manualmente"
@@ -63,7 +81,7 @@ function localizar(){
 </script>
 </head>
 
- <body>
+<body>
    <div id=page>
      <div id=top>
      	<div id=login>
