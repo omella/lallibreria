@@ -80,6 +80,24 @@ p, ul, ol {
   background-color: black;
   float:left;
 }
+
+#leftContentLlibreria{
+  width: 50%;
+  height: 350px;
+  background-color: grey;
+  float:left;
+  padding-top: 50px;
+  padding-left: 10%;
+}
+#rightContentLlibreria{
+  width: 30%;
+  height: 350px;
+  background-color: white;
+  float:left;
+  padding-top: 50px;
+  padding-left: 10%
+}
+
 #librosBuscados {
 	width: 500px;
 	margin-top: 10px;
