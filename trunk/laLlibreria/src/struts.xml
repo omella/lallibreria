@@ -17,7 +17,7 @@
 			<result name="error" type="velocity">/WEB-INF/templates/registreLlibreria.vm</result>
 			<result name="success" type="velocity">/WEB-INF/templates/registreLlibreria.vm</result>
 		</action>
-				
+			
 		<action name="listUser" method="list" class="com.vaannila.web.UserAction">
 			<result name="success">/web/register.jsp</result>
 		</action>
