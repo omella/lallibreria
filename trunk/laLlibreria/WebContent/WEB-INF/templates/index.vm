@@ -136,7 +136,7 @@ function addLibreriaMapa() {
      		#end
      		<div id=inputCalle>
      			<span id=textoBlanco>&iquestEstas bien localizado?</span><br/><br/>
-     			<span id=textBox><input id="localizacion" type="text" value="Calle, Ciudad" style="color:grey; width:350px">
+     			<span id=textBox><input id="localizacion" type="text" value="Calle, Ciudad" style="color:grey; width:350px" onfocus="if(this.value==this.defaultValue) this.value=''">
      			<input name="localiza" type="button" value="Localizar" onclick="localizar()"></span>
      		</div>
      		<div id=librosBuscados>
