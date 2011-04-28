@@ -56,7 +56,7 @@ function localizar(){
     if (geocoder) {
       geocoder.geocode( { 'address': address}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-          alert(results[0].geometry.location);
+          //alert(results[0].geometry.location);
           map.setCenter(results[0].geometry.location);
           var marker = new google.maps.Marker({
               map: map, 
@@ -72,16 +72,29 @@ function localizar(){
 //FIN:Localizar "manualmente"
 //INICIO: Situar librerias
 function addLibreriaMapa(){
-	alert("hola");
+	geocoder2 = new google.maps.Geocoder();
+	var arrayAddress = [#foreach ($llib in $llibreriaList)
+							"${llib.place}",
+     					#end
+     					"Av. Colon, Tortosa"] 
+    if (geocoder2) {
+      	for (i=0;i<arrayAddress.length;i++){
+      	   geocoder2.geocode( { 'address': arrayAddress[i]}, function(results2, status2) {
+	        if (status2 == google.maps.GeocoderStatus.OK) {
+	          var marker2 = new google.maps.Marker({
+	              map: map, 
+	              position: results2[0].geometry.location
+	          });
+	        } else {
+	          alert("Geocode was not successful for the following reason: " + status);
+	        }
+	      });
+		} 
+    }
 }
 
 
 //FIN
-function addLibreriaMapa() {
-
-
-
-}
 </script>
 </head>
 
@@ -138,6 +151,7 @@ function addLibreriaMapa() {
      			<span id=textoBlanco>&iquest;Estas bien localizado?</span><br/><br/>
      			<span id=textBox><input id="localizacion" type="text" value="Calle, Ciudad" style="color:grey; width:350px" onfocus="if(this.value==this.defaultValue) this.value=''">
      			<input name="localiza" type="button" value="Localizar" onclick="localizar()"></span>
+     			<input name="localiza" type="button" value="AddLibrary" onclick="addLibreriaMapa()"></span>
      		</div>
      		<div id=librosBuscados>
      		   <table border="1">
