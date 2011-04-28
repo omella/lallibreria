@@ -26,8 +26,6 @@ public class ComandaAction extends ActionSupport implements ModelDriven<Mail>{
 	
 	private Mail mail = new Mail();
 	
-	private List <Comentari> commentList = new ArrayList<Comentari>();
-
 	private MailDAO mailDAO = new MailDAOImpl();
 
 	
@@ -38,7 +36,6 @@ public class ComandaAction extends ActionSupport implements ModelDriven<Mail>{
 		mailDAO.saveMail(this.mail);
 		
 		//FALTARIA ENVIAR EL MAIL
-		
 		return SUCCESS;
 	}
 	@Override
