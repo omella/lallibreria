@@ -1,10 +1,10 @@
-<html>
-<head>
-<title>Registre Llibreria</title>
-</head>
+#parse("WEB-INF/templates/header.vm")
+
 <body>
-	<div id=registreLlibreria>
-			#if ($error)
+   <div id=page>
+     <div id=top></div>
+     <div id=leftContent>
+     #if ($error)
 				<p><font color="red">${error}</font></p>
 			#end
 
@@ -41,7 +41,12 @@
 				</td>
 			</tr>
    			#end
-   			</table>
-    </div>
-</body>
+   			</table></div>
+     <div id=rightContent></div>
+     <div id=foot>
+     	#parse( "WEB-INF/templates/pie.vm" )
+     </div>
+   </div>
+
+ </body>
 </html>

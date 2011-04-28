@@ -102,6 +102,7 @@ function addLibreriaMapa() {
 				#spassword  ("label=Password" "name=password")
 				#ssubmit ("value=Login")
         	#end
+        	<a href=/laLlibreria/showRegistreLlibreria.action>Ets una llibreria?</a> 
      	</div>
      	<div id=buscador>
      		<h1>Llibre</h1> 
