@@ -131,6 +131,7 @@ function localizar(){
      	</div>
      </div>
      <div id=foot>
+     	#parse( "WEB-INF/templates/pie.vm" )
      </div>
    </div>
    <table border="1">
