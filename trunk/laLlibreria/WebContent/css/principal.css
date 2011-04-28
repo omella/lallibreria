@@ -96,13 +96,22 @@ p, ul, ol {
 	font-family: Arial, Helvetica, sans-serif;
   float: left;
 }
+
+#contenidoPie {
+	border-top: 1px solid #C0C0C0;
+	border-bottom: 1px solid #C0C0C0;
+	padding-top: 25px;
+	padding-left: 25px;
+	padding-bottom: 25px;
+}
+
 #foot p {
 	margin: 0;
 	line-height: normal;
 	font-size: 10px;
 	text-transform: uppercase;
 	text-align: left;
-	color: #847F7E;
+	color: #C0C0C0;
 }
 
 #map_canvas{  
