@@ -19,7 +19,6 @@ function displayPosition(pos){
 	var mylat = pos.coords.latitude;
 	var mylong = pos.coords.longitude;
 	var thediv = document.getElementById("map_canvas");
-	thediv.innerHTML = "<p>Your longitude is :"+mylong+" and your latitude is "+mylat+"</p>";
 	//Load Google Map
 	var latlng = new google.maps.LatLng(mylat, mylong);
 	    var myOptions = {
@@ -36,7 +35,7 @@ function displayPosition(pos){
 		     map: map, 
 		     title:"You are here"
 		 });    
-	    
+	 addLibreriaMapa(latlng);
  }
 
 //error callback function
@@ -62,6 +61,7 @@ function localizar(){
               map: map, 
               position: results[0].geometry.location
           });
+          addLibreriaMapa(results[0].geometry.location);
         } else {
           alert("Geocode was not successful for the following reason: " + status);
         }
@@ -71,15 +71,20 @@ function localizar(){
 }
 //FIN:Localizar "manualmente"
 //INICIO: Situar librerias
-function addLibreriaMapa(){
+var distance;
+function addLibreriaMapa(posicionCliente){
 	geocoder2 = new google.maps.Geocoder();
 	var arrayAddress = [#foreach ($llib in $llibreriaList)
 							"${llib.place}",
      					#end
      					"Av. Colon, Tortosa"] 
+     					
     if (geocoder2) {
       	for (i=0;i<arrayAddress.length;i++){
       	   geocoder2.geocode( { 'address': arrayAddress[i]}, function(results2, status2) {
+      	   
+      	    getDistance(posicionCliente,results2[0].geometry.location);
+      	    
 	        if (status2 == google.maps.GeocoderStatus.OK) {
 	          var marker2 = new google.maps.Marker({
 	              map: map, 
@@ -91,6 +96,34 @@ function addLibreriaMapa(){
 	      });
 		} 
     }
+}
+
+function getDistance(posC,posL) {
+	var directionsService = new google.maps.DirectionsService();
+
+	directionsDisplay = new google.maps.DirectionsRenderer(
+	{
+	   suppressMarkers: true,
+	   suppressInfoWindows: true
+	});
+
+	directionsDisplay.setMap(map);
+	var request = {
+	   origin:posC,
+	   destination:posL,
+	   travelMode: google.maps.DirectionsTravelMode.DRIVING
+	};
+	
+	directionsService.route(request, function(response, status)
+	{
+		
+	   if (status == google.maps.DirectionsStatus.OK)
+	   {      
+	       distance = response.routes[0].legs[0].distance.text;
+	      alert(distance);
+	   }
+	});	
+	
 }
 
 
@@ -151,7 +184,7 @@ function addLibreriaMapa(){
      			<span id=textoBlanco>&iquest;Estas bien localizado?</span><br/><br/>
      			<span id=textBox><input id="localizacion" type="text" value="Calle, Ciudad" style="color:grey; width:350px" onfocus="if(this.value==this.defaultValue) this.value=''">
      			<input name="localiza" type="button" value="Localizar" onclick="localizar()"></span>
-     			<input name="localiza" type="button" value="AddLibrary" onclick="addLibreriaMapa()"></span>
+     			<input name="localiza" type="button" value="AddLibrary" onclick="addLibreriaMapa()">
      		</div>
      		<div id=librosBuscados>
      		   <table border="1">
