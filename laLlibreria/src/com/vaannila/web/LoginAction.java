@@ -2,6 +2,10 @@ package com.vaannila.web;
 
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+
+import javax.servlet.http.*;
+
 import com.googlecode.sslplugin.annotation.Secured;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -10,6 +14,11 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 import org.apache.struts2.interceptor.SessionAware;
 
+import org.opensocial.*;
+import org.opensocial.auth.*;
+import org.opensocial.models.*;
+import org.opensocial.providers.*;
+import org.opensocial.services.*;
 
 /**
  * <p> Validate a user login. </p>
@@ -30,7 +39,34 @@ public  class LoginAction extends ActionSupport implements SessionAware {
 		this.error = error;
 	}
  
-	public String execute() throws Exception {
+	public String execute(HttpServletRequest req) throws Exception {
+		Provider provid = new FriendConnectProvider();
+		//AuthScheme scheme2 = new OAuth2LeggedScheme("*:06834717057300479661", "cabs_uiKs-E=");
+		
+		
+		String siteId = "06834717057300479661";
+		String token = null;
+		
+		req.getSession();
+		for (Cookie cookie : req.getCookies()) {
+		  if (cookie.getName().equals("fcauth" + siteId)) {
+		    token = cookie.getValue();
+		    break;
+		  }
+		}
+		AuthScheme scheme = new FCAuthScheme(token);
+		
+		Client client = new Client(provid, scheme);
+		
+		Request request = PeopleService.getViewer();
+		Response response = client.send(request);
+		
+		Person viewer = response.getEntry();
+		
+		username=viewer.getDisplayName();
+		this.error = username + " = nom d'usuari de google?";
+		return error;
+		/*
 		DOMConfigurator.configure("/laLlibreria/workspace/laLlibreria/src/log4j.xml");
 		logger.debug("Sample debug message");
 		logger.info("Sample info message");
@@ -38,16 +74,17 @@ public  class LoginAction extends ActionSupport implements SessionAware {
 		logger.error("Sample error message");
 		logger.fatal("Sample fatal message");
         System.out.println("Validating login");
-    if(!getUsername().equals("Admin") || !getPassword().equals("Admin")){
-            this.error = "Has possat la pota! Mira aqui dalt i torna-ho a intentar!";
-            return ERROR;
-    }
-    else{
-      Map session = ActionContext.getContext().getSession();
-      session.put("username", getUsername());
-      //session.remove("sessionLoginFail");
-      return SUCCESS;
-    }
+	    if(!getUsername().equals("Admin") || !getPassword().equals("Admin")){
+	            this.error = "Has possat la pota! Mira aqui dalt i torna-ho a intentar!";
+	            return ERROR;
+	    }
+	    else{
+	      Map session = ActionContext.getContext().getSession();
+	      session.put("username", getUsername());
+	      //session.remove("sessionLoginFail");
+	      return SUCCESS;
+	    }
+	    */
   }
 
 
