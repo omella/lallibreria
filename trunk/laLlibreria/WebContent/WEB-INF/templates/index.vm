@@ -71,7 +71,7 @@ function localizar(){
 }
 //FIN:Localizar "manualmente"
 //INICIO: Situar librerias
-var distance;
+var distanceI = -1;
 function addLibreriaMapa(posicionCliente){
 	geocoder2 = new google.maps.Geocoder();
 	var arrayAddress = [#foreach ($llib in $llibreriaList)
@@ -82,10 +82,37 @@ function addLibreriaMapa(posicionCliente){
     if (geocoder2) {
       	for (i=0;i<arrayAddress.length;i++){
       	   geocoder2.geocode( { 'address': arrayAddress[i]}, function(results2, status2) {
-      	   
-      	    getDistance(posicionCliente,results2[0].geometry.location);
-      	    
+      	   //INICIO calculo distancia
+			var directionsService = new google.maps.DirectionsService();
+		
+			directionsDisplay = new google.maps.DirectionsRenderer(
+			{
+			   suppressMarkers: true,
+			   suppressInfoWindows: true
+			});
+		
+			directionsDisplay.setMap(map);
+			var request = {
+			   origin:posicionCliente,
+			   destination:results2[0].geometry.location,
+			   travelMode: google.maps.DirectionsTravelMode.WALKING
+			};
+			var distance;
+			directionsService.route(request, function(response, status)
+			{
+				
+			   if (status == google.maps.DirectionsStatus.OK)
+			   {      
+			       distance = response.routes[0].legs[0].distance.text;
+			       alert(distance);
+			   }
+			  
+			});
+			
+			//FIN calculo distancia
+			
 	        if (status2 == google.maps.GeocoderStatus.OK) {
+	        alert("hola");
 	          var marker2 = new google.maps.Marker({
 	              map: map, 
 	              position: results2[0].geometry.location
@@ -111,19 +138,20 @@ function getDistance(posC,posL) {
 	var request = {
 	   origin:posC,
 	   destination:posL,
-	   travelMode: google.maps.DirectionsTravelMode.DRIVING
+	   travelMode: google.maps.DirectionsTravelMode.WALKING
 	};
-	
+	var distance;
 	directionsService.route(request, function(response, status)
 	{
 		
 	   if (status == google.maps.DirectionsStatus.OK)
 	   {      
 	       distance = response.routes[0].legs[0].distance.text;
-	      alert(distance);
+	       distanceI=distance;
 	   }
-	});	
-	
+	  
+	});
+		
 }
 
 
@@ -184,7 +212,6 @@ function getDistance(posC,posL) {
      			<span id=textoBlanco>&iquest;Estas bien localizado?</span><br/><br/>
      			<span id=textBox><input id="localizacion" type="text" value="Calle, Ciudad" style="color:grey; width:350px" onfocus="if(this.value==this.defaultValue) this.value=''">
      			<input name="localiza" type="button" value="Localizar" onclick="localizar()"></span>
-     			<input name="localiza" type="button" value="AddLibrary" onclick="addLibreriaMapa()">
      		</div>
      		<div id=librosBuscados>
      		   <table border="1">
