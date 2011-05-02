@@ -71,7 +71,7 @@ function localizar(){
 }
 //FIN:Localizar "manualmente"
 //INICIO: Situar librerias
-var distanceI = -1;
+var distance;
 function addLibreriaMapa(posicionCliente){
 	geocoder2 = new google.maps.Geocoder();
 	var arrayAddress = [#foreach ($llib in $llibreriaList)
@@ -80,46 +80,48 @@ function addLibreriaMapa(posicionCliente){
      					"Av. Colon, Tortosa"] 
      					
     if (geocoder2) {
+    
       	for (i=0;i<arrayAddress.length;i++){
       	   geocoder2.geocode( { 'address': arrayAddress[i]}, function(results2, status2) {
       	   //INICIO calculo distancia
-			var directionsService = new google.maps.DirectionsService();
-		
-			directionsDisplay = new google.maps.DirectionsRenderer(
-			{
-			   suppressMarkers: true,
-			   suppressInfoWindows: true
-			});
-		
-			directionsDisplay.setMap(map);
-			var request = {
-			   origin:posicionCliente,
-			   destination:results2[0].geometry.location,
-			   travelMode: google.maps.DirectionsTravelMode.WALKING
-			};
-			var distance;
-			directionsService.route(request, function(response, status)
-			{
-				
-			   if (status == google.maps.DirectionsStatus.OK)
-			   {      
-			       distance = response.routes[0].legs[0].distance.text;
-			       alert(distance);
-			   }
-			  
-			});
+
+				var directionsService = new google.maps.DirectionsService();
 			
+				directionsDisplay = new google.maps.DirectionsRenderer(
+				{
+				   suppressMarkers: true,
+				   suppressInfoWindows: true
+				});
+			
+				directionsDisplay.setMap(map);
+				var request = {
+				   origin:posicionCliente,
+				   destination:results2[0].geometry.location,
+				   travelMode: google.maps.DirectionsTravelMode.WALKING
+				};
+				directionsService.route(request, function(response, status)
+				{
+					
+				   if (status == google.maps.DirectionsStatus.OK)
+				   {      
+				       distance = response.routes[0].legs[0].distance.value;
+				       //valor en metros
+				   }
+				  
+				});
+
 			//FIN calculo distancia
-			
-	        if (status2 == google.maps.GeocoderStatus.OK) {
-	        alert("hola");
-	          var marker2 = new google.maps.Marker({
-	              map: map, 
-	              position: results2[0].geometry.location
-	          });
-	        } else {
-	          alert("Geocode was not successful for the following reason: " + status);
-	        }
+			if(distance < 10000){
+		        if (status2 == google.maps.GeocoderStatus.OK) {
+		          
+		          var marker2 = new google.maps.Marker({
+		              map: map, 
+		              position: results2[0].geometry.location
+		          });
+		        } else {
+		          alert("Geocode was not successful for the following reason: " + status);
+		        }
+		    }
 	      });
 		} 
     }
