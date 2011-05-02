@@ -71,10 +71,13 @@ function localizar(){
 }
 //FIN:Localizar "manualmente"
 //INICIO: Situar librerias
-var distance;
+
+
+var distance = -1;
+
 function addLibreriaMapa(posicionCliente){
 	geocoder2 = new google.maps.Geocoder();
-	var arrayAddress = [#foreach ($llib in $llibreriaList)
+	var arrayAddress = ["Av. Colon, Tortosa",#foreach ($llib in $llibreriaList)
 							"${llib.place}",
      					#end
      					"Av. Colon, Tortosa"] 
@@ -86,7 +89,7 @@ function addLibreriaMapa(posicionCliente){
       	   //INICIO calculo distancia
 
 				var directionsService = new google.maps.DirectionsService();
-			
+			    
 				directionsDisplay = new google.maps.DirectionsRenderer(
 				{
 				   suppressMarkers: true,
@@ -99,19 +102,25 @@ function addLibreriaMapa(posicionCliente){
 				   destination:results2[0].geometry.location,
 				   travelMode: google.maps.DirectionsTravelMode.WALKING
 				};
-				directionsService.route(request, function(response, status)
-				{
-					
-				   if (status == google.maps.DirectionsStatus.OK)
-				   {      
-				       distance = response.routes[0].legs[0].distance.value;
-				       //valor en metros
-				   }
-				  
-				});
+
+					directionsService.route(request, function(response, status)
+					{
+						
+					   if (status == google.maps.DirectionsStatus.OK)
+					   {      
+					       distance = response.routes[0].legs[0].distance.value;
+					       //valor en metros
+					       //si todavia no a conseguido la distancia repetimos la misma direccion
+					       if (distance == -1)i--;
+					   }
+					  
+					});
+
 
 			//FIN calculo distancia
-			if(distance < 10000){
+			alert(distance);
+			if(distance < 10000 && distance > -1){
+			    
 		        if (status2 == google.maps.GeocoderStatus.OK) {
 		          
 		          var marker2 = new google.maps.Marker({
@@ -123,6 +132,7 @@ function addLibreriaMapa(posicionCliente){
 		        }
 		    }
 	      });
+	      distance = -1; //volvemos a poner distance a -1, para que funcione con el siguiente
 		} 
     }
 }
