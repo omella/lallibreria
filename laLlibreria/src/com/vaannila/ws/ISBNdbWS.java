@@ -57,7 +57,7 @@ public class ISBNdbWS {
         title = title.replace(" ", "+");
         author = author.replace(" ", "+");
 
-        String isbndbUrl = "http://isbndb.com/api/books.xml?access_key=3TL9RX6R&page_number="+page+"&index1=combined&value1="+title+"+by+"+author;
+        String isbndbUrl = "http://isbndb.com/api/books.xml?access_key=8949LIQR&page_number="+page+"&index1=combined&value1="+title+"+by+"+author;
         
         return fetchList(isbndbUrl);
     }
@@ -129,7 +129,7 @@ public class ISBNdbWS {
 
 	public static HashMap<String, String> searchISBN(String isbn) {
 		
-		String requestUrl = "http://isbndb.com/api/books.xml?access_key=3TL9RX6R&index1=isbn&value1="+isbn;
+		String requestUrl = "http://isbndb.com/api/books.xml?access_key=8949LIQR&index1=isbn&value1="+isbn;
 		
 		HashMap<String, String> book = new HashMap<String, String>();
 		
