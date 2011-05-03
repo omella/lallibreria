@@ -7,8 +7,8 @@
 		<script type="text/javascript" charset="utf-8">
 			$(function(){
 				$('#addPage a').mouseenter(function(event){
-					event.preventDefault();
-					$(this).replaceWith.html('<img src="http://maulik.freeshell.net/meed/images/spinner.gif" />').load($(this).attr('href'));
+					//event.preventDefault();
+					//$(this).replaceWith.html('<img src="http://maulik.freeshell.net/meed/images/spinner.gif" />').load($(this).attr('href'));
 				})
 			})
 		</script>	  
