@@ -116,6 +116,8 @@
       viewer = data.get('viewer').getData();
       if (viewer) {
       	alert('Welcome, with google ' + viewer.getField("displayName")+ " " + viewer.getId("")+"!");
+      	window.location = "alexLogin.action"
+      	
       }
 	  
       viewer = data.get('viewer').getData();
@@ -129,7 +131,21 @@
       }
     };
     </script>
-	<div id="profile"></div>  
+	<div id="profile">
+	
+	#if ($error) 
+		$error
+	#else
+		No hi ha error
+	#end
+	
+	#if ($username)
+		$username
+	#else
+		No hi ha username
+	#end
+	
+	</div>  
 	
   </body>
 </html>
