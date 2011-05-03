@@ -34,10 +34,18 @@
 			Sigues el primer en votar
 		#end
 		</center>
+		
+		#sform ("action=addBookComanda")
+		#stextfield ("label=Quantitat: " "name=num" "value=0")
+		#shidden ("name=id" "value=$bookList.isbn")
+		#ssubmit ("value=Search")
+    #end
 	</div>
 #else
 	<h1> No hi ha resultats </h1>
 #end
+
+
 
 Afegeix el teu comentari
 #sform ("action=addComentari")
