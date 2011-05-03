@@ -29,8 +29,11 @@ public class ISBNdbWS {
         String author = keySearch;
         title = title.replace(" ", "+");
         author = author.replace(" ", "+");
-
-        String isbndbUrl = "http://isbndb.com/api/books.xml?access_key=3TL9RX6R&index1=combined&value1="+title+"+by+"+author;
+        /*Keys:
+         *   	Joaquin	3TL9RX6R
+         * 		Marc	8949LIQR
+         */
+        String isbndbUrl = "http://isbndb.com/api/books.xml?access_key=8949LIQR&index1=combined&value1="+title+"+by+"+author;
 
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
