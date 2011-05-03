@@ -192,8 +192,9 @@ function getDistance(posC,posL) {
      	</div>
      	<div id=buscador>
      		<h1>Llibre</h1> 
-			#sform ("action=searchBook")
+			#sform ("action=searchBook" "method=get")
 				#stextfield ("name=key") 
+				#shidden ("name=page" "value=1")
 				#ssubmit ("value=Search")
         	#end
 

@@ -2,13 +2,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
-        <title>Resultats per ${key}</title>		  
+        <title>Resultats per ${key}</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			$(function(){
+				$('#addPage a').mouseenter(function(event){
+					event.preventDefault();
+					$(this).replaceWith.html('<img src="http://maulik.freeshell.net/meed/images/spinner.gif" />').load($(this).attr('href'));
+				})
+			})
+		</script>	  
 	</head>
 <body>
 <div class="search">
 
-	#sform ("action=searchBook")
-		#stextfield ("label=Search" "name=key")
+	#sform ("action=searchBook" "method=get")
+		#stextfield ("name=key") 
+		#shidden ("name=page" "value=1")
 		#ssubmit ("value=Search")
     #end
     
@@ -32,17 +42,22 @@
 		#end
 		</table>
 	</div>
+	#if ($nextPage)
+		<div id="addPage">
+			<a href=/laLlibreria/searchBookAjax?key=${key}&page=${nextPage}>Add Page ${nextPage}</a>
+		</div>
+	#end
 #else
 	<h1> No hi ha resultats </h1>
 #end
 <p>
 <a href=/laLlibreria>Inici</a> 
 #if ($results)
-	#if ($page > 1)
-		<a href=/laLlibreria/previousSearch.action?key=${key}>Previous</a>
+	#if ($previousPage)
+		<a href=/laLlibreria/searchBook?key=${key}&page=${previousPage}>Previous</a>
 	#end
-	#if ($page < $totalPages)
-		<a href=/laLlibreria/nextSearch.action?key=${key}>Next</a>
+	#if ($nextPage)
+		<a href=/laLlibreria/searchBook?key=${key}&page=${nextPage}>Next</a>
 	#end
 #end
 </body>

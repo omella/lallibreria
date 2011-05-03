@@ -1,0 +1,19 @@
+
+#if ($results)
+	<table border="1" color="red">
+		#foreach ($result in $results)
+		<tr>
+			<td>
+				<h1><a href=/laLlibreria/showBook.action?id=${result.isbn}> ${result.titol}</a></h1>
+				<h2>${result.autor}</h2>
+				<br>
+			</td>
+		</tr>
+		#end
+	</table>
+	#if ($nextPage)
+		<div id="addPage">
+			<a href=/laLlibreria/searchBookAjax?key=${key}&page=${nextPage}>Add Page ${nextPage}</a>
+		</div>
+	#end
+#end
