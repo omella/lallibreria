@@ -21,15 +21,15 @@
 		<action name="listUser" method="list" class="com.vaannila.web.UserAction">
 			<result name="success">/web/register.jsp</result>
 		</action>
+		
 		<action name="searchBook" method="list" class="com.vaannila.web.SearchAction">
 			<result name="success" type="velocity">/WEB-INF/templates/result.vm</result>
 		</action>
-		<action name="nextSearch" method="next" class="com.vaannila.web.SearchAction">
-			<result name="success" type="velocity">/WEB-INF/templates/result.vm</result>
+		
+		<action name="searchBookAjax" method="list" class="com.vaannila.web.SearchAction">
+			<result name="success" type="velocity">/WEB-INF/templates/resultAjax.vm</result>
 		</action>
-		<action name="previousSearch" method="previous" class="com.vaannila.web.SearchAction">
-			<result name="success" type="velocity">/WEB-INF/templates/result.vm</result>
-		</action>
+		
 		<action name="showBook" method="show" class="com.vaannila.web.BookAction">
 			<result name="success" type="velocity">/WEB-INF/templates/infoLlibre.vm</result>
 		</action>
