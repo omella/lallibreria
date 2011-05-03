@@ -1,22 +1,13 @@
 package com.vaannila.web;
 
-
-
-import java.util.ArrayList;
 import java.util.Date;
-
-import java.util.List;
-
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
-
 import com.vaannila.dao.MailDAO;
 import com.vaannila.dao.MailDAOImpl;
-
-
-import com.vaannila.domain.Comentari;
 import com.vaannila.domain.Mail;
+import com.vaannila.ws.GestorMail;
 
 
 
@@ -36,6 +27,16 @@ public class ComandaAction extends ActionSupport implements ModelDriven<Mail>{
 		mailDAO.saveMail(this.mail);
 		
 		//FALTARIA ENVIAR EL MAIL
+		String to = "mrodon536@gmail.com";
+        
+        StringBuffer body = new StringBuffer("Això es una prova");
+        //body.append(nomEsdeveniment);
+        //body.append("' ha estat clausurat.\n\tCordialment,\n\tEl Planificador de PROP.\n");
+
+        StringBuffer subject = new StringBuffer("PROVA");
+
+		GestorMail.getInstancia().enviarMail(to, subject.toString(), body.toString());
+		
 		return SUCCESS;
 	}
 	@Override

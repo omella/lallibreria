@@ -1,5 +1,6 @@
 package com.vaannila.web;
 
+import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -12,6 +13,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
+import org.apache.struts2.interceptor.CookiesAware;
 import org.apache.struts2.interceptor.SessionAware;
 
 import org.opensocial.*;
@@ -23,13 +25,14 @@ import org.opensocial.services.*;
 /**
  * <p> Validate a user login. </p>
  */
-public  class LoginAction extends ActionSupport implements SessionAware {
+public  class LoginAction extends ActionSupport implements SessionAware, CookiesAware {
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 6637502602358242851L;
 	static final Logger logger = Logger.getLogger(LoginAction.class);
 	String error = null;
+	Map<String, String> cookiesMap;
 
 	public String getError() {
 		return error;
@@ -39,33 +42,49 @@ public  class LoginAction extends ActionSupport implements SessionAware {
 		this.error = error;
 	}
  
-	public String execute(HttpServletRequest req) throws Exception {
+	public String execute(){
 		Provider provid = new FriendConnectProvider();
 		//AuthScheme scheme2 = new OAuth2LeggedScheme("*:06834717057300479661", "cabs_uiKs-E=");
 		
 		
 		String siteId = "06834717057300479661";
 		String token = null;
+		 Map session = ActionContext.getContext().getSession();
+		 if (cookiesMap.containsKey("fcauth" + siteId))
+		 {
+			 token = cookiesMap.get("fcauth06834717057300479661");
+		 }
+		if (token!=null){
+			AuthScheme scheme = new FCAuthScheme(token);
+			
+			Client client = new Client(provid, scheme);
+			
+			Request request = PeopleService.getViewer();
+			Response response;
+			try {
+				response = client.send(request);
+				Person viewer = response.getEntry();
+				
+				this.username=viewer.getDisplayName();
+			} catch (RequestException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		
-		req.getSession();
-		for (Cookie cookie : req.getCookies()) {
-		  if (cookie.getName().equals("fcauth" + siteId)) {
-		    token = cookie.getValue();
-		    break;
-		  }
 		}
-		AuthScheme scheme = new FCAuthScheme(token);
+		if(this.username == null){
+            this.error = "Has possat la pota! Mira aqui dalt i torna-ho a intentar!";
+            return ERROR;
+	    }
 		
-		Client client = new Client(provid, scheme);
-		
-		Request request = PeopleService.getViewer();
-		Response response = client.send(request);
-		
-		Person viewer = response.getEntry();
-		
-		username=viewer.getDisplayName();
-		this.error = username + " = nom d'usuari de google?";
-		return error;
+	    else{
+	      session.put("username", this.username);
+	      //session.remove("sessionLoginFail");
+	      return SUCCESS;
+	    }
 		/*
 		DOMConfigurator.configure("/laLlibreria/workspace/laLlibreria/src/log4j.xml");
 		logger.debug("Sample debug message");
@@ -74,16 +93,7 @@ public  class LoginAction extends ActionSupport implements SessionAware {
 		logger.error("Sample error message");
 		logger.fatal("Sample fatal message");
         System.out.println("Validating login");
-	    if(!getUsername().equals("Admin") || !getPassword().equals("Admin")){
-	            this.error = "Has possat la pota! Mira aqui dalt i torna-ho a intentar!";
-	            return ERROR;
-	    }
-	    else{
-	      Map session = ActionContext.getContext().getSession();
-	      session.put("username", getUsername());
-	      //session.remove("sessionLoginFail");
-	      return SUCCESS;
-	    }
+
 	    */
   }
 
@@ -145,6 +155,12 @@ public  class LoginAction extends ActionSupport implements SessionAware {
 	@Override
 	public void setSession(Map<String, Object> arg0) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setCookiesMap(Map arg0) {
+		this.cookiesMap = arg0;
 		
 	}
 

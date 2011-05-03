@@ -3,9 +3,9 @@
 <title>Login Success</title>
 </head>
 <body>
-<p align="center"><font color="#000080" size="5">Login correcte!</font></p>
+<p align="center"><font color="#000080" size="5">Login correcte! #if($username) <h1>$username</h1> #else <h1> No hi ha username</h1> #end </font></p>
 <p>
-<a href=/laLlibreria/showLogin.action> <- Enrere</a>
+<a href=/laLlibreria/alexLogin.action> <- Enrere</a>
 <p>
 </body>
 </html>

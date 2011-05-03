@@ -52,9 +52,12 @@
 			<result>/WEB-INF/templates/loginsuccess.vm</result>
 		</action>
 		
+		<action name="enviarMail" method="add" class="com.vaannila.web.ComandaAction">
+			<result name="success" type="velocity">/WEB-INF/templates/index.vm</result>
+		</action>
 		
-		<action name="alexLogin">
-			<result>/WEB-INF/templates/alex_login.vm</result>
+		<action name="alexLogin" class="com.vaannila.web.LoginAction">
+			<result type="velocity">/WEB-INF/templates/loginsuccess.vm</result>
 		</action>
 		
 		<action name="index" method="home" class="com.vaannila.web.HomeAction">
