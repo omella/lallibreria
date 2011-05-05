@@ -42,6 +42,16 @@
 			<result name="success" type="velocity">/WEB-INF/templates/infoLlibre.vm</result>
 		</action>
 		
+		<action name="addCupo" method="add" class="com.vaannila.web.HomeLlibreriaAction">
+			<result name="success" type="velocity">/WEB-INF/templates/homeLlibreria.vm</result>
+		</action>
+		
+		<action name="doLoginLlibreria" method="list" class="com.vaannila.web.HomeLlibreriaAction">
+			<result name="input" type="velocity">/WEB-INF/templates/homeLlibreria.vm</result>
+			<result name="error" type="velocity">/WEB-INF/templates/homeLlibreria.vm</result>
+			<result type="velocity">/WEB-INF/templates/homeLlibreria.vm</result>
+		</action>
+		
 		<action name="showLogin">
 			<result type="velocity">/WEB-INF/templates/index.vm</result>
 		</action>
@@ -51,12 +61,7 @@
 			<result name="error" type="velocity">/WEB-INF/templates/index.vm</result>
 			<result type="velocity">/WEB-INF/templates/loginsuccess.vm</result>
 		</action>
-		
-		<action name="doLoginLlibreria" method="list" class="com.vaannila.web.HomeLlibreriaAction">
-			<result name="input" type="velocity">/WEB-INF/templates/homeLlibreria.vm</result>
-			<result name="error" type="velocity">/WEB-INF/templates/homeLlibreria.vm</result>
-			<result type="velocity">/WEB-INF/templates/homeLlibreria.vm</result>
-		</action>
+
 		
 		<action name="enviarMail" method="send" class="com.vaannila.web.ComandaAction">
 			<result name="success" type="velocity">/WEB-INF/templates/infoLlibre.vm</result>

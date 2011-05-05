@@ -54,6 +54,16 @@ public class HomeLlibreriaAction extends ActionSupport implements ModelDriven<Cu
 		return SUCCESS;
 	}
 
+	public String add() {
+		Map session = ActionContext.getContext().getSession();
+		String nomLlibreria = (String) session.get("username");
+		
+		this.nouCupo.setLlibreria("PonNomLlibreria");
+		cupoDAO.saveCupo(this.nouCupo);
+		llistaCupons = cupoDAO.listCupoLlibreria(0);
+		return SUCCESS;
+	}
+	
 	@Override
 	public Cupo getModel() {
 		return this.nouCupo;
