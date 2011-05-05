@@ -4,8 +4,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
-
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
 
 import com.googlecode.sslplugin.annotation.Secured;
 import com.opensymphony.xwork2.ActionContext;
@@ -13,8 +12,9 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
-import org.apache.struts2.interceptor.CookiesAware;
+import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.SessionAware;
+
 
 import org.opensocial.*;
 import org.opensocial.auth.*;
@@ -25,14 +25,14 @@ import org.opensocial.services.*;
 /**
  * <p> Validate a user login. </p>
  */
-public  class LoginAction extends ActionSupport implements SessionAware, CookiesAware {
+public  class LoginAction extends ActionSupport implements SessionAware, ServletRequestAware {
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 6637502602358242851L;
 	static final Logger logger = Logger.getLogger(LoginAction.class);
 	String error = null;
-	Map<String, String> cookiesMap;
+	protected HttpServletRequest servletRequest;
 
 	public String getError() {
 		return error;
@@ -49,11 +49,19 @@ public  class LoginAction extends ActionSupport implements SessionAware, Cookies
 		
 		String siteId = "06834717057300479661";
 		String token = null;
-		 Map session = ActionContext.getContext().getSession();
-		 if (cookiesMap.containsKey("fcauth" + siteId))
-		 {
-			 token = cookiesMap.get("fcauth06834717057300479661");
-		 }
+		Map session = ActionContext.getContext().getSession();
+
+		
+		System.out.println("token: " + token + "\n");
+	    for(Cookie c : servletRequest.getCookies()) {
+	    	if (c.getName().equals("fcauth" + siteId)) {
+			    token = c.getValue();
+			    break;
+	    	}	
+	    }
+
+		System.out.println("token: " + token + "\n");
+		
 		if (token!=null){
 			AuthScheme scheme = new FCAuthScheme(token);
 			
@@ -159,9 +167,9 @@ public  class LoginAction extends ActionSupport implements SessionAware, Cookies
 	}
 
 	@Override
-	public void setCookiesMap(Map arg0) {
-		this.cookiesMap = arg0;
-		
+	public void setServletRequest(HttpServletRequest servletRequest) {
+	    this.servletRequest = servletRequest;
 	}
+
 
 }
