@@ -1,7 +1,10 @@
 package com.vaannila.web;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import org.apache.catalina.util.ParameterMap;
 import org.apache.struts2.interceptor.SessionAware;
@@ -25,32 +28,47 @@ public class ComandaAction extends ActionSupport implements ModelDriven<Mail>, S
 	
 	private MailDAO mailDAO = new MailDAOImpl();
 
-	private String id = null;
+	private String idLlibre = null;
 	
+	public String getIdLlibre() {
+		return idLlibre;
+	}
+
+	public void setIdLlibre(String idLlibre) {
+		this.idLlibre = idLlibre;
+	}
+
 	private String num = null;
 	
 	private String msg = null;
 	
-	private Map Session;
+	private Map session;
+	
+	private HashMap<String,String> bookList = new HashMap<String,String>();
 	
 	@SuppressWarnings("unchecked")
 	public String add()
 	{
-		this.Session = ActionContext.getContext().getSession();
-		ParameterMap<String,String> comanda = (ParameterMap<String, String>) Session.get("comanda");
+		this.session = ActionContext.getContext().getSession();
+		
+		this.bookList=(HashMap<String,String>)this.session.get("bookList");
+		Vector<ParameterMap<String,String> > comanda = (Vector<ParameterMap<String, String> >) session.get("comanda");
 		if (comanda == null)
 		{
-			comanda = new ParameterMap<String,String>();
+			comanda = new Vector <ParameterMap<String,String> >();
 		}
-		comanda.put("isbn", this.id);
-		comanda.put("num", this.num);
+		ParameterMap<String,String> llibre = new ParameterMap <String, String>();
+		llibre.put("isbn", this.idLlibre);
+		llibre.put("num", this.num);
+		comanda.add(llibre);
 		
-		Session.put("comanda",comanda);
+		session.put("comanda",comanda);
 		this.msg = "S'ha afegit la petició a la teva comanda." +
 				" Prem ENVIAR perquè la llibreria rebi la comanda";
 		return SUCCESS;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public String send()
 	{
 		//FALTARIA FIRMA DIGITALMENT EL COS DEL MAIL
@@ -58,9 +76,11 @@ public class ComandaAction extends ActionSupport implements ModelDriven<Mail>, S
 		mailDAO.saveMail(this.mail);
 		
 		//FALTARIA ENVIAR EL MAIL
+		//String username = this.session.get("username");
+		//User usuari = getUser(username);
 		String to = "mrodon536@gmail.com";
-		Map Session = ActionContext.getContext().getSession();
-		ParameterMap<String,String> comanda = (ParameterMap<String, String>) Session.get("comanda");
+		Map session = ActionContext.getContext().getSession();
+		Vector<ParameterMap<String,String> > comanda = (Vector<ParameterMap<String, String> >) session.get("comanda");
 		
         //StringBuffer body = new StringBuffer("L'enviament de mails funciona correctament");
         //body.append(nomEsdeveniment);
@@ -76,21 +96,13 @@ public class ComandaAction extends ActionSupport implements ModelDriven<Mail>, S
         {
         	GestorMail.getInstancia().enviarMail(to, subject.toString(), comanda.toString());
         }
+        this.session.put("comanda", null);
 		return SUCCESS;
 	}
-	@Override
 	public Mail getModel() {
 		return mail;
 	}
 	
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
 	public String getNum() {
 		return num;
 	}
@@ -99,9 +111,8 @@ public class ComandaAction extends ActionSupport implements ModelDriven<Mail>, S
 		this.num = num;
 	}
 
-	@Override
 	public void setSession(Map<String, Object> arg0) {
-		// TODO Auto-generated method stub
+		this.session = arg0;
 		
 	}
 

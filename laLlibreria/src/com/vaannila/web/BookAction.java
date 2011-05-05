@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.struts2.interceptor.SessionAware;
+
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -26,7 +28,7 @@ import com.vaannila.domain.Vist;
 
 
 
-public class BookAction extends ActionSupport implements ModelDriven<Comentari>{
+public class BookAction extends ActionSupport implements ModelDriven<Comentari>, SessionAware{
 
 	private static final long serialVersionUID = -9113041734859241965L;
 	private HashMap<String,String> bookList = new HashMap<String,String>();
@@ -43,6 +45,8 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>{
 	private VistDAO vistDAO = new VistDAOImpl();
 	private String id = null;
 	private Double punts;
+	
+	private Map session;
 	
 
 
@@ -138,6 +142,8 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>{
 	}
 
 	public void setBookList(HashMap<String, String> bookList) {
+		this.session = ActionContext.getContext().getSession();
+		this.session.put("bookList",bookList);
 		this.bookList = bookList;
 	}
 
@@ -186,6 +192,12 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>{
 	@Override
 	public Comentari getModel() {
 		return this.comment;
+	}
+
+	@Override
+	public void setSession(Map<String, Object> arg0) {
+		this.session=arg0;
+		
 	}
 
 }
