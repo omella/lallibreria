@@ -96,7 +96,7 @@ public class ComandaAction extends ActionSupport implements ModelDriven<Mail>, S
         else
         {
         	GestorMail.getInstancia().enviarMail(to, subject.toString(), comanda.toString());
-        	this.msg = "S'ha enviat correctament la teva comanda. Aquests són els detalls de la comanda:<br>";
+        	this.msg = "S'ha enviat correctament. Aquests són els detalls de la comanda:<br>";
         	for (int i = 0; i < comanda.size();++i)
         	{
         		this.msg = this.msg + "<br>ISBN " + (i+1) + " = " + comanda.get(i).get("isbn") + "---> Quantitat = " + comanda.get(i).get("num");
