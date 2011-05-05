@@ -9,11 +9,15 @@
      			<td>
      				Primera columna
      			</td>
-     		</tr>
-     		<tr>
      			<td>
      				Segunda Columna
      		 	</td>
+     			<td>
+     				Segunda Columna
+     		 	</td>
+     		</tr>
+     		<tr>
+
      		 	<td>
      		 		Segunda fila, Segunda Columna
      		 	</td>
