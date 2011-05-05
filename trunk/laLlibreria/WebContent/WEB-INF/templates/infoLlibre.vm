@@ -36,12 +36,6 @@
 			Sigues el primer en votar
 		#end
 		</center>
-		
-		#sform ("action=addBookComanda")
-			#stextfield ("label=Quantitat: " "name=num" "value=0")
-			#shidden ("name=idLlibre" "value=$bookList.isbn")
-			#ssubmit ("value=Afegir")
-    	#end
 	</div>
 	
 	Afegeix el teu comentari
@@ -69,7 +63,14 @@
 		<h4> No hi ha comentaris per aquest llibre. Sigues el primer en opinar. </h4>
 	#end
 	
-	Prem enviar per realitzar la teva comanda
+	<br>
+	Selecciona la quantitat i afegeix la comanda al teu carret
+	#sform ("action=addBookComanda")
+		#stextfield ("label=Quantitat: " "name=num" "value=0")
+		#shidden ("name=idLlibre" "value=$bookList.isbn")
+		#ssubmit ("value=Afegir")
+    #end
+	Envia la teva comanda
 	#sform ("action=enviarMail")
 		#ssubmit ("value=Enviar")
 	#end
