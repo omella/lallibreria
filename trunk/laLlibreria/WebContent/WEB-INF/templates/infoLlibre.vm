@@ -41,7 +41,6 @@
 	Afegeix el teu comentari
 	#sform ("action=addComentari")
 		#stextarea ("name=text" "cols=40")
-		#shidden ("name=isbn" "value=$bookList.isbn")
 		#ssubmit ("value=Publicar")
 	#end
 	

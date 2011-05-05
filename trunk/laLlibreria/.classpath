@@ -15,6 +15,7 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/struts2-ssl-plugin-1.2.1.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mail.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jdom.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

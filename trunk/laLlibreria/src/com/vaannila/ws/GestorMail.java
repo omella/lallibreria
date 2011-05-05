@@ -1,5 +1,6 @@
 package com.vaannila.ws;
 
+import java.util.Date;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.Session;
@@ -39,6 +40,8 @@ public class GestorMail {
       try {
           message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
           message.setFrom(new InternetAddress(username));
+          message.setContent(body,"text/xml");
+          //message.setFileName("comanda"+new Date()+".xml");
           message.setText(body);
           message.setSubject(subject);
           Transport t = session.getTransport("smtp");
