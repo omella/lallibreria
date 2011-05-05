@@ -37,8 +37,8 @@
 		
 		#sform ("action=addBookComanda")
 		#stextfield ("label=Quantitat: " "name=num" "value=0")
-		#shidden ("name=id" "value=$bookList.isbn")
-		#ssubmit ("value=Search")
+		#shidden ("name=idLlibre" "value=$bookList.isbn")
+		#ssubmit ("value=Afegir")
     #end
 	</div>
 #else
