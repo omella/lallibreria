@@ -8,7 +8,7 @@
    <div id=page>
      <div id=top></div>
      <div id=leftContentLlibreria>
-     	<table>
+     	<table id="cupons">
      		<tr>
      			<td>
      				Selecciona
@@ -24,7 +24,7 @@
      		 	</td>
      		</tr>
      		#foreach ($cup in $llistaCupons)
-	     		<tr>
+	     		<tr class="alt">
 	     		 	<td>
 	     		 		<input type="checkbox" name="checkbox0${cup.id}">
 	     		 	</td>
@@ -58,7 +58,14 @@
         	#end
      	</div>
      	<div id=delCup>
-     		TODO: Eliminar cupones seleccionados desde los checkbox
+     		#if ($error)
+				<p><font color="red">${error}</font></p>
+			#end
+			
+     		#sform ("action=delCupo")
+				
+				#ssubmit ("value=Elimina Cupo")
+        	#end
      	</div>
      	
      </div>
