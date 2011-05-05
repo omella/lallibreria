@@ -71,7 +71,7 @@
 		</action>
 		
 		<action name="index" method="home" class="com.vaannila.web.HomeAction">
-			<result type="velocity">/WEB-INF/templates/index.vm</result>
+			<result type="velocity"> /WEB-INF/templates/index.vm</result>
 		</action>
 		
 		
