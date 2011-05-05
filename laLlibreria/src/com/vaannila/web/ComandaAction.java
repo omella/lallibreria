@@ -63,8 +63,8 @@ public class ComandaAction extends ActionSupport implements ModelDriven<Mail>, S
 		comanda.add(llibre);
 		
 		session.put("comanda",comanda);
-		this.msg = "S'ha afegit la petició a la teva comanda." +
-				" Prem ENVIAR perquè la llibreria rebi la comanda";
+		this.msg = "S'ha afegit la comanda al teu carret de la compra." +
+				" Prem ENVIAR per comfirmar l'enviament de la comanda";
 		return SUCCESS;
 	}
 	
@@ -90,11 +90,18 @@ public class ComandaAction extends ActionSupport implements ModelDriven<Mail>, S
         StringBuffer subject = new StringBuffer("PROVA");
         if (comanda == null)
         {
-        	GestorMail.getInstancia().enviarMail(to, subject.toString(), "ERROR");
+        	//GestorMail.getInstancia().enviarMail(to, subject.toString(), "ERROR");
+        	this.msg = "S'ha produït un error al afegir la comanda al carret de la compra. Disculpeu les molèsties";
         }
         else
         {
         	GestorMail.getInstancia().enviarMail(to, subject.toString(), comanda.toString());
+        	this.msg = "S'ha enviat correctament la teva comanda. Aquests són els detalls de la comanda:<br>";
+        	for (int i = 0; i < comanda.size();++i)
+        	{
+        		this.msg = this.msg + "<br>ISBN " + (i+1) + " = " + comanda.get(i).get("isbn") + "---> Quantitat = " + comanda.get(i).get("num");
+        	}
+
         }
         this.session.put("comanda", null);
 		return SUCCESS;
@@ -109,6 +116,22 @@ public class ComandaAction extends ActionSupport implements ModelDriven<Mail>, S
 
 	public void setNum(String num) {
 		this.num = num;
+	}
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
+	public HashMap<String, String> getBookList() {
+		return bookList;
+	}
+
+	public void setBookList(HashMap<String, String> bookList) {
+		this.bookList = bookList;
 	}
 
 	public void setSession(Map<String, Object> arg0) {
