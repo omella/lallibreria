@@ -83,7 +83,7 @@ function addLibreriaMapa(posicionCliente){
      					"Av. Colon, Tortosa"] 
      					
     if (geocoder2) {
-    
+        var i;
       	for (i=0;i<arrayAddress.length;i++){
       	   geocoder2.geocode( { 'address': arrayAddress[i]}, function(results2, status2) {
       	   //INICIO calculo distancia
@@ -118,11 +118,10 @@ function addLibreriaMapa(posicionCliente){
 
 
 			//FIN calculo distancia
-			alert(distance);
+			//alert(distance);
 			if(distance < 10000 && distance > -1){
 			    
 		        if (status2 == google.maps.GeocoderStatus.OK) {
-		          
 		          var marker2 = new google.maps.Marker({
 		              map: map, 
 		              position: results2[0].geometry.location
@@ -132,7 +131,7 @@ function addLibreriaMapa(posicionCliente){
 		        }
 		    }
 	      });
-	      distance = -1; //volvemos a poner distance a -1, para que funcione con el siguiente
+	      //distance = -1; //volvemos a poner distance a -1, para que funcione con el siguiente
 		} 
     }
 }
