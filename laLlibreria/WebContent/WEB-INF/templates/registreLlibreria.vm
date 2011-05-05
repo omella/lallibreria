@@ -26,9 +26,8 @@
 				<p><font color="red">${error}</font></p>
 			#end
 			
-     		#sform ("action=doLogin")
-				#stextfield ("label=Usuario"  "name=username")
-				#spassword  ("label=Password" "name=password")
+     		#sform ("action=doLoginLlibreria")
+				
 				#ssubmit ("value=Login")
         	#end
         </div>

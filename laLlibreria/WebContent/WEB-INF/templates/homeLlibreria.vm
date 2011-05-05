@@ -1,0 +1,30 @@
+#parse("WEB-INF/templates/header.vm")
+
+<body>
+   <div id=page>
+     <div id=top></div>
+     <div id=leftContent>
+     	<table>
+     		<tr>
+     			<td>
+     				Primera columna
+     			</td>
+     		</tr>
+     		<tr>
+     			<td>
+     				Segunda Columna
+     		 	</td>
+     		 	<td>
+     		 		Segunda fila, Segunda Columna
+     		 	</td>
+     		</tr>
+     	</table>
+     </div>
+     <div id=rightContent></div>
+     <div id=foot>
+     	#parse( "WEB-INF/templates/pie.vm" )
+     </div>
+   </div>
+
+ </body>
+</html>
