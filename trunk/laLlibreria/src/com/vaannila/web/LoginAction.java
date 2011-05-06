@@ -1,6 +1,7 @@
 package com.vaannila.web;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -9,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import com.googlecode.sslplugin.annotation.Secured;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.restfb.*;
+import com.restfb.FacebookClient.AccessToken;
+import com.restfb.types.User;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
@@ -43,34 +47,40 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 	}
  
 	public String execute(){
-		Provider provid = new FriendConnectProvider();
+		Provider Gprovid = new FriendConnectProvider();
 		//AuthScheme scheme2 = new OAuth2LeggedScheme("*:06834717057300479661", "cabs_uiKs-E=");
 		
-		
-		String siteId = "06834717057300479661";
+		boolean google = false;
+		String GsiteId = "06834717057300479661";
+		String FsiteId = "177068509007802";
+		String FsiteSec = "af6897f5a094c105473a317ed466cc5c";
 		String token = null;
 		Map session = ActionContext.getContext().getSession();
 
-		
-		System.out.println("token: " + token + "\n");
 	    for(Cookie c : servletRequest.getCookies()) {
-	    	if (c.getName().equals("fcauth" + siteId)) {
+	    	if (c.getName().equals("fcauth" + GsiteId)) {
 			    token = c.getValue();
+			    google = true;
 			    break;
-	    	}	
+	    	}
+	    	if (c.getName().equals("fbs_" + FsiteId)) {
+			    token = c.getValue();
+				System.out.println("EL meu token ("+token+")");
+				token = token.substring(0, 6);
+				System.out.println("EL meu token ("+token+")");
+			    break;
+	    	}
 	    }
-
-		System.out.println("token: " + token + "\n");
-		
-		if (token!=null){
+	    
+		if (token!=null && google){
 			AuthScheme scheme = new FCAuthScheme(token);
 			
-			Client client = new Client(provid, scheme);
+			Client Gclient = new Client(Gprovid, scheme);
 			
 			Request request = PeopleService.getViewer();
 			Response response;
 			try {
-				response = client.send(request);
+				response = Gclient.send(request);
 				Person viewer = response.getEntry();
 				
 				this.username=viewer.getDisplayName();
@@ -82,6 +92,17 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 				e.printStackTrace();
 			}
 		
+		}
+		if (token!=null && !google){
+			List <AccessToken> lista =  new DefaultFacebookClient().convertSessionKeysToAccessTokens(FsiteId,FsiteSec, token);
+			System.out.println("EL meu token ("+token+")");
+			System.out.println(" es: " + lista.get(0).getAccessToken().toString());
+			
+			FacebookClient facebookClient = new DefaultFacebookClient(lista.get(0).getAccessToken());
+
+			User user = facebookClient.fetchObject("me", User.class);
+			this.username=user.getName();
+			System.out.println("EL meu username es: " + this.username);
 		}
 		if(this.username == null){
             this.error = "Has possat la pota! Mira aqui dalt i torna-ho a intentar!";
