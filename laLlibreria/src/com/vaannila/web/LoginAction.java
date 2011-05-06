@@ -4,9 +4,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-
 import com.googlecode.sslplugin.annotation.Secured;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -25,6 +22,9 @@ import org.opensocial.auth.*;
 import org.opensocial.models.*;
 import org.opensocial.providers.*;
 import org.opensocial.services.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Cookie;
 
 /**
  * <p> Validate a user login. </p>
@@ -66,8 +66,6 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 	    	if (c.getName().equals("fbs_" + FsiteId)) {
 			    token = c.getValue();
 				System.out.println("EL meu token ("+token+")");
-				token = token.substring(0, 6);
-				System.out.println("EL meu token ("+token+")");
 			    break;
 	    	}
 	    }
@@ -94,7 +92,7 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 		
 		}
 		if (token!=null && !google){
-			List <AccessToken> lista =  new DefaultFacebookClient().convertSessionKeysToAccessTokens(FsiteId,FsiteSec, token);
+			List <AccessToken> lista =  new DefaultFacebookClient().convertSessionKeysToAccessTokens(FsiteId,FsiteSec,"sessionKey1");
 			System.out.println("EL meu token ("+token+")");
 			System.out.println(" es: " + lista.get(0).getAccessToken().toString());
 			
