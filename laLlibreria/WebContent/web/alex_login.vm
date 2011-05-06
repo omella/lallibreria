@@ -50,6 +50,7 @@
 		function login(){
 			FB.api('/me', function(response) {
 				alert('You have successfully logged in, with facebook, '+response.name+"!");
+			   	window.location = "alexLogin.action"
 			});
 		}
 		function logout(){
@@ -131,21 +132,7 @@
       }
     };
     </script>
-	<div id="profile">
-	
-	#if ($error) 
-		$error
-	#else
-		No hi ha error
-	#end
-	
-	#if ($username)
-		$username
-	#else
-		No hi ha username
-	#end
-	
-	</div>  
+	<div id="profile"></div>  
 	
   </body>
 </html>
