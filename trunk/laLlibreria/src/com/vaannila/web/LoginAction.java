@@ -9,6 +9,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.restfb.*;
 import com.restfb.FacebookClient.AccessToken;
+import com.restfb.json.JsonObject;
 import com.restfb.types.User;
 
 import org.apache.log4j.Logger;
@@ -37,7 +38,7 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 	static final Logger logger = Logger.getLogger(LoginAction.class);
 	String error = null;
 	protected HttpServletRequest servletRequest;
-
+	private FacebookClient facebookClient;  
 	public String getError() {
 		return error;
 	}
@@ -53,7 +54,6 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 		boolean google = false;
 		String GsiteId = "06834717057300479661";
 		String FsiteId = "177068509007802";
-		String FsiteSec = "af6897f5a094c105473a317ed466cc5c";
 		String token = null;
 		Map session = ActionContext.getContext().getSession();
 
@@ -92,12 +92,8 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 		
 		}
 		if (token!=null && !google){
-			List <AccessToken> lista =  new DefaultFacebookClient().convertSessionKeysToAccessTokens(FsiteId,FsiteSec,"sessionKey1");
-			System.out.println("EL meu token ("+token+")");
-			System.out.println(" es: " + lista.get(0).getAccessToken().toString());
-			
-			FacebookClient facebookClient = new DefaultFacebookClient(lista.get(0).getAccessToken());
-
+			token = token.replaceAll("%7C", "|").substring(13,112);
+			facebookClient = new DefaultFacebookClient(token);  
 			User user = facebookClient.fetchObject("me", User.class);
 			this.username=user.getName();
 			System.out.println("EL meu username es: " + this.username);
