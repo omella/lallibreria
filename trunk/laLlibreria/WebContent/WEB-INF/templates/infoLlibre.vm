@@ -1,18 +1,6 @@
-## Velocity Template.
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-    <head>
-        <title>${bookList.titol}</title>		  
-	</head>
+#parse("WEB-INF/templates/header.vm")
 <body>
-<div class="search">
-
-	#sform ("action=searchBook")
-		#stextfield ("label=Search" "name=key")
-		#ssubmit ("value=Search")
-    #end
-    
-</div>
+<a href=/laLlibreria>Inici</a>
 #if ($bookList)
 	<div class="content">
 		
@@ -26,7 +14,6 @@
 		#sform ("action=addPuntuacio")
 			#shidden ("name=id" "value=$bookList.isbn")
 			#sradio ("name=punts" "list={'1','2','3','4','5'}")
-
 			#ssubmit ("value=Votar")
 		#end
 		
@@ -37,43 +24,47 @@
 		#end
 		</center>
 	</div>
-	
-	Afegeix el teu comentari
-	#sform ("action=addComentari")
-		#stextarea ("name=text" "cols=40")
-		#ssubmit ("value=Publicar")
-	#end
-	
-	#if ($commentList)
-		Comentaris:
-		<table border="1">
-		#foreach ($comment in $commentList)
-			<tr>
-				<td>
-					<b>${comment.username}</b> <i>${comment.data}</i>
-					<p>
-					${comment.text}
-					</p>
-				</td>
-			</tr>
+	<div id=leftContent>
+		Afegeix el teu comentari
+		#sform ("action=addComentari")
+			#stextarea ("name=text" "cols=40")
+			#ssubmit ("value=Publicar")
 		#end
-		</table>
-	#else
-		<h4> No hi ha comentaris per aquest llibre. Sigues el primer en opinar. </h4>
-	#end
-	
-	<br>
-	Selecciona la quantitat i afegeix la comanda al teu carret
-	#sform ("action=addBookComanda")
-		#stextfield ("label=Quantitat: " "name=num" "value=0")
-		#shidden ("name=idLlibre" "value=$bookList.isbn")
-		#ssubmit ("value=Afegir")
-    #end
-	Envia la teva comanda
-	#sform ("action=enviarMail")
-		#ssubmit ("value=Enviar")
-	#end
-	
+		
+		#if ($commentList)
+			Comentaris:
+			<table border="1">
+			#foreach ($comment in $commentList)
+				<tr>
+					<td>
+						<b>${comment.username}</b> <i>${comment.data}</i>
+						<p>
+						${comment.text}
+						</p>
+					</td>
+				</tr>
+			#end
+			</table>
+		#else
+			<h4> No hi ha comentaris per aquest llibre. Sigues el primer en opinar. </h4>
+		#end
+	</div>
+	<div id=rightContentWhite>
+		<div id=comanda>
+		<br/>
+			Selecciona la quantitat i afegeix la comanda al teu carret
+			#sform ("action=addBookComanda")
+				#stextfield ("label=Quantitat: " "name=num" "value=0")
+				#shidden ("name=idLlibre" "value=$bookList.isbn")
+				#ssubmit ("value=Afegir")
+		    #end
+			Envia la teva comanda
+			#sform ("action=enviarMail")
+				#ssubmit ("value=Enviar")
+			#end
+			<br/>
+		</div>
+	</div>
 
 #else
 	<h1> No hi ha resultats </h1>
@@ -84,8 +75,6 @@
 #end
 
 
-
-<p>
-<a href=/laLlibreria>Inici</a>
+#parse("WEB-INF/templates/pie.vm")
 </body>
 </html>
