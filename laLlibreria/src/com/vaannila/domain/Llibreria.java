@@ -18,6 +18,7 @@ public class Llibreria {
 	private String phone;
 	private String place;
 	private String cif;
+	private String password;
 
 	@Id
 	@GeneratedValue
@@ -68,5 +69,13 @@ public class Llibreria {
 	}
 	public void setCif(String cif) {
 		this.cif = cif;
+	}
+	
+	@Column(name="LLIBRERIA_PASSWORD")
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getPassword() {
+		return password;
 	}
 }

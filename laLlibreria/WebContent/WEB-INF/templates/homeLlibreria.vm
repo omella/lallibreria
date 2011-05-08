@@ -6,8 +6,15 @@
 
 <body>
    <div id=page>
-     <div id=top></div>
-     <div id=leftContentLlibreria>
+     <div id=top>
+        <div id=logo>
+        hola
+        </div>
+        <div id=buscador>
+        	<h1>Panel de Gesti&oacute;</h1>
+        </div>
+     </div>
+     <div id=leftContentHomeLlibreria>
      	<table id="cupons">
      		<tr>
      			<td>
@@ -41,12 +48,11 @@
 	        #end
      	</table>
      </div>
-     <div id=rightContentLlibreria>
-        <div id=titol>
-        	<h1>Panel de Gesti&oacute;</h1>
-        </div>
+     <div id=rightContentHomeLlibreria>
+
         
      	<div id=addCup>
+     	    <h1>Nou Cupo</h1>
      		#if ($error)
 				<p><font color="red">${error}</font></p>
 			#end
@@ -58,6 +64,7 @@
         	#end
      	</div>
      	<div id=delCup>
+     	    <h1>Eliminar Cupo</h1>
      		#if ($error)
 				<p><font color="red">${error}</font></p>
 			#end

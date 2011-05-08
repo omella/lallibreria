@@ -15,6 +15,7 @@
 				#stextfield ("label=Telefono"  "name=phone")
 				#stextfield ("label=Direccion"  "name=place")
 				#stextfield ("label=CIF"  "name=cif")
+				#spassword  ("label=Password" "name=password")
 				#ssubmit ("value=Enviar")
         	#end
 
@@ -27,7 +28,8 @@
 			#end
 			
      		#sform ("action=doLoginLlibreria")
-				
+     		    #stextfield ("label=E-mail"  "name=mail")
+				#spassword  ("label=Password" "name=password")
 				#ssubmit ("value=Login")
         	#end
         </div>
