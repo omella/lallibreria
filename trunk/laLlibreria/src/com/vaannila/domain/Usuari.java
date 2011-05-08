@@ -7,16 +7,17 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="USER")
-public class User {
+@Table(name="USUARI")
+public class Usuari {
 
 	private Long id;
+	private boolean isGoogleAccount;
 	private String name;
 	private String password;
 	private String gender;
 	private String country;
 	private String aboutYou;
-	private Boolean mailingList;
+	private boolean mailingList;
 	
 	@Id
 	@GeneratedValue
@@ -26,6 +27,13 @@ public class User {
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	@Column(name="IS_GOOGLE_ACCOUNT")
+	public Boolean getIsGoogleAccount() {
+		return isGoogleAccount;
+	}
+	public void setIsGoogleAccount(boolean google) {
+		this.isGoogleAccount = google;
 	}
 	
 	@Column(name="USER_NAME")

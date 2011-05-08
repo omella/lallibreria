@@ -1,22 +1,19 @@
 package com.vaannila.web;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
-import com.googlecode.sslplugin.annotation.Secured;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.restfb.*;
-import com.restfb.FacebookClient.AccessToken;
-import com.restfb.json.JsonObject;
 import com.restfb.types.User;
+import com.vaannila.dao.UserDAO;
+import com.vaannila.dao.UserDAOImpl;
+import com.vaannila.domain.Usuari;
 
 import org.apache.log4j.Logger;
-import org.apache.log4j.xml.DOMConfigurator;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.SessionAware;
-
 
 import org.opensocial.*;
 import org.opensocial.auth.*;
@@ -52,9 +49,11 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 		//AuthScheme scheme2 = new OAuth2LeggedScheme("*:06834717057300479661", "cabs_uiKs-E=");
 		
 		boolean google = false;
+		String id = "";
 		String GsiteId = "06834717057300479661";
 		String FsiteId = "177068509007802";
 		String token = null;
+		Usuari usuari = new Usuari();
 		Map session = ActionContext.getContext().getSession();
 
 	    for(Cookie c : servletRequest.getCookies()) {
@@ -82,6 +81,8 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 				Person viewer = response.getEntry();
 				
 				this.username=viewer.getDisplayName();
+				id = viewer.getId();
+				
 			} catch (RequestException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -95,8 +96,10 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 			token = token.replaceAll("%7C", "|").substring(13,112);
 			facebookClient = new DefaultFacebookClient(token);  
 			User user = facebookClient.fetchObject("me", User.class);
+			
 			this.username=user.getName();
-			System.out.println("EL meu username es: " + this.username);
+			id = user.getId();
+			
 		}
 		if(this.username == null){
             this.error = "Has possat la pota! Mira aqui dalt i torna-ho a intentar!";
@@ -104,9 +107,23 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 	    }
 		
 	    else{
-	      session.put("username", this.username);
-	      //session.remove("sessionLoginFail");
-	      return SUCCESS;
+			usuari.setName(username);
+			usuari.setIsGoogleAccount(google);
+			usuari.setId(Long.valueOf(id));
+			usuari.setAboutYou("a");
+			usuari.setCountry("a");
+			usuari.setGender("a");
+			usuari.setMailingList(true);
+			usuari.setPassword("a");
+			
+			UserAction a = new UserAction();
+			a.setUser(usuari);
+			if (a.existeix().equals(ERROR)){
+				a.add();
+			}
+			session.put("username", this.username);
+	    	//session.remove("sessionLoginFail");
+	    	return SUCCESS;
 	    }
 		/*
 		DOMConfigurator.configure("/laLlibreria/workspace/laLlibreria/src/log4j.xml");
