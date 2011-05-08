@@ -1,10 +1,11 @@
 package com.vaannila.dao;
 
 import java.util.List;
-import com.vaannila.domain.User;
+import com.vaannila.domain.Usuari;
 
 public interface UserDAO {
 
-	public void saveUser(User user);
-	public List<User> listUser();
+	public void saveUser(Usuari user);
+	public List<Usuari> listUser();
+	public boolean existeix(Usuari user);
 }

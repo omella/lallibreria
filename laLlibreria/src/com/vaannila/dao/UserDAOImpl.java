@@ -7,7 +7,7 @@ import org.hibernate.Transaction;
 
 import com.googlecode.s2hibernate.struts2.plugin.annotations.SessionTarget;
 import com.googlecode.s2hibernate.struts2.plugin.annotations.TransactionTarget;
-import com.vaannila.domain.User;
+import com.vaannila.domain.Usuari;
 
 public class UserDAOImpl implements UserDAO {
 
@@ -18,10 +18,10 @@ public class UserDAOImpl implements UserDAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<User> listUser() {	
-		List<User> courses = null;
+	public List<Usuari> listUser() {	
+		List<Usuari> courses = null;
 		try {
-			courses = session.createQuery("from User").list();
+			courses = session.createQuery("from Usuari").list();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
@@ -29,7 +29,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public void saveUser(User user) {
+	public void saveUser(Usuari user) {
 		try {
 			session.save(user);
 		} catch (Exception e) {
@@ -37,5 +37,17 @@ public class UserDAOImpl implements UserDAO {
 			e.printStackTrace();
 		} 
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean existeix (Usuari user){
+		boolean b = false;
+		try {
+			List<Usuari> courses = session.createSQLQuery("Select * From USUARI Where USUARI.USER_ID == "+user.getId()+" and USUARI.IS_GOOGLE_ACCOUNT == "+user.getIsGoogleAccount()).list();
+			b = !courses.isEmpty();
+		}  catch (Exception e) {
+			e.printStackTrace();
+		}
+		return b;
+	}
 }

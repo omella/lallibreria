@@ -7,18 +7,18 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import com.vaannila.dao.UserDAO;
 import com.vaannila.dao.UserDAOImpl;
-import com.vaannila.domain.User;
+import com.vaannila.domain.Usuari;
 
-public class UserAction extends ActionSupport implements ModelDriven<User> {
+public class UserAction extends ActionSupport implements ModelDriven<Usuari> {
 
 	private static final long serialVersionUID = -6659925652584240539L;
 
-	private User user = new User();
-	private List<User> userList = new ArrayList<User>();
+	private Usuari user = new Usuari();
+	private List<Usuari> userList = new ArrayList<Usuari>();
 	private UserDAO userDAO = new UserDAOImpl();
 	
 	@Override
-	public User getModel() {
+	public Usuari getModel() {
 		return user;
 	}
 	
@@ -33,20 +33,25 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
 		userList = userDAO.listUser();
 		return SUCCESS;
 	}
+	public String existeix(){
+		if (userDAO.existeix(user)) return SUCCESS;
 		
-	public User getUser() {
+		return ERROR;
+
+	}
+	public Usuari getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(Usuari user) {
 		this.user = user;
 	}
 
-	public List<User> getUserList() {
+	public List<Usuari> getUserList() {
 		return userList;
 	}
 
-	public void setUserList(List<User> userList) {
+	public void setUserList(List<Usuari> userList) {
 		this.userList = userList;
 	}
 
