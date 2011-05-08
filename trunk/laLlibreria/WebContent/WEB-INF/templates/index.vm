@@ -90,8 +90,9 @@ function addLibreriaMapa(posicionCliente){
 		        if (status2 == google.maps.GeocoderStatus.OK) {
 		          var marker2 = new google.maps.Marker({
 		              map: map, 
-		              position: results2[0].geometry.location
+		              position: results2[0].geometry.location,
 		          });
+		          map.openInfoWindow(new GLatLng(results2[0].geometry.location), document.createTextNode("Casa Rural Los Tejos"));
 		        } else {
 		          alert("Geocode was not successful for the following reason: " + status);
 		        }
@@ -123,7 +124,6 @@ function getDistance(posC,posL) {
 	   if (status == google.maps.DirectionsStatus.OK)
 	   {      
 	       distance = response.routes[0].legs[0].distance.text;
-	       distanceI=distance;
 	   }
 	  
 	});
