@@ -121,7 +121,7 @@ public class APIAccess {
                         
                         // Here, ASIN == 10 digit ISBN, I'll just use the ISBN given by Amazon no matter what
                         result.setIsbn(curItem.item(0).getTextContent());
-                        
+                         
                         fillOtherInfo(result);
                         bookResults.add(result);
                 }
@@ -158,9 +158,15 @@ public class APIAccess {
                 String requestUrl = helper.sign(params);
                 Document doc = db.parse(requestUrl);
                 
-                b.setTitol(doc.getElementsByTagName("Title").item(0).getTextContent());
-                b.setAutor(doc.getElementsByTagName("Author").item(0).getTextContent());
-                b.setPublisher(doc.getElementsByTagName("Manufacturer").item(0).getTextContent());
+                if(doc.getElementsByTagName("Title").getLength()>0) {
+                	b.setTitol(doc.getElementsByTagName("Title").item(0).getTextContent());
+                }
+                if(doc.getElementsByTagName("Author").getLength()>0) {
+                	b.setAutor(doc.getElementsByTagName("Author").item(0).getTextContent());
+                }
+                if(doc.getElementsByTagName("Manufacturer").getLength()>0) {
+                	b.setPublisher(doc.getElementsByTagName("Manufacturer").item(0).getTextContent());
+                }
         }
 
         /**
