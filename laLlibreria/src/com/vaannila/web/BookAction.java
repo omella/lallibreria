@@ -2,13 +2,20 @@ package com.vaannila.web;
 
 
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.struts2.interceptor.SessionAware;
+import org.xml.sax.SAXException;
 
 
 import com.opensymphony.xwork2.ActionContext;
@@ -23,8 +30,10 @@ import com.vaannila.dao.VistDAO;
 import com.vaannila.dao.VistDAOImpl;
 
 import com.vaannila.domain.Comentari;
+import com.vaannila.domain.Llibre;
 import com.vaannila.domain.Puntuacio;
 import com.vaannila.domain.Vist;
+import com.vaannila.ws.APIAccess;
 
 
 
@@ -48,7 +57,15 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 	
 	private Map session;
 	
+	private Llibre llibre = new Llibre();
 
+	public Llibre getLlibre() {
+		return llibre;
+	}
+
+	public void setLlibre(Llibre llibre) {
+		this.llibre = llibre;
+	}
 
 	public Puntuacio getPuntuacio() {
 		return puntuacio;
@@ -162,12 +179,16 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 		p = p/10;
 		return p;
 	}
-	public String show(){
+	public String show() throws InvalidKeyException, IllegalArgumentException, NoSuchAlgorithmException, ParserConfigurationException, SAXException, IOException{
 		
 		Date data = new Date();
 		viewed.setData(data);
 		viewed.setIsbn(this.id);
 		vistDAO.saveVist(viewed);
+		
+		llibre.setIsbn(this.id);
+		APIAccess aa = new APIAccess();
+		aa.fillBookInfo(this.llibre);
 		
 		//El id es el isbn del llibre actual
 		//cal anar al ws i aconseguir la resta d'informacio
