@@ -2,6 +2,7 @@ package com.vaannila.web;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 import java.util.Map;
 import java.util.Vector;
@@ -55,17 +56,26 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 	@SuppressWarnings("unchecked")
 	public String add()
 	{
-		
-		//this.bookList=(HashMap<String,String>)this.session.get("bookList");
 		Vector<ParameterMap<String,String> > comanda = (Vector<ParameterMap<String, String> >) session.get("comanda");
+		List<String> listTo = (List<String>) session.get("listTo");
 		if (comanda == null)
 		{
+			listTo = null;
 			comanda = new Vector <ParameterMap<String,String> >();
 		}
+		if (Integer.valueOf(num) < 0) return "ERROR";
 		ParameterMap<String,String> llibre = new ParameterMap <String, String>();
 		llibre.put("isbn", this.bookList.get("isbn"));
 		llibre.put("titol", this.bookList.get("titol"));
 		llibre.put("num", this.num);
+		//AGAFAR DE LA LLIBREIA ESCOLLIDA EL DESCOMPTE CORRESPONENT
+		llibre.put("llibreria", "NomLlibreria");
+		llibre.put("descompte", "0.0");
+		String llibreria = "NomLlibreria";
+	    if (!listTo.contains(llibreria)) 
+	    {
+	    	listTo.add("llibreria");
+	    }
 		comanda.add(llibre);
 		
 		session.put("comanda",comanda);
@@ -77,54 +87,66 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 	@SuppressWarnings("unchecked")
 	public String send()
 	{
-
-		
-		//FALTARIA ENVIAR EL MAIL
-		
-		String to = "mrodon536@gmail.com";
 		Vector<ParameterMap<String,String> > comanda = (Vector<ParameterMap<String, String> >) session.get("comanda");
-		
-        String subject = "LaLlibreria.cat";
         if (comanda == null)
         {
-        	//GestorMail.getInstancia().enviarMail(to, subject.toString(), "ERROR");
         	this.msg = "S'ha produït un error al afegir la comanda al carret de la compra. Disculpeu les molèsties";
         }
         else
         {
-        	String body = GestorXML.createDocument(comanda);
-        	
-        	String firma = Base64.encode(body.getBytes());
-        	
-        	firma = GestorFirma.signar(firma);
-        	
-        	Integer codi = firma.hashCode(); 
+		
+			String subject = "LaLlibreria.cat";
+			
+			List<String> listTo = (List<String>) session.get("listTo");
+			for (int i = 0; i < listTo.size(); ++i)
+			{
+				Vector<ParameterMap<String,String> > enviament = new Vector<ParameterMap<String,String> >();
+				for (int j = 0; j < comanda.size(); ++j)
+				{
+					if (listTo.get(i)== comanda.get(j).get("llibreria"))
+					{
+						enviament.add(comanda.get(j));
+					}
+				}
+				String to = "mrodon536@gmail.com";
+				//String to = mail de la llibreria
+      
 
-        	GestorMail.getInstancia().enviarMail(to, subject,body,firma,codi.toString());
+	        	String body = GestorXML.createDocument(enviament);
+	        	
+	        	String firma = Base64.encode(body.getBytes());
+	        	
+	        	firma = GestorFirma.signar(firma);
         	
-        	this.msg = "S'ha enviat correctament. Aquests són els detalls de la comanda:<br>";
-        	for (int i = 0; i < comanda.size();++i)
-        	{
-        		this.msg = this.msg + "<br>Títol " + (i+1) + " = " + comanda.get(i).get("titol") + " ---> Quantitat = " + comanda.get(i).get("num");
-        	}
+	        	Integer codi = firma.hashCode(); 
+	
+	        	GestorMail.getInstancia().enviarMail(to, subject,body,firma,codi.toString());
+	        	
+	        	this.msg = "S'ha enviat correctament. Aquests són els detalls de la comanda:<br>";
+	        	for (int k = 0; k < comanda.size();++k)
+	        	{
+	        		this.msg = this.msg + "<br>Títol " + (k+1) + " = " + comanda.get(k).get("titol") + " ---> Quantitat = " + comanda.get(k).get("num");
+	        	}
         	
-    		Mail mail = new Mail();
-    		//FALTARIA FIRMA DIGITALMENT EL COS DEL MAIL
-    		mail.setData(new Date());
-    		mail.setAsuptme(subject);
-    		String ident = (String) this.session.get("ident");
-    		mail.setDesti(to);
-    		UserDAO usuariDAO = new UserDAOImpl();
-    		//Usuari usuari = usuariDAO.getUser(ident);
-    		//mail.setOrigen(usuari.getMail());
-    		mail.setCos(body+" "+firma+" "+codi);
-    		
-    		mailDAO.saveMail(mail);
-    		
-    		GestorMail.getInstancia().enviarMailUsuari(to, subject, msg, codi);
+	    		Mail mail = new Mail();
+	    		//FALTARIA FIRMA DIGITALMENT EL COS DEL MAIL
+	    		mail.setData(new Date());
+	    		mail.setAsuptme(subject);
+	    		String ident = (String) this.session.get("ident");
+	    		mail.setDesti(to);
+	    		UserDAO usuariDAO = new UserDAOImpl();
+	    		//Usuari usuari = usuariDAO.getUser(ident);
+	    		//mail.setOrigen(usuari.getMail());
+	    		mail.setCos(body+" "+firma+" "+codi);
+	    		
+	    		mailDAO.saveMail(mail);
+	    		
+	    		GestorMail.getInstancia().enviarMailUsuari(to, subject, msg, codi);
 
+			}
+			this.session.put("comanda", null);
         }
-        this.session.put("comanda", null);
+        
 		return SUCCESS;
 	}
 
