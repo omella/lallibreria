@@ -33,12 +33,7 @@ public class UserAction extends ActionSupport implements ModelDriven<Usuari> {
 		userList = userDAO.listUser();
 		return SUCCESS;
 	}
-	public String existeix(){
-		if (userDAO.existeix(user)) return SUCCESS;
-		
-		return ERROR;
 
-	}
 	public Usuari getUser() {
 		return user;
 	}

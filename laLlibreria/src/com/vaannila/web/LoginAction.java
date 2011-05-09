@@ -1,6 +1,7 @@
 package com.vaannila.web;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -117,8 +118,14 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 			usuari.setPassword("a");
 			
 			UserAction a = new UserAction();
-			a.setUser(usuari);
-			if (a.existeix().equals(ERROR)){
+			a.list();
+			List<Usuari> userList = a.getUserList();
+			boolean b = false;
+			for(int i = 0; userList != null && !b && i < userList.size();++i){
+				b = (userList.get(i).getId() == usuari.getId() && userList.get(i).getIsGoogleAccount() == usuari.getIsGoogleAccount());
+			}
+			if(!b){
+				a.setUser(usuari);
 				a.add();
 			}
 			session.put("username", this.username);

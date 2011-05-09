@@ -37,20 +37,4 @@ public class UserDAOImpl implements UserDAO {
 			e.printStackTrace();
 		} 
 	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public boolean existeix (Usuari user){
-		boolean b = false;
-		List<Usuari> courses=null;
-		try {
-			courses = session.createQuery("from Usuari").list();
-			for(int i = 0; !b && i < courses.size();++i){
-				b = (courses.get(i).getId() == user.getId() && courses.get(i).getIsGoogleAccount() == user.getIsGoogleAccount());
-			}
-		}  catch (Exception e) {
-			e.printStackTrace();
-		}
-		return b;
-	}
 }
