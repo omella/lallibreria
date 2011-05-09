@@ -1,7 +1,6 @@
 package com.vaannila.web;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -36,7 +35,8 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 	static final Logger logger = Logger.getLogger(LoginAction.class);
 	String error = null;
 	protected HttpServletRequest servletRequest;
-	private FacebookClient facebookClient;  
+	private FacebookClient facebookClient; 
+	private UserDAO userdao = new UserDAOImpl();
 	public String getError() {
 		return error;
 	}
@@ -50,7 +50,7 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 		//AuthScheme scheme2 = new OAuth2LeggedScheme("*:06834717057300479661", "cabs_uiKs-E=");
 		
 		boolean google = false;
-		String id = "";
+		String serviceId = "";
 		String GsiteId = "06834717057300479661";
 		String FsiteId = "177068509007802";
 		String token = null;
@@ -82,7 +82,7 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 				Person viewer = response.getEntry();
 				
 				this.username=viewer.getDisplayName();
-				id = viewer.getId();
+				serviceId = viewer.getId();
 				
 			} catch (RequestException e) {
 				// TODO Auto-generated catch block
@@ -99,7 +99,7 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 			User user = facebookClient.fetchObject("me", User.class);
 			
 			this.username=user.getName();
-			id = user.getId();
+			serviceId = user.getId();
 			
 		}
 		if(this.username == null){
@@ -110,26 +110,21 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 	    else{
 			usuari.setName(username);
 			usuari.setIsGoogleAccount(google);
-			usuari.setId(Long.valueOf(id));
+			usuari.setServiceId(serviceId);
 			usuari.setAboutYou("a");
 			usuari.setCountry("a");
 			usuari.setGender("a");
 			usuari.setMailingList(true);
 			usuari.setPassword("a");
 			
-			UserAction a = new UserAction();
-			a.list();
-			List<Usuari> userList = a.getUserList();
-			boolean b = false;
-			for(int i = 0; userList != null && !b && i < userList.size();++i){
-				b = (userList.get(i).getId() == usuari.getId() && userList.get(i).getIsGoogleAccount() == usuari.getIsGoogleAccount());
-			}
+			
+			boolean b = userdao.existUser(usuari.getServiceId(), usuari.getIsGoogleAccount());
 			if(!b){
-				a.setUser(usuari);
-				a.add();
+				userdao.saveUser(usuari);
 			}
 			session.put("username", this.username);
 	    	//session.remove("sessionLoginFail");
+			System.out.println(userdao.listUser().toString());
 	    	return SUCCESS;
 	    }
 		/*

@@ -27,6 +27,19 @@ public class UserDAOImpl implements UserDAO {
 		} 
 		return courses;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Boolean existUser(String serviceId, Boolean tipus) {	
+		List<Usuari> courses = null;
+		try {
+			courses = session.createQuery("from Usuari Where IS_GOOGLE_ACCOUNT="+tipus + " AND SERVICE_ID="+serviceId).list();
+		} catch (Exception e) {
+			//e.printStackTrace();
+		}
+		
+		return (courses != null && courses.size()>0);
+	}
 
 	@Override
 	public void saveUser(Usuari user) {

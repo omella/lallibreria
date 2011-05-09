@@ -12,6 +12,7 @@ public class Usuari {
 
 	private Long id;
 	private boolean isGoogleAccount;
+	private String serviceId;
 	private String name;
 	private String password;
 	private String gender;
@@ -42,6 +43,13 @@ public class Usuari {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	@Column(name="SERVICE_ID")
+	public String getServiceId() {
+		return serviceId;
+	}
+	public void setServiceId(String serviceId) {
+		this.serviceId = serviceId;
 	}
 	
 	@Column(name="USER_PASSWORD")
