@@ -42,9 +42,12 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public boolean existeix (Usuari user){
 		boolean b = false;
+		List<Usuari> courses=null;
 		try {
-			List<Usuari> courses = session.createSQLQuery("Select * From USUARI Where USUARI.USER_ID == "+user.getId()+" and USUARI.IS_GOOGLE_ACCOUNT == "+user.getIsGoogleAccount()).list();
-			b = !courses.isEmpty();
+			courses = session.createQuery("from Usuari").list();
+			for(int i = 0; !b && i < courses.size();++i){
+				b = (courses.get(i).getId() == user.getId() && courses.get(i).getIsGoogleAccount() == user.getIsGoogleAccount());
+			}
 		}  catch (Exception e) {
 			e.printStackTrace();
 		}
