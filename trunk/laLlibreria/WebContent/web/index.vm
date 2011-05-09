@@ -175,11 +175,6 @@ function getDistance(posC,posL) {
      	<div id=map_canvas></div>
      	<div id=ubicacion>
 
-     	    #foreach ($llib in $llibreriaList)
-     			<script>
-					
-     			</script>	
-     		#end
      		<div id=inputCalle>
      			<span id=textoBlanco>&iquest;Estas bien localizado?</span><br/><br/>
      			<span id=textBox><input id="localizacion" type="text" value="Calle, Ciudad" style="color:grey; width:350px" onfocus="if(this.value==this.defaultValue) this.value=''">

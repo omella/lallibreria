@@ -29,6 +29,17 @@ public class LlibreriaDAOImpl implements LlibreriaDAO {
 	}
 
 	@Override
+	public boolean existLlibreria(String llibreriaId, String passwd){
+		List<Llibreria> courses = null;
+		try{
+			courses = session.createQuery("from Llibreria where LLIBRERIA_MAIL="+llibreriaId+" AND LLIBRERIA_PASSWORD="+passwd).list();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		return (courses.size()>0);
+	}
+	
+	@Override
 	public void saveLlibreria(Llibreria llibreria) {
 		try {
 			session.save(llibreria);
@@ -37,5 +48,7 @@ public class LlibreriaDAOImpl implements LlibreriaDAO {
 			e.printStackTrace();
 		} 
 	}
+	
+	
 
 }
