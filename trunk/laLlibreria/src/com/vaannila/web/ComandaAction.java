@@ -1,5 +1,6 @@
 package com.vaannila.web;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -60,7 +61,7 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 		List<String> listTo = (List<String>) session.get("listTo");
 		if (comanda == null)
 		{
-			listTo = null;
+			listTo = new ArrayList<String>();
 			comanda = new Vector <ParameterMap<String,String> >();
 		}
 		if (Integer.valueOf(num) < 0) return "ERROR";
@@ -72,13 +73,15 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 		llibre.put("llibreria", "NomLlibreria");
 		llibre.put("descompte", "0.0");
 		String llibreria = "NomLlibreria";
-	    if (!listTo.contains(llibreria)) 
+
+		if (!listTo.contains(llibreria)) 
 	    {
 	    	listTo.add("llibreria");
 	    }
 		comanda.add(llibre);
 		
 		session.put("comanda",comanda);
+		session.put("listTo",listTo);
 		this.msg = "S'ha afegit la comanda al teu carret de la compra." +
 				" Prem ENVIAR per comfirmar l'enviament de la comanda";
 		return SUCCESS;
