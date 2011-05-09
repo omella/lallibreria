@@ -7,5 +7,4 @@ public interface UserDAO {
 
 	public void saveUser(Usuari user);
 	public List<Usuari> listUser();
-	public boolean existeix(Usuari user);
 }
