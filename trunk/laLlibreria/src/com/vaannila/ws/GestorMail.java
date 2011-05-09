@@ -90,4 +90,29 @@ public class GestorMail {
   public String getPassword() {
       return "P4$$W0rD";
   }
+
+public boolean enviarMailUsuari(String to, String subject, String msg, Integer codi) {
+	Session session = Session.getInstance(p);
+    String username = getUserName();
+    String password = getPassword();
+    MimeMessage message = new MimeMessage(session);
+    try {
+        message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+        message.setFrom(new InternetAddress(username));
+                      
+        message.setText("La teva comanda ha estat realitzada correctament. " +
+        		"Aquest és el codi de reserva que hauràs de presentar a la llibreria ---> "+codi+"\\n\\n" +
+        				"Aquests són els detalls de la comanda:\\n\\n"+msg);
+
+        message.setSubject(subject);
+        Transport t = session.getTransport("smtp");
+        t.connect(username,password);
+        t.sendMessage(message, message.getAllRecipients());
+        t.close();
+        return true;
+    } catch(Exception ex) {
+        return false;
+    }
+	
+}
 }

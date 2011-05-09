@@ -47,6 +47,7 @@
 		<mapping class="com.vaannila.domain.Puntuacio" />
 		<mapping class="com.vaannila.domain.Vist" />
 		<mapping class="com.vaannila.domain.Llibreria" />
+		<mapping class="com.vaannila.domain.Mail" />
 		
 	</session-factory>
 
