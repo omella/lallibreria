@@ -70,6 +70,41 @@
 	<h1> No hi ha resultats </h1>
 #end
 
+#if($llibre)
+	<table border="1">
+	<tr><td>
+		${llibre.isbn}
+	</td></tr>
+	<tr><td>
+		${llibre.descripcio}
+	</td></tr>
+	<tr><td>
+		${llibre.titol}
+	</td></tr>
+	<tr><td>
+		${llibre.publisher}
+	</td></tr>
+	<tr><td>
+		${llibre.autor}
+	</td></tr>
+	<tr><td>
+		<img src="${llibre.coverArt}" />
+	</td></tr>
+	<tr><td>
+		${llibre.genre}
+	</td></tr>
+	<tr><td>
+		${llibre.series}
+	</td></tr>
+	<tr><td>
+		${llibre.subtitle}
+	</td></tr>
+	<tr><td>
+		<img src="${llibre.thumb}" />
+	</td></tr>
+	</table>
+#end
+
 #if($msg)
 	<h3> $msg </h3>
 #end
