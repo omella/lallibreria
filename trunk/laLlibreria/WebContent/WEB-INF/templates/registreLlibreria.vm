@@ -27,7 +27,7 @@
 				<p><font color="red">${error}</font></p>
 			#end
 			
-     		#sform ("action=doLoginLlibreria")
+     		#sform ("action=doLoginLlibreria" "method=post")
      		    #stextfield ("label=E-mail"  "name=mail")
 				#spassword  ("label=Password" "name=password")
 				#ssubmit ("value=Login")

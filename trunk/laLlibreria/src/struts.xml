@@ -46,10 +46,10 @@
 			<result name="success" type="velocity">/WEB-INF/templates/homeLlibreria.vm</result>
 		</action>
 		
-		<action name="doLoginLlibreria" method="list" class="com.vaannila.web.HomeLlibreriaAction">
+		<action name="doLoginLlibreria" method="login" class="com.vaannila.web.LlibreriaAction">
 			<result name="input" type="velocity">/WEB-INF/templates/homeLlibreria.vm</result>
 			<result name="error" type="velocity">/WEB-INF/templates/registreLlibreria.vm</result>
-			<result type="velocity">/WEB-INF/templates/homeLlibreria.vm</result>
+			<result type="velocity">/WEB-INF/templates/registreLlibreria.vm</result>
 		</action>
 		
 		<action name="showLogin">
