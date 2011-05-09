@@ -36,7 +36,7 @@ public class LlibreriaDAOImpl implements LlibreriaDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
-		return (courses.size()>0);
+		return (courses != null && courses.size()>0);
 	}
 	
 	@Override
