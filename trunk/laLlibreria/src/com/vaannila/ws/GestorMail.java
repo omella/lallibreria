@@ -2,11 +2,15 @@ package com.vaannila.ws;
 
 import java.util.Date;
 import java.util.Properties;
+
+import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 
 public class GestorMail {
@@ -32,7 +36,7 @@ public class GestorMail {
       p.put("mail.smtp.socketFactory.fallback", "false");
    }
 
-  public boolean enviarMail(String to, String subject, String body) {
+  public boolean enviarMail(String to, String subject, String doc, String firma, String codi) {
       Session session = Session.getInstance(p);
       String username = getUserName();
       String password = getPassword();
@@ -40,9 +44,26 @@ public class GestorMail {
       try {
           message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
           message.setFrom(new InternetAddress(username));
-          message.setContent(body,"text/xml");
-          //message.setFileName("comanda"+new Date()+".xml");
-          message.setText(body);
+          
+          BodyPart comanda = new MimeBodyPart();
+          comanda.setContent(doc,"text/xml");
+          comanda.setFileName("COMANDA_DATA="+new Date()+".xml");
+          
+          BodyPart signatura = new MimeBodyPart();
+          signatura.setContent(firma,"text/xml");
+          signatura.setFileName("SIGANTURA_DATA="+new Date()+".xml");
+          
+          BodyPart text = new MimeBodyPart();
+          text.setText("El codi de la comanda és "+codi);
+          
+          
+          MimeMultipart correo = new MimeMultipart();
+          correo.addBodyPart(comanda);
+          correo.addBodyPart(signatura);
+          correo.addBodyPart(text);
+          
+          message.setContent(correo);
+
           message.setSubject(subject);
           Transport t = session.getTransport("smtp");
           t.connect(username,password);
