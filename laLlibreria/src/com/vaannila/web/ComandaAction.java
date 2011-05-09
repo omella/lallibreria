@@ -1,18 +1,27 @@
 package com.vaannila.web;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import java.io.InputStreamReader;
+
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
+
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
 import java.util.Map;
 import java.util.Vector;
-
+import org.apache.axis.encoding.Base64;
 import org.apache.catalina.util.ParameterMap;
 import org.apache.struts2.interceptor.SessionAware;
 
@@ -23,9 +32,11 @@ import com.opensymphony.xwork2.ModelDriven;
 import com.vaannila.dao.MailDAO;
 import com.vaannila.dao.MailDAOImpl;
 import com.vaannila.domain.Mail;
-import com.vaannila.ws.Base64;
+
 import com.vaannila.ws.GestorMail;
 import com.vaannila.ws.GestorXML;
+import com.vaannila.ws.GestorFirma;
+
 
 
 
@@ -92,12 +103,7 @@ public class ComandaAction extends ActionSupport implements ModelDriven<Mail>, S
 		Map session = ActionContext.getContext().getSession();
 		Vector<ParameterMap<String,String> > comanda = (Vector<ParameterMap<String, String> >) session.get("comanda");
 		
-        //StringBuffer body = new StringBuffer("L'enviament de mails funciona correctament");
-        //body.append(nomEsdeveniment);
-        //body.append("' ha estat clausurat.\n\tCordialment,\n\tEl Planificador de PROP.\n");
-		
-		
-        StringBuffer subject = new StringBuffer("PROVA");
+        String subject = "LaLlibreria.cat";
         if (comanda == null)
         {
         	//GestorMail.getInstancia().enviarMail(to, subject.toString(), "ERROR");
@@ -105,37 +111,16 @@ public class ComandaAction extends ActionSupport implements ModelDriven<Mail>, S
         }
         else
         {
-        	//http://labs.safelayer.com/en/technology/integration/rest-examples/270-rest-cms-signature-generation
         	String body = GestorXML.createDocument(comanda);
         	
-        	String url = "http://labs.safelayer.com/trustedx-sgw/cms/signature/generation?username=trustedx&password=trustedx&servicePolicy=txDemoSignPolicy HTTP/1.1";
-        	//String host = "labs.safelayer.com";
-        	String length = "45";
-        	String type = "application/x-trustedx-data xml";
+        	String firma = Base64.encode(body.getBytes());
         	
-        	String response = null;
-			try {
-				URL urlnew;
-				urlnew = new URL (url);
-				URLConnection con;
-				con = (HttpURLConnection)urlnew.openConnection();
-	        	con.setDoInput(true);
-	        	con.setDoOutput(true);
-	        	((HttpURLConnection) con).setRequestMethod("POST");
-	        	con.setUseCaches(false);
-	        	con.setRequestProperty("Content-type", type);
-	        	con.connect();
+        	firma = GestorFirma.signar(firma);
+        	
+        	Integer codi = firma.hashCode(); 
 
-	        	BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-	        	response=in.readLine();
-				in.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-        	String content = "<Base64Data>"+Base64.encode(body)+"</Base64Data>";
+        	GestorMail.getInstancia().enviarMail(to, subject,body,firma,codi.toString());
         	
-        	GestorMail.getInstancia().enviarMail(to, subject.toString(),content);
         	this.msg = "S'ha enviat correctament. Aquests són els detalls de la comanda:<br>";
         	for (int i = 0; i < comanda.size();++i)
         	{
@@ -146,6 +131,7 @@ public class ComandaAction extends ActionSupport implements ModelDriven<Mail>, S
         this.session.put("comanda", null);
 		return SUCCESS;
 	}
+
 	public Mail getModel() {
 		return mail;
 	}
