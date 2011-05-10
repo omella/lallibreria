@@ -55,9 +55,8 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 	
 	private PuntuacioDAO puntuacioDAO = new PuntuacioDAOImpl();
 	private VistDAO vistDAO = new VistDAOImpl();
-	private String id = null;
 	private Double punts;
-	
+	private String id = null;
 	private Map session = ActionContext.getContext().getSession();
 	
 	private Llibre llibre = (Llibre) session.get("llibre");
@@ -65,12 +64,12 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 	
 	public String addMark(){
 		
-		this.puntuacio = puntuacioDAO.getPuntuacioIsbn(this.id);
+		this.puntuacio = puntuacioDAO.getPuntuacioIsbn(this.llibre.getIsbn());
 		
 		if (this.puntuacio == null)
 		{
 			this.puntuacio = new Puntuacio();
-			this.puntuacio.setIsbn(this.id);
+			this.puntuacio.setIsbn(this.llibre.getIsbn());
 			this.puntuacio.setNumVots(1);
 			this.puntuacio.setPuntuacio(this.punts);
 		}
@@ -100,7 +99,6 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 		this.setId(comment.getIsbn());
 		
 		this.setLlibre(this.llibre);
-		this.puntuacio = puntuacioDAO.getPuntuacioIsbn(this.id);
 		
 		return SUCCESS;
 	}
@@ -194,6 +192,8 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 		this.llibreriesNoms = llibreriesNoms;
 	}
 
+	
+	
 	@Override
 	public Comentari getModel() {
 		return this.comment;
