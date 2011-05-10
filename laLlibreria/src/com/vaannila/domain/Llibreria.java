@@ -20,7 +20,7 @@ public class Llibreria {
 	private String cif;
 	private String password;
 
-	@Id
+	
 	@GeneratedValue
 	@Column(name="LLIBRERIA_ID")
 	public Long getId() {
@@ -38,7 +38,7 @@ public class Llibreria {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+	@Id
 	@Column(name="LLIBRERIA_MAIL")
 	public String getMail() {
 		return mail;
