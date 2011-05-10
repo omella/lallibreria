@@ -34,8 +34,8 @@
 		#foreach ($result in $results)
 		<tr>
 			<td>
-				<h1><a href=/laLlibreria/showBook.action?id=${result.isbn}> ${result.titol}</a></h1>
-				<h2>${result.autor}</h2>
+				<h1><a href=/laLlibreria/showBook.action?id=${result.isbn}> ${result.title}</a></h1>
+				<h2>${result.author}</h2>
 				<br>
 			</td>
 		</tr>
