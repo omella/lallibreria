@@ -24,6 +24,8 @@ import com.opensymphony.xwork2.ModelDriven;
 
 import com.vaannila.dao.ComentariDAO;
 import com.vaannila.dao.ComentariDAOImpl;
+import com.vaannila.dao.LlibreriaDAO;
+import com.vaannila.dao.LlibreriaDAOImpl;
 import com.vaannila.dao.PuntuacioDAO;
 import com.vaannila.dao.PuntuacioDAOImpl;
 import com.vaannila.dao.VistDAO;
@@ -31,6 +33,7 @@ import com.vaannila.dao.VistDAOImpl;
 
 import com.vaannila.domain.Comentari;
 import com.vaannila.domain.Llibre;
+import com.vaannila.domain.Llibreria;
 import com.vaannila.domain.Puntuacio;
 import com.vaannila.domain.Vist;
 import com.vaannila.ws.APIAccess;
@@ -43,7 +46,8 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 	private HashMap<String,String> bookList = new HashMap<String,String>();
 	private Comentari comment = new Comentari();
 	private Vist viewed = new Vist();
-	
+	private LlibreriaDAO llibreriaDAO = new LlibreriaDAOImpl(); 
+	private List<Llibreria>llibreriaList = null;
 	private Puntuacio puntuacio = new Puntuacio();
 	
 	private List <Comentari> commentList = new ArrayList<Comentari>();
@@ -206,6 +210,9 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 		//Agafem els comentaris associats a aquest isbn
 		this.commentList = comentariDAO.getComentariList(this.id);
 
+		this.llibreriaList = llibreriaDAO.listLlibreria();
+		
+		session.put("llibreries", llibreriaList);
 		
 		return SUCCESS;
 	}
