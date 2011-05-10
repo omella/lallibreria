@@ -13,8 +13,8 @@
 		</action>
 		
 		<action name="addLlibreria" method="add" class="com.vaannila.web.LlibreriaAction">
-			<result name="input" type="velocity">/WEB-INF/templates/registreLlibreria.vm</result>
-			<result name="error" type="velocity">/WEB-INF/templates/registreLlibreria.vm</result>
+			<result name="input" type="velocity">/WEB-INF/templates/error.vm</result>
+			<result name="error" type="velocity">/WEB-INF/templates/error.vm</result>
 			<result name="success" type="velocity">/WEB-INF/templates/registreLlibreria.vm</result>
 		</action>
 			
