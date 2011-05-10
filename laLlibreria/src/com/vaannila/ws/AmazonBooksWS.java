@@ -54,6 +54,8 @@ public class AmazonBooksWS {
         /** Used for accessing APIs */
         private DocumentBuilder db;
         
+        private boolean init = false;
+        
         /**
          * Constructor, sets up signed request helper.
          * @throws NoSuchAlgorithmException 
@@ -62,12 +64,22 @@ public class AmazonBooksWS {
          * @throws InvalidKeyException 
          * @throws ParserConfigurationException If there is a problem creating the document builder.
          */
-        public AmazonBooksWS() throws InvalidKeyException, IllegalArgumentException, UnsupportedEncodingException, NoSuchAlgorithmException, ParserConfigurationException {
+        public AmazonBooksWS() {
+        	try {
+        		this.init=false;
                 helper = AmazonSignedRequestsHelper.getInstance(ENDPOINT, AWS_ACCESS_KEY_ID, AWS_SECRET_KEY);
                 this.db = dbf.newDocumentBuilder();
+                this.init=true;
+	        } catch (Exception e) {
+	        	this.init=false;
+	        }
         }
         
-        // TODO create default "no cover art" image
+        public boolean isInit() {
+			return init;
+		}
+
+		// TODO create default "no cover art" image
         // Use this for filling by ISBN w/keywords as ISBN?
         /**
          * Finds the ISBN for the given Book using the following process:
@@ -79,7 +91,8 @@ public class AmazonBooksWS {
          * @throws SAXException
          * @return true if info is added, false if book not found 
          */
-        public boolean fillBookInfo(Llibre b) throws SAXException, IOException {
+        public boolean fillBookInfo(Llibre b) {
+        	try {
                 // Determine lookup keywords- ISBN or title + author
                 String keywords = "";
                 if (b.getIsbn() != "" && b.getIsbn() != null) keywords = b.getIsbn();
@@ -138,6 +151,9 @@ public class AmazonBooksWS {
                 b.mergeBookInfo(correctResult);
                 
                 return true;
+        	} catch (Exception e) {
+        		return false;
+    	    }
         }
         
         /**
