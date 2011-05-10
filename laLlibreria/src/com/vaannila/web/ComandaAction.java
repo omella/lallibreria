@@ -18,6 +18,8 @@ import com.vaannila.dao.MailDAO;
 import com.vaannila.dao.MailDAOImpl;
 import com.vaannila.dao.UserDAO;
 import com.vaannila.dao.UserDAOImpl;
+import com.vaannila.domain.Llibre;
+import com.vaannila.domain.Llibreria;
 import com.vaannila.domain.Mail;
 import com.vaannila.domain.Usuari;
 
@@ -33,17 +35,9 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 	private static final long serialVersionUID = -3501832474739896258L;
 	
 	private MailDAO mailDAO = new MailDAOImpl();
-
-	private String idLlibre = null;
 	
-	public String getIdLlibre() {
-		return idLlibre;
-	}
-
-	public void setIdLlibre(String idLlibre) {
-		this.idLlibre = idLlibre;
-	}
-
+	private String idLlibreria = null;
+	
 	private String num = null;
 	
 	private String msg = null;
@@ -51,9 +45,14 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 	@SuppressWarnings("rawtypes")
 	private Map session = ActionContext.getContext().getSession();;
 	
-	@SuppressWarnings("unchecked")
-	private HashMap<String,String> bookList = (HashMap<String,String>)this.session.get("bookList");
+	private Llibre llibre = (Llibre)this.session.get("llibre");
 	
+	@SuppressWarnings("unchecked")
+	private List<Llibreria>llibreriaList = (List<Llibreria>) this.session.get("llibreries");
+	
+	@SuppressWarnings("unchecked")
+	private List<String>llibreriesNoms = (List<String>) this.session.get("llibreriesNoms");
+
 	@SuppressWarnings("unchecked")
 	public String add()
 	{
@@ -66,17 +65,17 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 		}
 		if (Integer.valueOf(num) < 0) return "ERROR";
 		ParameterMap<String,String> llibre = new ParameterMap <String, String>();
-		llibre.put("isbn", this.bookList.get("isbn"));
-		llibre.put("titol", this.bookList.get("titol"));
+		llibre.put("isbn", this.llibre.getIsbn());
+		llibre.put("titol", this.llibre.getTitle());
 		llibre.put("num", this.num);
 		//AGAFAR DE LA LLIBREIA ESCOLLIDA EL DESCOMPTE CORRESPONENT
-		llibre.put("llibreria", "NomLlibreria");
+		llibre.put("llibreria", this.idLlibreria);
 		llibre.put("descompte", "0.0");
-		String llibreria = "NomLlibreria";
+		String llibreria = this.idLlibreria;
 
 		if (!listTo.contains(llibreria)) 
 	    {
-	    	listTo.add("llibreria");
+	    	listTo.add(llibreria);
 	    }
 		comanda.add(llibre);
 		
@@ -111,9 +110,13 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 						enviament.add(comanda.get(j));
 					}
 				}
+				
 				String to = "mrodon536@gmail.com";
-				//String to = mail de la llibreria
-      
+				for (int k = 0; k < llibreriaList.size(); ++k)
+				{
+					String aux = this.llibreriaList.get(k).getMail();
+					if (aux != null) to = aux;
+				}
 
 	        	String body = GestorXML.createDocument(enviament);
 	        	
@@ -132,16 +135,17 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 	        	}
         	
 	    		Mail mail = new Mail();
-	    		//FALTARIA FIRMA DIGITALMENT EL COS DEL MAIL
+	    		
 	    		mail.setData(new Date());
 	    		mail.setAsuptme(subject);
 	    		String ident = (String) this.session.get("ident");
 	    		mail.setDesti(to);
 	    		UserDAO usuariDAO = new UserDAOImpl();
+	    		
 	    		//Usuari usuari = usuariDAO.getUser(ident);
 	    		//mail.setOrigen(usuari.getMail());
 	    		mail.setCos(body+" "+firma);
-	    		mail.setCodiReserva(codi);
+	    		mail.setCodiReserva(codi.toString());
 	    		mailDAO.saveMail(mail);
 	    		
 	    		GestorMail.getInstancia().enviarMailUsuari(to, subject, msg, codi);
@@ -168,18 +172,44 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 	public void setMsg(String msg) {
 		this.msg = msg;
 	}
-
-	public HashMap<String, String> getBookList() {
-		return bookList;
-	}
-
-	public void setBookList(HashMap<String, String> bookList) {
-		this.bookList = bookList;
-	}
-
+	
 	public void setSession(Map<String, Object> arg0) {
 		this.session = arg0;
 		
 	}
+
+	public Llibre getLlibre() {
+		return llibre;
+	}
+
+	public void setLlibre(Llibre llibre) {
+		this.llibre = llibre;
+	}
+
+	public List<Llibreria> getLlibreriaList() {
+		return llibreriaList;
+	}
+
+	public void setLlibreriaList(List<Llibreria> llibreriaList) {
+		this.llibreriaList = llibreriaList;
+	}
+
+	public String getIdLlibreria() {
+		return idLlibreria;
+	}
+
+	public void setIdLlibreria(String idLlibreria) {
+		this.idLlibreria = idLlibreria;
+	}
+
+	public List<String> getLlibreriesNoms() {
+		return llibreriesNoms;
+	}
+
+	public void setLlibreriesNoms(List<String> llibreriesNoms) {
+		this.llibreriesNoms = llibreriesNoms;
+	}
+	
+	
 
 }
