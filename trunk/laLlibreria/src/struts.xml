@@ -71,8 +71,13 @@
 			<result name="success" type="velocity">/WEB-INF/templates/infoLlibre.vm</result>
 		</action>
 		
-		<action name="alexLogin" class="com.vaannila.web.LoginAction">
-			<result type="velocity">/WEB-INF/templates/loginsuccess.vm</result>
+		<action name="alexLogin"  method="primeraPart" class="com.vaannila.web.LoginAction">
+			<result name="input" type="velocity">/WEB-INF/templates/alex_prelogin.vm</result>
+			<result name="success" type="velocity">/WEB-INF/templates/loginsuccess.vm</result>
+		</action>
+		
+		<action name="alexLogin2"  method="segonaPart" class="com.vaannila.web.LoginAction">
+			<result name="success" type="velocity">/WEB-INF/templates/loginsuccess.vm</result>
 		</action>
 		
 		<action name="index" method="home" class="com.vaannila.web.HomeAction">
