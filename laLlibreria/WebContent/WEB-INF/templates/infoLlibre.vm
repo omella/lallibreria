@@ -78,6 +78,12 @@
 				#shidden ("name=idLlibre" "value=$bookList.isbn")
 				#ssubmit ("value=Afegir")
 		    #end
+		    
+		    #sform ("action=addBookComanda")
+				#stextfield ("label=Quantitat: " "name=num" "value=1")
+				#sselect  ("list=llibreriesNoms" "name="idLlibreria" "label=Selecciona la llibreria: ")
+				#ssubmit ("value=Afegir")
+		    #end
 			Envia la teva comanda
 			#sform ("action=enviarMail")
 				#ssubmit ("value=Enviar")
