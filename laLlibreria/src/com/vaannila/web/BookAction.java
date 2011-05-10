@@ -43,7 +43,7 @@ import com.vaannila.ws.BooksWS;;
 public class BookAction extends ActionSupport implements ModelDriven<Comentari>, SessionAware{
 
 	private static final long serialVersionUID = -9113041734859241965L;
-	private HashMap<String,String> bookList = new HashMap<String,String>();
+
 	private Comentari comment = new Comentari();
 	private Vist viewed = new Vist();
 	private LlibreriaDAO llibreriaDAO = new LlibreriaDAOImpl(); 
@@ -51,8 +51,6 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 	private List<String>llibreriesNoms = null;
 	private Puntuacio puntuacio = new Puntuacio();
 	
-	private List <Comentari> commentList = new ArrayList<Comentari>();
-
 	private ComentariDAO comentariDAO = new ComentariDAOImpl();
 	
 	private PuntuacioDAO puntuacioDAO = new PuntuacioDAOImpl();
@@ -60,9 +58,75 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 	private String id = null;
 	private Double punts;
 	
-	private Map session;
+	private Map session = ActionContext.getContext().getSession();
 	
-	private Llibre llibre = new Llibre();
+	private Llibre llibre = (Llibre) session.get("llibre");
+
+	
+	public String addMark(){
+		
+		this.puntuacio = puntuacioDAO.getPuntuacioIsbn(this.id);
+		
+		if (this.puntuacio == null)
+		{
+			this.puntuacio = new Puntuacio();
+			this.puntuacio.setIsbn(this.id);
+			this.puntuacio.setNumVots(1);
+			this.puntuacio.setPuntuacio(this.punts);
+		}
+		else
+		{
+			puntuacio.setPuntuacio(((puntuacio.getPuntuacio()*puntuacio.getNumVots())+this.punts)/(puntuacio.getNumVots()+1));
+			puntuacio.setNumVots(puntuacio.getNumVots()+1);
+		}
+		puntuacioDAO.savePuntuacio(puntuacio);
+		
+		this.setLlibre(this.llibre);
+			
+		return SUCCESS;
+	}
+	
+
+	public String addComment(){
+		
+		Date data = new Date();
+		
+		comment.setData(data);
+	    String username = null;
+	    username= (String) session.get("username");
+	    if (username==null)username = "rodonako";
+		comment.setUsername(username);
+		comentariDAO.saveComentari(comment);
+		this.setId(comment.getIsbn());
+		
+		this.setLlibre(this.llibre);
+		this.puntuacio = puntuacioDAO.getPuntuacioIsbn(this.id);
+		
+		return SUCCESS;
+	}
+
+	public String show() throws InvalidKeyException, IllegalArgumentException, NoSuchAlgorithmException, ParserConfigurationException, SAXException, IOException{
+		
+		Date data = new Date();
+		viewed.setData(data);
+		viewed.setIsbn(this.id);
+		vistDAO.saveVist(viewed);
+		
+		this.setLlibre(com.vaannila.ws.BooksWS.getBook(this.id));
+		
+		this.llibreriaList = llibreriaDAO.listLlibreria();
+		
+		session.put("llibreries", llibreriaList);
+		llibreriesNoms = new ArrayList<String>();
+		for (int k = 0;k < llibreriaList.size();++k)
+		{
+			llibreriesNoms.add(llibreriaList.get(k).getName());
+		}
+		session.put("llibreriesNoms", llibreriesNoms);
+		session.put("llibre", llibre);
+		
+		return SUCCESS;
+	}
 
 	public Llibre getLlibre() {
 		return llibre;
@@ -70,8 +134,18 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 
 	public void setLlibre(Llibre llibre) {
 		this.llibre = llibre;
-	}
+		this.llibre.setCommentList(comentariDAO.getComentariList(this.llibre.getIsbn()));
+		this.llibre.setPuntuacio(this.unDecimal(puntuacioDAO.getPuntuacioIsbn(this.llibre.getIsbn()).getPuntuacio()).toString());
+		this.llibre.setPuntuacio(puntuacioDAO.getPuntuacioIsbn(this.llibre.getIsbn()).getNumVots().toString());
+		}
 
+	private Double unDecimal(Double x)
+	{
+		Double p = x*10;
+		p = (double) Math.round(p);
+		p = p/10;
+		return p;
+	}
 	public Puntuacio getPuntuacio() {
 		return puntuacio;
 	}
@@ -95,32 +169,6 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 	public void setId(String id) {
 		this.id = id;
 	}
-
-	public String addMark(){
-		
-		this.puntuacio = puntuacioDAO.getPuntuacioIsbn(this.id);
-		
-		if (this.puntuacio == null)
-		{
-			this.puntuacio = new Puntuacio();
-			this.puntuacio.setIsbn(this.id);
-			this.puntuacio.setNumVots(1);
-			this.puntuacio.setPuntuacio(this.punts);
-		}
-		else
-		{
-			puntuacio.setPuntuacio(((puntuacio.getPuntuacio()*puntuacio.getNumVots())+this.punts)/(puntuacio.getNumVots()+1));
-			puntuacio.setNumVots(puntuacio.getNumVots()+1);
-		}
-		puntuacioDAO.savePuntuacio(puntuacio);
-		
-		this.setLlibre(com.vaannila.ws.BooksWS.getBook(this.id));
-		bookList.put("puntuacio", this.unDecimal(puntuacio.getPuntuacio()).toString());
-		bookList.put("numVots", puntuacio.getNumVots().toString());		
-		this.commentList = comentariDAO.getComentariList(this.id);
-		
-		return SUCCESS;
-	}
 	
 	public Comentari getComment() {
 		return this.comment;
@@ -129,99 +177,6 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 	public void setComment(Comentari comment) {
 		this.comment = comment;
 	}
-
-	public String addComment(){
-		
-		Date data = new Date();
-		
-		comment.setData(data);
-		Map session = ActionContext.getContext().getSession();
-	    String username = null;
-	    username= (String) session.get("username");
-	    if (username==null)username = "rodonako";
-		comment.setUsername(username);
-
-		//comment.setIsbn("0001");
-		
-		
-		comentariDAO.saveComentari(comment);
-		this.setId(comment.getIsbn());
-		
-		this.setLlibre(com.vaannila.ws.BooksWS.getBook(this.id));
-		this.puntuacio = puntuacioDAO.getPuntuacioIsbn(this.id);
-		if (puntuacio!=null) 
-		{
-			
-			bookList.put("puntuacio", this.unDecimal(puntuacio.getPuntuacio()).toString());
-			bookList.put("numVots", puntuacio.getNumVots().toString());
-		}
-		//this.commentList = comentariDAO.getComentariList(this.id);
-		this.commentList = comentariDAO.getComentariList(comment.getIsbn());
-		return SUCCESS;
-	}
-	
-	public HashMap<String, String> getBookList() {
-		return bookList;
-	}
-
-	public void setBookList(HashMap<String, String> bookList) {
-		this.session = ActionContext.getContext().getSession();
-		this.session.put("bookList",bookList);
-		this.bookList = bookList;
-	}
-
-	public List<Comentari> getCommentList() {
-		return commentList;
-	}
-
-	public void setCommentList(List<Comentari> commentList) {
-		this.commentList = commentList;
-	}
-
-	private Double unDecimal(Double x)
-	{
-		Double p = x*10;
-		p = (double) Math.round(p);
-		p = p/10;
-		return p;
-	}
-	public String show() throws InvalidKeyException, IllegalArgumentException, NoSuchAlgorithmException, ParserConfigurationException, SAXException, IOException{
-		
-		Date data = new Date();
-		viewed.setData(data);
-		viewed.setIsbn(this.id);
-		vistDAO.saveVist(viewed);
-		
-		this.setLlibre(com.vaannila.ws.BooksWS.getBook(this.id));
-		
-
-		//Cal mirar a la base de dades si tenim una puntuacio associada a aquest llibre
-		//Si no la tenim cal inicialitzar-la
-	
-		puntuacio = puntuacioDAO.getPuntuacioIsbn(this.id);
-		if (puntuacio!=null) 
-		{
-			bookList.put("puntuacio", this.unDecimal(puntuacio.getPuntuacio()).toString());
-			bookList.put("numVots", puntuacio.getNumVots().toString());
-		}
-		//Agafem els comentaris associats a aquest isbn
-		this.commentList = comentariDAO.getComentariList(this.id);
-
-		this.llibreriaList = llibreriaDAO.listLlibreria();
-		
-		session.put("llibreries", llibreriaList);
-		llibreriesNoms = new ArrayList<String>();
-		for (int k = 0;k < llibreriaList.size();++k)
-		{
-			llibreriesNoms.add(llibreriaList.get(k).getName());
-		}
-		session.put("llibreriesNoms", llibreriesNoms);
-		session.put("llibre", llibre);
-		
-		return SUCCESS;
-	}
-
-	
 	
 	public List<Llibreria> getLlibreriaList() {
 		return llibreriaList;
