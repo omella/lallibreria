@@ -1,7 +1,7 @@
 #parse("WEB-INF/templates/header.vm")
 <body>
 <a href=/laLlibreria>Inici</a>
-#if ($bookList)
+#if ($llibre)
 	<div class="content">
 		<div style="float: left;">
 			<img src="${llibre.thumb}" />
