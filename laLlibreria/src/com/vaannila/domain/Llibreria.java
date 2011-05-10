@@ -71,7 +71,7 @@ public class Llibreria {
 		this.cif = cif;
 	}
 	
-	@Column(name="LLIBRERIA_PASSWORD")
+	@Column(name="password")
 	public void setPassword(String password) {
 		this.password = password;
 	}

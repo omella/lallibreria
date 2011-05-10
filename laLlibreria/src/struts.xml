@@ -47,9 +47,9 @@
 		</action>
 		
 		<action name="doLoginLlibreria" method="login" class="com.vaannila.web.LlibreriaAction">
-			<result name="input" type="velocity">/WEB-INF/templates/homeLlibreria.vm</result>
-			<result name="error" type="velocity">/WEB-INF/templates/registreLlibreria.vm</result>
-			<result type="velocity">/WEB-INF/templates/registreLlibreria.vm</result>
+			<result name="success" type="velocity">/WEB-INF/templates/homeLlibreria.vm</result>
+			<result name="input" type="velocity">/WEB-INF/templates/pie.vm</result>
+			<result name="error" type="velocity">/WEB-INF/templates/index.vm</result>
 		</action>
 		
 		<action name="showLogin">
