@@ -66,6 +66,45 @@ a {
   float:left;
 }
 
+#errorContent{
+	margin-top: 40px;
+	margin-left: 30%;
+	float:left;
+	width: 40%;
+	height: 100px;
+-moz-border-radius:42px;
+-webkit-border-radius:42px;
+border-radius:42px;
+/*IE DOES NOT SUPPORT BORDER RADIUS*/
+-moz-box-shadow:0px 0px 20px #000000;
+-webkit-box-shadow:0px 0px 20px #000000;
+box-shadow:0px 0px 20px #000000;
+/*IE DOES NOT SUPPORT BLUR PROPERTY OF SHADOWS*/
+background: -moz-linear-gradient(top, transparent, #cf0000);
+background: -webkit-gradient(linear, center top, center bottom, from(transparent), to(#cf0000));
+background: -o-linear-gradient(top, transparent, #cf0000);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='transparent', endColorstr='#cf0000');
+/*INNER ELEMENTS MUST NOT BREAK THIS ELEMENTS BOUNDARIES*/
+/*Element must have a height (not auto)*/
+/*All filters must be placed together*/
+-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='transparent', endColorstr='#cf0000')";
+/*Element must have a height (not auto)*/
+/*All filters must be placed together*/
+background: linear-gradient(top, transparent, #cf0000);
+/*--IE9 DOES NOT SUPPORT GRADIENT BACKGROUNDS--*/
+opacity:0.68;
+-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=68);
+/*-ms-filter must come before filter*/
+filter: alpha(opacity=68);
+/*INNER ELEMENTS MUST NOT BREAK THIS ELEMENTS BOUNDARIES*/
+/*All filters must be placed together*/
+}
+
+#errorMsg {
+	left:200px;
+
+}
+
 #login{	
   margin-right: 10px;
   float:right;

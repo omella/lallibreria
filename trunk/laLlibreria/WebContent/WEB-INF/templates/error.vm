@@ -1,0 +1,18 @@
+#parse("WEB-INF/templates/header.vm")
+
+<body>
+   <div id=page>
+     <div id=top>
+     	<div id=errorContent>
+     		<div id=erroMsg>
+     			<h1>Login Incorrecte!</h1>
+     		</div>
+     	</div>
+     </div>
+     <div id=foot>
+     	#parse( "WEB-INF/templates/pie.vm" )
+     </div>
+   </div>
+
+ </body>
+</html>
