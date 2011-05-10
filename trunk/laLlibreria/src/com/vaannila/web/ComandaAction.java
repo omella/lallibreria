@@ -140,8 +140,8 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 	    		UserDAO usuariDAO = new UserDAOImpl();
 	    		//Usuari usuari = usuariDAO.getUser(ident);
 	    		//mail.setOrigen(usuari.getMail());
-	    		mail.setCos(body+" "+firma+" "+codi);
-	    		
+	    		mail.setCos(body+" "+firma);
+	    		mail.setCodiReserva(codi);
 	    		mailDAO.saveMail(mail);
 	    		
 	    		GestorMail.getInstancia().enviarMailUsuari(to, subject, msg, codi);

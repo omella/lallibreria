@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.validator.NotEmpty;
+
 @Entity
 @Table(name="LLIBRERIA")
 public class Mail {
@@ -18,6 +20,7 @@ public class Mail {
 	private String asuptme;
 	private String cos;
 	private Date data;
+	private Integer codiReserva;
 
 	@Id
 	@GeneratedValue
@@ -69,6 +72,13 @@ public class Mail {
 		this.data = data;
 	}
 	
-
-	
+	@NotEmpty
+	@Column(name="CODI")
+	public Integer getCodiReserva() {
+		return codiReserva;
+	}
+	public void setCodiReserva(Integer codiReserva) {
+		this.codiReserva = codiReserva;
+	}
+		
 }
