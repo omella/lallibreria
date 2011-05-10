@@ -20,7 +20,7 @@ public class Mail {
 	private String asuptme;
 	private String cos;
 	private Date data;
-	private Integer codiReserva;
+	private String codiReserva;
 
 	@Id
 	@GeneratedValue
@@ -74,10 +74,10 @@ public class Mail {
 	
 	@NotEmpty
 	@Column(name="CODI")
-	public Integer getCodiReserva() {
+	public String getCodiReserva() {
 		return codiReserva;
 	}
-	public void setCodiReserva(Integer codiReserva) {
+	public void setCodiReserva(String codiReserva) {
 		this.codiReserva = codiReserva;
 	}
 		
