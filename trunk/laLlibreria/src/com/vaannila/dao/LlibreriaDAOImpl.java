@@ -32,7 +32,7 @@ public class LlibreriaDAOImpl implements LlibreriaDAO {
 	public boolean existLlibreria(String llibreriaId, String passwd){
 		List<Llibreria> courses = null;
 		try{
-			courses = session.createQuery("from Llibreria where LLIBRERIA_MAIL="+llibreriaId+" AND LLIBRERIA_PASSWORD="+passwd).list();
+			courses = session.createQuery("from Llibreria where LLIBRERIA_MAIL='"+llibreriaId+"' AND password='"+passwd+"'").list();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 

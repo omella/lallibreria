@@ -22,10 +22,7 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	private CupoDAO cupoDAO = new CupoDAOImpl();
 	private String tematica = null;
 	private String valor = null;
-	//borrame
-	private String mail = null;
-	private String password = null;
-	//FIN-borrame
+
 	@Override
 	public Llibreria getModel() {
 		return llibreria;
@@ -45,10 +42,9 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	}
 	
 	public String login(){
-		String e = "error";
-		if (llibreriaDAO.existLlibreria(mail, password)) return SUCCESS;
-		else return e;
-		
+		String e = "error";	
+		if (llibreriaDAO.existLlibreria(llibreria.getMail(), llibreria.getPassword())) return SUCCESS;
+		else return e;		
 	}
 	
 	public String addCupo()
@@ -97,23 +93,5 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 		this.valor = valor;
 	}
 
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
-
-	public String getMail() {
-		return mail;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-
-	
 
 }
