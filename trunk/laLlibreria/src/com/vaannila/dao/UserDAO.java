@@ -7,4 +7,5 @@ public interface UserDAO {
 	public Boolean existUser(String serviceId, Boolean tipus);
 	public void saveUser(Usuari user);
 	public List<Usuari> listUser();
+	public Usuari getUser(String serviceId, Boolean isGoogleAccount);
 }

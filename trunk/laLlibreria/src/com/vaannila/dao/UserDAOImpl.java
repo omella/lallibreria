@@ -50,4 +50,16 @@ public class UserDAOImpl implements UserDAO {
 			e.printStackTrace();
 		} 
 	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public Usuari getUser(String serviceId, Boolean isGoogleAccount){
+		List<Usuari> courses = null;
+	try {
+		courses = session.createQuery("from Usuari Where IS_GOOGLE_ACCOUNT="+isGoogleAccount + " AND SERVICE_ID="+serviceId).list();
+	} catch (Exception e) {
+		//e.printStackTrace();
+	}
+	
+	return courses.get(0);
+	}
 }
