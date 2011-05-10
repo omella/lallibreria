@@ -2,7 +2,6 @@ package com.vaannila.web;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import java.util.Map;
@@ -137,16 +136,15 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 	    		
 	    		mail.setData(new Date());
 	    		mail.setAsuptme(subject);
-	    		String ident = (String) this.session.get("ident");
 	    		mail.setDesti(to);
-	    		UserDAO usuariDAO = new UserDAOImpl();
 	    		
-	    		//Usuari usuari = usuariDAO.getUser(ident);
-	    		//mail.setOrigen(usuari.getMail());
-	    		mail.setCos(body+" "+firma);
+	    		Usuari usuari = (Usuari) session.get("user");
+	    		mail.setOrigen(usuari.getMail());
+	    		mail.setCos(body);
 	    		mail.setCodiReserva(codi.toString());
 	    		mailDAO.saveMail(mail);
 	    		
+	    		to = mail.getOrigen();
 	    		GestorMail.getInstancia().enviarMailUsuari(to, subject, msg, codi);
 
 			}
