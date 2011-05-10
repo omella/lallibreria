@@ -20,7 +20,7 @@ import com.vaannila.domain.Llibre;
 
 public class ISBNdbWS {
 	//private String url = "http://isbndb.com/api/books.xml?access_key=3TL9RX6R&index1=title&value1=sherlock+holmes";
-	//private String accessKey = "3TL9RX6R";
+	private static String accessKey = "3TL9RX6R";
 	//private boolean details;
 	//private boolean texts;
 
@@ -33,7 +33,7 @@ public class ISBNdbWS {
          *   	Joaquin	3TL9RX6R
          * 		Marc	8949LIQR
          */
-        String isbndbUrl = "http://isbndb.com/api/books.xml?access_key=8949LIQR&index1=combined&value1="+title+"+by+"+author;
+        String isbndbUrl = "http://isbndb.com/api/books.xml?access_key="+accessKey+"&index1=combined&value1="+title+"+by+"+author;
 
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -57,7 +57,7 @@ public class ISBNdbWS {
         title = title.replace(" ", "+");
         author = author.replace(" ", "+");
 
-        String isbndbUrl = "http://isbndb.com/api/books.xml?access_key=8949LIQR&page_number="+page+"&index1=combined&value1="+title+"+by+"+author;
+        String isbndbUrl = "http://isbndb.com/api/books.xml?access_key="+accessKey+"&page_number="+page+"&index1=combined&value1="+title+"+by+"+author;
         
         return fetchList(isbndbUrl);
     }
@@ -105,7 +105,7 @@ public class ISBNdbWS {
 
 	public static Llibre searchByISBN(String isbn) {
 		
-		String requestUrl = "http://isbndb.com/api/books.xml?access_key=8949LIQR&index1=isbn&value1="+isbn;
+		String requestUrl = "http://isbndb.com/api/books.xml?access_key="+accessKey+"&index1=isbn&value1="+isbn;
 		
 		Llibre book = new Llibre();
 		

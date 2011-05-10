@@ -37,10 +37,46 @@ public class BooksWS{
 		}
 		List<Llibre> llistaLlibres = ISBNdbWS.search(keyword, page);
 		List<Llibre> resultat = new ArrayList<Llibre>();
+		if(llistaLlibres==null) return resultat;
 		for (int i=0; i<llistaLlibres.size(); i++) {
 			Llibre b = llistaLlibres.get(i);
+			if(b!=null) {
+				try {
+					amazon.fillBookInfo(b);
+				} catch (SAXException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				resultat.add(b);
+			}
+		}
+		return resultat;
+	}
+
+	public static Llibre getBook(String isbn) {
+		Llibre result = ISBNdbWS.searchByISBN(isbn);
+		if(result!=null) {
 			try {
-				amazon.fillBookInfo(b);
+				AmazonBooksWS amazon = new AmazonBooksWS();
+				amazon.fillBookInfo(result);
+			} catch (InvalidKeyException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParserConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			} catch (SAXException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -48,37 +84,6 @@ public class BooksWS{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			resultat.add(b);
-		}
-		return resultat;
-	}
-
-	public static Llibre getBook(String isbn) {
-		Llibre result = ISBNdbWS.searchByISBN(isbn);
-		try {
-			AmazonBooksWS amazon = new AmazonBooksWS();
-			amazon.fillBookInfo(result);
-		} catch (InvalidKeyException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		return result;
 	}

@@ -50,10 +50,11 @@
 			#ssubmit ("value=Publicar")
 		#end
 		
-		#if ($llibre.commentList)
+		#if (${llibre.commentList})
+			${llibre.commentList}
 			Comentaris:
 			<table border="1">
-			#foreach ($comment in $llibre.commentList)
+			#foreach ($comment in ${llibre.commentList})
 				<tr>
 					<td>
 						<b>${comment.username}</b> <i>${comment.data}</i>
