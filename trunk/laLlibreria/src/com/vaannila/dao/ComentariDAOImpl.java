@@ -38,6 +38,7 @@ public class ComentariDAOImpl implements ComentariDAO {
 		catch(Exception e){
 			
 		}
+		System.out.println();
 		return result;
 	}
 
