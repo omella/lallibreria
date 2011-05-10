@@ -48,6 +48,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 	private Vist viewed = new Vist();
 	private LlibreriaDAO llibreriaDAO = new LlibreriaDAOImpl(); 
 	private List<Llibreria>llibreriaList = null;
+	private List<String>llibreriesNoms = null;
 	private Puntuacio puntuacio = new Puntuacio();
 	
 	private List <Comentari> commentList = new ArrayList<Comentari>();
@@ -209,9 +210,33 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 		this.llibreriaList = llibreriaDAO.listLlibreria();
 		
 		session.put("llibreries", llibreriaList);
+		llibreriesNoms = new ArrayList<String>();
+		for (int k = 0;k < llibreriaList.size();++k)
+		{
+			llibreriesNoms.add(llibreriaList.get(k).getName());
+		}
+		session.put("llibreriesNoms", llibreriesNoms);
 		session.put("llibre", llibre);
 		
 		return SUCCESS;
+	}
+
+	
+	
+	public List<Llibreria> getLlibreriaList() {
+		return llibreriaList;
+	}
+
+	public void setLlibreriaList(List<Llibreria> llibreriaList) {
+		this.llibreriaList = llibreriaList;
+	}
+
+	public List<String> getLlibreriesNoms() {
+		return llibreriesNoms;
+	}
+
+	public void setLlibreriesNoms(List<String> llibreriesNoms) {
+		this.llibreriesNoms = llibreriesNoms;
 	}
 
 	@Override
