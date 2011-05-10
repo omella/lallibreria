@@ -105,6 +105,17 @@ filter: alpha(opacity=68);
 	float:left;
 }
 
+.memberPhoto {
+  width: 45px;
+  height: 45px;
+  border: 0px;
+}
+#profile {
+  font-size:13px;
+  margin: 0;
+  padding: 10px 15px;
+}
+
 #login{	
   margin-right: 10px;
   float:right;

@@ -1,6 +1,5 @@
-<html>
-<head>
-<title>New User Registration</title>
+#parse("WEB-INF/templates/header.vm")
+<title>Complete Missing Data</title>
 
 <link href="blogstyle.css" rel="stylesheet" type="text/css">
 </head>
@@ -12,30 +11,16 @@
 </center>
 
 <div class="blogitem">
-<form action="alex_login.vm" method="addEmail">
 <table border="0" cellpadding="8">
 	<tbody>
 		<tr>
-			<td><b>Put Here your loggin Email:</b></td>
-			<td>
-			#sform ("action=alexLogin2")
-            	#stextfield ("label=Mail"     "name=usermail")
-				#stextfield  ("label=Gènere" "name=gender")
-            	#ssubmit ("value=Acceptar")
-        	</td>
+		#sform ("action=alexLogin2")
+           	#stextfield ("label=Mail"     "name=usermail")
+			#stextfield  ("label=Gènere" "name=gender")
+        #ssubmit ("value=Acceptar")
 		</tr>
 	</tbody>
 </table>
-
-</form>
-</div>
-
-		#sform ("action=doLogin")
-            #stextfield ("label=Name"     "name=username")
-			#spassword  ("label=Password" "name=password")
-            #ssubmit ("value=Login")
-        #end
-        
+</div>  
 </body>
-
 </html>
