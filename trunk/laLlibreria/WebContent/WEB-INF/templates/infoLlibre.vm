@@ -73,15 +73,9 @@
 		<div id=comanda>
 		<br/>
 			Selecciona la quantitat i afegeix la comanda al teu carret
-			#sform ("action=addBookComanda")
-				#stextfield ("label=Quantitat: " "name=num" "value=0")
-				#shidden ("name=idLlibre" "value=$bookList.isbn")
-				#ssubmit ("value=Afegir")
-		    #end
-		    
 		    #sform ("action=addBookComanda")
 				#stextfield ("label=Quantitat: " "name=num" "value=1")
-				#sselect  ("list=llibreriesNoms" "name="idLlibreria" "label=Selecciona la llibreria: ")
+				#sselect  ("list=llibreriesNoms" "name=idLlibreria" "label=Selecciona la llibreria: ")
 				#ssubmit ("value=Afegir")
 		    #end
 			Envia la teva comanda
