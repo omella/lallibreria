@@ -199,7 +199,10 @@ function getDistance(posC,posL) {
 			   #foreach ($popular in $populars)
 					<tr>
 						<td>
-							<a href=/laLlibreria/showBook.action?id=${popular.ISBN}> ${popular.ISBN}</a>
+							<img src="${popular.thumb}" alt=""/>
+						</td>
+						<td>
+							<a href=/laLlibreria/showBook.action?id=${popular.isbn}> ${popular.title}</a>, ${popular.author}
 						</td>
 					</tr>
 			   #end

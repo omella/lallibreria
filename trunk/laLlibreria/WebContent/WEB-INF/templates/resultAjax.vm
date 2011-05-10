@@ -4,6 +4,9 @@
 		#foreach ($result in $results)
 		<tr>
 			<td>
+				<img src="${result.thumb}" alt=""/>
+			</td>
+			<td>
 				<h1><a href=/laLlibreria/showBook.action?id=${result.isbn}> ${result.title}</a></h1>
 				<h2>${result.author}</h2>
 				<br>

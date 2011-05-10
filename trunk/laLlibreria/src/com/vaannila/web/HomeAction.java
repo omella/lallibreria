@@ -12,6 +12,7 @@ import com.vaannila.dao.VistDAOImpl;
 import com.vaannila.domain.Llibreria;
 import com.vaannila.dao.LlibreriaDAO;
 import com.vaannila.dao.LlibreriaDAOImpl;
+import com.vaannila.domain.Llibre;
 import com.vaannila.domain.QueryPair;
 import com.vaannila.domain.Vist;
 
@@ -26,7 +27,7 @@ public class HomeAction extends ActionSupport implements ModelDriven<Vist>{
 	private LlibreriaDAO llibreriaDAO = new LlibreriaDAOImpl();
 	private VistDAO vistDAO = new VistDAOImpl();
 	
-	List<QueryPair> populars = null;
+	List<Llibre> populars = null;
 	private List<Llibreria> llibreriaList = new ArrayList<Llibreria>();
 	
 	public List<Llibreria> getLlibreriaList() {
@@ -37,18 +38,22 @@ public class HomeAction extends ActionSupport implements ModelDriven<Vist>{
 		this.llibreriaList = llibreriaList;
 	}
 
-	public List<QueryPair> getPopulars() {
+	public List<Llibre> getPopulars() {
 		return populars;
 	}
 
-	public void setPopulars(List<QueryPair> populars) {
+	public void setPopulars(List<Llibre> populars) {
 		this.populars = populars;
 	}
 
 	public String home() {
 		
 		List<QueryPair> vistes = vistDAO.getVistList();
-		this.setPopulars(vistes);
+		List<Llibre> llistaLlibres = new ArrayList<Llibre>();
+		for (int i=0; i<vistes.size(); i++) {
+			llistaLlibres.add(com.vaannila.ws.BooksWS.getBook(vistes.get(i).ISBN));
+		}
+		this.setPopulars(llistaLlibres);
         this.setLlibreriaList(llibreriaDAO.listLlibreria());
 		return SUCCESS;
 	}
