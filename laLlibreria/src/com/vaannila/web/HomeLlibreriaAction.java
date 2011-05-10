@@ -35,7 +35,7 @@ public class HomeLlibreriaAction extends ActionSupport implements ModelDriven<Cu
 	Cupo nouCupo = new Cupo();
 	private List <Cupo> llistaCupons = new ArrayList<Cupo>();
     CupoDAO cupoDAO = new CupoDAOImpl();
-	
+
 	
 	public List<Cupo> getLlistaCupons() {
 		return llistaCupons;
