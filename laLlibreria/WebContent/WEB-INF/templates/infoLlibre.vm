@@ -51,7 +51,6 @@
 		#end
 		
 		#if (${llibre.commentList})
-			${llibre.commentList}
 			Comentaris:
 			<table border="1">
 			#foreach ($comment in ${llibre.commentList})

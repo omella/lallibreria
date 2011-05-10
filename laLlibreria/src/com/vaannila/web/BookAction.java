@@ -22,6 +22,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
+import com.safelayer.trustedx.client.smartwrapper.SmartDecryptResponse.thisRecipientInfo;
 import com.vaannila.dao.ComentariDAO;
 import com.vaannila.dao.ComentariDAOImpl;
 import com.vaannila.dao.LlibreriaDAO;
@@ -111,6 +112,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 		vistDAO.saveVist(viewed);
 		
 		llibre = com.vaannila.ws.BooksWS.getBook(this.id);
+		this.setLlibre(this.llibre);
 		
 		this.llibreriaList = llibreriaDAO.listLlibreria();
 		
