@@ -2,6 +2,7 @@ package com.vaannila.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
@@ -11,6 +12,7 @@ import com.opensymphony.xwork2.ActionSupport;
 //import com.vaannila.dao.searchDAO;
 //import com.vaannila.dao.searchDAOImpl;
 //import com.vaannila.domain.Cerca;
+import com.vaannila.domain.Llibre;
 
 
 
@@ -22,7 +24,7 @@ public class SearchAction extends ActionSupport {
 	//private Cerca cerca = new Cerca();
 	
 	//private searchDAO searchDAO = new searchDAOImpl();
-	private ArrayList<HashMap<String,String> > results = new ArrayList<HashMap<String,String> >();
+	private List<Llibre> results = new ArrayList<Llibre>();
 	private String msg = null;
 	private String key = null;
 	private Integer page = 1;
@@ -71,11 +73,11 @@ public class SearchAction extends ActionSupport {
 		this.page = page;
 	}
 
-	public ArrayList<HashMap<String, String>> getResults() {
+	public List<Llibre> getResults() {
 		return results;
 	}
 
-	public void setResults(ArrayList<HashMap<String, String>> results) {
+	public void setResults(List<Llibre> results) {
 		this.results = results;
 	}
 
@@ -109,7 +111,7 @@ public class SearchAction extends ActionSupport {
 		if (this.getPage() > this.totalPages) this.setPage(this.totalPages);
 		if (this.getNextPage() > this.totalPages) this.setNextPage(null);
 		if (this.getPreviousPage() < 1) this.setPreviousPage(null);
-		this.results = com.vaannila.ws.ISBNdbWS.search(this.key, Integer.toString(this.page));
+		this.results = com.vaannila.ws.BooksWS.serchBook(this.key, Integer.toString(this.page));
 		
 		long end = System.currentTimeMillis();
 

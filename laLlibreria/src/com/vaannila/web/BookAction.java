@@ -36,7 +36,7 @@ import com.vaannila.domain.Llibre;
 import com.vaannila.domain.Llibreria;
 import com.vaannila.domain.Puntuacio;
 import com.vaannila.domain.Vist;
-import com.vaannila.ws.APIAccess;
+import com.vaannila.ws.BooksWS;;
 
 
 
@@ -112,7 +112,8 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 			puntuacio.setNumVots(puntuacio.getNumVots()+1);
 		}
 		puntuacioDAO.savePuntuacio(puntuacio);
-		this.setBookList(com.vaannila.ws.ISBNdbWS.searchISBN(this.id));
+		
+		this.setLlibre(com.vaannila.ws.BooksWS.getBook(this.id));
 		bookList.put("puntuacio", this.unDecimal(puntuacio.getPuntuacio()).toString());
 		bookList.put("numVots", puntuacio.getNumVots().toString());		
 		this.commentList = comentariDAO.getComentariList(this.id);
@@ -145,7 +146,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 		comentariDAO.saveComentari(comment);
 		this.setId(comment.getIsbn());
 		
-		this.setBookList(com.vaannila.ws.ISBNdbWS.searchISBN(this.id));
+		this.setLlibre(com.vaannila.ws.BooksWS.getBook(this.id));
 		this.puntuacio = puntuacioDAO.getPuntuacioIsbn(this.id);
 		if (puntuacio!=null) 
 		{
@@ -190,13 +191,8 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 		viewed.setIsbn(this.id);
 		vistDAO.saveVist(viewed);
 		
-		llibre.setIsbn(this.id);
-		APIAccess aa = new APIAccess();
-		aa.fillBookInfo(this.llibre);
+		this.setLlibre(com.vaannila.ws.BooksWS.getBook(this.id));
 		
-		//El id es el isbn del llibre actual
-		//cal anar al ws i aconseguir la resta d'informacio
-		this.setBookList(com.vaannila.ws.ISBNdbWS.searchISBN(this.id));
 
 		//Cal mirar a la base de dades si tenim una puntuacio associada a aquest llibre
 		//Si no la tenim cal inicialitzar-la
@@ -213,6 +209,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 		this.llibreriaList = llibreriaDAO.listLlibreria();
 		
 		session.put("llibreries", llibreriaList);
+		session.put("llibre", llibre);
 		
 		return SUCCESS;
 	}

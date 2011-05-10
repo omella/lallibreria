@@ -16,7 +16,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 
-//import com.vaannila.domain.Llibre;
+import com.vaannila.domain.Llibre;
 
 public class ISBNdbWS {
 	//private String url = "http://isbndb.com/api/books.xml?access_key=3TL9RX6R&index1=title&value1=sherlock+holmes";
@@ -51,7 +51,7 @@ public class ISBNdbWS {
         }
     }
 	
-    public static ArrayList<HashMap<String, String>> search(String keySearch, String page) {
+    public static ArrayList<Llibre> search(String keySearch, String page) {
         String title = keySearch;
         String author = keySearch;
         title = title.replace(" ", "+");
@@ -62,8 +62,8 @@ public class ISBNdbWS {
         return fetchList(isbndbUrl);
     }
 
-    private static ArrayList<HashMap<String, String>> fetchList(String requestUrl) {
-    	ArrayList<HashMap<String, String>> results = new ArrayList<HashMap<String, String>>();
+    private static ArrayList<Llibre> fetchList(String requestUrl) {
+    	ArrayList<Llibre> results = new ArrayList<Llibre>();
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -74,22 +74,22 @@ public class ISBNdbWS {
             if(elementNodeList.getLength()==0) return null;
             
             for(int i=0; i<elementNodeList.getLength(); i++) {    
-            	HashMap<String,String> book = new HashMap<String,String>();
+            	Llibre book = new Llibre();
             	
             	Node bookData = elementNodeList.item(i);
             	for(int j=0; j<bookData.getAttributes().getLength(); j++) {
             		if(bookData.getAttributes().item(j).getNodeName().equals("isbn13")) {
-            			book.put("isbn", bookData.getAttributes().item(j).getNodeValue());
+            			book.setIsbn(bookData.getAttributes().item(j).getNodeValue());
             		}
             	}
             	for(int j=0; j<bookData.getChildNodes().getLength(); j++) {
             		if(bookData.getChildNodes().item(j).getNodeName().equals("Title")) {
-            			book.put("titol", bookData.getChildNodes().item(j).getTextContent());
+            			book.setTitle(bookData.getChildNodes().item(j).getTextContent());
             		}
             	}
             	for(int j=0; j<bookData.getChildNodes().getLength(); j++) {
             		if(bookData.getChildNodes().item(j).getNodeName().equals("AuthorsText")) {
-            			book.put("autor", bookData.getChildNodes().item(j).getTextContent());
+            			book.setAuthor(bookData.getChildNodes().item(j).getTextContent());
             		}
             	}
             	
@@ -99,39 +99,15 @@ public class ISBNdbWS {
             return results;
                         
         } catch (Exception e) {
-            HashMap<String,String> resultHash = new HashMap<String, String>();
-
-			resultHash.put("isbn", "");
-			resultHash.put("titol", "");
-			resultHash.put("autor", "Error: ISBNdb does not have a record for that title/author.");
-	
-			results.add(resultHash);
-            return results;
+            return null;
         }
     }
-    
-    private static String xmlToString(Node node) {
-        try {
-            Source source = new DOMSource(node);
-            StringWriter stringWriter = new StringWriter();
-            Result result = new StreamResult(stringWriter);
-            TransformerFactory factory = TransformerFactory.newInstance();
-            Transformer transformer = factory.newTransformer();
-            transformer.transform(source, result);
-            return stringWriter.getBuffer().toString();
-        } catch (TransformerConfigurationException e) {
-            e.printStackTrace();
-        } catch (TransformerException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
-	public static HashMap<String, String> searchISBN(String isbn) {
+	public static Llibre searchByISBN(String isbn) {
 		
 		String requestUrl = "http://isbndb.com/api/books.xml?access_key=8949LIQR&index1=isbn&value1="+isbn;
 		
-		HashMap<String, String> book = new HashMap<String, String>();
+		Llibre book = new Llibre();
 		
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -145,28 +121,22 @@ public class ISBNdbWS {
             Node bookData = elementNodeList.item(0);
             for(int j=0; j<bookData.getChildNodes().getLength(); j++) {
             	if(bookData.getChildNodes().item(j).getNodeName().equals("Title")) {
-            		book.put("titol", bookData.getChildNodes().item(j).getTextContent());
+            		book.setTitle(bookData.getChildNodes().item(j).getTextContent());
             	}
             }
             for(int j=0; j<bookData.getChildNodes().getLength(); j++) {
             	if(bookData.getChildNodes().item(j).getNodeName().equals("AuthorsText")) {
-            		book.put("autor", bookData.getChildNodes().item(j).getTextContent());
+            		book.setAuthor(bookData.getChildNodes().item(j).getTextContent());
             	}
             }
 
-    		book.put("any", "No implementat");
-    		book.put("isbn",isbn);
+    		book.setIsbn(isbn);
             return book;
                         
         } catch (Exception e) {
-        	HashMap<String, String> resultHash = new HashMap<String, String>();
-        	
-			resultHash.put("isbn", "");
-			resultHash.put("titol", "");
-			resultHash.put("any", "");
-			resultHash.put("autor", "Error: ISBNdb does not have a record for that title/author.");
-
-            return resultHash;
+        	Llibre book2 = new Llibre();
+        	book2.setIsbn(isbn);
+            return book2;
         }
     }
 }

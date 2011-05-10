@@ -4,15 +4,15 @@ package com.vaannila.domain;
 public class Llibre {
 
 	private String isbn;
-	private String descripcio;
-	private String titol;
+	private String title;
+	private String subtitle;
+	private String author;
 	private String publisher;
-	private String autor;
-    private String coverArt;
+	private String description;
 	private String genre;
     private String series;
-    private String subtitle;
     private String thumb;
+    private String cover;
     
 	public Llibre() {
 		super();
@@ -26,20 +26,28 @@ public class Llibre {
 		this.isbn = isbn;
 	}
 
-	public String getDescripcio() {
-		return descripcio;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setDescripcio(String descripcio) {
-		this.descripcio = descripcio;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getTitol() {
-		return titol;
+	public String getSubtitle() {
+		return subtitle;
 	}
 
-	public void setTitol(String titol) {
-		this.titol = titol;
+	public void setSubtitle(String subtitle) {
+		this.subtitle = subtitle;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 
 	public String getPublisher() {
@@ -50,20 +58,12 @@ public class Llibre {
 		this.publisher = publisher;
 	}
 
-	public String getAutor() {
-		return autor;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setAutor(String autor) {
-		this.autor = autor;
-	}
-
-	public String getCoverArt() {
-		return coverArt;
-	}
-
-	public void setCoverArt(String coverArt) {
-		this.coverArt = coverArt;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getGenre() {
@@ -82,14 +82,6 @@ public class Llibre {
 		this.series = series;
 	}
 
-	public String getSubtitle() {
-		return subtitle;
-	}
-
-	public void setSubtitle(String subtitle) {
-		this.subtitle = subtitle;
-	}
-
 	public String getThumb() {
 		return thumb;
 	}
@@ -98,4 +90,28 @@ public class Llibre {
 		this.thumb = thumb;
 	}
 
+	public String getCover() {
+		return cover;
+	}
+
+	public void setCover(String cover) {
+		this.cover = cover;
+	}
+
+    /**
+     * Merges book info from s into p this
+     * @param s Secondary- the info source
+     */
+    public void mergeBookInfo(Llibre s) {
+    	if (this.getIsbn()==null) this.setIsbn(s.getIsbn());
+    	if (this.getTitle()==null) this.setTitle(s.getTitle());
+    	if (this.getSubtitle()==null) this.setSubtitle(s.getSubtitle());
+    	if (this.getAuthor()==null) this.setAuthor(s.getAuthor());
+    	if (this.getPublisher()==null) this.setPublisher(s.getPublisher());
+    	if (this.getDescription()==null) this.setDescription(s.getDescription());
+    	if (this.getGenre()==null) this.setGenre(s.getGenre());
+    	if (this.getSeries()==null) this.setSeries(s.getSeries());
+    	if (this.getThumb()==null) this.setThumb(s.getThumb());
+    	if (this.getCover()==null) this.setCover(s.getCover());
+    }
 }
