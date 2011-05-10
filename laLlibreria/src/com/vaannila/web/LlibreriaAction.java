@@ -65,11 +65,12 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	{
 		Cupo cupo = new Cupo();
 		Llibreria llib_local = (Llibreria)this.session.get("libreria");
-		cupo.setLlibreria(llib_local.getName());
+		cupo.setLlibreria(llib_local.getMail());
 		cupo.setTematica(this.tematica);
 		cupo.setValor(Double.valueOf(this.valor));
 		cupoDAO.saveCupo(cupo);
-		this.llistaCupons = cupoDAO.listCupoLlibreria(llib_local.getName());
+		llistaCupons = cupoDAO.listCupoLlibreria("mrodon536@gmail.com");
+		for(int i= 0; i < llistaCupons.size();++i) System.out.println("CUPON:"+llistaCupons.get(i).getLlibreria());
 		return SUCCESS;
 	}
 	
@@ -102,7 +103,7 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	public String listCupons()
 	{
 		Llibreria llib_local = (Llibreria)this.session.get("libreria");
-		llistaCupons = cupoDAO.listCupoLlibreria(llib_local.getMail());
+		llistaCupons = cupoDAO.listCupoLlibreria("mrodon536@gmail.com");
 		return SUCCESS;
 	}
 	
