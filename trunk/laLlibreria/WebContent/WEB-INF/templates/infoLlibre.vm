@@ -3,10 +3,30 @@
 <a href=/laLlibreria>Inici</a>
 #if ($bookList)
 	<div class="content">
-		
-		<center><h1> Titol: ${bookList.titol} </h1>			
-		<h2> Autor: ${bookList.autor} </h2>			
-		<h3> Any: ${bookList.any} ISBN: ${bookList.isbn}</h3>			
+		<div style="float: left;">
+			<img src="${llibre.thumb}" />
+		</div>
+		<div style="float: rigth;">
+			<img src="${llibre.coverArt}" />
+		</div>
+		<center><h1> ${llibre.titol} </h1>
+		#if(${llibre.subtitle})
+			<h2> ${llibre.subtitle} </h2>
+		#end
+		<h2> ${llibre.autor} </h2>			
+		<h3> Any: ${bookList.any} ISBN: ${llibre.isbn}</h3>	
+		#if(${llibre.publisher})
+			${llibre.publisher}
+		#end	
+		#if(${llibre.descripcio})
+			${llibre.descripcio}
+		#end
+		#if(${llibre.genre})
+			${llibre.genre}
+		#end
+		#if(${llibre.series})
+			${llibre.series}
+		#end
 		#if (${bookList.puntuacio})
 			<h3> Puntuacio ${bookList.puntuacio} </h3>
 		#end
@@ -68,41 +88,6 @@
 
 #else
 	<h1> No hi ha resultats </h1>
-#end
-
-#if($llibre)
-	<table border="1">
-	<tr><td>
-		${llibre.isbn}
-	</td></tr>
-	<tr><td>
-		${llibre.descripcio}
-	</td></tr>
-	<tr><td>
-		${llibre.titol}
-	</td></tr>
-	<tr><td>
-		${llibre.publisher}
-	</td></tr>
-	<tr><td>
-		${llibre.autor}
-	</td></tr>
-	<tr><td>
-		<img src="${llibre.coverArt}" />
-	</td></tr>
-	<tr><td>
-		${llibre.genre}
-	</td></tr>
-	<tr><td>
-		${llibre.series}
-	</td></tr>
-	<tr><td>
-		${llibre.subtitle}
-	</td></tr>
-	<tr><td>
-		<img src="${llibre.thumb}" />
-	</td></tr>
-	</table>
 #end
 
 #if($msg)
