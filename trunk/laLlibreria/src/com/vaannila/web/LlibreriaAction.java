@@ -24,10 +24,11 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	private List<Llibreria> llibreriaList = new ArrayList<Llibreria>();
 	private LlibreriaDAO llibreriaDAO = new LlibreriaDAOImpl();
 	private CupoDAO cupoDAO = new CupoDAOImpl();
+	private List <Cupo> llistaCupons = new ArrayList<Cupo>();
 	private String tematica = null;
 	private String valor = null;
 	private Map session = ActionContext.getContext().getSession();
-	private Llibreria llibreria = (Llibreria)this.session.get("libreria");
+	private Llibreria llibreria = new Llibreria();//(Llibreria)this.session.get("libreria");
 
 	@Override
 	public Llibreria getModel() {
@@ -36,21 +37,25 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	
 	public String add()
 	{
+		
 		llibreriaDAO.saveLlibreria(llibreria);
-		list();
+		this.session.put("libreria", llibreria);
+		list();	
 		return SUCCESS;
 	}
 	
 	public String list()
 	{
+		
 		llibreriaList = llibreriaDAO.listLlibreria();
 		return SUCCESS;
 	}
-	
+
 	public String login(){
 		String e = "error";	
-		if (llibreriaDAO.existLlibreria(llibreria.getMail(), llibreria.getPassword())){
+		if (llibreriaDAO.existLlibreria(llibreria.getMail(), llibreria.getPassword())){	
 			this.session.put("libreria", llibreria);
+			listCupons();
 			return SUCCESS;
 		}
 		else return e;		
@@ -59,10 +64,12 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	public String addCupo()
 	{
 		Cupo cupo = new Cupo();
-		cupo.setLlibreria("prova");
+		Llibreria llib_local = (Llibreria)this.session.get("libreria");
+		cupo.setLlibreria(llib_local.getName());
 		cupo.setTematica(this.tematica);
 		cupo.setValor(Double.valueOf(this.valor));
 		cupoDAO.saveCupo(cupo);
+		this.llistaCupons = cupoDAO.listCupoLlibreria(llib_local.getName());
 		return SUCCESS;
 	}
 	
@@ -80,6 +87,23 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 
 	public void setLlibreriaList(List<Llibreria> llibreriaList) {
 		this.llibreriaList = llibreriaList;
+	}
+	
+	public List<Cupo> getLlistaCupons() {
+		return llistaCupons;
+	}
+
+
+	public void setLlistaCupons(List<Cupo> llistaCupons) {
+		this.llistaCupons = llistaCupons;
+	
+	}
+
+	public String listCupons()
+	{
+		Llibreria llib_local = (Llibreria)this.session.get("libreria");
+		llistaCupons = cupoDAO.listCupoLlibreria(llib_local.getMail());
+		return SUCCESS;
 	}
 	
 	public String show(){
