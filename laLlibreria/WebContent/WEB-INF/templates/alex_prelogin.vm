@@ -1,0 +1,41 @@
+<html>
+<head>
+<title>New User Registration</title>
+
+<link href="blogstyle.css" rel="stylesheet" type="text/css">
+</head>
+
+<body class="blogbody">
+
+<center>
+<h1 class="blogtitle">User Login</h1>
+</center>
+
+<div class="blogitem">
+<form action="alex_login.vm" method="addEmail">
+<table border="0" cellpadding="8">
+	<tbody>
+		<tr>
+			<td><b>Put Here your loggin Email:</b></td>
+			<td>
+			#sform ("action=alexLogin2")
+            	#stextfield ("label=Mail"     "name=usermail")
+				#stextfield  ("label=Gènere" "name=gender")
+            	#ssubmit ("value=Acceptar")
+        	</td>
+		</tr>
+	</tbody>
+</table>
+
+</form>
+</div>
+
+		#sform ("action=doLogin")
+            #stextfield ("label=Name"     "name=username")
+			#spassword  ("label=Password" "name=password")
+            #ssubmit ("value=Login")
+        #end
+        
+</body>
+
+</html>

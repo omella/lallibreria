@@ -14,11 +14,8 @@ public class Usuari {
 	private boolean isGoogleAccount;
 	private String serviceId;
 	private String name;
-	private String password;
 	private String gender;
-	private String country;
-	private String aboutYou;
-	private boolean mailingList;
+	private String mail;
 	
 	@Id
 	@GeneratedValue
@@ -52,14 +49,6 @@ public class Usuari {
 		this.serviceId = serviceId;
 	}
 	
-	@Column(name="USER_PASSWORD")
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
 	@Column(name="USER_GENDER")
 	public String getGender() {
 		return gender;
@@ -68,28 +57,12 @@ public class Usuari {
 		this.gender = gender;
 	}
 	
-	@Column(name="USER_COUNTRY")
-	public String getCountry() {
-		return country;
+	@Column(name="USER_MAIL")
+	public String getMail() {
+		return mail;
 	}
-	public void setCountry(String country) {
-		this.country = country;
-	}
-	
-	@Column(name="USER_ABOUT_YOU")
-	public String getAboutYou() {
-		return aboutYou;
-	}
-	public void setAboutYou(String aboutYou) {
-		this.aboutYou = aboutYou;
-	}
-	
-	@Column(name="USER_MAILING_LIST")
-	public Boolean getMailingList() {
-		return mailingList;
-	}
-	public void setMailingList(Boolean mailingList) {
-		this.mailingList = mailingList;
+	public void setMail(String mail) {
+		this.mail = mail;
 	}
 
 }

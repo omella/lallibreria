@@ -35,8 +35,18 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 	static final Logger logger = Logger.getLogger(LoginAction.class);
 	String error = null;
 	protected HttpServletRequest servletRequest;
-	private FacebookClient facebookClient; 
+	private FacebookClient facebookClient;
+	private Map session = ActionContext.getContext().getSession();
 	private UserDAO userdao = new UserDAOImpl();
+	boolean google = false;
+    private String username = "";
+    private String usermail = "";
+	private String serviceId = "";
+	private String GsiteId = "06834717057300479661";
+	private String FsiteId = "177068509007802";
+	private String token = null;
+	private Usuari usuari = new Usuari();
+	private String gender = "";
 	public String getError() {
 		return error;
 	}
@@ -45,28 +55,22 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 		this.error = error;
 	}
  
-	public String execute(){
+	public String primeraPart(){
 		Provider Gprovid = new FriendConnectProvider();
 		//AuthScheme scheme2 = new OAuth2LeggedScheme("*:06834717057300479661", "cabs_uiKs-E=");
 		
-		boolean google = false;
-		String serviceId = "";
-		String GsiteId = "06834717057300479661";
-		String FsiteId = "177068509007802";
-		String token = null;
-		Usuari usuari = new Usuari();
-		Map session = ActionContext.getContext().getSession();
+
+		
 
 	    for(Cookie c : servletRequest.getCookies()) {
 	    	if (c.getName().equals("fcauth" + GsiteId)) {
 			    token = c.getValue();
 			    google = true;
 			    break;
-	    	}
+	    	}	    	
 	    	if (c.getName().equals("fbs_" + FsiteId)) {
-			    token = c.getValue();
-				System.out.println("EL meu token ("+token+")");
-			    break;
+			    token = c.getValue().replaceAll("%7C", "|").substring(13,112);
+				break;
 	    	}
 	    }
 	    
@@ -81,8 +85,10 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 				response = Gclient.send(request);
 				Person viewer = response.getEntry();
 				
-				this.username=viewer.getDisplayName();
 				serviceId = viewer.getId();
+				username=viewer.getDisplayName();
+				//gender = undefined
+				//usermail=username+"@gmail.com";
 				
 			} catch (RequestException e) {
 				// TODO Auto-generated catch block
@@ -91,42 +97,43 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		
+			
+			return INPUT;
 		}
-		if (token!=null && !google){
-			token = token.replaceAll("%7C", "|").substring(13,112);
+		else if (token!=null && !google){
+			
 			facebookClient = new DefaultFacebookClient(token);  
 			User user = facebookClient.fetchObject("me", User.class);
+			System.out.println(usermail);
 			
-			this.username=user.getName();
 			serviceId = user.getId();
-			
-		}
-		if(this.username == null){
-            this.error = "Has possat la pota! Mira aqui dalt i torna-ho a intentar!";
-            return ERROR;
-	    }
-		
-	    else{
+			username=user.getName();
+			gender = user.getGender();
+			usermail = user.getEmail();
+
 			usuari.setName(username);
 			usuari.setIsGoogleAccount(google);
 			usuari.setServiceId(serviceId);
-			usuari.setAboutYou("a");
-			usuari.setCountry("a");
-			usuari.setGender("a");
-			usuari.setMailingList(true);
-			usuari.setPassword("a");
-			
+			usuari.setGender(gender);
+			usuari.setMail(usermail);
 			
 			boolean b = userdao.existUser(usuari.getServiceId(), usuari.getIsGoogleAccount());
 			if(!b){
 				userdao.saveUser(usuari);
 			}
-			session.put("username", this.username);
+			else{
+				usuari=userdao.getUser(usuari.getServiceId(), usuari.getIsGoogleAccount());
+			}
+			session.put("user", usuari);
 	    	//session.remove("sessionLoginFail");
-			System.out.println(userdao.listUser().toString());
-	    	return SUCCESS;
+			return SUCCESS;
+		}
+		else{
+            this.error = "Has possat la pota! Mira aqui dalt i torna-ho a intentar!";
+            return ERROR;
 	    }
+	    	
+		
 		/*
 		DOMConfigurator.configure("/laLlibreria/workspace/laLlibreria/src/log4j.xml");
 		logger.debug("Sample debug message");
@@ -138,7 +145,25 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 
 	    */
   }
-
+	
+	public String segonaPart(){
+		usuari.setName(username);
+		usuari.setIsGoogleAccount(google);
+		usuari.setServiceId(serviceId);
+		usuari.setGender(gender);
+		usuari.setMail(usermail);
+		
+		boolean b = userdao.existUser(usuari.getServiceId(), usuari.getIsGoogleAccount());
+		if(!b){
+			userdao.saveUser(usuari);
+		}
+		else{
+			usuari=userdao.getUser(usuari.getServiceId(), usuari.getIsGoogleAccount());
+		}
+		session.put("user", usuari);
+    	//session.remove("sessionLoginFail");
+		return SUCCESS;
+	}
 
     // ---- Username property ----
 
@@ -146,7 +171,6 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
      * <p>Field to store User username.</p>
      * <p/>
      */
-    private String username = null;
 
 
     /**
@@ -163,9 +187,7 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
      *
      * @param value The username to set.
      */
-    public void setUsername(String value) {
-        username = value;
-    }
+
 
     // ---- Username property ----
 
@@ -176,7 +198,23 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
     private String password = null;
 
 
-    /**
+    public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getUsermail() {
+		return usermail;
+	}
+
+	public void setUsermail(String usermail) {
+		this.usermail = usermail;
+	}
+
+	/**
      * <p>Provide User password.</p>
      *
      * @return Returns the User password.
@@ -197,7 +235,7 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 	@Override
 	public void setSession(Map<String, Object> arg0) {
 		// TODO Auto-generated method stub
-		
+		this.session = arg0;
 	}
 
 	@Override
