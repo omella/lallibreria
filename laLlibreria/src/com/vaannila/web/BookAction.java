@@ -78,6 +78,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 			puntuacio.setPuntuacio(((puntuacio.getPuntuacio()*puntuacio.getNumVots())+this.punts)/(puntuacio.getNumVots()+1));
 			puntuacio.setNumVots(puntuacio.getNumVots()+1);
 		}
+		
 		puntuacioDAO.savePuntuacio(puntuacio);
 		
 		this.setLlibre(this.llibre);
@@ -88,15 +89,14 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 
 	public String addComment(){
 		
-		Date data = new Date();
-		
+		Date data = new Date();		
 		comment.setData(data);
 	    String username = null;
 	    username= (String) session.get("username");
 	    if (username==null)username = "rodonako";
 		comment.setUsername(username);
+		comment.setIsbn(this.llibre.getIsbn());
 		comentariDAO.saveComentari(comment);
-		this.setId(comment.getIsbn());
 		
 		this.setLlibre(this.llibre);
 		
@@ -110,7 +110,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 		viewed.setIsbn(this.id);
 		vistDAO.saveVist(viewed);
 		
-		this.setLlibre(com.vaannila.ws.BooksWS.getBook(this.id));
+		llibre = com.vaannila.ws.BooksWS.getBook(this.id);
 		
 		this.llibreriaList = llibreriaDAO.listLlibreria();
 		
@@ -133,16 +133,23 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 	public void setLlibre(Llibre llibre) {
 		this.llibre = llibre;
 		this.llibre.setCommentList(comentariDAO.getComentariList(this.llibre.getIsbn()));
-		this.llibre.setPuntuacio(this.unDecimal(puntuacioDAO.getPuntuacioIsbn(this.llibre.getIsbn()).getPuntuacio()).toString());
-		this.llibre.setPuntuacio(puntuacioDAO.getPuntuacioIsbn(this.llibre.getIsbn()).getNumVots().toString());
-		}
+		Double p = this.unDecimal(puntuacioDAO.getPuntuacioIsbn(this.llibre.getIsbn()).getPuntuacio());
+		if (p != null) this.llibre.setPuntuacio(p.toString());
+		else this.llibre.setPuntuacio(null);
+		Integer n = puntuacioDAO.getPuntuacioIsbn(this.llibre.getIsbn()).getNumVots();
+		if (n != null) this.llibre.setNumVots(n.toString());
+		else this.llibre.setNumVots(null);
+	}
 
 	private Double unDecimal(Double x)
 	{
-		Double p = x*10;
-		p = (double) Math.round(p);
-		p = p/10;
-		return p;
+		if (x!=null) {
+			Double p = x*10;
+			p = (double) Math.round(p);
+			p = p/10;
+			return p;
+		}
+		return null;
 	}
 	public Puntuacio getPuntuacio() {
 		return puntuacio;
