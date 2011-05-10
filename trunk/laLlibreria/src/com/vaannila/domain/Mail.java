@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import org.hibernate.validator.NotEmpty;
 
 @Entity
-@Table(name="LLIBRERIA")
+@Table(name="MAIL")
 public class Mail {
 
 	private Long id;
