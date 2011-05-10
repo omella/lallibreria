@@ -25,8 +25,6 @@ public class Llibre {
     
 	public Llibre() {
 		super();
-//		ComentariDAO comentariDAO = new ComentariDAOImpl();
-//		this.commentList = comentariDAO.getComentariList(this.isbn);
 	}
 
 	public String getIsbn() {
