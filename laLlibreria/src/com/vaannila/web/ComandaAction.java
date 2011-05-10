@@ -15,8 +15,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import com.vaannila.dao.MailDAO;
 import com.vaannila.dao.MailDAOImpl;
-import com.vaannila.dao.UserDAO;
-import com.vaannila.dao.UserDAOImpl;
+
 import com.vaannila.domain.Llibre;
 import com.vaannila.domain.Llibreria;
 import com.vaannila.domain.Mail;
@@ -69,11 +68,23 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 		//AGAFAR DE LA LLIBREIA ESCOLLIDA EL DESCOMPTE CORRESPONENT
 		llibre.put("llibreria", this.idLlibreria);
 		llibre.put("descompte", "0.0");
+		
+		
 		String llibreria = this.idLlibreria;
 
-		if (!listTo.contains(llibreria)) 
+		String mail = null;
+		for (int k = 0; k < llibreriaList.size(); ++k)
+		{
+			if (this.llibreriaList.get(k).getName() == idLlibreria) mail = this.llibreriaList.get(k).getMail();
+			
+		}
+		llibre.put("mail", mail);
+		this.llibre.getGenre();
+		//OBTENIR EL CUPO A PARTIR DEL MAIL I DEL GENERE
+		
+		if (!listTo.contains(mail)) 
 	    {
-	    	listTo.add(llibreria);
+	    	listTo.add(mail);
 	    }
 		comanda.add(llibre);
 		
@@ -103,20 +114,15 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 				Vector<ParameterMap<String,String> > enviament = new Vector<ParameterMap<String,String> >();
 				for (int j = 0; j < comanda.size(); ++j)
 				{
-					if (listTo.get(i)== comanda.get(j).get("llibreria"))
+					if (listTo.get(i)== comanda.get(j).get("mail"))
 					{
 						enviament.add(comanda.get(j));
 					}
 				}
 				
-				String to = "mrodon536@gmail.com";
-				for (int k = 0; k < llibreriaList.size(); ++k)
-				{
-					String aux = this.llibreriaList.get(k).getMail();
-					if (aux != null) to = aux;
-				}
+				String to = listTo.get(i);
 
-	        	String body = GestorXML.createDocument(enviament);
+				String body = GestorXML.createDocument(enviament);
 	        	
 	        	String firma = Base64.encode(body.getBytes());
 	        	
