@@ -42,8 +42,7 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 	
 	private String msg = null;
 	
-	@SuppressWarnings("rawtypes")
-	private Map session = ActionContext.getContext().getSession();;
+	private Map session = ActionContext.getContext().getSession();
 	
 	private Llibre llibre = (Llibre)this.session.get("llibre");
 	
