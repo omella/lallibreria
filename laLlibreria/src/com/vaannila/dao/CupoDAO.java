@@ -8,7 +8,7 @@ import com.vaannila.domain.Cupo;
 public interface CupoDAO {
 
 	public void saveCupo(Cupo cupo);
-	public List<Cupo> listCupoLlibreria(int id);
+	public List<Cupo> listCupoLlibreria(String id_mail);
 	public List<Cupo> listCupoTematica(String tematica);
 
 }

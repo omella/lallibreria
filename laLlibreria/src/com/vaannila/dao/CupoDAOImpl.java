@@ -28,10 +28,10 @@ public class CupoDAOImpl implements CupoDAO{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Cupo> listCupoLlibreria(int id) {
+	public List<Cupo> listCupoLlibreria(String id_mail) {
 		List<Cupo> result = null;
 		try {
-			result = session.createQuery("from Cupo where LLIBRERIA="+id+" order by VALOR desc").list();
+			result = session.createQuery("from Cupo where LLIBRERIA_MAIL="+id_mail+" order by VALOR desc").list();
 		}
 		catch(Exception e){
 			

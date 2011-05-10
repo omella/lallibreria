@@ -49,7 +49,7 @@ public class HomeLlibreriaAction extends ActionSupport implements ModelDriven<Cu
 
 	public String list()
 	{
-		llistaCupons = cupoDAO.listCupoLlibreria(0);
+		//llistaCupons = cupoDAO.listCupoLlibreria(0);
 		return SUCCESS;
 	}
 
@@ -59,7 +59,7 @@ public class HomeLlibreriaAction extends ActionSupport implements ModelDriven<Cu
 		
 		this.nouCupo.setLlibreria("PonNomLlibreria");
 		cupoDAO.saveCupo(this.nouCupo);
-		llistaCupons = cupoDAO.listCupoLlibreria(0);
+		//llistaCupons = cupoDAO.listCupoLlibreria(0);
 		return SUCCESS;
 	}
 	
