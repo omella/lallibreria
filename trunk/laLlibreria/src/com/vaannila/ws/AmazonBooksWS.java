@@ -43,7 +43,7 @@ public class AmazonBooksWS {
          *   	Joaquin	3TL9RX6R
          * 		Marc	8949LIQR
          */
-        private final String ISBNDB_KEY = "8949LIQR";
+        private final String ISBNDB_KEY = "3TL9RX6R";
         
         /** Code from Amazon, used to sign the URL. */
         AmazonSignedRequestsHelper helper;

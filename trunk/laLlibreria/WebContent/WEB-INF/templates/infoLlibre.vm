@@ -27,7 +27,7 @@
 		#if(${llibre.series})
 			${llibre.series}
 		#end
-		#if (${bookList.puntuacio})
+		#if (${llibre.puntuacio})
 			<h3> Puntuacio ${llibre.puntuacio} </h3>
 		#end
 		
