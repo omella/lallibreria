@@ -42,7 +42,6 @@ public class HomeLlibreriaAction extends ActionSupport implements ModelDriven<Cu
 	}
 
 
-
 	public void setLlistaCupons(List<Cupo> llistaCupons) {
 		this.llistaCupons = llistaCupons;
 	
