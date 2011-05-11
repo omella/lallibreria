@@ -385,7 +385,7 @@ public class GoogleBooksWS {
    * @param args Used to pass the username and password of a test account.
    */
   public static void main(String[] args) {
-    SimpleCommandLineParser parser = new SimpleCommandLineParser(args);
+    GoogleSimpleCommandLineParser parser = new GoogleSimpleCommandLineParser(args);
     String username = parser.getValue("username", "user", "u");
     String password = parser.getValue("password", "pass", "p");
     boolean help = parser.containsKey("help", "h");
