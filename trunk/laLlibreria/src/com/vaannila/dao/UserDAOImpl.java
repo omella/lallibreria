@@ -37,7 +37,6 @@ public class UserDAOImpl implements UserDAO {
 		} catch (Exception e) {
 			//e.printStackTrace();
 		}
-		
 		return (courses != null && courses.size()>0);
 	}
 

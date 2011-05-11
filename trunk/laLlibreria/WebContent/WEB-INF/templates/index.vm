@@ -229,6 +229,7 @@ function getDistance(posC,posL) {
    <script type="text/javascript">
     var SITE_ID = '06834717057300479661';
     var viewer, ownerFriends, activities;
+    var logged;
     google.friendconnect.container.setParentUrl('/laLlibreria/' /* location of rpc_relay.html and canvas.html */);
     google.friendconnect.container.loadOpenSocialApi({ 
             site: SITE_ID,
@@ -251,8 +252,11 @@ function getDistance(posC,posL) {
 	  
       viewer = data.get('viewer').getData();
       if (viewer) {
-      	alert('Welcome, with google ' + viewer.getField("displayName")+ " " + viewer.getId("")+"!");
-      	window.location = "alexLogin.action"
+      	if(logged == 0){
+      	    alert('Welcome, with google ' + viewer.getField("displayName")+ " " + viewer.getId("")+"!");
+      	    window.location = "alexLogin.action"
+      	}
+      	logged=1;
       	
       }
 	  
@@ -263,6 +267,7 @@ function getDistance(posC,posL) {
         '<b>' + " WELLCOME " +  viewer.getField("displayName")+ " form Google" + '!</b><br>' +
         '<a href="#" onclick="google.friendconnect.requestSignOut(); return false;">Sign out</a><br>';
       } else {
+        logged = 0;
         google.friendconnect.renderSignInButton({ 'id': 'profile', 'style': 'long' });
       }
     };
