@@ -143,12 +143,15 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 	public void setLlibre(Llibre llibre) {
 		this.llibre = llibre;
 		this.llibre.setCommentList(comentariDAO.getComentariList(this.llibre.getIsbn()));
-		Double p = this.unDecimal(puntuacioDAO.getPuntuacioIsbn(this.llibre.getIsbn()).getPuntuacio());
-		if (p != null) this.llibre.setPuntuacio(p.toString());
-		else this.llibre.setPuntuacio(null);
-		Integer n = puntuacioDAO.getPuntuacioIsbn(this.llibre.getIsbn()).getNumVots();
-		if (n != null) this.llibre.setNumVots(n.toString());
-		else this.llibre.setNumVots(null);
+		Puntuacio punt = puntuacioDAO.getPuntuacioIsbn(this.llibre.getIsbn());
+		if(punt==null) {
+			this.llibre.setNumVots(null);
+			this.llibre.setPuntuacio(null);
+		}
+		else {
+			this.llibre.setNumVots(puntuacioDAO.getPuntuacioIsbn(this.llibre.getIsbn()).getNumVots().toString());
+			this.llibre.setNumVots(this.unDecimal(puntuacioDAO.getPuntuacioIsbn(this.llibre.getIsbn()).getPuntuacio()).toString());
+		}
 	}
 
 	private Double unDecimal(Double x)

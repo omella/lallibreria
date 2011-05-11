@@ -20,7 +20,7 @@ import com.vaannila.domain.Llibre;
 
 public class ISBNdbWS {
 	//private String url = "http://isbndb.com/api/books.xml?access_key=3TL9RX6R&index1=title&value1=sherlock+holmes";
-	private static String accessKey = "3TL9RX6R";
+	private static String accessKey = "OYPGEY8Z";
 	//private boolean details;
 	//private boolean texts;
 
@@ -30,7 +30,7 @@ public class ISBNdbWS {
         title = title.replace(" ", "+");
         author = author.replace(" ", "+");
         /*Keys:
-         *   	Joaquin	3TL9RX6R
+         *   	Joaquin	3TL9RX6R  OYPGEY8Z
          * 		Marc	8949LIQR
          */
         String isbndbUrl = "http://isbndb.com/api/books.xml?access_key="+accessKey+"&index1=combined&value1="+title+"+by+"+author;
