@@ -15,9 +15,10 @@
 	<tbody>
 		<tr>
 		#sform ("action=alexLogin2")
-           	#stextfield ("label=Mail"     "name=usermail")
+           	#stextfield ("label=Mail" "name=usermail")
 			#stextfield  ("label=Gènere" "name=gender")
-        #ssubmit ("value=Acceptar")
+        	#ssubmit ("value=Acceptar")
+        #end
 		</tr>
 	</tbody>
 </table>
