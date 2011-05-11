@@ -25,6 +25,8 @@ import com.opensymphony.xwork2.ModelDriven;
 import com.safelayer.trustedx.client.smartwrapper.SmartDecryptResponse.thisRecipientInfo;
 import com.vaannila.dao.ComentariDAO;
 import com.vaannila.dao.ComentariDAOImpl;
+import com.vaannila.dao.CupoDAO;
+import com.vaannila.dao.CupoDAOImpl;
 import com.vaannila.dao.LlibreriaDAO;
 import com.vaannila.dao.LlibreriaDAOImpl;
 import com.vaannila.dao.PuntuacioDAO;
@@ -50,10 +52,11 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 	private LlibreriaDAO llibreriaDAO = new LlibreriaDAOImpl(); 
 	private List<Llibreria>llibreriaList = null;
 	private List<String>llibreriesNoms = null;
+	private List<String>llibreriesCupons = null;
 	private Puntuacio puntuacio = new Puntuacio();
 	
 	private ComentariDAO comentariDAO = new ComentariDAOImpl();
-	
+	private CupoDAO cupoDAO = new CupoDAOImpl();
 	private PuntuacioDAO puntuacioDAO = new PuntuacioDAOImpl();
 	private VistDAO vistDAO = new VistDAOImpl();
 	private Double punts;
@@ -118,12 +121,17 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 		
 		session.put("llibreries", llibreriaList);
 		llibreriesNoms = new ArrayList<String>();
+		llibreriesCupons = new ArrayList <String>();
 		for (int k = 0;k < llibreriaList.size();++k)
 		{
-			llibreriesNoms.add(llibreriaList.get(k).getName());
+			String nom = llibreriaList.get(k).getName();
+			llibreriesNoms.add(nom);
+			String valor = cupoDAO.getCupoValor(nom,this.llibre.getGenre());
+			llibreriesCupons.add(valor);
 		}
 		session.put("llibreriesNoms", llibreriesNoms);
 		session.put("llibre", llibre);
+		session.put("llibreriesCupons", llibreriesCupons);
 		
 		return SUCCESS;
 	}

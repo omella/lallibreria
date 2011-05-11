@@ -14,8 +14,8 @@ public class Cupo {
 	@Column(name="VALOR")
 	private Double valor;  
 		
-	@Column(name="LLIBRERIA")
-	private String llibreria;
+	@Column(name="LLIBRERIA_CUPO")
+	private String llibreria_cupo;
     
 	@Column(name="TEMATICA")
     private String tematica;
@@ -36,12 +36,13 @@ public class Cupo {
 		this.valor = valor;
 	}
 
-	public String getLlibreria() {
-		return llibreria;
+
+	public String getLlibreria_cupo() {
+		return llibreria_cupo;
 	}
 
-	public void setLlibreria(String llibreria) {
-		this.llibreria = llibreria;
+	public void setLlibreria_cupo(String llibreria_cupo) {
+		this.llibreria_cupo = llibreria_cupo;
 	}
 
 	public String getTematica() {
