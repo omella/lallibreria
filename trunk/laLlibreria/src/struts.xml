@@ -42,8 +42,9 @@
 			<result name="success" type="velocity">/WEB-INF/templates/infoLlibre.vm</result>
 		</action>
 		
-		<action name="addCupo" method="add" class="com.vaannila.web.LlibreriaAction">
+		<action name="addCupo" method="addCupo" class="com.vaannila.web.LlibreriaAction">
 			<result name="success" type="velocity">/WEB-INF/templates/homeLlibreria.vm</result>
+			<result name="error" type="velocity">/WEB-INF/templates/homeLlibreria.vm</result>
 		</action>
 		
 		<action name="doLoginLlibreria" method="login" class="com.vaannila.web.LlibreriaAction">
