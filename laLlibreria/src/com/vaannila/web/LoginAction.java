@@ -38,7 +38,7 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 	private FacebookClient facebookClient;
 	private Map session = ActionContext.getContext().getSession();
 	private UserDAO userdao = new UserDAOImpl();
-	boolean google = false;
+	private boolean google = false;
     private String username = "";
     private String usermail = "";
 	private String serviceId = "";
@@ -56,47 +56,31 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 	}
  
 	public String primeraPart(){
-		Provider Gprovid = new FriendConnectProvider();
-		//AuthScheme scheme2 = new OAuth2LeggedScheme("*:06834717057300479661", "cabs_uiKs-E=");
+		session = ActionContext.getContext().getSession();
+		userdao = new UserDAOImpl();
+		google = false;
+	    username = "";
+	    usermail = "";
+		serviceId = "";
+		GsiteId = "06834717057300479661";
+		FsiteId = "177068509007802";
+		token = null;
+		usuari = new Usuari();
+		gender = "";
 		
-
-		
-
 	    for(Cookie c : servletRequest.getCookies()) {
-	    	if (c.getName().equals("fcauth" + GsiteId)) {
+	    	if (token == null && c.getName().equals("fcauth" + GsiteId)) {
 			    token = c.getValue();
 			    google = true;
 			    break;
 	    	}	    	
-	    	if (c.getName().equals("fbs_" + FsiteId)) {
+	    	if (token == null && c.getName().equals("fbs_" + FsiteId)) {
 			    token = c.getValue().replaceAll("%7C", "|").substring(13,112);
 				break;
 	    	}
 	    }
 	    
 		if (token!=null && google){
-			AuthScheme scheme = new FCAuthScheme(token);
-			
-			Client Gclient = new Client(Gprovid, scheme);
-			
-			Request request = PeopleService.getViewer();
-			Response response;
-			try {
-				response = Gclient.send(request);
-				Person viewer = response.getEntry();
-				
-				serviceId = viewer.getId();
-				username=viewer.getDisplayName();
-				//gender = undefined
-				//usermail=username+"@gmail.com";
-				
-			} catch (RequestException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			
 			return INPUT;
 		}
@@ -147,6 +131,30 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
   }
 	
 	public String segonaPart(){
+		Provider Gprovid = new FriendConnectProvider();
+		AuthScheme scheme = new FCAuthScheme(token);
+		
+		Client Gclient = new Client(Gprovid, scheme);
+		
+		Request request = PeopleService.getViewer();
+		Response response;
+		try {
+			response = Gclient.send(request);
+			Person viewer = response.getEntry();
+			
+			serviceId = viewer.getId();
+			username = viewer.getDisplayName();
+			//gender = undefined
+			//usermail=username+"@gmail.com";
+			
+		} catch (RequestException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		usuari.setName(username);
 		usuari.setIsGoogleAccount(google);
 		usuari.setServiceId(serviceId);
