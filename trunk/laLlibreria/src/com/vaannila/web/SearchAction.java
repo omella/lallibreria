@@ -117,7 +117,7 @@ public class SearchAction extends ActionSupport {
 
 		Double elapsed = (end-start)/1000.0;
 		
-		this.msg = " resultats trobats per la paraula clau \""+this.key+"\", en "+Double.toString(elapsed)+" segons";
+		this.msg = " a GoogleBooks resultats trobats per la paraula clau \""+this.key+"\", en "+Double.toString(elapsed)+" segons";
 		return SUCCESS;
 	}
 	

@@ -17,7 +17,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.amazon.advertising.api.sample.*;
 import com.vaannila.domain.Llibre;
 
 /**
