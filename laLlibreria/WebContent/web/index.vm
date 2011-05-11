@@ -59,7 +59,8 @@ function localizar(){
           map.setCenter(results[0].geometry.location);
           var marker = new google.maps.Marker({
               map: map, 
-              position: results[0].geometry.location
+              position: results[0].geometry.location,
+             
           });
           addLibreriaMapa(results[0].geometry.location);
         } else {
@@ -88,7 +89,8 @@ function addLibreriaMapa(posicionCliente){
 	        if (status2 == google.maps.GeocoderStatus.OK) {
 	          var marker2 = new google.maps.Marker({
 	              map: map, 
-	              position: results2[0].geometry.location
+	              position: results2[0].geometry.location,
+	              icon: 'http://google-maps-icons.googlecode.com/files/factory.png'
 	          });
 	        } else {
 	          alert("Geocode was not successful for the following reason: " + status);
