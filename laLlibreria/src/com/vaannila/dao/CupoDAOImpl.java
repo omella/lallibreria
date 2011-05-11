@@ -65,8 +65,8 @@ public class CupoDAOImpl implements CupoDAO{
 		}
 		if (result == null) 
 		{
-			//return "0";
-			result = session.createQuery("from Cupo where TEMATICA='generic' AND LLIBRERIA = "+nom+" order by VALOR desc").list();
+			return "0";
+//			result = session.createQuery("from Cupo where TEMATICA='generic' AND LLIBRERIA = "+nom+" order by VALOR desc").list();
 		}
 		
 		return result.get(0).getValor().toString();
