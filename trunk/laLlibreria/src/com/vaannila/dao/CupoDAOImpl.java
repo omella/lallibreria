@@ -31,7 +31,7 @@ public class CupoDAOImpl implements CupoDAO{
 	public List<Cupo> listCupoLlibreria(String id_mail) {
 		List<Cupo> result = null;
 		try {
-			result = session.createQuery("from Cupo where LLIBRERIA_CUPO="+id_mail+" order by VALOR desc").list();
+			result = session.createQuery("from Cupo where LLIBRERIA_CUPO='"+id_mail+"' order by VALOR desc").list();
 		}
 		catch(Exception e){
 			
@@ -46,7 +46,7 @@ public class CupoDAOImpl implements CupoDAO{
 	public List<Cupo> listCupoTematica(String tematica) {
 		List<Cupo> result = null;
 		try {
-			result = session.createQuery("from Cupo where TEMATICA="+tematica+" order by VALOR desc").list();
+			result = session.createQuery("from Cupo where TEMATICA='"+tematica+"' order by VALOR desc").list();
 		}
 		catch(Exception e){
 			
@@ -58,7 +58,7 @@ public class CupoDAOImpl implements CupoDAO{
 	public String getCupoValor(String nom, String genre) {
 		List<Cupo> result = null;
 		try {
-			result = session.createQuery("from Cupo where TEMATICA="+genre+" AND LLIBRERIA = "+nom+" order by VALOR desc").list();
+			result = session.createQuery("from Cupo where TEMATICA='"+genre+"' AND LLIBRERIA ='"+nom+"' order by VALOR desc").list();
 		}
 		catch(Exception e){
 			

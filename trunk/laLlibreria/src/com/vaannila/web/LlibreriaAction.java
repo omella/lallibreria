@@ -70,11 +70,8 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 		cupo.setTematica(this.tematica);
 		cupo.setValor(Double.valueOf(this.valor));
 		cupoDAO.saveCupo(cupo);
-		CupoDAO cupoDAO2 = new CupoDAOImpl();
-		llistaCupons = cupoDAO2.listCupoLlibreria(llib_local.getMail());
+		llistaCupons = cupoDAO.listCupoLlibreria(llib_local.getMail());
 		
-		if (llistaCupons == null) llistaCupons = cupoDAO2.listCupoTematica("generic");
-		for(int i= 0; i < llistaCupons.size();++i) System.out.println("CUPON:"+llistaCupons.get(i).getLlibreria_cupo());
 		return SUCCESS;
 	}
 	
@@ -107,7 +104,7 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	public String listCupons()
 	{
 		Llibreria llib_local = (Llibreria)this.session.get("libreria");
-		llistaCupons = cupoDAO.listCupoLlibreria("mrodon536@gmail.com");
+		llistaCupons = cupoDAO.listCupoLlibreria(llib_local.getMail());
 		return SUCCESS;
 	}
 	
