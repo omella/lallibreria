@@ -92,6 +92,7 @@ public class GoogleBooksWS {
 	                    }
 	                    sb.append(p.getValue());
 	                }
+	                libro.setAuthor(sb.toString());
 	                for (Identifier i : entry.getIdentifiers()) {
 	                	String tmp = i.getValue();
 	                	if(tmp.contains("ISBN:")) {
