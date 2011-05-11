@@ -105,7 +105,7 @@ public class SearchAction extends ActionSupport {
 		if (this.getPage() == null || this.getPage()<1) this.setPage(1);
 		this.setNextPage(this.page+1);
 		this.setPreviousPage(this.page-1);
-		this.numberResults = com.vaannila.ws.ISBNdbWS.numberResults(this.key);
+		this.numberResults = com.vaannila.ws.BooksWS.numberResults(this.key);
 		this.totalPages = this.numberResults/10;
 		if((this.numberResults%10)!=0) this.totalPages++;
 		if (this.getPage() > this.totalPages) this.setPage(this.totalPages);
@@ -117,7 +117,7 @@ public class SearchAction extends ActionSupport {
 
 		Double elapsed = (end-start)/1000.0;
 		
-		this.msg = " a GoogleBooks resultats trobats per la paraula clau \""+this.key+"\", en "+Double.toString(elapsed)+" segons";
+		this.msg = " a resultats trobats per la paraula clau \""+this.key+"\", en "+Double.toString(elapsed)+" segons";
 		return SUCCESS;
 	}
 	

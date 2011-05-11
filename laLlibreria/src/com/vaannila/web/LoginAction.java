@@ -57,7 +57,6 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
  
 	public String primeraPart(){
 		session = ActionContext.getContext().getSession();
-		userdao = new UserDAOImpl();
 		google = false;
 	    username = "";
 	    usermail = "";
