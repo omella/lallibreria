@@ -49,6 +49,9 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 	
 	@SuppressWarnings("unchecked")
 	private List<String>llibreriesNoms = (List<String>) this.session.get("llibreriesNoms");
+	
+	@SuppressWarnings("unchecked")
+	private List<String>llibreriesCupons = (List<String>) this.session.get("llibreriesCupons");
 
 	@SuppressWarnings("unchecked")
 	public String add()

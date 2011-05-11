@@ -74,7 +74,7 @@
 			Selecciona la quantitat i afegeix la comanda al teu carret
 		    #sform ("action=addBookComanda")
 				#stextfield ("label=Quantitat: " "name=num" "value=1")
-				#sselect  ("list=llibreriesNoms" "name=idLlibreria" "label=Selecciona la llibreria: ")
+				#sselect  ("list=llibreriesNoms" "name=idLlibreria" "headerValue=Selecciona la llibreria" "required=true")
 				#ssubmit ("value=Afegir")
 		    #end
 			Envia la teva comanda
