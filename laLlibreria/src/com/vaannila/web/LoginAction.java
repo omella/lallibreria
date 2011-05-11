@@ -131,6 +131,14 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
   }
 	
 	public String segonaPart(){
+		GsiteId = "06834717057300479661";
+	    for(Cookie c : servletRequest.getCookies()) {
+	    	if (token == null && c.getName().equals("fcauth" + GsiteId)) {
+			    token = c.getValue();
+			    google = true;
+			    break;
+	    	}	
+	    }
 		Provider Gprovid = new FriendConnectProvider();
 		AuthScheme scheme = new FCAuthScheme(token);
 		

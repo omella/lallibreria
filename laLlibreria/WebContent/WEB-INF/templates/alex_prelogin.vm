@@ -1,9 +1,6 @@
 #parse("WEB-INF/templates/header.vm")
 <title>Complete Missing Data</title>
 
-<link href="blogstyle.css" rel="stylesheet" type="text/css">
-</head>
-
 <body class="blogbody">
 
 <center>
