@@ -29,6 +29,15 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	private String valor = null;
 	private Map session = ActionContext.getContext().getSession();
 	private Llibreria llibreria = new Llibreria();//(Llibreria)this.session.get("libreria");
+	private int idCupo;
+
+	public int getIdCupo() {
+		return idCupo;
+	}
+
+	public void setIdCupo(int idCupo) {
+		this.idCupo = idCupo;
+	}
 
 	@Override
 	public Llibreria getModel() {
@@ -71,7 +80,18 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 		cupo.setValor(Double.valueOf(this.valor));
 		cupoDAO.saveCupo(cupo);
 		llistaCupons = cupoDAO.listCupoLlibreria(llib_local.getMail());
-		
+		return SUCCESS;
+	}
+	
+	public String eliminaCupo() {
+		Cupo cupo = new Cupo();
+		for(int i = 0; i < llistaCupons.size(); ++i) {
+			if(llistaCupons.get(i).getId() == idCupo){
+				cupo = llistaCupons.get(i);
+				llistaCupons.remove(cupo);
+				cupoDAO.deleteCupo(cupo);
+			}
+		}
 		return SUCCESS;
 	}
 	
