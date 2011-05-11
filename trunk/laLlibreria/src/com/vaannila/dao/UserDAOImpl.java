@@ -30,10 +30,10 @@ public class UserDAOImpl implements UserDAO {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public Boolean existUser(String serviceId, Boolean tipus) {	
+	public boolean existUser(String serviceId, Boolean tipus) {	
 		List<Usuari> courses = null;
 		try {
-			courses = session.createQuery("from Usuari Where IS_GOOGLE_ACCOUNT="+tipus + " AND SERVICE_ID="+serviceId).list();
+			courses = session.createQuery("from Usuari Where IS_GOOGLE_ACCOUNT="+tipus+" AND SERVICE_ID="+serviceId).list();
 		} catch (Exception e) {
 			//e.printStackTrace();
 		}

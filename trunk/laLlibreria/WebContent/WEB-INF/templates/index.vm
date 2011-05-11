@@ -189,11 +189,9 @@ function getDistance(posC,posL) {
 			});
 		}
 		function logout(){
-			alert('You have successfully logged out!');
 		}
 		function greet(){
 			FB.api('/me', function(response) {
-				alert('Welcome, with facebook '+response.name+" "+response.id+"!");
 			});
 		}
 
