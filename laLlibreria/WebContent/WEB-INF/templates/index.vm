@@ -91,6 +91,7 @@ function addLibreriaMapa(posicionCliente){
 		          var marker2 = new google.maps.Marker({
 		              map: map, 
 		              position: results2[0].geometry.location,
+		              icon: "http://google-maps-icons.googlecode.com/files/factory.png"
 		          });
 		          map.openInfoWindow(new GLatLng(results2[0].geometry.location), document.createTextNode("Casa Rural Los Tejos"));
 		        } else {

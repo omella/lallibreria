@@ -25,6 +25,15 @@ public class CupoDAOImpl implements CupoDAO{
 			e.printStackTrace();
 		} 
 	}
+	
+	@Override
+	public void deleteCupo(Cupo cupo) {
+		try {
+			session.delete(cupo);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override

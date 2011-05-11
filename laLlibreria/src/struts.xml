@@ -47,6 +47,11 @@
 			<result name="error" type="velocity">/WEB-INF/templates/homeLlibreria.vm</result>
 		</action>
 		
+		<action name="delCupo" method="eliminaCupo" class="com.vaannila.web.LlibreriaAction">
+			<result name="success" type="velocity">/WEB-INF/templates/homeLlibreria.vm</result>
+			<result name="error" type="velocity">/WEB-INF/templates/homeLlibreria.vm</result>
+		</action>
+		
 		<action name="doLoginLlibreria" method="login" class="com.vaannila.web.LlibreriaAction">
 			<result name="success" type="velocity">/WEB-INF/templates/homeLlibreria.vm</result>
 			<result name="input" type="velocity">/WEB-INF/templates/registreLlibreria.vm</result>

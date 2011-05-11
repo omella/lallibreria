@@ -53,5 +53,4 @@ public class Cupo {
 		this.tematica = tematica;
 	}
 
-
 }

@@ -70,7 +70,7 @@
 			#end
 			
      		#sform ("action=delCupo")
-				
+				#stextfield ("label=Id Cupo" "name=idCupo")
 				#ssubmit ("value=Elimina Cupo")
         	#end
      	</div>
