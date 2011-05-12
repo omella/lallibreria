@@ -38,6 +38,7 @@ import com.vaannila.domain.Comentari;
 import com.vaannila.domain.Llibre;
 import com.vaannila.domain.Llibreria;
 import com.vaannila.domain.Puntuacio;
+import com.vaannila.domain.Usuari;
 import com.vaannila.domain.Vist;
 import com.vaannila.ws.BooksWS;;
 
@@ -96,7 +97,8 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 		Date data = new Date();		
 		comment.setData(data);
 	    String username = null;
-	    username= (String) session.get("username");
+	    Usuari user= (Usuari) session.get("user");
+	    username = user.getName();
 	    if (username==null)username = "rodonako";
 		comment.setUsername(username);
 		comment.setIsbn(this.llibre.getIsbn());

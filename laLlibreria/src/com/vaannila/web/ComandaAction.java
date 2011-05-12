@@ -116,8 +116,7 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 			String subject = "LaLlibreria.cat";
 			Usuari usuari = (Usuari) session.get("user");
 
-			//String cos_usuari = "Hola "+usuari.getName()+",\n\n" +
-			String cos_usuari = "Hola PEPITO,\n\n" +
+			String cos_usuari = "Hola "+usuari.getName()+",\n\n" +
 					"La teva comanda s'ha realitzat correctament, a continuació li llistem els codis de reserva per cada llibreria a la qual has enviat una petició.\n\n";
 			String to = null;
 			List<String> listTo = (List<String>) session.get("listTo");
