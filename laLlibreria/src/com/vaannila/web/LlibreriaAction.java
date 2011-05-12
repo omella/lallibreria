@@ -86,7 +86,7 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	public String eliminaCupo() {
 		Cupo cupo = new Cupo();
 		for(int i = 0; i < llistaCupons.size(); ++i) {
-			if(llistaCupons.get(i).getId() == idCupo){
+			if(llistaCupons.get(i).getId() == 6){
 				cupo = llistaCupons.get(i);
 				llistaCupons.remove(cupo);
 				cupoDAO.deleteCupo(cupo);

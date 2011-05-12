@@ -86,14 +86,16 @@ function addLibreriaMapa(posicionCliente){
         var i;
       	for (i=0;i<arrayAddress.length;i++){
       	   geocoder2.geocode( { 'address': arrayAddress[i]}, function(results2, status2) {
-
+			    var marker2;
 		        if (status2 == google.maps.GeocoderStatus.OK) {
-		          var marker2 = new google.maps.Marker({
+		          marker2 = new google.maps.Marker({
 		              map: map, 
 		              position: results2[0].geometry.location,
-		              icon: "http://google-maps-icons.googlecode.com/files/factory.png"
+		              icon: 'http://google-maps-icons.googlecode.com/files/library.png'
 		          });
-		          map.openInfoWindow(new GLatLng(results2[0].geometry.location), document.createTextNode("Casa Rural Los Tejos"));
+		  
+		          marker2.openInfoWindowHtml('Algun Texto'); 
+		  		  map.addOverlay(marker2);
 		        } else {
 		          alert("Geocode was not successful for the following reason: " + status);
 		        }
