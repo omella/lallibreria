@@ -8,21 +8,21 @@ import com.vaannila.domain.Llibre;
 public class BooksWS{
 
 	public static List<Llibre> serchBook(String keyword, String page) {
-		AmazonBooksWS amazon = null;
-		amazon = new AmazonBooksWS();
+//		AmazonBooksWS amazon = null;
+//		amazon = new AmazonBooksWS();
 //		List<Llibre> llistaLlibres = ISBNdbWS.search(keyword, page);
 		List<Llibre> llistaLlibres = GoogleBooksWS.serchBook(keyword, page);
 		List<Llibre> resultat = new ArrayList<Llibre>();
 		if(llistaLlibres==null) return resultat;
 		if(llistaLlibres.size()==0) llistaLlibres = ISBNdbWS.search(keyword, page);
-		for (int i=0; i<llistaLlibres.size(); i++) {
-			Llibre b = llistaLlibres.get(i);
-			if(b!=null && amazon.isInit()) {
-				amazon.fillBookInfo(b);
-				resultat.add(b);
-			}
-		}
-		return resultat;
+//		for (int i=0; i<llistaLlibres.size(); i++) {
+//			Llibre b = llistaLlibres.get(i);
+//			if(b!=null && amazon.isInit()) {
+//				amazon.fillBookInfo(b);
+//				resultat.add(b);
+//			}
+//		}
+		return llistaLlibres;
 	}
 
 	public static Llibre getBook(String isbn) {

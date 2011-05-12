@@ -7,31 +7,54 @@
 			<tr>
 				<td>	
 					<div style="float: rigth;">
-						<img src="${llibre.cover}" />
+						<img src="${llibre.cover}" height=400 />
 					</div>
 				</td>
 				<td>
-					<center><h1> ${llibre.title} </h1>
+					#if(${llibre.title})
+						<h1> ${llibre.title} </h1>
+					#end
 					#if(${llibre.subtitle})
 						<h2> ${llibre.subtitle} </h2>
 					#end
-					<h2> ${llibre.author} </h2>			
-					<h3> Any: ${bookList.any} ISBN: ${llibre.isbn}</h3>	
-					#if(${llibre.publisher})
-						${llibre.publisher}
-					#end	
-					#if(${llibre.descripcio})
-						${llibre.descripcio}
+					#if(${llibre.author})
+						<h2> ${llibre.author} </h2>	
 					#end
+					#if(${llibre.year})
+						<h3> Any: ${llibre.year}</h3>
+					#end
+					#if(${llibre.isbn})
+						<h3> ISBN: ${llibre.isbn}</h3>	
+					#end	
+					#if(${llibre.publisher})
+						Editorial: ${llibre.publisher}<br />
+					#end	
 					#if(${llibre.genre})
-						${llibre.genre}
+						Tematica: ${llibre.genre}<br />
 					#end
 					#if(${llibre.series})
-						${llibre.series}
+						Series: ${llibre.series}<br />
+					#end
+					#if(${llibre.description})
+						<b>Descripcio</b> <br />
+						<i>"${llibre.description}"</i><br />
+					#end
+					#if(${llibre.language})
+						Idioma: ${llibre.language}<br />
+					#end
+					#if(${llibre.preview})
+						<script type="text/javascript">
+						function newPopup(url) {
+							popupWindow = window.open(
+								url,'popUpWindow','height=700,width=800,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
+						}
+						</script>
+						<a href="JavaScript:newPopup('${llibre.preview}');">Preview</a>
 					#end
 				</td>
 			</tr>
 		</table>	
+		<center>
 		#if (${llibre.puntuacio})
 			<h3> Puntuacio ${llibre.puntuacio} </h3>
 		#end
