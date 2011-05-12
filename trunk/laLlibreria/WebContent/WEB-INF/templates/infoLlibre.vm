@@ -3,30 +3,35 @@
 <a href=/laLlibreria>Inici</a>
 #if ($llibre)
 	<div class="content">
-		<div style="float: left;">
-			<img src="${llibre.thumb}" />
-		</div>
-		<div style="float: rigth;">
-			<img src="${llibre.cover}" />
-		</div>
-		<center><h1> ${llibre.title} </h1>
-		#if(${llibre.subtitle})
-			<h2> ${llibre.subtitle} </h2>
-		#end
-		<h2> ${llibre.author} </h2>			
-		<h3> Any: ${bookList.any} ISBN: ${llibre.isbn}</h3>	
-		#if(${llibre.publisher})
-			${llibre.publisher}
-		#end	
-		#if(${llibre.descripcio})
-			${llibre.descripcio}
-		#end
-		#if(${llibre.genre})
-			${llibre.genre}
-		#end
-		#if(${llibre.series})
-			${llibre.series}
-		#end
+		<table>
+			<tr>
+				<td>	
+					<div style="float: rigth;">
+						<img src="${llibre.cover}" />
+					</div>
+				</td>
+				<td>
+					<center><h1> ${llibre.title} </h1>
+					#if(${llibre.subtitle})
+						<h2> ${llibre.subtitle} </h2>
+					#end
+					<h2> ${llibre.author} </h2>			
+					<h3> Any: ${bookList.any} ISBN: ${llibre.isbn}</h3>	
+					#if(${llibre.publisher})
+						${llibre.publisher}
+					#end	
+					#if(${llibre.descripcio})
+						${llibre.descripcio}
+					#end
+					#if(${llibre.genre})
+						${llibre.genre}
+					#end
+					#if(${llibre.series})
+						${llibre.series}
+					#end
+				</td>
+			</tr>
+		</table>	
 		#if (${llibre.puntuacio})
 			<h3> Puntuacio ${llibre.puntuacio} </h3>
 		#end
