@@ -127,7 +127,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 		llibreriesCupons = new ArrayList <String>();
 		for (int k = 0;k < llibreriaList.size();++k)
 		{
-			String nom = llibreriaList.get(k).getName();
+			String nom = llibreriaList.get(k).getMail();
 			llibreriesNoms.add(nom);
 			String valor = cupoDAO.getCupoValor(nom,this.llibre.getGenre());
 			llibreriesCupons.add(valor);
