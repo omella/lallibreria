@@ -38,7 +38,7 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 	private FacebookClient facebookClient;
 	private Map session = ActionContext.getContext().getSession();
 	private UserDAO userdao = new UserDAOImpl();
-	private boolean google = false;
+	private String google = "false";
     private String username = "";
     private String usermail = "";
 	private String serviceId = "";
@@ -60,41 +60,71 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 	    for(Cookie c : servletRequest.getCookies()) {
 	    	if (token == null && c.getName().equals("fcauth" + GsiteId)) {
 			    token = c.getValue();
-			    google = true;
+			    google = "true";
 			    break;
 	    	}	    	
 	    	if (token == null && c.getName().equals("fbs_" + FsiteId)) {
 			    token = c.getValue().replaceAll("%7C", "|").substring(13,112);
-			    google = false;
+			    google = "false";
 				break;
 	    	}
 	    }
 	    
-		if (token!=null && google){	
-			return INPUT;
+		if (token!=null && google=="true"){	
+			Provider Gprovid = new FriendConnectProvider();
+			AuthScheme scheme = new FCAuthScheme(token);
+			
+			Client Gclient = new Client(Gprovid, scheme);
+			
+			Request request = PeopleService.getViewer();
+			Response response;
+			try {
+				response = Gclient.send(request);
+				Person viewer = response.getEntry();
+				
+				serviceId = viewer.getId().substring(5);
+				
+				boolean b = userdao.existUser(serviceId, google);
+				if(!b){
+					return INPUT;
+				}
+				else{
+					usuari=userdao.getUser(serviceId, google);
+				}
+				session.put("user", usuari);
+				
+			} catch (RequestException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return SUCCESS;
 		}
-		else if (token!=null && !google){
+		else if (token!=null && google=="false"){
 			
 			facebookClient = new DefaultFacebookClient(token);  
 			User user = facebookClient.fetchObject("me", User.class);
 			
 			serviceId = user.getId();
-			username=user.getName();
-			gender = user.getGender();
-			usermail = user.getEmail();
 
-			usuari.setName(username);
-			usuari.setIsGoogleAccount(google);
-			usuari.setServiceId(serviceId);
-			usuari.setGender(gender);
-			usuari.setMail(usermail);
 
 			boolean b = userdao.existUser(serviceId, google);
 			if(!b){
+				username=user.getName();
+				gender = user.getGender();
+				usermail = user.getEmail();
+				usuari.setName(username);
+				usuari.setIsGoogleAccount(google);
+				usuari.setServiceId(serviceId);
+				usuari.setGender(gender);
+				usuari.setMail(usermail);
 				userdao.saveUser(usuari);
 			}
 			else{
-				usuari=userdao.getUser(usuari.getServiceId(), usuari.getIsGoogleAccount());
+				usuari=userdao.getUser(serviceId, google);
 			}
 			session.put("user", usuari);
 
@@ -112,7 +142,7 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 	    for(Cookie c : servletRequest.getCookies()) {
 	    	if (token == null && c.getName().equals("fcauth" + GsiteId)) {
 			    token = c.getValue();
-			    google = true;
+			    google = "true";
 			    break;
 	    	}	
 	    }
@@ -127,7 +157,7 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 			response = Gclient.send(request);
 			Person viewer = response.getEntry();
 			
-			serviceId = viewer.getId();
+			serviceId = viewer.getId().substring(5);
 			username = viewer.getDisplayName();
 			
 			usuari.setName(username);
@@ -136,13 +166,8 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 			usuari.setGender(gender);
 			usuari.setMail(usermail);
 			
-			boolean b = userdao.existUser(serviceId, google);
-			if(!b){
-				userdao.saveUser(usuari);
-			}
-			else{
-				usuari=userdao.getUser(usuari.getServiceId(), usuari.getIsGoogleAccount());
-			}
+			userdao.saveUser(usuari);
+			
 			session.put("user", usuari);
 			
 		} catch (RequestException e) {
@@ -157,7 +182,7 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 	}
 
 	public String logout(){
-		google = false;
+		google = "";
 	    username = "";
 	    usermail = "";
 		serviceId = "";
