@@ -7,6 +7,7 @@ import org.hibernate.Transaction;
 
 import com.googlecode.s2hibernate.struts2.plugin.annotations.SessionTarget;
 import com.googlecode.s2hibernate.struts2.plugin.annotations.TransactionTarget;
+import com.vaannila.domain.Cupo;
 import com.vaannila.domain.Llibreria;
 
 public class LlibreriaDAOImpl implements LlibreriaDAO {
@@ -59,6 +60,16 @@ public class LlibreriaDAOImpl implements LlibreriaDAO {
 			e.printStackTrace();
 		}
 		return result.get(0);
+	}
+	
+	public List<Cupo> getCuponsLlibreria(){
+		List<Cupo> courses = null;
+		try {
+			courses = session.createQuery("from Cupo").list();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return courses;
 	}
 	
 	
