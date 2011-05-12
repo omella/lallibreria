@@ -59,21 +59,19 @@ public class GoogleBooksWS {
 	    query.setMaxResults(10);
 	    query.setStartIndex((Integer.valueOf(page)*10)+1);
 	    
-			System.out.println();
-		    System.out.println(query.getUrl());
-		    System.out.println();
+//			System.out.println();
+//		    System.out.println(query.getUrl());
+//		    System.out.println();
 		    
 			BooksService service = new BooksService("gdataSample-Books-1");
 
 			try {
 				// Search for books
-				System.out.println("Obtenim llibres");
 				VolumeFeed volumeFeed = service.query(query, VolumeFeed.class);
-				System.out.println("Processem el resultat");
+				
 	            for (VolumeEntry entry : volumeFeed.getEntries()) {
 	                Llibre libro = new Llibre();
 	                libro.setTitle(entry.getTitles().get(0).getValue());
-	                System.out.println(entry.getTitles().get(0).getValue());
 	                StringBuilder sb = new StringBuilder();
 	                boolean primero = true;
 	                for (Person p : entry.getAuthors()) {
@@ -125,11 +123,11 @@ public class GoogleBooksWS {
 	                //System.out.println(entry.getContributors());
 
 	                if (entry.getThumbnailLink() != null) {
-	                    libro.setThumb(entry.getThumbnailLink().getHref());
+	                	libro.setThumb(entry.getThumbnailLink().getHref().replace("zoom=5", "zoom=1"));
 	                }
 	                if (entry.getThumbnailLink() != null) {
-	                    libro.setCover(entry.getThumbnailLink().getHref());
-	                }
+	                	libro.setCover(entry.getThumbnailLink().getHref().replace("zoom=5", "zoom=0"));
+	                }  
 	                resultat.add(libro);
 	            }
 				return  resultat;
@@ -161,9 +159,9 @@ public static Llibre getBook(String isbn) {
 			query.setFullTextQuery(isbn);
 		    query.setMaxResults(1);
 		    
-			System.out.println();
-			System.out.println(query.getUrl());
-			System.out.println();
+//			System.out.println();
+//			System.out.println(query.getUrl());
+//			System.out.println();
 			    
 			BooksService service = new BooksService("gdataSample-Books-1");
 
@@ -223,10 +221,10 @@ public static Llibre getBook(String isbn) {
 		                //System.out.println(entry.getContributors());
 
 		                if (entry.getThumbnailLink() != null) {
-		                	resultat.setThumb(entry.getThumbnailLink().getHref());
+		                	resultat.setThumb(entry.getThumbnailLink().getHref().replace("zoom=5", "zoom=1"));
 		                }
 		                if (entry.getThumbnailLink() != null) {
-		                	resultat.setCover(entry.getThumbnailLink().getHref());
+		                	resultat.setCover(entry.getThumbnailLink().getHref().replace("zoom=5", "zoom=0"));
 		                }       
 		            }
 					return  resultat;
