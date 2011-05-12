@@ -8,4 +8,5 @@ public interface LlibreriaDAO {
 	public void saveLlibreria(Llibreria llibreria);
 	public List<Llibreria> listLlibreria();
 	public boolean existLlibreria(String llibreriaId, String passwd);
+	public Llibreria getLlibreriaMail(String id);
 }
