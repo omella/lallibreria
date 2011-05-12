@@ -13,6 +13,8 @@ import org.apache.struts2.interceptor.SessionAware;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
+import com.vaannila.dao.LlibreriaDAO;
+import com.vaannila.dao.LlibreriaDAOImpl;
 import com.vaannila.dao.MailDAO;
 import com.vaannila.dao.MailDAOImpl;
 
@@ -39,7 +41,7 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 	private String num = null;
 	
 	private String msg = null;
-	
+	private LlibreriaDAO libdao = new LlibreriaDAOImpl();
 	private Map session = ActionContext.getContext().getSession();
 	
 	private Llibre llibre = (Llibre)this.session.get("llibre");
@@ -142,7 +144,10 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 				
 				for (int j = 0; j < enviament.size(); ++j)
 				{
-					cos_usuari = cos_usuari + "NOM LLIBRERIA + Codi: "+codi.toString()+"\n";
+					
+					String m = enviament.get(j).get("mail");
+					Llibreria l = libdao.getLlibreriaMail(m);
+					cos_usuari = cos_usuari + "Llibreria: "+l.getName()+" Codi: "+codi.toString()+"\n";
 					if (listTo.get(i)== enviament.get(j).get("mail"))
 					{
 						cos_usuari = cos_usuari + "Llibre: "+enviament.get(j).get("titol")+"	Descompte: "+enviament.get(j).get("descompte")+"\n";

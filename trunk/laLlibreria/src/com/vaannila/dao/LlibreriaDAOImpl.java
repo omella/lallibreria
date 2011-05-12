@@ -46,7 +46,19 @@ public class LlibreriaDAOImpl implements LlibreriaDAO {
 		} catch (Exception e) {
 			transaction.rollback();
 			e.printStackTrace();
-		} 
+		}
+	}
+		
+	public Llibreria getLlibreriaMail(String id) 
+	{
+		List<Llibreria> result = null;
+		System.out.println("IIIIIIIIID"+id);
+		try{
+			result = session.createQuery("from Llibreria where LLIBRERIA_MAIL='"+id+"'").list();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result.get(0);
 	}
 	
 	
