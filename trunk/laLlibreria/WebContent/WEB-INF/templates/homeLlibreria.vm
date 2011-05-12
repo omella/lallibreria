@@ -10,9 +10,6 @@ function agregarEliminat(idEliminat) {
 <body>
    <div id=page>
      <div id=top>
-        <div id=logo>
-        hola
-        </div>
         <div id=buscador>
         	<h1>Panel de Gesti&oacute;</h1>
         </div>

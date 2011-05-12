@@ -293,9 +293,9 @@ function getDistance(posC,posL) {
      	<div id=seccionOfertas>
      		Mejores ofertas:
 	     	<div id=ofertas>
-	     		<div id=oferta1>Libro: El quijote | Libreria: La mas barata | Precio 20.55&euro;</div>
-	     		<div id=oferta1>Libro: El quijote | Libreria: La mas barata | Precio 20.55&euro;</div>
-	     		<div id=oferta1>Libro: El quijote | Libreria: La mas barata | Precio 20.55&euro;</div>
+	     		#foreach ($oferta in $millorOfertes)  
+	     			<div id=oferta1>Llibreria: | Tematica: | Descompte: </div>
+	     		#end
 	     	</div>
 	    </div>
      </div>
@@ -311,7 +311,6 @@ function getDistance(posC,posL) {
      <div id=rightContent>
      	<div id=map_canvas></div>
      	<div id=ubicacion>
-
      		<div id=inputCalle>
      			<span id=textoBlanco>&iquest;Estas bien localizado?</span><br/><br/>
      			<span id=textBox><input id="localizacion" type="text" value="Calle, Ciudad" style="color:grey; width:350px" onfocus="if(this.value==this.defaultValue) this.value=''">
