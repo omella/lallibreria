@@ -21,7 +21,9 @@ public class Llibre {
     private List<Comentari> commentList;
     private String puntuacio;
     private String numVots;
-    
+    private String preview;
+    private String year;
+    private String language;
     
 	public Llibre() {
 		super();
@@ -130,6 +132,30 @@ public class Llibre {
 
 	public void setNumVots(String numVots) {
 		this.numVots = numVots;
+	}
+	
+	public String getPreview() {
+		return preview;
+	}
+
+	public void setPreview(String preview) {
+		this.preview = preview;
+	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 
 	/**
