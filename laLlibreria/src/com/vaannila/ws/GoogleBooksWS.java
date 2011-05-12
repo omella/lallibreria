@@ -60,10 +60,10 @@ public class GoogleBooksWS {
 	    query.setMaxResults(10);
 	    query.setStartIndex((Integer.valueOf(page)*10)+1);
 	    
-			System.out.println();
-		    System.out.println(query.getUrl());
-		    System.out.println();
-		    
+//			System.out.println();
+//		    System.out.println(query.getUrl());
+//		    System.out.println();
+	    
 			BooksService service = new BooksService("gdataSample-Books-1");
 
 			try {
@@ -103,9 +103,9 @@ public static Llibre getBook(String isbn) {
 			query.setFullTextQuery(isbn);
 		    query.setMaxResults(1);
 		    
-			System.out.println();
-			System.out.println(query.getUrl());
-			System.out.println();
+//			System.out.println();
+//			System.out.println(query.getUrl());
+//			System.out.println();
 			    
 			BooksService service = new BooksService("gdataSample-Books-1");
 

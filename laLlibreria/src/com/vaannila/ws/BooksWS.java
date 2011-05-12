@@ -35,6 +35,15 @@ public class BooksWS{
 		return result;
 	}
 	
+	public static List<Llibre> getSimilarBook(String isbn) {
+		AmazonBooksWS amazon = new AmazonBooksWS();
+		List<Llibre> resultat = new ArrayList<Llibre>();
+		if(amazon.isInit()) {
+			resultat = amazon.getSimilartoBook(isbn);
+		}
+		return resultat;
+	}
+	
 	public static Integer numberResults(String keyword) {
 //		return ISBNdbWS.numberResults(keyword);
 		return GoogleBooksWS.numberResults(keyword);

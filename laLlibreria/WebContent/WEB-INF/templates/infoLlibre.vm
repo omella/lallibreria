@@ -7,7 +7,7 @@
 			<tr>
 				<td>	
 					<div style="float: rigth;">
-						<img src="${llibre.cover}" height=400 />
+						<img src="${llibre.cover}" height=330 />
 					</div>
 				</td>
 				<td>
@@ -51,6 +51,23 @@
 						</script>
 						<a href="JavaScript:newPopup('${llibre.preview}');">Preview</a>
 					#end
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<table>
+						<tr>
+							#foreach ($sim in ${llibre.similars})
+									<td>
+										${sim.thumb}
+									</td>
+									<td>
+										${sim.title}<br />
+										${sim.author}
+									</td>
+							#end
+						<tr>
+					</table>
 				</td>
 			</tr>
 		</table>	

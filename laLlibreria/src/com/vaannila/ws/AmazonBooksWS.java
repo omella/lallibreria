@@ -91,6 +91,7 @@ public class AmazonBooksWS {
          * @return true if info is added, false if book not found 
          */
         public boolean fillBookInfo(Llibre b) {
+        	if(!this.isInit()) return false;
         	try {
                 // Determine lookup keywords- ISBN or title + author
                 String keywords = "";
@@ -189,15 +190,56 @@ public class AmazonBooksWS {
          * @param b The book to find similar books to.
          * @return An ArrayList of books similar to the given book.
          */
-        public ArrayList<Llibre> getSimilartoBook(Llibre b) {
-            ArrayList<Llibre> sim = new ArrayList<Llibre>();
+        public List<Llibre> getSimilartoBook(String isbn) {
+            List<Llibre> sim = new ArrayList<Llibre>();
+            if(!this.isInit()) return sim;
+            if(isbn==null) {
+            	return sim;
+            }
             Map<String, String> params = new HashMap<String, String>();
-        
+            
+            String amazonId = getAmazonIdBook(isbn);
+            if(amazonId==null) {
+            	return sim;
+            }
+            
 	        params.put("Service", "AWSECommerceService");
 	        params.put("Version", "2009-03-31");
 	        params.put("Operation", "ItemLookup");
 	        params.put("ResponseGroup", "Similarities");
-	//        params.put("ItemId", Long.toString(b.getISBN()));
+	        params.put("ItemId", amazonId);
+	        
+	        String requestUrl = helper.sign(params);
+	          
+	        try {
+	        	DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+	        	DocumentBuilder db = dbf.newDocumentBuilder();
+	        	Document doc = db.parse(requestUrl);
+	        	NodeList titleList = doc.getElementsByTagName("Title");
+
+	        	for (int i=0; i<titleList.getLength() && i<10; i++) {
+	        		List<Llibre> temp = BooksWS.serchBook(titleList.item(i).getTextContent(),Integer.toString(1));
+	        		if(sim.size()>0) {
+	        			sim.add(temp.get(0));
+	        			System.out.println("El llibre "+temp.get(0).getTitle()+" es similar");
+	        		}
+	        	}
+	        	return sim;
+	        } catch (Exception e) {
+	        	return sim;
+	        }
+        }
+        
+        private String getAmazonIdBook(String isbn) {
+            String amazonId = new String();
+            if(!this.isInit()) return amazonId;
+            Map<String, String> params = new HashMap<String, String>();
+        
+	        params.put("Service", "AWSECommerceService");
+	        params.put("Version", "2009-03-31");
+	        params.put("Operation", "ItemSearch");
+	        params.put("SearchIndex", "Books");
+            params.put("Keywords", isbn);
 	
 	        String requestUrl = helper.sign(params);
 	          
@@ -205,19 +247,13 @@ public class AmazonBooksWS {
 	                        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 	                        DocumentBuilder db = dbf.newDocumentBuilder();
 	                        Document doc = db.parse(requestUrl);
-	                        NodeList titleList = doc.getElementsByTagName("Title");
-	                        NodeList authorList = doc.getElementsByTagName("Author");
-	                        //etc!
-	                        
-	                        for (int i=0; i<titleList.getLength(); i++) {
-	                                //sim.add(new Book(titleList.index(0)))
-	                        }
+	                        NodeList asinList = doc.getElementsByTagName("ASIN"); 
+	                        if(asinList.getLength()>0) {
+	                        	amazonId = asinList.item(0).getTextContent();
+	                        }                    
+	                        return amazonId;
 	                } catch (Exception e) {
-	                        System.out.println(e);
+	                	return amazonId;
 	                }
-	          
-	                return sim;
         }
-
-
 }
