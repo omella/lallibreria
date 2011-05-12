@@ -117,6 +117,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 		llibre = com.vaannila.ws.BooksWS.getBook(this.id);
 		List<Llibre> prova = com.vaannila.ws.BooksWS.getSimilarBook(this.id);
 		System.out.println("El llibre "+llibre.getTitle()+" te "+prova.size()+" llibres similars");
+		llibre.setSimilars(prova);
 		this.setLlibre(this.llibre);
 		
 		this.llibreriaList = llibreriaDAO.listLlibreria();
