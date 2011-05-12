@@ -1,6 +1,9 @@
 #parse("WEB-INF/templates/header.vm")
 <script>
-
+function agregarEliminat(idEliminat) {
+	check = document.getElementById(idEliminat).getElementsByTagName("input");
+	alert(check);
+}
 </script>
 
 
@@ -33,7 +36,7 @@
      		#foreach ($cup in $llistaCupons)
 	     		<tr class="alt">
 	     		 	<td>
-	     		 		<input type="checkbox" name="checkbox0${cup.id}">
+	     		 		<a href=/laLlibreria/eliCupo?idCupo=${cup.id}>Elimina</a> 
 	     		 	</td>
 	     		 	<td>
 	     		 		${cup.id}
@@ -63,17 +66,7 @@
 				#ssubmit ("value=Nou Cupo")
         	#end
      	</div>
-     	<div id=delCup>
-     	    <h1>Eliminar Cupo</h1>
-     		#if ($error)
-				<p><font color="red">${error}</font></p>
-			#end
-			
-     		#sform ("action=delCupo")
-				#stextfield ("label=Id Cupo" "name=idCupo")
-				#ssubmit ("value=Elimina Cupo")
-        	#end
-     	</div>
+
      	
      </div>
      <div id=foot>
