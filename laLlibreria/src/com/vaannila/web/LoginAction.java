@@ -156,6 +156,19 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 		return SUCCESS;
 	}
 
+	public String logout(){
+		google = false;
+	    username = "";
+	    usermail = "";
+		serviceId = "";
+		token = "";
+		gender = "";
+		session.remove("user");
+
+		return SUCCESS;
+	}
+	
+	
     public String getUsername() {
         return username;
     }
