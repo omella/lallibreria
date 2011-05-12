@@ -65,27 +65,29 @@ public class HomeAction extends ActionSupport implements ModelDriven<Vist>{
 			llistaLlibres.add(com.vaannila.ws.BooksWS.getBook(vistes.get(i).ISBN));
 		}
 		this.setLlibreriaList(llibreriaDAO.listLlibreria());
-		List<Cupo> llistaOfertes = getMillorsOfertes(this.llibreriaList);
-		this.setMillorOfertes(millorOfertes);
+		List<Cupo> llistaOfertes = getMillorsOfertes();
+		this.setMillorOfertes(llistaOfertes);
 		this.setPopulars(llistaLlibres);   
 
 		return SUCCESS;
 	}
 
-	private List<Cupo> getMillorsOfertes(List<Llibreria> llibreriaList2) {
-		List<Cupo> lo = new ArrayList<Cupo>();
+	private List<Cupo> getMillorsOfertes() {
+		List<Cupo> lo = this.llibreriaDAO.getCuponsLlibreria();
 		List<Cupo> millors = new ArrayList<Cupo>();
-		int n = llibreriaList2.size();
-		for (int i = 0; i < n; ++i){
-			String llib_mail = llibreriaList2.get(i).getMail();
-			lo = this.llibreriaDAO.getCuponsLlibreria();
-			int m = lo.size();
-			Double min = lo.get(0).getValor();
-			for (int j = 1; j < m; ++j) {
-				
+		int n = lo.size();
+		millors.add(lo.get(0));
+		for (int i = 1; i < n; ++i){
+			int m = millors.size();
+			for (int j = 0; j < m; ++j) {
+				if (millors.get(j).getValor() > lo.get(i).getValor()){
+					millors.remove(j);
+					millors.add(lo.get(i));
+					millors.add(millors.get(j));
+				}
 			}
 		}
-		return lo;
+		return millors;
 	}
 
 	@Override
