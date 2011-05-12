@@ -123,14 +123,16 @@ filter: alpha(opacity=68);
 }
 #leftContent{
   width: 60%;
-  height: 670px;
+  height: auto !important;
+  min-heigth:350px;  
   background-color: grey;
   float:left;
 }
 
 #rightContent{
   width: 40%;
-  height: 670px;
+  height: auto ;
+  min-heigth:350px; 
   background-color: black;
   float:left;
 }
