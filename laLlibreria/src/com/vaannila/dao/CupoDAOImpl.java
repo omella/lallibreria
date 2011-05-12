@@ -67,17 +67,17 @@ public class CupoDAOImpl implements CupoDAO{
 	public String getCupoValor(String nom, String genre) {
 		List<Cupo> result = null;
 		try {
-			result = session.createQuery("from Cupo where TEMATICA='"+genre+"' AND LLIBRERIA ='"+nom+"' order by VALOR desc").list();
+			result = session.createQuery("from Cupo where TEMATICA='"+genre+"' AND LLIBRERIA_CUPO='"+nom+"' order by VALOR desc").list();
 		}
 		catch(Exception e){
 			
 		}
-		if (result == null) 
+		if (result.size() == 0) 
 		{
-			return "0";
-//			result = session.createQuery("from Cupo where TEMATICA='generic' AND LLIBRERIA = "+nom+" order by VALOR desc").list();
+			String genere = "generic";
+			result = session.createQuery("from Cupo where TEMATICA='"+genere+"' AND LLIBRERIA_CUPO='"+nom+"' order by VALOR desc").list();
 		}
-		
+		if (result.size() == 0) return "0.0";
 		return result.get(0).getValor().toString();
 	}
 

@@ -70,21 +70,23 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 		llibre.put("num", this.num);
 		//AGAFAR DE LA LLIBREIA ESCOLLIDA EL DESCOMPTE CORRESPONENT
 		llibre.put("llibreria", this.idLlibreria);
-		llibre.put("descompte", "0.0");
+		//llibre.put("descompte", "0.0");
 		
 		
-		String llibreria = this.idLlibreria;
-
 		String mail = null;
+
 		for (int k = 0; k < llibreriaList.size(); ++k)
 		{
-			if (this.llibreriaList.get(k).getName() == idLlibreria) mail = this.llibreriaList.get(k).getMail();
-			
+
+			if (this.llibreriaList.get(k).getName().equals(idLlibreria))
+			{ 
+				mail = this.llibreriaList.get(k).getMail();
+
+				llibre.put("mail", mail);
+				llibre.put("descompte",llibreriesCupons.get(k));
+			}
 		}
-		llibre.put("mail", mail);
-		this.llibre.getGenre();
-		//OBTENIR EL CUPO A PARTIR DEL MAIL I DEL GENERE
-		
+			
 		if (!listTo.contains(mail)) 
 	    {
 	    	listTo.add(mail);
@@ -108,32 +110,50 @@ public class ComandaAction extends ActionSupport implements SessionAware{
         }
         else
         {
-		
+        	
 			String subject = "LaLlibreria.cat";
-			
+			Usuari usuari = (Usuari) session.get("user");
+
+			//String cos_usuari = "Hola "+usuari.getName()+",\n\n" +
+			String cos_usuari = "Hola PEPITO,\n\n" +
+					"La teva comanda s'ha realitzat correctament, a continuació li llistem els codis de reserva per cada llibreria a la qual has enviat una petició.\n\n";
+			String to = null;
 			List<String> listTo = (List<String>) session.get("listTo");
 			for (int i = 0; i < listTo.size(); ++i)
 			{
 				Vector<ParameterMap<String,String> > enviament = new Vector<ParameterMap<String,String> >();
 				for (int j = 0; j < comanda.size(); ++j)
 				{
+
 					if (listTo.get(i)== comanda.get(j).get("mail"))
 					{
 						enviament.add(comanda.get(j));
 					}
 				}
 				
-				String to = listTo.get(i);
-
+				to = listTo.get(i);
 				String body = GestorXML.createDocument(enviament);
-	        	
+				
 	        	String firma = Base64.encode(body.getBytes());
 	        	
 	        	firma = GestorFirma.signar(firma);
         	
-	        	Integer codi = firma.hashCode(); 
+	        	Integer codi = firma.hashCode();
+				
+				for (int j = 0; j < enviament.size(); ++j)
+				{
+					cos_usuari = cos_usuari + "NOM LLIBRERIA + Codi: "+codi.toString()+"\n";
+					if (listTo.get(i)== enviament.get(j).get("mail"))
+					{
+						cos_usuari = cos_usuari + "Llibre: "+enviament.get(j).get("titol")+"	Descompte: "+enviament.get(j).get("descompte")+"\n";
+					}
+				}
+	        	
+ 
 	
-	        	GestorMail.getInstancia().enviarMail(to, subject,body,firma,codi.toString());
+	        	String cos = "Hola, \n \n Un usuari de LALLIBRERIA.CAT ha realitzat una petició de comanda a la teva llibreria.\n" +
+	        			"Codi de la reserva: "+codi.toString()+"\n\n Pots consultar més detalls de la reserva als fitxers adjunts.";
+	        	GestorMail.getInstancia().enviarMail(to, subject,body,firma,cos);
 	        	
 	        	this.msg = "S'ha enviat correctament. Aquests són els detalls de la comanda:<br>";
 	        	for (int k = 0; k < comanda.size();++k)
@@ -147,17 +167,22 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 	    		mail.setAsuptme(subject);
 	    		mail.setDesti(to);
 	    		
-	    		Usuari usuari = (Usuari) session.get("user");
+	    		
 	    		//mail.setOrigen(usuari.getMail());
+	    		mail.setOrigen("mrodon536@gmail.com");
 	    		mail.setCos(body);
 	    		mail.setCodiReserva(codi.toString());
 	    		mailDAO.saveMail(mail);
 	    		
 	    		to = mail.getOrigen();
-	    		GestorMail.getInstancia().enviarMailUsuari(to, subject, msg, codi);
+
 
 			}
+			cos_usuari = cos_usuari + "\nGràcies per confiar en nosaltres.\n\nLALLIBRERIA.CAT";
+			GestorMail.getInstancia().enviarMailUsuari(to, subject, cos_usuari);
+			
 			this.session.put("comanda", null);
+			this.session.put("listTo",null);
         }
         
 		return SUCCESS;

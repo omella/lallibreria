@@ -36,7 +36,7 @@ public class GestorMail {
       p.put("mail.smtp.socketFactory.fallback", "false");
    }
 
-  public boolean enviarMail(String to, String subject, String doc, String firma, String codi) {
+  public boolean enviarMail(String to, String subject, String doc, String firma, String cos) {
       Session session = Session.getInstance(p);
       String username = getUserName();
       String password = getPassword();
@@ -47,14 +47,14 @@ public class GestorMail {
           
           BodyPart comanda = new MimeBodyPart();
           comanda.setContent(doc,"text/xml");
-          comanda.setFileName("COMANDA_DATA="+new Date()+".xml");
+          comanda.setFileName("COMANDA_DATA "+new Date()+".xml");
           
           BodyPart signatura = new MimeBodyPart();
           signatura.setContent(firma,"text/xml");
-          signatura.setFileName("SIGANTURA_DATA="+new Date()+".xml");
+          signatura.setFileName("SIGANTURA_DATA "+new Date()+".xml");
           
           BodyPart text = new MimeBodyPart();
-          text.setText("El codi de la comanda és "+codi);
+          text.setText(cos);
           
           
           MimeMultipart correo = new MimeMultipart();
@@ -91,7 +91,7 @@ public class GestorMail {
       return "P4$$W0rD";
   }
 
-public boolean enviarMailUsuari(String to, String subject, String msg, Integer codi) {
+public boolean enviarMailUsuari(String to, String subject, String msg) {
 	Session session = Session.getInstance(p);
     String username = getUserName();
     String password = getPassword();
@@ -100,9 +100,7 @@ public boolean enviarMailUsuari(String to, String subject, String msg, Integer c
         message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
         message.setFrom(new InternetAddress(username));
                       
-        message.setText("La teva comanda ha estat realitzada correctament. " +
-        		"Aquest és el codi de reserva que hauràs de presentar a la llibreria ---> "+codi+"\\n\\n" +
-        				"Aquests són els detalls de la comanda:\\n\\n"+msg);
+        message.setText(msg);
 
         message.setSubject(subject);
         Transport t = session.getTransport("smtp");
