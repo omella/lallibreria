@@ -91,6 +91,10 @@
 			<result name="success" type="velocity">/WEB-INF/templates/index.vm</result>
 		</action>
 		
+		<action name="alexLogout"  method="logout" class="com.vaannila.web.LoginAction">
+			<result name="success" type="velocity">/WEB-INF/templates/index.vm</result>
+		</action>
+		
 		<action name="index" method="home" class="com.vaannila.web.HomeAction">
 			<result type="velocity"> /WEB-INF/templates/index.vm</result>
 		</action>

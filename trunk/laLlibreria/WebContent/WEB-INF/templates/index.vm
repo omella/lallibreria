@@ -192,6 +192,7 @@ function getDistance(posC,posL) {
 			});
 		}
 		function logout(){
+			window.location = "alexLogout.action"
 		}
 		function greet(){
 			FB.api('/me', function(response) {
@@ -265,11 +266,12 @@ function getDistance(posC,posL) {
       if (viewer) {
         document.getElementById('profile').innerHTML =  
         '<img align="left" src="' + viewer.getField("thumbnailUrl")  + '">' +
-        '<b>' + " WELLCOME " +  viewer.getField("displayName")+ " form Google" + '!</b><br>' +
-        '<a href="#" onclick="google.friendconnect.requestSignOut(); return false;">Sign out</a><br>';
+        '<b>' + " WELLCOME " +  viewer.getField("displayName")+ " from Google" + '!</b><br>' +
+        '<a href=/laLlibreria/alexLogout.action onclick="google.friendconnect.requestSignOut(); return false;">Sign out</a><br>';
       } else {
         logged = 0;
         google.friendconnect.renderSignInButton({ 'id': 'profile', 'style': 'long' });
+        
       }
     };
     </script>
