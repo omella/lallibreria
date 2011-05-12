@@ -87,7 +87,21 @@ public class HomeAction extends ActionSupport implements ModelDriven<Vist>{
 				}
 			}
 		}
+		millors = cupoMailToNom(millors);
 		return millors;
+	}
+	
+	private List<Cupo> cupoMailToNom(List<Cupo> lla) {
+		List<Cupo> result = new ArrayList<Cupo>();
+		int n = lla.size();
+		for (int i = 0; i < n; ++i) {
+			Cupo trans = lla.get(i);
+			String nameLlib = lla.get(i).getLlibreria_cupo();
+			Llibreria llibLocal = this.llibreriaDAO.getLlibreriaMail("davadc88@gmail.com");
+			trans.setLlibreria_cupo(llibLocal.getName());
+			result.add(trans);
+		}
+		return result;
 	}
 
 	@Override
