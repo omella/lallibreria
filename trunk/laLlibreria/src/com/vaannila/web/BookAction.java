@@ -107,7 +107,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 		return SUCCESS;
 	}
 
-	public String show() throws InvalidKeyException, IllegalArgumentException, NoSuchAlgorithmException, ParserConfigurationException, SAXException, IOException{
+	public String show() {
 		
 		Date data = new Date();
 		viewed.setData(data);
@@ -115,6 +115,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 		vistDAO.saveVist(viewed);
 		
 		llibre = com.vaannila.ws.BooksWS.getBook(this.id);
+		//List<Llibre> prova = com.vaannila.ws.BooksWS.getSimilarBook(this.id);
 		this.setLlibre(this.llibre);
 		
 		this.llibreriaList = llibreriaDAO.listLlibreria();

@@ -24,6 +24,7 @@ public class Llibre {
     private String preview;
     private String year;
     private String language;
+    private List<Llibre> similars;
     
 	public Llibre() {
 		super();
@@ -156,6 +157,14 @@ public class Llibre {
 
 	public void setLanguage(String language) {
 		this.language = language;
+	}
+
+	public List<Llibre> getSimilars() {
+		return similars;
+	}
+
+	public void setSimilars(List<Llibre> similars) {
+		this.similars = similars;
 	}
 
 	/**
