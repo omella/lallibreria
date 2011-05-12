@@ -53,16 +53,18 @@
 					#end
 				</td>
 			</tr>
+			#if(${llibre.similars})
 			<tr>
 				<td>
+					<h2>Et recomanem els seguents llibres</h2>
 					<table>
 						<tr>
 							#foreach ($sim in ${llibre.similars})
 									<td>
-										${sim.thumb}
+										<img src="${sim.thumb}" />
 									</td>
 									<td>
-										${sim.title}<br />
+										<a href=/laLlibreria/showBook.action?id=${sim.isbn}> ${sim.title}</a><br />
 										${sim.author}
 									</td>
 							#end
@@ -70,6 +72,7 @@
 					</table>
 				</td>
 			</tr>
+			#end
 		</table>	
 		<center>
 		#if (${llibre.puntuacio})

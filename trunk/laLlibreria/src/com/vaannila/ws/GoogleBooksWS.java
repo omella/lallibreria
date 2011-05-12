@@ -58,11 +58,11 @@ public class GoogleBooksWS {
 		//search for "keyword"
 		query.setFullTextQuery(keyword);
 	    query.setMaxResults(10);
-	    query.setStartIndex((Integer.valueOf(page)*10)+1);
+	    query.setStartIndex(((Integer.valueOf(page)-1)*10)+1);
 	    
-//			System.out.println();
-//		    System.out.println(query.getUrl());
-//		    System.out.println();
+			System.out.println();
+		    System.out.println(query.getUrl());
+		    System.out.println();
 	    
 			BooksService service = new BooksService("gdataSample-Books-1");
 
@@ -73,7 +73,7 @@ public class GoogleBooksWS {
 	            for (VolumeEntry entry : volumeFeed.getEntries()) {
 	                Llibre libro = new Llibre();
 	                libro = fetchBook(entry);
-	                resultat.add(libro);
+	                if(libro.getIsbn()!=null) resultat.add(libro);
 	            }
 				return  resultat;
 			} catch (IOException e) {
@@ -114,6 +114,7 @@ public static Llibre getBook(String isbn) {
 					VolumeFeed volumeFeed = service.query(query, VolumeFeed.class);
 		            for (VolumeEntry entry : volumeFeed.getEntries()) {
 		            	resultat=fetchBook(entry);
+		            	if(resultat.getIsbn()==null) resultat = new Llibre(); 
 		            	return resultat;
 		            }
 		            return resultat;
