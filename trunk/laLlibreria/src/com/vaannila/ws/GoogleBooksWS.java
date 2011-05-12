@@ -60,9 +60,9 @@ public class GoogleBooksWS {
 	    query.setMaxResults(10);
 	    query.setStartIndex(((Integer.valueOf(page)-1)*10)+1);
 	    
-			System.out.println();
-		    System.out.println(query.getUrl());
-		    System.out.println();
+//			System.out.println();
+//		    System.out.println(query.getUrl());
+//		    System.out.println();
 	    
 			BooksService service = new BooksService("gdataSample-Books-1");
 
@@ -78,19 +78,13 @@ public class GoogleBooksWS {
 				return  resultat;
 			} catch (IOException e) {
 				Llibre ll = new Llibre();
-				ll.setTitle("IOException");
-				resultat.add(ll);
 				return resultat;
 			} catch (ServiceException e) {
 				Llibre ll = new Llibre();
-				ll.setTitle("ServiceException");
-				resultat.add(ll);
 				return resultat;
 			}	
 	} catch (MalformedURLException e1) {
 		Llibre ll = new Llibre();
-		ll.setTitle("MalformedURLException");
-		resultat.add(ll);
 		return resultat;
 	}
 }
@@ -119,14 +113,11 @@ public static Llibre getBook(String isbn) {
 		            }
 		            return resultat;
 				} catch (IOException e) {
-					resultat.setTitle("IOException");
 					return resultat;
 				} catch (ServiceException e) {
-					resultat.setTitle("ServiceException");
 					return resultat;
 				}	
 		} catch (MalformedURLException e1) {
-			resultat.setTitle("MalformedURLException");
 			return resultat;
 		}
 	}

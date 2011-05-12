@@ -216,26 +216,18 @@ public class AmazonBooksWS {
 	        	DocumentBuilder db = dbf.newDocumentBuilder();
 	        	Document doc = db.parse(requestUrl);
 	        	NodeList titleList = doc.getElementsByTagName("Title");
-	        	System.out.println();
-	        	System.out.println();
-	        	System.out.println();
-	        	System.out.println("Per al isbn="+isbn+"("+amazonId+" en ANSI) hem trobat "+titleList.getLength()+" titols similars");
 	        	for (int i=0; i<titleList.getLength() && i<10; i++) {
-	        		System.out.println("Iteració "+i+" i ja tenim "+sim.size()+" llibres similars");
 	        		String title = titleList.item(i).getTextContent();
 	        		if(title.length()>50) title = title.substring(0, 50);
-	        		System.out.println("Busquem "+title+" "+title.length());
-	        		List<Llibre> temp = BooksWS.serchBook(title,Integer.toString(1));
-	        		System.out.println("Punt 1 "+temp.size());
-	        		if(temp.size()>0) {
-	        			sim.add(temp.get(0));
-	        			System.out.println("El llibre "+temp.get(0).getTitle()+" es similar");
+	        		if(BooksWS.numberResults(title)>0) {
+		        		List<Llibre> temp = BooksWS.serchBook(title,Integer.toString(1));
+		        		if(temp.size()>0) {
+		        			sim.add(temp.get(0));
+		        		}
 	        		}
-	        		System.out.println("Punt 2");
 	        	}
 	        	return sim;
 	        } catch (Exception e) {
-	        	System.out.println("Això peta!");
 	        	return sim;
 	        }
         }
