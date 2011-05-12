@@ -30,12 +30,12 @@ public class UserDAOImpl implements UserDAO {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public boolean existUser(String serviceId, Boolean tipus) {	
+	public boolean existUser(String serviceId, String tipus) {	
 		List<Usuari> courses = null;
 		try {
-			courses = session.createQuery("from Usuari Where IS_GOOGLE_ACCOUNT="+tipus+" AND SERVICE_ID="+serviceId).list();
+			courses = session.createQuery("from Usuari Where IS_GOOGLE_ACCOUNT='"+tipus + "' AND SERVICE_ID='"+serviceId+"'").list();
 		} catch (Exception e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
 		return (courses != null && courses.size()>0);
 	}
@@ -51,10 +51,10 @@ public class UserDAOImpl implements UserDAO {
 	}
 	@SuppressWarnings("unchecked")
 	@Override
-	public Usuari getUser(String serviceId, Boolean isGoogleAccount){
+	public Usuari getUser(String serviceId, String isGoogleAccount){
 		List<Usuari> courses = null;
 	try {
-		courses = session.createQuery("from Usuari Where IS_GOOGLE_ACCOUNT="+isGoogleAccount + " AND SERVICE_ID="+serviceId).list();
+		courses = session.createQuery("from Usuari Where IS_GOOGLE_ACCOUNT='"+isGoogleAccount + "' AND SERVICE_ID='"+serviceId+"'").list();
 	} catch (Exception e) {
 		//e.printStackTrace();
 	}

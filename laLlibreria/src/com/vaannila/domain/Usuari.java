@@ -11,7 +11,7 @@ import javax.persistence.Table;
 public class Usuari {
 
 	private Long id;
-	private boolean isGoogleAccount;
+	private String isGoogleAccount;
 	private String serviceId;
 	private String name;
 	private String gender;
@@ -27,10 +27,10 @@ public class Usuari {
 		this.id = id;
 	}
 	@Column(name="IS_GOOGLE_ACCOUNT")
-	public Boolean getIsGoogleAccount() {
+	public String getIsGoogleAccount() {
 		return isGoogleAccount;
 	}
-	public void setIsGoogleAccount(boolean google) {
+	public void setIsGoogleAccount(String google) {
 		this.isGoogleAccount = google;
 	}
 	
