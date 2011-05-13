@@ -147,7 +147,6 @@ function getDistance(posC,posL) {
    <div id=page>
      <div id=top>
      	<div id=login>
-			Usuario: "Admin" - Password: "Admin"
 			#if ($error)
 				<p><font color="red">${error}</font></p>
 			#end
@@ -286,9 +285,32 @@ function getDistance(posC,posL) {
      	<div id=seccionOfertas>
      		Mejores ofertas:
 	     	<div id=ofertas>
-	     		#foreach ($oferta in $millorOfertes)  
-	     			<div id=oferta1>Llibreria: ${oferta.llibreria_name} | Tematica: ${oferta.tematica} | Descompte: ${oferta.valor} </div>
+	     		<table id="cupons">
+			     	<tr class="alt">
+		     			<th>
+		     				Nom 
+		     		 	</th>
+		     			<th>
+		     				Tematica
+		     		 	</th>
+		      			<th>
+		     				Valor
+		     		 	</th>
+     				</tr>
+	     		#foreach ($oferta in $millorOfertes) 
+	     			<tr class="alt">
+		     		 	<td>
+		     		 		${oferta.llibreria_name}
+		     		 	</td>
+		     		 	<td>
+		     		 		${oferta.tematica}
+		     		 	</td>
+		     		 	<td>
+		     		 		${oferta.valor}
+		     		 	</td>
+	     		    </tr> 
 	     		#end
+	     		</table>
 	     	</div>
 	    </div>
      </div>
@@ -299,7 +321,7 @@ function getDistance(posC,posL) {
 		#if ($results)
 			Aquesta es la pagina ${page} de ${totalPages} pagines de resultats
 		#end
-		#parse("WEB-INF/templates/resultAjax.vm");     
+		#parse("WEB-INF/templates/resultAjax.vm")     
      </div>
      <div id=rightContent>
      	<div id=map_canvas></div>
@@ -315,7 +337,7 @@ function getDistance(posC,posL) {
 					<div id=imgLibroPopular>
 							<img src="${popular.thumb}" alt="${popular.title}" align="middle"/>
 						<div id=textoLibroPopular>
-							<a href=/laLlibreria/showBook.action?id=${popular.isbn}> ${popular.title}</a>, ${popular.author}
+							<a href=/laLlibreria/showBook.action?id=${popular.isbn}> ${popular.title}</a>
 						</div>
 					</div>
 			   #end
