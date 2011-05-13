@@ -47,7 +47,7 @@ a {
 }
 #buscador{
   margin-left: 80px;
-  margin-top: 150px;	
+  margin-top: 140px;	
   width: 30%;
   height: 50px;
   float:left;
@@ -60,8 +60,8 @@ a {
 }
 #seccionOfertas{
   width: 40%;
-  margin-top: 20px;
-  margin-left: 100px;
+  margin-top: 30px;
+  margin-left: 150px;
   height: 80px;
   float:left;
 }
@@ -189,24 +189,53 @@ filter: alpha(opacity=68);
 #librosBuscados {
 	width: 500px;
 	margin-top: 10px;
-	background: #2D2722 url(images/img01.jpg) repeat-x left top;
+background: -moz-linear-gradient(top, #b3fc9c, transparent);
+background: -webkit-gradient(linear, center top, center bottom, from(#b3fc9c), to(transparent));
+background: -o-linear-gradient(top, #b3fc9c, transparent);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b3fc9c', endColorstr='transparent');
+/*INNER ELEMENTS MUST NOT BREAK THIS ELEMENTS BOUNDARIES*/
+/*Element must have a height (not auto)*/
+/*All filters must be placed together*/
+-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#b3fc9c', endColorstr='transparent')";
+/*Element must have a height (not auto)*/
+/*All filters must be placed together*/
+background: linear-gradient(top, #b3fc9c, transparent);
+/*--IE9 DOES NOT SUPPORT GRADIENT BACKGROUNDS--*/
+
 }
 
 #textoBlanco{
+	width: 97%;
+	background: #2D2722;
 	color: white;
 	padding: 0px 0px 0px 15px;
+	
 }
 #textBox{
 	padding: 0px 0px 0px 25px;
 }
+#imgLibroPopular{
+	border: 1px solid;
+	width:160px;
+	height:250px;
+	float:left;
+	padding: 1px 1px 1px 1px;
+	margin-bottom:12px; 
+	align:center;
+}
+#clear{
+	clear:both;
+}
+#textoLibroPopular{
+	float:left;
+	
+}
 
 #foot{
   width: 100%;
-  height: 100px;
-	margin: 0 auto;
+  height: 100px; 
 	padding: 0px 0 15px 0;
 	font-family: Arial, Helvetica, sans-serif;
-  float: left;
 }
 
 #contenidoPie {

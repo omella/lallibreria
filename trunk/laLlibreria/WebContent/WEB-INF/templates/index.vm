@@ -151,13 +151,6 @@ function getDistance(posC,posL) {
 			#if ($error)
 				<p><font color="red">${error}</font></p>
 			#end
-			
-     		#sform ("action=doLogin")
-				#stextfield ("label=Usuario"  "name=username")
-				#spassword  ("label=Password" "name=password")
-				#ssubmit ("value=Login")
-        	#end
-
         	<div id="fb-root"></div>
 	<script type="text/javascript">
 		window.fbAsyncInit = function() {
@@ -317,23 +310,22 @@ function getDistance(posC,posL) {
      			<input name="localiza" type="button" value="Localizar" onclick="localizar()"></span>
      		</div>
      		<div id=librosBuscados>
-     		   <table border="1">
-			   <span id=textoBlanco>Llibres mes populars</span>
+			   <div id=textoBlanco>Llibres mes populars</div>
 			   #foreach ($popular in $populars)
-					<tr>
-						<td>
-							<img src="${popular.thumb}" alt=""/>
-						</td>
-						<td>
+					<div id=imgLibroPopular>
+							<img src="${popular.thumb}" alt="${popular.title}" align="middle"/>
+						<div id=textoLibroPopular>
 							<a href=/laLlibreria/showBook.action?id=${popular.isbn}> ${popular.title}</a>, ${popular.author}
-						</td>
-					</tr>
+						</div>
+					</div>
 			   #end
-			   </table>
+			   <div id=clear></div>
      		</div>
-     		
+     		<div id=clear></div>
      	</div>
+     	<div id=clear>h</div>
      </div>
+     <div id=clear></div>
      <div id=foot>
      	#parse( "WEB-INF/templates/pie.vm" )
      </div>

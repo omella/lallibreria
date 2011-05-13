@@ -97,7 +97,6 @@ public class HomeAction extends ActionSupport implements ModelDriven<Vist>{
 		for (int i = 0; i < n; ++i) {
 			Cupo local_cupo = lla.get(i);
 			String nameLlib = lla.get(i).getLlibreria_cupo();
-			System.out.println("AAAAAAAAAAAAAAAAAAAAAAA: "+nameLlib);
 			Llibreria llibLocal = this.llibreriaDAO.getLlibreriaMail(nameLlib);
 			local_cupo.setLlibreria_name(llibLocal.getName());
 			result.add(local_cupo);
