@@ -14,6 +14,7 @@ import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.catalina.util.ParameterMap;
 import org.apache.struts2.interceptor.SessionAware;
 import org.xml.sax.SAXException;
 
@@ -55,7 +56,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 	private List<String>llibreriesNoms = null;
 	private List<String>llibreriesCupons = null;
 	private Puntuacio puntuacio = new Puntuacio();
-	
+	private List llibreriaComanda= null;
 	private ComentariDAO comentariDAO = new ComentariDAOImpl();
 	private CupoDAO cupoDAO = new CupoDAOImpl();
 	private PuntuacioDAO puntuacioDAO = new PuntuacioDAOImpl();
@@ -127,18 +128,32 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 		session.put("llibreries", llibreriaList);
 		llibreriesNoms = new ArrayList<String>();
 		llibreriesCupons = new ArrayList <String>();
+		llibreriaComanda = new ArrayList<LlistaLlibreria>();
 		for (int k = 0;k < llibreriaList.size();++k)
 		{
 			String nom = llibreriaList.get(k).getName();
 			llibreriesNoms.add(nom);
 			String valor = cupoDAO.getCupoValor(llibreriaList.get(k).getMail(),this.llibre.getGenre());
 			llibreriesCupons.add(valor);
+			LlistaLlibreria l = new LlistaLlibreria();
+			l.tag =nom+" ->(Descompte: "+((Double)(Double.valueOf(valor)*100)).toString()+"%)";
+			l.nom = nom;
+			llibreriaComanda.add(l);
+			//llibreriaComanda.put("text", nom+" ->(Descompte: "+((Double)(Double.valueOf(valor)*100)).toString()+"%)");
+			//llibreriaComanda.put("name", nom);
 		}
 		session.put("llibreriesNoms", llibreriesNoms);
 		session.put("llibre", llibre);
 		session.put("llibreriesCupons", llibreriesCupons);
+		session.put("llibreriaComanda", llibreriaComanda);
+		System.out.println(llibreriaComanda.toString());
 		
 		return SUCCESS;
+	}
+	class LlistaLlibreria{
+		String tag;
+		String nom;
+		
 	}
 
 	public Llibre getLlibre() {
@@ -155,7 +170,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 		}
 		else {
 			this.llibre.setNumVots(puntuacioDAO.getPuntuacioIsbn(this.llibre.getIsbn()).getNumVots().toString());
-			this.llibre.setNumVots(this.unDecimal(puntuacioDAO.getPuntuacioIsbn(this.llibre.getIsbn()).getPuntuacio()).toString());
+			this.llibre.setPuntuacio(this.unDecimal(puntuacioDAO.getPuntuacioIsbn(this.llibre.getIsbn()).getPuntuacio()).toString());
 		}
 	}
 
@@ -219,6 +234,16 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 
 	
 	
+	public List<LlistaLlibreria> getLlibreriaComanda() {
+		return llibreriaComanda;
+	}
+
+
+	public void setLlibreriaComanda(List<LlistaLlibreria> llibreriaComanda) {
+		this.llibreriaComanda = llibreriaComanda;
+	}
+
+
 	@Override
 	public Comentari getModel() {
 		return this.comment;

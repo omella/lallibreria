@@ -23,6 +23,7 @@ import com.vaannila.domain.Llibreria;
 import com.vaannila.domain.Mail;
 import com.vaannila.domain.Usuari;
 
+import com.vaannila.web.BookAction.LlistaLlibreria;
 import com.vaannila.ws.GestorMail;
 import com.vaannila.ws.GestorXML;
 import com.vaannila.ws.GestorFirma;
@@ -55,6 +56,8 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 	@SuppressWarnings("unchecked")
 	private List<String>llibreriesCupons = (List<String>) this.session.get("llibreriesCupons");
 
+	private List<LlistaLlibreria> llibreriaComanda = (List<LlistaLlibreria>) this.session.get("llibreriaComanda");
+	
 	@SuppressWarnings("unchecked")
 	public String add()
 	{
@@ -172,8 +175,8 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 	    		mail.setDesti(to);
 	    		
 	    		
-	    		//mail.setOrigen(usuari.getMail());
-	    		mail.setOrigen("mrodon536@gmail.com");
+	    		mail.setOrigen(usuari.getMail());
+	    		//mail.setOrigen("mrodon536@gmail.com");
 	    		mail.setCos(body);
 	    		mail.setCodiReserva(codi.toString());
 	    		mailDAO.saveMail(mail);
@@ -244,7 +247,16 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 	public void setLlibreriesNoms(List<String> llibreriesNoms) {
 		this.llibreriesNoms = llibreriesNoms;
 	}
-	
+
+	public void setLlibreriaComanda(List<LlistaLlibreria> llibreriaComanda) {
+		this.llibreriaComanda = llibreriaComanda;
+	}
+
+	public List<LlistaLlibreria> getLlibreriaComanda() {
+		return llibreriaComanda;
+	}
+
+
 	
 
 }
