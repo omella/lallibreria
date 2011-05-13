@@ -126,10 +126,13 @@
 	<div id=rightContentLlibre>
 		<div id=comanda>
 		<br/>
+			#if (${llibreriaComanda}) ${llibreriaComanda}
+			#else No hi ha res!
+			#end
 			Selecciona la quantitat i afegeix la comanda al teu carret
 		    #sform ("action=addBookComanda")
 				#stextfield ("label=Quantitat: " "name=num" "value=1")
-				#sselect  ("list=llibreriesNoms"  "name=idLlibreria" "headerValue=Selecciona la llibreria" "required=true")
+				#sselect  ("list=llibreriaComanda"  "listKey=tag" "listValue=nom" "name=idLlibreria")
 				#ssubmit ("value=Afegir")
 		    #end
 			Envia la teva comanda
