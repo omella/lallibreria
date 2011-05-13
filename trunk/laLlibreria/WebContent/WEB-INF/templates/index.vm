@@ -323,7 +323,6 @@ function getDistance(posC,posL) {
      		</div>
      		<div id=clear></div>
      	</div>
-     	<div id=clear>h</div>
      </div>
      <div id=clear></div>
      <div id=foot>
