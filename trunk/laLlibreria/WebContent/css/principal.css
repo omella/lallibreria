@@ -126,6 +126,7 @@ filter: alpha(opacity=68);
   height: auto !important;
   min-heigth:350px;  
   background-color: grey;
+  margin-top:300px;
   float:left;
 }
 
@@ -134,6 +135,7 @@ filter: alpha(opacity=68);
   height: auto ;
   min-heigth:350px; 
   background-color: black;
+    margin-top:300px;
   margin-left:60%
 }
 

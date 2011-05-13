@@ -64,7 +64,7 @@ public class LlibreriaDAOImpl implements LlibreriaDAO {
 	public List<Cupo> getCuponsLlibreria(){
 		List<Cupo> courses = null;
 		try {
-			courses = session.createQuery("from Cupo").list();
+			courses = session.createQuery("from Cupo order by VALOR desc").list();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
