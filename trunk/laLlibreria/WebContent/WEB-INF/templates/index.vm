@@ -341,16 +341,12 @@ function getDistance(posC,posL) {
 						</div>
 					</div>
 			   #end
-			   <div id=clear></div>
      		</div>
-     		<div id=clear></div>
      	</div>
      </div>
-     <div id=clear></div>
      <div id=foot>
      	#parse( "WEB-INF/templates/pie.vm" )
      </div>
    </div>
-
  </body>
 </html>
