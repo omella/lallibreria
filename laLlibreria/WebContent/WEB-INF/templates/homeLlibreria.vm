@@ -58,7 +58,7 @@ function agregarEliminat(idEliminat) {
 			#end
 			
      		#sform ("action=addCupo")
-				#stextfield ("label=Tematica" "name=tematica")
+     		    #sselect ("list=llistaTematica"  "name=tematica" "headerValue=Selecciona la tematica" "required=true")
 				#stextfield ("label=Valor" "name=valor")
 				#ssubmit ("value=Nou Cupo")
         	#end

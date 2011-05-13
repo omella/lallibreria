@@ -1,61 +1,83 @@
 #parse("WEB-INF/templates/header.vm")
 <body>
+<div id=page>
 <a href=/laLlibreria>Inici</a>
 #if ($llibre)
-	<div class="content">
-		<table>
-			<tr>
-				<td>	
-					<div style="float: rigth;">
-						<img src="${llibre.cover}" height=330 />
-					</div>
-				</td>
-				<td>
-					#if(${llibre.title})
-						<h1> ${llibre.title} </h1>
-					#end
-					#if(${llibre.subtitle})
-						<h2> ${llibre.subtitle} </h2>
-					#end
-					#if(${llibre.author})
-						<h2> ${llibre.author} </h2>	
-					#end
-					#if(${llibre.year})
-						<h3> Any: ${llibre.year}</h3>
-					#end
-					#if(${llibre.isbn})
-						<h3> ISBN: ${llibre.isbn}</h3>	
-					#end	
-					#if(${llibre.publisher})
-						Editorial: ${llibre.publisher}<br />
-					#end	
-					#if(${llibre.genre})
-						Tematica: ${llibre.genre}<br />
-					#end
-					#if(${llibre.series})
-						Series: ${llibre.series}<br />
-					#end
-					#if(${llibre.description})
-						<b>Descripcio</b> <br />
-						<i>"${llibre.description}"</i><br />
-					#end
-					#if(${llibre.language})
-						Idioma: ${llibre.language}<br />
-					#end
-					#if(${llibre.preview})
-						<script type="text/javascript">
-						function newPopup(url) {
-							popupWindow = window.open(
-								url,'popUpWindow','height=700,width=800,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
-						}
-						</script>
-						<a href="JavaScript:newPopup('${llibre.preview}');">Preview</a>
-					#end
-				</td>
-			</tr>
+	<div id=content>
+		<div id=contentLlibre>
+			<table>
+				<tr>
+					<td>	
+						<div style="float: rigth;">
+							<img src="${llibre.cover}" height=328 />
+						</div>
+					</td>
+					<td>
+						#if(${llibre.title})
+							<h1> ${llibre.title} </h1>
+						#end
+						#if(${llibre.subtitle})
+							<h2> ${llibre.subtitle} </h2>
+						#end
+						#if(${llibre.author})
+							<h2> ${llibre.author} </h2>	
+						#end
+						#if(${llibre.year})
+							<h3> Any: ${llibre.year}</h3>
+						#end
+						#if(${llibre.isbn})
+							<h3> ISBN: ${llibre.isbn}</h3>	
+						#end	
+						#if(${llibre.publisher})
+							Editorial: ${llibre.publisher}<br />
+						#end	
+						#if(${llibre.genre})
+							Tematica: ${llibre.genre}<br />
+						#end
+						#if(${llibre.series})
+							Series: ${llibre.series}<br />
+						#end
+						#if(${llibre.description})
+							<b>Descripcio</b> <br />
+							<i>"${llibre.description}"</i><br />
+						#end
+						#if(${llibre.language})
+							Idioma: ${llibre.language}<br />
+						#end
+						#if(${llibre.preview})
+							<script type="text/javascript">
+							function newPopup(url) {
+								popupWindow = window.open(
+									url,'popUpWindow','height=700,width=800,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
+							}
+							</script>
+							<a href="JavaScript:newPopup('${llibre.preview}');">Preview</a>
+						#end
+					</td>
+				</tr>
+				</table>
+			</div>
+			<div id=contentPuntuacio>
+				<h1>Puntuacio</h1>
+				<center>				
+				#if (${llibre.puntuacio})
+					<h3> Puntuacio ${llibre.puntuacio} </h3>
+				#end
+				
+				#sform ("action=addPuntuacio")
+					#sradio ("name=punts" "list={'1','2','3','4','5'}")
+					#ssubmit ("value=Votar")
+				#end
+				
+				#if (${llibre.puntuacio})
+					Han votat ${llibre.numVots} persones
+				#else
+					Sigues el primer en votar
+				#end
+				</center>
+			</div>
 			#if(${llibre.similars})
-			<tr>
-				<td>
+			<div id=contentSimilars>
 					<h2>Et recomanem els seguents llibres</h2>
 					<table>
 						<tr>
@@ -73,25 +95,10 @@
 				</td>
 			</tr>
 			#end
-		</table>	
-		<center>
-		#if (${llibre.puntuacio})
-			<h3> Puntuacio ${llibre.puntuacio} </h3>
-		#end
-		
-		#sform ("action=addPuntuacio")
-			#sradio ("name=punts" "list={'1','2','3','4','5'}")
-			#ssubmit ("value=Votar")
-		#end
-		
-		#if (${llibre.puntuacio})
-			Han votat ${llibre.numVots} persones
-		#else
-			Sigues el primer en votar
-		#end
-		</center>
+			</div>
 	</div>
-	<div id=leftContent>
+	<div id=clear></div>
+	<div id=leftContentLlibre>
 		Afegeix el teu comentari
 		#sform ("action=addComentari")
 			#stextarea ("name=text" "cols=40")
@@ -116,7 +123,7 @@
 			<h4> No hi ha comentaris per aquest llibre. Sigues el primer en opinar. </h4>
 		#end
 	</div>
-	<div id=rightContentWhite>
+	<div id=rightContentLlibre>
 		<div id=comanda>
 		<br/>
 			Selecciona la quantitat i afegeix la comanda al teu carret
@@ -133,15 +140,17 @@
 		</div>
 	</div>
 
-#else
-	<h1> No hi ha resultats </h1>
-#end
-
-#if($msg)
-	<h3> $msg </h3>
-#end
-
-
-#parse("WEB-INF/templates/pie.vm")
+	#else
+		<h1> No hi ha resultats </h1>
+	#end
+	
+	#if($msg)
+		<h3> $msg </h3>
+	#end
+	<div id=clear></div>
+	<div id=foot>
+	#parse("WEB-INF/templates/pie.vm")
+	</div>
+</div>
 </body>
 </html>

@@ -25,6 +25,7 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	private LlibreriaDAO llibreriaDAO = new LlibreriaDAOImpl();
 	private CupoDAO cupoDAO = new CupoDAOImpl();
 	private List <Cupo> llistaCupons = new ArrayList<Cupo>();
+	private String[] llistaTematica = {"Ciencia","Generic","Drama"};
 	private String tematica = null;
 	private String valor = null;
 	private Map session = ActionContext.getContext().getSession();
@@ -153,6 +154,14 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	@Override
 	public void setSession(Map<String, Object> arg0) {
 		this.session = arg0;
+	}
+
+	public void setLlistaTematica(String[] llistaTematica) {
+		this.llistaTematica = llistaTematica;
+	}
+
+	public String[] getLlistaTematica() {
+		return llistaTematica;
 	}
 
 
