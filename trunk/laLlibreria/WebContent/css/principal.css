@@ -113,7 +113,7 @@ filter: alpha(opacity=68);
 #profile {
   font-size:13px;
   margin: 0;
-  padding: 10px 15px;
+  padding: 5px 0px;
 }
 
 #login{	
@@ -134,7 +134,7 @@ filter: alpha(opacity=68);
   height: auto ;
   min-heigth:350px; 
   background-color: black;
-  float:left;
+  margin-left:60%
 }
 
 #rightContentWhite{
