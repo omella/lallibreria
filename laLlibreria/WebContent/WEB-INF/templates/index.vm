@@ -294,7 +294,7 @@ function getDistance(posC,posL) {
      		Mejores ofertas:
 	     	<div id=ofertas>
 	     		#foreach ($oferta in $millorOfertes)  
-	     			<div id=oferta1>Llibreria: ${oferta.llibreria_cupo} | Tematica: ${oferta.tematica} | Descompte: ${oferta.valor} </div>
+	     			<div id=oferta1>Llibreria: ${oferta.llibreria_name} | Tematica: ${oferta.tematica} | Descompte: ${oferta.valor} </div>
 	     		#end
 	     	</div>
 	    </div>
