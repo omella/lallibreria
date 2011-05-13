@@ -95,11 +95,12 @@ public class HomeAction extends ActionSupport implements ModelDriven<Vist>{
 		List<Cupo> result = new ArrayList<Cupo>();
 		int n = lla.size();
 		for (int i = 0; i < n; ++i) {
-			Cupo trans = lla.get(i);
+			Cupo local_cupo = lla.get(i);
 			String nameLlib = lla.get(i).getLlibreria_cupo();
-			Llibreria llibLocal = this.llibreriaDAO.getLlibreriaMail("davadc88@gmail.com");
-			trans.setLlibreria_cupo(llibLocal.getName());
-			result.add(trans);
+			System.out.println("AAAAAAAAAAAAAAAAAAAAAAA: "+nameLlib);
+			Llibreria llibLocal = this.llibreriaDAO.getLlibreriaMail(nameLlib);
+			local_cupo.setLlibreria_name(llibLocal.getName());
+			result.add(local_cupo);
 		}
 		return result;
 	}

@@ -17,6 +17,8 @@ public class Cupo {
 	@Column(name="LLIBRERIA_CUPO")
 	private String llibreria_cupo;
     
+	private String llibreria_name;//no mapeada en la BD
+	
 	@Column(name="TEMATICA")
     private String tematica;
 
@@ -51,6 +53,14 @@ public class Cupo {
 
 	public void setTematica(String tematica) {
 		this.tematica = tematica;
+	}
+
+	public void setLlibreria_name(String llibreria_name) {
+		this.llibreria_name = llibreria_name;
+	}
+
+	public String getLlibreria_name() {
+		return llibreria_name;
 	}
 
 }
