@@ -94,8 +94,12 @@ function addLibreriaMapa(posicionCliente){
 		              icon: 'http://google-maps-icons.googlecode.com/files/library.png'
 		          });
 		  
-		          marker2.openInfoWindowHtml('Algun Texto'); 
-		  		  map.addOverlay(marker2);
+		          // Adding a click-event to the marker
+					GEvent.addListener(marker2, 'click', function() {
+					  // When clicked, open an Info Window
+					  marker2.openInfoWindowHtml('Some text');
+					});
+		  		 
 		        } else {
 		          alert("Geocode was not successful for the following reason: " + status);
 		        }
