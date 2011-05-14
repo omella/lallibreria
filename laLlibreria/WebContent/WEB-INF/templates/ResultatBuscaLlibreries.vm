@@ -1,0 +1,28 @@
+## Velocity Template.
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>Resultats Busca Llibreries</title>
+	</head>
+<body>
+#if ($llibreriaList)
+	<div class="content">
+		<table border="1">
+		#foreach ($result in $llibreriaList)
+		<tr>
+			<td>
+				<h1><a href=/laLlibreria/showLlibreries.action?id=${result.name}</a></h1>
+				<br>
+			</td>
+		</tr>
+		#end
+		</table>
+	</div>
+#else
+	<h1> No hi ha resultats </h1>
+#end
+<p>
+<a href=/laLlibreria>Inici</a> 
+
+</body>
+</html>
