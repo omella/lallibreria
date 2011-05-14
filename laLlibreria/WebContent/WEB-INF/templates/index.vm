@@ -106,6 +106,7 @@ function addLibreriaMapa(posicionCliente){
 				    '<b>Mail:</b>'+arrayMail[i]+'<br/>'+
 			    '</div>'+
 		    '</div>';
+		  
       	   geocoder2.geocode( { 'address': arrayAddress[i]}, function(results2, status2) {
 			    var marker2;
 		        if (status2 == google.maps.GeocoderStatus.OK) {
@@ -116,11 +117,10 @@ function addLibreriaMapa(posicionCliente){
 		          });
 		  
 		          //Info window
-
 						    
-						    var infowindow = new google.maps.InfoWindow({
-						    	content: contentString
-							});
+					    var infowindow = new google.maps.InfoWindow({
+					    	content: contentString
+						});
 						
 						google.maps.event.addListener(marker2, 'click', function() {
 						  infowindow.open(map,marker2);
@@ -132,6 +132,7 @@ function addLibreriaMapa(posicionCliente){
 		        }
 		 
 	      });
+	 
 	   } 
     }
 }
