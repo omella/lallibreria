@@ -143,7 +143,6 @@ function aux(geocoder2, name, address, telf, mail) {
  
 function addLibreriaMapa(posicionCliente){
 	geocoder2 = new google.maps.Geocoder();
- 
     if (geocoder2) {
       	for (i=0;i<arrayAddress.length;i++){
       		aux(geocoder2, arrayName[i], arrayAddress[i], arrayTelf[i], arrayMail[i]);
