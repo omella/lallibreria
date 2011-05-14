@@ -74,17 +74,38 @@ function localizar(){
 
 
 var distance = -1;
-
+var i;
 function addLibreriaMapa(posicionCliente){
 	geocoder2 = new google.maps.Geocoder();
 	var arrayAddress = ["Av. Colon, Tortosa",#foreach ($llib in $llibreriaList)
 							"${llib.place}",
      					#end
-     					"Av. Colon, Tortosa"] 
+     					"Av. Colon, Tortosa"];
+	var arrayName = ["Llibreries Joaquin",#foreach ($llib in $llibreriaList)
+							"${llib.name}",
+     					#end
+     					"Llibreries Joaquin"];
+	var arrayTelf = ["666666666",#foreach ($llib in $llibreriaList)
+							"${llib.phone}",
+     					#end
+     					"666666666"];
+	var arrayMail = ["llibreries.joaquin@gmail.com",#foreach ($llib in $llibreriaList)
+							"${llib.mail}",
+     					#end
+     					"llibreries.joaquin@gmail.com"];
      					
     if (geocoder2) {
-        var i;
       	for (i=0;i<arrayAddress.length;i++){
+         	var contentString = '<div id="contentMaps">'+
+			'<div id="siteNotice">'+
+		    '</div>'+
+		    '<h1 id="firstHeading" class="firstHeading">'+arrayName[i]+'</h1>'+
+			    '<div id="bodyContent">'+
+				    '<b>Direccio:</b>'+arrayAddress[i]+'<br/>'+
+				    '<b>Telefon:</b>'+arrayTelf[i]+'<br/>'+
+				    '<b>Mail:</b>'+arrayMail[i]+'<br/>'+
+			    '</div>'+
+		    '</div>';
       	   geocoder2.geocode( { 'address': arrayAddress[i]}, function(results2, status2) {
 			    var marker2;
 		        if (status2 == google.maps.GeocoderStatus.OK) {
@@ -94,12 +115,18 @@ function addLibreriaMapa(posicionCliente){
 		              icon: 'http://google-maps-icons.googlecode.com/files/library.png'
 		          });
 		  
-		          // Adding a click-event to the marker
-					GEvent.addListener(marker2, 'click', function() {
-					  // When clicked, open an Info Window
-					  marker2.openInfoWindowHtml('Some text');
-					});
-		  		 
+		          //Info window
+
+						    
+						    var infowindow = new google.maps.InfoWindow({
+						    	content: contentString
+							});
+						
+						google.maps.event.addListener(marker2, 'click', function() {
+						  infowindow.open(map,marker2);
+						});
+		          
+		  		 //FIN Info Window
 		        } else {
 		          alert("Geocode was not successful for the following reason: " + status);
 		        }
