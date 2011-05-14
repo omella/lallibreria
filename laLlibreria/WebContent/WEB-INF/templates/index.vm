@@ -72,11 +72,17 @@ function localizar(){
 //FIN:Localizar "manualmente"
 //INICIO: Situar librerias
 
+function pausecomp(millis)
+{
+var date = new Date();
+var curDate = null;
+
+do { curDate = new Date(); }
+while(curDate-date < millis);
+} 
 
 var distance = -1;
-var i;
-function addLibreriaMapa(posicionCliente){
-	geocoder2 = new google.maps.Geocoder();
+var i = 0;
 	var arrayAddress = ["Av. Colon, Tortosa",#foreach ($llib in $llibreriaList)
 							"${llib.place}",
      					#end
@@ -93,46 +99,54 @@ function addLibreriaMapa(posicionCliente){
 							"${llib.mail}",
      					#end
      					"llibreries.joaquin@gmail.com"];
-     					
-    if (geocoder2) {
-      	for (i=0;i<arrayAddress.length;i++){
-         	var contentString = '<div id="contentMaps">'+
+
+function aux(geocoder2, name, address, telf, mail) {
+	var contentString = '<div id="contentMaps">'+
 			'<div id="siteNotice">'+
 		    '</div>'+
-		    '<h1 id="firstHeading" class="firstHeading">'+arrayName[i]+'</h1>'+
+		    '<h1 id="firstHeading" class="firstHeading">'+name+'</h1>'+
 			    '<div id="bodyContent">'+
-				    '<b>Direccio:</b>'+arrayAddress[i]+'<br/>'+
-				    '<b>Telefon:</b>'+arrayTelf[i]+'<br/>'+
-				    '<b>Mail:</b>'+arrayMail[i]+'<br/>'+
+				    '<b>Direccio:</b>'+address+'<br/>'+
+				    '<b>Telefon:</b>'+telf+'<br/>'+
+				    '<b>Mail:</b>'+mail+'<br/>'+
 			    '</div>'+
 		    '</div>';
-		  
-      	   geocoder2.geocode( { 'address': arrayAddress[i]}, function(results2, status2) {
-			    var marker2;
+ 
+ 
+	geocoder2.geocode( { 'address': address}, function(results2, status2) {
+			   var marker2;
 		        if (status2 == google.maps.GeocoderStatus.OK) {
 		          marker2 = new google.maps.Marker({
 		              map: map, 
 		              position: results2[0].geometry.location,
 		              icon: 'http://google-maps-icons.googlecode.com/files/library.png'
 		          });
-		  
+ 
 		          //Info window
-						    
-					    var infowindow = new google.maps.InfoWindow({
-					    	content: contentString
-						});
-						
-						google.maps.event.addListener(marker2, 'click', function() {
-						  infowindow.open(map,marker2);
-						});
-		          
+ 
+				var infowindow = new google.maps.InfoWindow({
+			    	content: contentString
+				});
+ 
+				google.maps.event.addListener(marker2, 'click', function() {
+				  infowindow.open(map,marker2);
+				});
+ 
 		  		 //FIN Info Window
+ 
 		        } else {
 		          alert("Geocode was not successful for the following reason: " + status);
 		        }
-		 
+ 
 	      });
-	 
+}
+ 
+function addLibreriaMapa(posicionCliente){
+	geocoder2 = new google.maps.Geocoder();
+ 
+    if (geocoder2) {
+      	for (i=0;i<arrayAddress.length;i++){
+      		aux(geocoder2, arrayName[i], arrayAddress[i], arrayTelf[i], arrayMail[i]);
 	   } 
     }
 }
