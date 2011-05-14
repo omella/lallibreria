@@ -52,6 +52,11 @@ a {
   height: 50px;
   float:left;
 }
+#contentMaps{
+	color:black;
+}
+
+
 #content{
 	color:white;	
 }
