@@ -59,6 +59,7 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	{
 		
 		llibreriaList = llibreriaDAO.listLlibreria();
+		this.session.put("llibreriaList", llibreriaList);
 		return SUCCESS;
 	}
 
