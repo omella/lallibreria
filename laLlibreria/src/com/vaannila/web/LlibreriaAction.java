@@ -133,6 +133,7 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	}
 	
 	public String show(){
+		this.llibreria = (Llibreria)this.session.get("libreria");
 		return SUCCESS;
 	}
 
