@@ -364,10 +364,10 @@ function getDistance(posC,posL) {
      </div>
      <div id=leftContent>
 	    #if ($msg)
-			<font color="red">${numberResults} ${msg}</font>
+			<font color="red">${numberResults} ${msg}</font><br />
 		#end
 		#if ($results)
-			Aquesta es la pagina ${page} de ${totalPages} pagines de resultats
+			Aquesta es la pagina <b>${page}</b> de <b>${totalPages}</b> pagines de resultats
 		#end
 		#parse("WEB-INF/templates/resultAjax.vm")     
      </div>
