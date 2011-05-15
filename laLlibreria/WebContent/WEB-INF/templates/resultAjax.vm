@@ -6,7 +6,7 @@
 				<td>
             		<div id="addPage">
             			<a href=/laLlibreria/searchBookAjax?key=${key}&page=${previousPage}><-- Previous</a>
-						<button type="button" onclick="$('#foo').load('/laLlibreria/searchBookAjax2?key=${key}&page=${previousPage}');"><-- Previous Ajax</button>
+						<button type="button" onclick="$('#foo').html('<img src=http://feelsynapsis.com/mod/folder/graphics/spinner.gif />').load('/laLlibreria/searchBookAjax2?key=${key}&page=${previousPage}');"><-- Previous Ajax</button>
             		</div>
 				</td>
         	#end
@@ -14,7 +14,7 @@
 				<td>
             		<div id="addPage">
             			<a href=/laLlibreria/searchBookAjax?key=${key}&page=${nextPage}>Next --></a>
-						<button type="button" onclick="$('#foo').load('/laLlibreria/searchBookAjax2?key=${key}&page=${nextPage}');">Next Ajax --></button>
+						<button type="button" onclick="$('#foo').html('<img src=http://feelsynapsis.com/mod/folder/graphics/spinner.gif />').load('/laLlibreria/searchBookAjax2?key=${key}&page=${nextPage}');">Next Ajax --></button>
             		</div>
 				</td>
         	#end
