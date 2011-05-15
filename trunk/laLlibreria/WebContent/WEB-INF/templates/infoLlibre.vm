@@ -1,4 +1,42 @@
 #parse("WEB-INF/templates/header.vm")
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.js" type="text/javascript"></script> 
+<script type="text/javascript" >
+	#*
+    function enviar(){
+			var text = $("#comentariAjax").val();
+            var dataString = 'text='+ text;
+			alert (dataString);
+            if(text!='')
+            {
+                $("#flash").show();
+                $("#flash").fadeIn(400).html('<img src="http://feelsynapsis.com/mod/folder/graphics/spinner.gif" />Loading Comment...');
+                $.ajax({
+                    type: "POST",
+                    url: "/laLlibreria/commentsAjax.action",
+                    data: dataString,
+                    cache: false,
+                    success: function(html){
+                        $("#comments").load(html)
+                        $("#flash").hide();
+                    }
+                });
+            }
+			return false;
+	};
+	*#
+	function enviarAjax() {
+			var text = $("#comentariAjax").val();
+			if(text=="" || text==" ") {
+				$('#error').html("<div id='error'><font color='red' size='+1'><b>El comentari no pot ser buit!</b></font></div>");
+			}
+			else {
+				text = text.replace(/ /g,"+");
+				$('#comments').load('http://localhost:8080/laLlibreria/commentsAjax.action?text='+text);
+				$("#comentariAjax").val("");
+				$('#error').html("<div id='error'></div>");
+			}
+	};
+</script>
 <body>
 <div id=page>
 <a href=/laLlibreria>Inici</a>
@@ -107,28 +145,35 @@
 	<div id=clear></div>
 	<div id=leftContentLlibre>
 		Afegeix el teu comentari
-		#sform ("action=addComentari")
+		#sform ("action=commentsAjax")
 			#stextarea ("name=text" "cols=40")
 			#ssubmit ("value=Publicar")
 		#end
-		
-		#if (${llibre.commentList})
-			Comentaris:
-			<table border="1">
-			#foreach ($comment in ${llibre.commentList})
-				<tr>
-					<td>
-						<b>${comment.username}</b> <i>${comment.data}</i>
-						<p>
-						${comment.text}
-						</p>
-					</td>
-				</tr>
-			#end
-			</table>
-		#else
-			<h4> No hi ha comentaris per aquest llibre. Sigues el primer en opinar. </h4>
-		#end
+		Afegeix el teu comentari amb Ajax <br />
+		<div id="error"></div>
+        <textarea id="comentariAjax" cols="40"></textarea>
+		<br />
+		<button type="button" onclick="enviarAjax()">Publicar amb Ajax</button>
+		<div id="flash"></div>
+		<div id="comments">
+    		#if (${llibre.commentList})
+    			Comentaris:
+    			<table border="1">
+    			#foreach ($comment in ${llibre.commentList})
+    				<tr>
+    					<td>
+    						<b>${comment.username}</b> <i>${comment.data}</i>
+    						<p>
+    						${comment.text}
+    						</p>
+    					</td>
+    				</tr>
+    			#end
+    			</table>
+    		#else
+    			<h4> No hi ha comentaris per aquest llibre. Sigues el primer en opinar. </h4>
+    		#end
+		</div>
 	</div>
 	<div id=rightContentLlibre>
 		<div id=comanda>

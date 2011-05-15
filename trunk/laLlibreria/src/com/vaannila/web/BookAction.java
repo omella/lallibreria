@@ -109,6 +109,22 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 		
 		return SUCCESS;
 	}
+	
+	public String commentsAjax(){
+		Date data = new Date();		
+		comment.setData(data);
+	    String username = null;
+	    Usuari user= (Usuari) session.get("user");
+	    username = user.getName();
+	    if (username==null)username = "rodonako";
+		comment.setUsername(username);
+		comment.setIsbn(this.llibre.getIsbn());
+		comentariDAO.saveComentari(comment);
+		
+		this.setLlibre(this.llibre);
+		
+		return SUCCESS;
+	}
 
 	public String show() {
 		
