@@ -81,8 +81,8 @@ do { curDate = new Date(); }
 while(curDate-date < millis);
 } 
 
-var distance = -1;
-var i = 0;
+	var distance = -1;
+	var i = 0;
 	var arrayAddress = ["Av. Colon, Tortosa",#foreach ($llib in $llibreriaList)
 							"${llib.place}",
      					#end
@@ -109,9 +109,9 @@ function aux(geocoder2, name, address, telf, mail) {
 				    '<b>Direccio:</b>'+address+'<br/>'+
 				    '<b>Telefon:</b>'+telf+'<br/>'+
 				    '<b>Mail:</b>'+mail+'<br/>'+
+				    '<a style=color:blue; href=/laLlibreria/showLlibreria.action?id='+mail+'>Mes informacio</a><br/>'
 			    '</div>'+
 		    '</div>';
- 
  
 	geocoder2.geocode( { 'address': address}, function(results2, status2) {
 			   var marker2;
@@ -137,14 +137,14 @@ function aux(geocoder2, name, address, telf, mail) {
 		        } else {
 		          alert("Geocode was not successful for the following reason: " + status);
 		        }
- 
+
 	      });
 }
- 
+
 function addLibreriaMapa(posicionCliente){
 	geocoder2 = new google.maps.Geocoder();
     if (geocoder2) {
-      	for (i=0;i<arrayAddress.length;i++){
+       for (i=0;i<arrayAddress.length;i++){
       		aux(geocoder2, arrayName[i], arrayAddress[i], arrayTelf[i], arrayMail[i]);
 	   } 
     }

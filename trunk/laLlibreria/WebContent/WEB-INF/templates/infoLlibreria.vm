@@ -1,0 +1,211 @@
+#parse("WEB-INF/templates/header.vm")
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.js" type="text/javascript"></script> 
+<script type="text/javascript" >
+	#*
+    function enviar(){
+			var text = $("#comentariAjax").val();
+            var dataString = 'text='+ text;
+			alert (dataString);
+            if(text!='')
+            {
+                $("#flash").show();
+                $("#flash").fadeIn(400).html('<img src="http://feelsynapsis.com/mod/folder/graphics/spinner.gif" />Loading Comment...');
+                $.ajax({
+                    type: "POST",
+                    url: "/laLlibreria/commentsAjax.action",
+                    data: dataString,
+                    cache: false,
+                    success: function(html){
+                        $("#comments").load(html)
+                        $("#flash").hide();
+                    }
+                });
+            }
+			return false;
+	};
+	*#
+	function enviarAjax() {
+			var text = $("#comentariAjax").val();
+			if(text=="" || text==" ") {
+				$('#error').html("<div id='error'><font color='red' size='+1'><b>El comentari no pot ser buit!</b></font></div>");
+			}
+			else {
+				text = text.replace(/ /g,"+");
+				$('#comments').load('http://localhost:8080/laLlibreria/commentsAjax.action?text='+text);
+				$("#comentariAjax").val("");
+				$('#error').html("<div id='error'></div>");
+			}
+	};
+</script>
+<body>
+<div id=page>
+<a href=/laLlibreria>Inici</a>
+#if ($llibre)
+	<div id=content>
+		<div id=contentLlibre>
+			<table>
+				<tr>
+					<td>	
+						<div style="float: rigth;">
+							<img src="http://covers.openlibrary.org/b/isbn/${llibre.isbn}-L.jpg" height=328 />
+							## <img src="${llibre.cover}" height=328 />
+						</div>
+					</td>
+					<td>
+						<div style="float: rigth;">
+							##<img src="http://covers.openlibrary.org/b/isbn/${llibre.isbn}-L.jpg" height=328 />
+							<img src="${llibre.cover}" height=328 />
+						</div>
+					</td>
+					<td>
+						#if(${llibre.title})
+							<h1> ${llibre.title} </h1>
+						#end
+						#if(${llibre.subtitle})
+							<h2> ${llibre.subtitle} </h2>
+						#end
+						#if(${llibre.author})
+							<h2> ${llibre.author} </h2>	
+						#end
+						#if(${llibre.year})
+							<h3> Any: ${llibre.year}</h3>
+						#end
+						#if(${llibre.isbn})
+							<h3> ISBN: ${llibre.isbn}</h3>	
+						#end	
+						#if(${llibre.publisher})
+							Editorial: ${llibre.publisher}<br />
+						#end	
+						#if(${llibre.genre})
+							Tematica: ${llibre.genre}<br />
+						#end
+						#if(${llibre.series})
+							Series: ${llibre.series}<br />
+						#end
+						#if(${llibre.description})
+							<b>Descripcio</b> <br />
+							<i>"${llibre.description}"</i><br />
+						#end
+						#if(${llibre.language})
+							Idioma: ${llibre.language}<br />
+						#end
+						#if(${llibre.preview})
+							<script type="text/javascript">
+							function newPopup(url) {
+								popupWindow = window.open(
+									url,'popUpWindow','height=700,width=800,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
+							}
+							</script>
+							<a href="JavaScript:newPopup('${llibre.preview}');">Preview</a>
+						#end
+					</td>
+				</tr>
+				</table>
+			</div>
+			<div id=contentPuntuacio>
+				<h1>Puntuacio</h1>
+				<center>				
+				#if (${llibre.puntuacio})
+					<h3> Puntuacio ${llibre.puntuacio} </h3>
+				#end
+				
+				#sform ("action=addPuntuacio")
+					#sradio ("name=punts" "list={'1','2','3','4','5'}")
+					#ssubmit ("value=Votar")
+				#end
+				
+				#if (${llibre.puntuacio})
+					Han votat ${llibre.numVots} persones
+				#else
+					Sigues el primer en votar
+				#end
+				</center>
+			</div>
+			#if(${llibre.similars})
+			<div id=contentSimilars>
+					<h2>Et recomanem els seguents llibres</h2>
+					<table>
+						<tr>
+							#foreach ($sim in ${llibre.similars})
+									<td>
+										<img src="${sim.thumb}" />
+									</td>
+									<td>
+										<a href=/laLlibreria/showBook.action?id=${sim.isbn}> ${sim.title}</a><br />
+										${sim.author}
+									</td>
+							#end
+						<tr>
+					</table>
+				</td>
+			</tr>
+			#end
+			</div>
+	</div>
+	<div id=clear></div>
+	<div id=leftContentLlibre>
+		Afegeix el teu comentari
+		#sform ("action=addComentari")
+			#stextarea ("name=text" "cols=40")
+			#ssubmit ("value=Publicar")
+		#end
+		Afegeix el teu comentari amb Ajax <br />
+		<div id="error"></div>
+        <textarea id="comentariAjax" cols="40"></textarea>
+		<br />
+		<button type="button" onclick="enviarAjax()">Publicar amb Ajax</button>
+		<div id="flash"></div>
+		<div id="comments">
+    		#if (${llibre.commentList})
+    			Comentaris:
+    			<table border="1">
+    			#foreach ($comment in ${llibre.commentList})
+    				<tr>
+    					<td>
+    						<b>${comment.username}</b> <i>${comment.data}</i>
+    						<p>
+    						${comment.text}
+    						</p>
+    					</td>
+    				</tr>
+    			#end
+    			</table>
+    		#else
+    			<h4> No hi ha comentaris per aquest llibre. Sigues el primer en opinar. </h4>
+    		#end
+		</div>
+	</div>
+	<div id=rightContentLlibre>
+		<div id=comanda>
+		<br/>
+			#if (${llibreriaComanda}) ${llibreriaComanda}
+			#else No hi ha res!
+			#end
+			Selecciona la quantitat i afegeix la comanda al teu carret
+		    #sform ("action=addBookComanda")
+				#stextfield ("label=Quantitat: " "name=num" "value=1")
+				#sselect  ("list=llibreriaComanda"  "listKey=tag" "listValue=nom" "name=idLlibreria")
+				#ssubmit ("value=Afegir")
+		    #end
+			Envia la teva comanda
+			#sform ("action=enviarMail")
+				#ssubmit ("value=Enviar")
+			#end
+			<br/>
+		</div>
+	</div>
+
+	#else
+		<h1> No hi ha resultats </h1>
+	#end
+	
+	#if($msg)
+		<h3> $msg </h3>
+	#end
+	<div id=clear></div>
+	<div id=foot>
+	#parse("WEB-INF/templates/pie.vm")
+	</div>
+</div>
+</body>
+</html>
