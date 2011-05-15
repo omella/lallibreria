@@ -145,7 +145,7 @@
 	<div id=clear></div>
 	<div id=leftContentLlibre>
 		Afegeix el teu comentari
-		#sform ("action=commentsAjax")
+		#sform ("action=addComentari")
 			#stextarea ("name=text" "cols=40")
 			#ssubmit ("value=Publicar")
 		#end

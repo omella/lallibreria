@@ -27,6 +27,7 @@ public class SearchAction extends ActionSupport {
 	private List<Llibre> results = new ArrayList<Llibre>();
 	private String msg = null;
 	private String key = null;
+	private String keyword = null;
 	private String time = null;
 	private Integer page = 1;
     private Integer numberResults = null;
@@ -90,6 +91,14 @@ public class SearchAction extends ActionSupport {
 		this.key = key;
 	}
 	
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
 	public String getMsg() {
 		return msg;
 	}
@@ -113,6 +122,7 @@ public class SearchAction extends ActionSupport {
 		if (this.getPage() == null || this.getPage()<1) this.setPage(1);
 		this.setNextPage(this.page+1);
 		this.setPreviousPage(this.page-1);
+		this.setKeyword(this.getKey().replaceAll(" ", "+"));
 		this.numberResults = com.vaannila.ws.BooksWS.numberResults(this.key);
 		this.totalPages = this.numberResults/10;
 		if((this.numberResults%10)!=0) this.totalPages++;
