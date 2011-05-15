@@ -14,9 +14,22 @@
 		</tr>
 		#end
 	</table>
-	#if ($nextPage)
-		<div id="addPage">
-			<a href=/laLlibreria/searchBookAjax?key=${key}&page=${nextPage}>Add Page ${nextPage}</a>
-		</div>
-	#end
+	<table>
+		<tr>
+			#if ($previousPage)
+				<td>
+            		<div id="addPage">
+            			<a href=/laLlibreria/searchBookAjax?key=${key}&page=${previousPage}><-- Previous</a>
+            		</div>
+				</td>
+        	#end
+        	#if ($nextPage)
+				<td>
+            		<div id="addPage">
+            			<a href=/laLlibreria/searchBookAjax?key=${key}&page=${nextPage}>Next --></a>
+            		</div>
+				</td>
+        	#end
+		</tr>
+	</table>
 #end
