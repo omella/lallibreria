@@ -35,6 +35,10 @@
 			<result name="success" type="velocity">/WEB-INF/templates/index.vm</result>
 		</action>
 		
+		<action name="searchBookAjax2" method="list" class="com.vaannila.web.SearchAction">
+			<result name="success" type="velocity">/WEB-INF/templates/resultAjax.vm</result>
+		</action>
+		
 		<action name="showBook" method="show" class="com.vaannila.web.BookAction">
 			<result name="success" type="velocity">/WEB-INF/templates/infoLlibre.vm</result>
 		</action>

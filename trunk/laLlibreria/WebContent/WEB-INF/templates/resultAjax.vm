@@ -1,5 +1,25 @@
 
 #if ($results)
+	<table>
+		<tr>
+			#if ($previousPage)
+				<td>
+            		<div id="addPage">
+            			<a href=/laLlibreria/searchBookAjax?key=${key}&page=${previousPage}><-- Previous</a>
+						<button type="button" onclick="$('#foo').load('/laLlibreria/searchBookAjax2?key=${key}&page=${previousPage}');"><-- Previous Ajax</button>
+            		</div>
+				</td>
+        	#end
+        	#if ($nextPage)
+				<td>
+            		<div id="addPage">
+            			<a href=/laLlibreria/searchBookAjax?key=${key}&page=${nextPage}>Next --></a>
+						<button type="button" onclick="$('#foo').load('/laLlibreria/searchBookAjax2?key=${key}&page=${nextPage}');">Next Ajax --></button>
+            		</div>
+				</td>
+        	#end
+		</tr>
+	</table>
 	<table border="1" color="red">
 		#foreach ($result in $results)
 		<tr>
@@ -20,6 +40,7 @@
 				<td>
             		<div id="addPage">
             			<a href=/laLlibreria/searchBookAjax?key=${key}&page=${previousPage}><-- Previous</a>
+						<button type="button" onclick="$('#foo').load('/laLlibreria/searchBookAjax2?key=${key}&page=${previousPage}');"><-- Previous Ajax</button>
             		</div>
 				</td>
         	#end
@@ -27,6 +48,7 @@
 				<td>
             		<div id="addPage">
             			<a href=/laLlibreria/searchBookAjax?key=${key}&page=${nextPage}>Next --></a>
+						<button type="button" onclick="$('#foo').load('/laLlibreria/searchBookAjax2?key=${key}&page=${nextPage}');">Next Ajax --></button>
             		</div>
 				</td>
         	#end

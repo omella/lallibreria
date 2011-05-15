@@ -186,7 +186,7 @@ function getDistance(posC,posL) {
 <script type="text/javascript">
   google.load('friendconnect', '0.8');
 </script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.js" type="text/javascript"></script> 
 
 <body>
    <div id=page>
@@ -321,8 +321,7 @@ function getDistance(posC,posL) {
      	<div id=buscador>
      		<h1>Llibre</h1> 
 			#sform ("action=searchBookAjax" "method=get")
-				#stextfield ("name=key") 
-				#shidden ("name=page" "value=1")
+				#stextfield ("name=key")
 				#ssubmit ("value=Search")
         	#end
 
@@ -364,7 +363,7 @@ function getDistance(posC,posL) {
      </div>
      <div id=leftContent>
 		<font size=+1>
-	    #if ($msg)
+	    #if ($numberResults)
 			<font size=+1>
 			<b>${numberResults}</b> resultats trobats per la paraula clau <b>"${key}"</b>, en <b>${time}</b> segons</font><br />
 			</font>
@@ -374,7 +373,9 @@ function getDistance(posC,posL) {
 			Aquesta es la pagina <b>${page}</b> de <b>${totalPages}</b> pagines de resultats
 			</font>
 		#end
-		#parse("WEB-INF/templates/resultAjax.vm")     
+		<div id="foo">
+		#parse("WEB-INF/templates/resultAjax.vm")
+		</div>
      </div>
      <div id=rightContent>
      	<div id=map_canvas></div>
