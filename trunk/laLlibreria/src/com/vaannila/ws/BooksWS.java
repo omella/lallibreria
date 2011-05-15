@@ -38,8 +38,26 @@ public class BooksWS{
 	public static List<Llibre> getSimilarBook(String isbn) {
 		AmazonBooksWS amazon = new AmazonBooksWS();
 		List<Llibre> resultat = new ArrayList<Llibre>();
+		Llibre llib = GoogleBooksWS.getBook(isbn);
 		if(amazon.isInit()) {
-			resultat = amazon.getSimilartoBook(isbn);
+			List<Llibre> primers = new ArrayList<Llibre>();
+			primers = amazon.getSimilartoBook(isbn);
+			for(int i=0; i<primers.size(); i++) {
+				if(primers.get(i).getIsbn()!=llib.getIsbn() && primers.get(i).getTitle()!=llib.getTitle()) {
+					resultat.add(primers.get(i));
+				}
+			}
+		}
+		int needed = 5-resultat.size();
+		if(needed>0) {
+			List<Llibre> altres = new ArrayList<Llibre>();
+			altres = GoogleBooksWS.serchBookByAuthor(llib.getAuthor());
+			for(int i=0; (i<altres.size()) && (needed>0); i++) {
+				if(altres.get(i).getIsbn()!=llib.getIsbn() && altres.get(i).getTitle()!=llib.getTitle()) {
+					resultat.add(altres.get(i));
+					needed--;
+				}
+			}
 		}
 		return resultat;
 	}

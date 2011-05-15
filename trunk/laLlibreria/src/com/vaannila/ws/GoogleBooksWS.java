@@ -89,6 +89,44 @@ public class GoogleBooksWS {
 	}
 }
 
+  public static List<Llibre> serchBookByAuthor(String author) {
+		List<Llibre> resultat = new ArrayList<Llibre>();
+		try {
+			VolumeQuery query = new VolumeQuery(new URL("http://www.google.com/books/feeds/volumes"));
+			//search for "keyword"
+			query.setAuthor(author);
+		    query.setMaxResults(10);
+		    query.setStartIndex(1);
+		    
+//				System.out.println();
+//			    System.out.println(query.getUrl());
+//			    System.out.println();
+		    
+				BooksService service = new BooksService("gdataSample-Books-1");
+
+				try {
+					// Search for books
+					VolumeFeed volumeFeed = service.query(query, VolumeFeed.class);
+					
+		            for (VolumeEntry entry : volumeFeed.getEntries()) {
+		                Llibre libro = new Llibre();
+		                libro = fetchBook(entry);
+		                if(libro.getIsbn()!=null) resultat.add(libro);
+		            }
+					return  resultat;
+				} catch (IOException e) {
+					Llibre ll = new Llibre();
+					return resultat;
+				} catch (ServiceException e) {
+					Llibre ll = new Llibre();
+					return resultat;
+				}	
+		} catch (MalformedURLException e1) {
+			Llibre ll = new Llibre();
+			return resultat;
+		}
+	}  
+
 public static Llibre getBook(String isbn) {
 		Llibre resultat = new Llibre();
 		try {
@@ -160,8 +198,14 @@ private static Llibre fetchBook(VolumeEntry entry) {
     	resultat.setGenre(entry.getSubjects().get(0).getValue());
     }
     if (entry.getThumbnailLink() != null) {
-    	resultat.setThumb(entry.getThumbnailLink().getHref().replace("zoom=5", "zoom=1"));
-    	resultat.setCover(entry.getThumbnailLink().getHref().replace("zoom=5", "zoom=0"));
+    	resultat.setThumb(entry.getThumbnailLink().getHref());
+    	//resultat.setThumb(entry.getThumbnailLink().getHref().replace("zoom=5", "zoom=1"));
+    	//resultat.setCover(entry.getThumbnailLink().getHref().replace("zoom=5", "zoom=0"));
+    	
+    }
+    if (entry.getPreviewLink() != null) {
+    	resultat.setCover(entry.getPreviewLink().getHref());
+    	//resultat.setCover(entry.getPreviewLink().getHref().replace("zoom=5", "zoom=0"));
     }
     if (entry.getPreviewLink() != null) {
     	resultat.setPreview(entry.getPreviewLink().getHref().replace("f=false", "f=true"));

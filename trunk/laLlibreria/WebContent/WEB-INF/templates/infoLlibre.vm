@@ -9,6 +9,13 @@
 				<tr>
 					<td>	
 						<div style="float: rigth;">
+							<img src="http://covers.openlibrary.org/b/isbn/${llibre.isbn}-L.jpg" height=328 />
+							## <img src="${llibre.cover}" height=328 />
+						</div>
+					</td>
+					<td>
+						<div style="float: rigth;">
+							##<img src="http://covers.openlibrary.org/b/isbn/${llibre.isbn}-L.jpg" height=328 />
 							<img src="${llibre.cover}" height=328 />
 						</div>
 					</td>
