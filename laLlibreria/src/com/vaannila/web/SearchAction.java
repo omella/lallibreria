@@ -27,6 +27,7 @@ public class SearchAction extends ActionSupport {
 	private List<Llibre> results = new ArrayList<Llibre>();
 	private String msg = null;
 	private String key = null;
+	private String time = null;
 	private Integer page = 1;
     private Integer numberResults = null;
     private Integer totalPages = null;
@@ -97,6 +98,13 @@ public class SearchAction extends ActionSupport {
 		this.msg = msg;
 	}
 
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
 
 	public String list()
 	{
@@ -116,8 +124,8 @@ public class SearchAction extends ActionSupport {
 		long end = System.currentTimeMillis();
 
 		Double elapsed = (end-start)/1000.0;
-		
-		this.msg = " a resultats trobats per la paraula clau \""+this.key+"\", en "+Double.toString(elapsed)+" segons";
+		this.time = Double.toString(elapsed);
+		this.msg = "No hi ha cap missatge";
 		return SUCCESS;
 	}
 	
