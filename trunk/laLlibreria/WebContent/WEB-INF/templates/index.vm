@@ -363,11 +363,16 @@ function getDistance(posC,posL) {
 	    </div>
      </div>
      <div id=leftContent>
+		<font size=+1>
 	    #if ($msg)
-			<font color="red">${numberResults} ${msg}</font><br />
+			<font size=+1>
+			<b>${numberResults}</b> resultats trobats per la paraula clau <b>"${key}"</b>, en <b>${time}</b> segons</font><br />
+			</font>
 		#end
 		#if ($results)
+			<font size=+1>
 			Aquesta es la pagina <b>${page}</b> de <b>${totalPages}</b> pagines de resultats
+			</font>
 		#end
 		#parse("WEB-INF/templates/resultAjax.vm")     
      </div>
