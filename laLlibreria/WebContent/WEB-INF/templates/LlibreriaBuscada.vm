@@ -19,8 +19,8 @@
 			CUPONS:
 			<br>
 			#foreach ($cupo in $llistaCupons)
-				VALOR: ${cupo.valor}
-				TEMATICA: ${cupo.tematica}
+				Valor: ${cupo.valor}
+				Tematica: ${cupo.tematica}
 				<br>
 			#end
 		</table>
