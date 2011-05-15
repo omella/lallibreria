@@ -62,6 +62,21 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 		this.session.put("llibreriaList", llibreriaList);
 		return SUCCESS;
 	}
+	
+	public String listLlibreria()
+	{
+		llibreriaList = llibreriaDAO.listLlibreria();
+		for (int i = 0; i < llibreriaList.size();++i){
+			if(llibreriaList.get(i).getName().equals(llibreria.getName())){
+				llibreria=llibreriaList.get(i);
+				llistaCupons=cupoDAO.listCupoLlibreria(llibreria.getMail());
+				break;
+			}
+		}
+		this.session.put("llibreria", llibreria);
+		this.session.put("llistaCupons",llistaCupons);
+		return SUCCESS;
+	}
 
 	public String login(){
 		String e = "error";	

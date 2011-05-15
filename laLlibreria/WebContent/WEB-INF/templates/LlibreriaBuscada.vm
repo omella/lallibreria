@@ -5,13 +5,24 @@
         <title>Resultats Busca Llibreries</title>
 	</head>
 <body>
-#if ($llibreriaList)
+#if ($llibreria)
 	<div class="content">
 		<table border="1">
-		#foreach ($llibreria in $llibreriaList)
-				<h1><a href=/laLlibreria/mostraLlibreria.action?name=${llibreria.name}>${llibreria.name}</a></h1>
-
-		#end
+			Nom Llibreria: ${llibreria.name}
+			<br>
+			Email Llibreria: ${llibreria.mail}
+			<br>
+			Telefon de contacte: ${llibreria.phone}
+			<br>
+			On es la llibreria: ${llibreria.place}
+			<br>
+			CUPONS:
+			<br>
+			#foreach ($cupo in $llistaCupons)
+				VALOR: ${cupo.valor}
+				TEMATICA: ${cupo.tematica}
+				<br>
+			#end
 		</table>
 	</div>
 #else

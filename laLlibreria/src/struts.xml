@@ -111,6 +111,10 @@
 			<result name="success" type="velocity">/WEB-INF/templates/ResultatBuscaLlibreries.vm</result>
 		</action>
 		
+		<action name="mostraLlibreria" method="listLlibreria" class="com.vaannila.web.LlibreriaAction">
+			<result name="success" type="velocity">/WEB-INF/templates/LlibreriaBuscada.vm</result>
+		</action>
+		
 		<action name="index" method="home" class="com.vaannila.web.HomeAction">
 			<result type="velocity"> /WEB-INF/templates/index.vm</result>
 		</action>
