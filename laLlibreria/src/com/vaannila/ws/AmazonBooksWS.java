@@ -216,7 +216,7 @@ public class AmazonBooksWS {
 	        	DocumentBuilder db = dbf.newDocumentBuilder();
 	        	Document doc = db.parse(requestUrl);
 	        	NodeList titleList = doc.getElementsByTagName("Title");
-	        	for (int i=0; i<titleList.getLength() && i<10; i++) {
+	        	for (int i=0; i<titleList.getLength() && i<5; i++) {
 	        		String title = titleList.item(i).getTextContent();
 	        		if(title.length()>50) title = title.substring(0, 50);
 	        		if(BooksWS.numberResults(title)>0) {
