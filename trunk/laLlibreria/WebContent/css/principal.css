@@ -431,3 +431,40 @@ filter: alpha(opacity=81);
 	color: yellow;
 	font-weight: bold;
 	}
+	
+#entrada {
+		display:block;
+		background: green;
+		padding:10px;
+		border:0px solid gray;
+		margin:5px;
+		height: 100px;
+		text-align: left;
+	    vertical-align: middle;
+		-moz-border-radius: 20px;
+		border-radius: 20px;
+		-webkit-transition: background 1s linear;
+		-moz-transition: background 1s linear;
+		transition: background 1s linear;
+	}
+#entrada_image {
+		float: left;
+		width:70px;
+		height: 80px;
+		display: table-cell;
+	    text-align: center;
+	    vertical-align: middle;
+		background: white;
+		padding:5px;
+		margin:5px;
+		-moz-border-radius: 20px;
+		border-radius: 20px;
+	}
+#entrada_text {
+		float: left;
+		height: 80px;
+		padding:10px;
+		margin:5px;
+		-moz-border-radius: 20px;
+		border-radius: 20px;
+	}
