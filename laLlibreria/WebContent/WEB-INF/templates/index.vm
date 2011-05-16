@@ -187,7 +187,6 @@ function getDistance(posC,posL) {
   google.load('friendconnect', '0.8');
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.js" type="text/javascript"></script> 
-
 <body>
    <div id=page>
      <div id=top>
@@ -324,10 +323,6 @@ function getDistance(posC,posL) {
 				#stextfield ("name=key")
 				#ssubmit ("value=Search")
         	#end
-
-            #if ($msg)
-            	<p><font color="red">${msg}</font></p>
-            #end
      	</div>
      	<div id=seccionOfertas>
      		Mejores ofertas:
@@ -380,7 +375,9 @@ function getDistance(posC,posL) {
 					<div id=imgLibroPopular>
 							<img src="${popular.thumb}" alt="${popular.title}" align="middle"/>
 						<div id=textoLibroPopular>
-							<a href=/laLlibreria/showBook.action?id=${popular.isbn}> ${popular.title}</a>
+							<b><a href=/laLlibreria/showBook.action?id=${popular.isbn}> ${popular.title}</a></b>
+							<br />
+							${popular.author}>
 						</div>
 					</div>
 			   #end

@@ -1,17 +1,15 @@
+<h1>Comentaris:</h1>
 #if (${llibre.commentList})
-			Comentaris:
-			<table border="1">
-			#foreach ($comment in ${llibre.commentList})
-				<tr>
-					<td>
-						<b>${comment.username}</b> <i>${comment.data}</i>
-						<p>
-						${comment.text}
-						</p>
-					</td>
-				</tr>
-			#end
-			</table>
-		#else
-			<h4> No hi ha comentaris per aquest llibre. Sigues el primer en opinar. </h4>
-		#end
+	#foreach ($comment in ${llibre.commentList})
+		<div id="comment">
+				<b>${comment.username}</b> <i>${comment.data}</i>
+			<p>
+				<div id="comment_text">
+					${comment.text}
+				</div>
+			</p>
+		</div>
+	#end
+#else
+	<h4> No hi ha comentaris per aquest llibre. Sigues el primer en opinar. </h4>
+#end
