@@ -1,5 +1,6 @@
-<h1>Comentaris:</h1>
-#if (${llibre.commentList})
+
+#if (${llibre.commentList.size()}>0)
+	<h1>Comentaris:</h1>
 	#foreach ($comment in ${llibre.commentList})
 		<div id="comment">
 				<b>${comment.username}</b> <i>${comment.data}</i>
