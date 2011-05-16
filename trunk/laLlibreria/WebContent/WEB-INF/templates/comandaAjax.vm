@@ -1,0 +1,23 @@
+#if (${comandes})
+	El teu carret de comandes:
+	<br>
+	<table border="1">
+		#foreach ($comanda in ${comandes})
+			<tr>
+				<td>
+					<b>${comanda.llibre.title}</b> 
+				</td>
+				<td>
+					<b>${comanda.quantitat}</b> 
+				</td>
+				<td>
+					<b>${comanda.llibreria}</b> 
+				</td>
+				<td>
+					<b>${comanda.descompte}</b> 
+				</td>
+			</tr>
+		#end
+		
+	</table>
+#end
