@@ -133,24 +133,22 @@
 				</center>
 			</div>
 			#if(${llibre.similars})
-			<div id=contentSimilars>
-					<h2>Et recomanem els seguents llibres</h2>
-					<table>
-						<tr>
-							#foreach ($sim in ${llibre.similars})
-									<td>
-										<img src="${sim.thumb}" />
-									</td>
-									<td>
-										<a href=/laLlibreria/showBook.action?id=${sim.isbn}> ${sim.title}</a><br />
-										${sim.author}
-									</td>
-							#end
-						<tr>
-					</table>
-				</td>
-			</tr>
+				<div id=contentSimilars>
+				<h2>Et recomanem els seguents llibres</h2>
+				#foreach ($sim in ${llibre.similars})
+					<div id="similars">
+					<div id="similars_image">
+					<img src="${sim.thumb}" />
+					</div>
+					<div id="similars_text">
+					<a href=/laLlibreria/showBook.action?id=${sim.isbn}> ${sim.title}</a><br />
+					${sim.author}
+					</div>
+					</div>
+				#end
+				</div>
 			#end
+
 			</div>
 	</div>
 	<div id=clear></div>
