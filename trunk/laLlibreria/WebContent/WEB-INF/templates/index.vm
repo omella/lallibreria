@@ -363,7 +363,7 @@ function getDistance(posC,posL) {
      </div>
      <div id=leftContent>
 		<div id="foo">
-		#parse("WEB-INF/templates/resultAjax.vm")
+			#parse("WEB-INF/templates/resultAjax.vm")
 		</div>
      </div>
      <div id=rightContent>
