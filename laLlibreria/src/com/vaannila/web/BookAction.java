@@ -273,4 +273,15 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 		
 	}
 
+
+	public Usuari getLogged() {
+		return logged;
+	}
+
+
+	public void setLogged(Usuari logged) {
+		this.logged = logged;
+	}
+
+	
 }

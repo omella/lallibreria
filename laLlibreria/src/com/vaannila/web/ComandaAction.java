@@ -279,6 +279,14 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 		this.comandes = comandes;
 	}
 
+	public Usuari getLogged() {
+		return logged;
+	}
+
+	public void setLogged(Usuari logged) {
+		this.logged = logged;
+	}
+
 
 	
 

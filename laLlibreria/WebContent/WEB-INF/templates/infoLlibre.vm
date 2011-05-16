@@ -115,7 +115,8 @@
 				#if (${llibre.puntuacio})
 					<h3> Puntuacio ${llibre.puntuacio} </h3>
 				#end
-				#if ($logged)
+				
+				#if (${logged})
 					#sform ("action=addPuntuacio")
 						#sradio ("name=punts" "list={'1','2','3','4','5'}")
 						#ssubmit ("value=Votar")
@@ -126,6 +127,8 @@
 					Han votat ${llibre.numVots} persones
 				#else
 					Sigues el primer en votar
+					#if (!${logged}) (cal fer login)
+					#end
 				#end
 				</center>
 			</div>
@@ -172,7 +175,7 @@
 	<div id=rightContentLlibre>
 		
 		<div id=comanda>
-		#if ($logged)
+		#if ($logged.mail)
 			<br/>
 			Selecciona la quantitat i afegeix la comanda al teu carret
 		    #sform ("action=addBookComanda")
