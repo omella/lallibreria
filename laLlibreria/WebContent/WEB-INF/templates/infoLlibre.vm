@@ -156,23 +156,7 @@
 		<button type="button" onclick="enviarAjax()">Publicar amb Ajax</button>
 		<div id="flash"></div>
 		<div id="comments">
-    		#if (${llibre.commentList})
-    			Comentaris:
-    			<table border="1">
-    			#foreach ($comment in ${llibre.commentList})
-    				<tr>
-    					<td>
-    						<b>${comment.username}</b> <i>${comment.data}</i>
-    						<p>
-    						${comment.text}
-    						</p>
-    					</td>
-    				</tr>
-    			#end
-    			</table>
-    		#else
-    			<h4> No hi ha comentaris per aquest llibre. Sigues el primer en opinar. </h4>
-    		#end
+			#parse( "WEB-INF/templates/commentsAjax.vm" )
 		</div>
 	</div>
 	<div id=rightContentLlibre>
