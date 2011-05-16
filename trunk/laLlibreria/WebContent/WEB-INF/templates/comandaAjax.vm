@@ -2,6 +2,20 @@
 	El teu carret de comandes:
 	<br>
 	<table border="1">
+		<tr>
+			<td>
+				<b>T&iacute;tol</b> 
+			</td>
+			<td>
+				<b>Quantitat</b> 
+			</td>
+			<td>
+				<b>Llibreria</b> 
+			</td>
+			<td>
+				<b>Descompte</b> 
+			</td>
+		</tr>
 		#foreach ($comanda in ${comandes})
 			<tr>
 				<td>

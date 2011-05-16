@@ -35,6 +35,7 @@ import com.vaannila.dao.PuntuacioDAOImpl;
 import com.vaannila.dao.VistDAO;
 import com.vaannila.dao.VistDAOImpl;
 
+import com.vaannila.domain.Comanda;
 import com.vaannila.domain.Comentari;
 import com.vaannila.domain.Llibre;
 import com.vaannila.domain.Llibreria;
@@ -64,8 +65,9 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 	private Double punts;
 	private String id = null;
 	private Map session = ActionContext.getContext().getSession();
-	
+	private List<Comanda> comandes= (List<Comanda>) session.get("comandes");
 	private Llibre llibre = (Llibre) session.get("llibre");
+	private Usuari logged = (Usuari) session.get("user");
 
 	
 	public String addMark(){
