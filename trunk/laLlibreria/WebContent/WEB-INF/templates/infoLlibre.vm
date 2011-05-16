@@ -178,15 +178,36 @@
 	<div id=rightContentLlibre>
 		<div id=comanda>
 		<br/>
-			#if (${llibreriaComanda}) ${llibreriaComanda}
-			#else No hi ha res!
-			#end
 			Selecciona la quantitat i afegeix la comanda al teu carret
 		    #sform ("action=addBookComanda")
 				#stextfield ("label=Quantitat: " "name=num" "value=1")
-				#sselect  ("list=llibreriaComanda"  "listKey=tag" "listValue=nom" "name=idLlibreria")
+				#sselect  ("list=llibreriesNoms" "name=idLlibreria")
 				#ssubmit ("value=Afegir")
 		    #end
+		    <div id=comandes>
+		    #if (${comandes})
+				El teu carret de comandes:
+				<br>
+				<table border="1">
+					#foreach ($comanda in ${comandes})
+						<tr>
+							<td>
+								<b>${comanda.llibre.title}</b> 
+							</td>
+							<td>
+								<b>${comanda.quantitat}</b> 
+							</td>
+							<td>
+								<b>${comanda.llibreria}</b> 
+							</td>
+							<td>
+								<b>${comanda.descompte}</b> 
+							</td>
+						</tr>
+					#end
+					</div>
+				</table>
+			#end
 			Envia la teva comanda
 			#sform ("action=enviarMail")
 				#ssubmit ("value=Enviar")
