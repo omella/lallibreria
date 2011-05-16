@@ -43,6 +43,10 @@
 			<result name="success" type="velocity">/WEB-INF/templates/commentsAjax.vm</result>
 		</action>
 		
+		<action name="comandesAjax" method="add" class="com.vaannila.web.ComandaAction">
+			<result name="success" type="velocity">/WEB-INF/templates/comandaAjax.vm</result>
+		</action>
+		
 		<action name="showBook" method="show" class="com.vaannila.web.BookAction">
 			<result name="success" type="velocity">/WEB-INF/templates/infoLlibre.vm</result>
 		</action>

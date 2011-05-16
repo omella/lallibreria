@@ -18,6 +18,7 @@ import com.vaannila.dao.LlibreriaDAOImpl;
 import com.vaannila.dao.MailDAO;
 import com.vaannila.dao.MailDAOImpl;
 
+import com.vaannila.domain.Comanda;
 import com.vaannila.domain.Llibre;
 import com.vaannila.domain.Llibreria;
 import com.vaannila.domain.Mail;
@@ -45,6 +46,8 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 	private LlibreriaDAO libdao = new LlibreriaDAOImpl();
 	private Map session = ActionContext.getContext().getSession();
 	
+	private List<Comanda> comandes =  (List<Comanda>) this.session.get("comandes");
+	
 	private Llibre llibre = (Llibre)this.session.get("llibre");
 	
 	@SuppressWarnings("unchecked")
@@ -61,12 +64,15 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 	@SuppressWarnings("unchecked")
 	public String add()
 	{
-		Vector<ParameterMap<String,String> > comanda = (Vector<ParameterMap<String, String> >) session.get("comanda");
+		comandes = (List<Comanda>) session.get("comandes");
+		Vector<ParameterMap<String,String> > comanda = (Vector<ParameterMap<String, String>>) session.get("comanda");
 		List<String> listTo = (List<String>) session.get("listTo");
 		if (comanda == null)
 		{
+			comandes = new ArrayList<Comanda>();
+			comanda = new Vector<ParameterMap<String,String>>();
 			listTo = new ArrayList<String>();
-			comanda = new Vector <ParameterMap<String,String> >();
+			
 		}
 		if (Integer.valueOf(num) < 0) return "ERROR";
 		ParameterMap<String,String> llibre = new ParameterMap <String, String>();
@@ -76,6 +82,11 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 		//AGAFAR DE LA LLIBREIA ESCOLLIDA EL DESCOMPTE CORRESPONENT
 		llibre.put("llibreria", this.idLlibreria);
 		//llibre.put("descompte", "0.0");
+		Comanda comandaVista = new Comanda();
+		comandaVista.setLlibre(this.llibre);
+		comandaVista.setQuantitat(this.num);
+		comandaVista.setLlibreria(this.idLlibreria);
+		
 		
 		
 		String mail = null;
@@ -89,6 +100,7 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 
 				llibre.put("mail", mail);
 				llibre.put("descompte",llibreriesCupons.get(k));
+				comandaVista.setDescompte(llibreriesCupons.get(k));
 			}
 		}
 			
@@ -97,7 +109,8 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 	    	listTo.add(mail);
 	    }
 		comanda.add(llibre);
-		
+		comandes.add(comandaVista);
+		session.put("comandes", comandes);
 		session.put("comanda",comanda);
 		session.put("listTo",listTo);
 		this.msg = "S'ha afegit la comanda al teu carret de la compra." +
@@ -254,6 +267,14 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 
 	public List<LlistaLlibreria> getLlibreriaComanda() {
 		return llibreriaComanda;
+	}
+
+	public List<Comanda> getComandes() {
+		return comandes;
+	}
+
+	public void setComandes(List<Comanda> comandes) {
+		this.comandes = comandes;
 	}
 
 
