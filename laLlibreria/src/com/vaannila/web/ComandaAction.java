@@ -61,6 +61,8 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 
 	private List<LlistaLlibreria> llibreriaComanda = (List<LlistaLlibreria>) this.session.get("llibreriaComanda");
 	
+	private Usuari logged = (Usuari) session.get("user");
+	
 	@SuppressWarnings("unchecked")
 	public String add()
 	{

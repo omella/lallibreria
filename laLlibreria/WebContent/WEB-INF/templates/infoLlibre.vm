@@ -115,10 +115,11 @@
 				#if (${llibre.puntuacio})
 					<h3> Puntuacio ${llibre.puntuacio} </h3>
 				#end
-				
-				#sform ("action=addPuntuacio")
-					#sradio ("name=punts" "list={'1','2','3','4','5'}")
-					#ssubmit ("value=Votar")
+				#if ($logged)
+					#sform ("action=addPuntuacio")
+						#sradio ("name=punts" "list={'1','2','3','4','5'}")
+						#ssubmit ("value=Votar")
+					#end
 				#end
 				
 				#if (${llibre.puntuacio})
@@ -151,24 +152,28 @@
 	</div>
 	<div id=clear></div>
 	<div id=leftContentLlibre>
-		Afegeix el teu comentari
-		#sform ("action=addComentari")
-			#stextarea ("name=text" "cols=40")
-			#ssubmit ("value=Publicar")
+		#if ($logged)
+			Afegeix el teu comentari
+			#sform ("action=addComentari")
+				#stextarea ("name=text" "cols=40")
+				#ssubmit ("value=Publicar")
+			#end
+			Afegeix el teu comentari amb Ajax <br />
+			<div id="error"></div>
+	        <textarea id="comentariAjax" cols="40"></textarea>
+			<br />
+			<button type="button" onclick="enviarAjax()">Publicar amb Ajax</button>
+			<div id="flash"></div>
 		#end
-		Afegeix el teu comentari amb Ajax <br />
-		<div id="error"></div>
-        <textarea id="comentariAjax" cols="40"></textarea>
-		<br />
-		<button type="button" onclick="enviarAjax()">Publicar amb Ajax</button>
-		<div id="flash"></div>
 		<div id="comments">
 			#parse( "WEB-INF/templates/commentsAjax.vm" )
 		</div>
 	</div>
 	<div id=rightContentLlibre>
+		
 		<div id=comanda>
-		<br/>
+		#if ($logged)
+			<br/>
 			Selecciona la quantitat i afegeix la comanda al teu carret
 		    #sform ("action=addBookComanda")
 				#stextfield ("label=Quantitat: " "name=num" "value=1")
@@ -178,6 +183,7 @@
 		    Afegeix el llibre al carret de la comanda <br />
 			<div id="error"></div>
 			#stextfield ("label=Quantitat: " "name=numAjax" "value=1")
+			<br>
 			#sselect  ("list=llibreriesNoms" "name=llibreriaAjax" "label=Selecciona la llibreria: ")
 			<br>
         	<button type="button" onclick="enviarComandaAjax()">Afegir</button>
@@ -190,6 +196,7 @@
 				#ssubmit ("value=Enviar")
 			#end
 			<br/>
+		#end
 		</div>
 	</div>
 
