@@ -1,13 +1,15 @@
 #parse("WEB-INF/templates/header.vm")
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.js" type="text/javascript"></script> 
 <script type="text/javascript" >
-	#*
+
     function enviar(){
 			var text = $("#comentariAjax").val();
             var dataString = 'text='+ text;
 			alert (dataString);
-            if(text!='')
-            {
+           	if(text=="" || text==" ") {
+				$('#error').html("<div id='error'><font color='red' size='+1'><b>El comentari no pot ser buit!</b></font></div>");
+			}
+			else {
                 $("#flash").show();
                 $("#flash").fadeIn(400).html('<img src="http://feelsynapsis.com/mod/folder/graphics/spinner.gif" />Loading Comment...');
                 $.ajax({
@@ -16,14 +18,15 @@
                     data: dataString,
                     cache: false,
                     success: function(html){
-                        $("#comments").load(html)
+                    	alert(html);
+                        $("#comments").load(html);
                         $("#flash").hide();
                     }
                 });
             }
 			return false;
 	};
-	*#
+	
 	function enviarComandaAjax() {
 		var num = $("#numAjax").val();
 		if (num > 0) {
@@ -133,6 +136,23 @@
 				</center>
 			</div>
 			#if(${llibre.similars})
+<<<<<<< .mine
+				<div id=contentSimilars>
+						<h2>Et recomanem els seguents llibres</h2>
+							#foreach ($sim in ${llibre.similars})
+								<div id="similars">
+									<div id="similars_image">
+											<img src="${sim.thumb}" />
+									</div>
+									<div id="similars_text">
+											<a href=/laLlibreria/showBook.action?id=${sim.isbn}> ${sim.title}</a><br />
+											${sim.author}
+									</div>
+								</div>
+							#end
+					</td>
+				</tr>
+=======
 				<div id=contentSimilars>
 				<h2>Et recomanem els seguents llibres</h2>
 				#foreach ($sim in ${llibre.similars})
@@ -147,6 +167,7 @@
 					</div>
 				#end
 				</div>
+>>>>>>> .r272
 			#end
 
 			</div>
@@ -163,7 +184,8 @@
 			<div id="error"></div>
 	        <textarea id="comentariAjax" cols="40"></textarea>
 			<br />
-			<button type="button" onclick="enviarAjax()">Publicar amb Ajax</button>
+			<button type="button" onclick="enviarAjax()">Publicar amb Ajax per GET</button>
+			<button type="button" onclick="enviar()">Publicar amb Ajax per POST</button>
 			<div id="flash"></div>
 		#end
 		<div id="comments">
