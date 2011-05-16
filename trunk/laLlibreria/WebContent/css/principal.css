@@ -467,6 +467,22 @@ filter: alpha(opacity=81);
 		-moz-border-radius: 20px;
 		border-radius: 20px;
 	}
+	
+#comment {
+		display:block;
+		background: white;
+		padding:10px;
+		border:0px solid gray;
+		margin:5px;
+		text-align: left;
+	    vertical-align: middle;
+		-moz-border-radius: 20px;
+		border-radius: 20px;
+		-webkit-transition: background 1s linear;
+		-moz-transition: background 1s linear;
+		transition: background 1s linear;
+	}	
+	
 #similars {
 		float: left;
 		display:block;
@@ -506,18 +522,5 @@ filter: alpha(opacity=81);
 		border-radius: 20px;
 	}
 
-#comment {
-		display:block;
-		background: white;
-		padding:10px;
-		border:0px solid gray;
-		margin:5px;
-		text-align: left;
-	    vertical-align: middle;
-		-moz-border-radius: 20px;
-		border-radius: 20px;
-		-webkit-transition: background 1s linear;
-		-moz-transition: background 1s linear;
-		transition: background 1s linear;
-	}
+
 
