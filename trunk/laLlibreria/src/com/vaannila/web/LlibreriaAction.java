@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.catalina.util.ParameterMap;
 import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -35,6 +36,9 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	private int idCupo;
 	private String codi = null;
 	private Boolean valid = null;
+	private String distance;
+	private ParameterMap<String,String>llistaDistance = (ParameterMap<String, String>) session.get("distancias");
+
 	private MailDAO maildao = new MailDAOImpl();
 	public int getIdCupo() {
 		return idCupo;
@@ -104,7 +108,16 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 		session.put("llistaCupons", llistaCupons);
 		return SUCCESS;
 	}
-	
+	public void novaDistance()
+	{
+		this.llibreria = (Llibreria) session.get("libreria");
+		if(llistaDistance == null) {
+			llistaDistance = new ParameterMap<String,String>();
+		}
+		this.llistaDistance.put(this.llibreria.getName(),this.distance);
+		this.session.put("distancias", this.llistaDistance);
+		
+	}
 	public String eliminaCupo() {
 		this.llistaCupons=(List<Cupo>) session.get("llistaCupons");
 		for(int i = 0; i < llistaCupons.size(); ++i) {
