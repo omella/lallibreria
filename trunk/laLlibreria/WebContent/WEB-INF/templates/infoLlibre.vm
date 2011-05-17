@@ -5,7 +5,6 @@
     function enviar(){
 			var text = $("#comentariAjax").val();
             var dataString = 'text='+ text;
-			alert (dataString);
            	if(text=="" || text==" ") {
 				$('#error').html("<div id='error'><font color='red' size='+1'><b>El comentari no pot ser buit!</b></font></div>");
 			}
@@ -18,8 +17,7 @@
                     data: dataString,
                     cache: false,
                     success: function(html){
-                    	alert(html);
-                        $("#comments").load(html);
+                        $("#comments").html(html);
                         $("#flash").hide();
                     }
                 });
@@ -136,23 +134,7 @@
 				</center>
 			</div>
 			#if(${llibre.similars})
-<<<<<<< .mine
-				<div id=contentSimilars>
-						<h2>Et recomanem els seguents llibres</h2>
-							#foreach ($sim in ${llibre.similars})
-								<div id="similars">
-									<div id="similars_image">
-											<img src="${sim.thumb}" />
-									</div>
-									<div id="similars_text">
-											<a href=/laLlibreria/showBook.action?id=${sim.isbn}> ${sim.title}</a><br />
-											${sim.author}
-									</div>
-								</div>
-							#end
-					</td>
-				</tr>
-=======
+
 				<div id=contentSimilars>
 				<h2>Et recomanem els seguents llibres</h2>
 				#foreach ($sim in ${llibre.similars})
@@ -167,7 +149,6 @@
 					</div>
 				#end
 				</div>
->>>>>>> .r272
 			#end
 
 			</div>
