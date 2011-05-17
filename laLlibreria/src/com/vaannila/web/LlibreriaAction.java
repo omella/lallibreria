@@ -110,7 +110,7 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	}
 	public void novaDistance()
 	{
-		this.llistaDistance = (ParameterMap<String, String>) session.get("distancias")
+		this.llistaDistance = (ParameterMap<String, String>) session.get("distancias");
 		if(llistaDistance == null) {
 			llistaDistance = new ParameterMap<String,String>();
 		}
