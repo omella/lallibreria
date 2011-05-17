@@ -149,7 +149,7 @@ function addLibreriaMapa(posicionCliente){
        for (i=0;i<arrayAddress.length;i++){
       		aux(geocoder2, arrayName[i], arrayAddress[i], arrayTelf[i], arrayMail[i]);
       		stringDistance=getDistance(posicionCliente, arrayAddress[i]);
-      		$.get('http://localhost:8080/laLlibreria/addDistance.action?distance='+stringDistance);
+      		$.get('http://localhost:8080/laLlibreria/addDistance.action?distance=50');
 		
 	   } 
     }
