@@ -23,7 +23,6 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
-import com.safelayer.trustedx.client.smartwrapper.SmartDecryptResponse.thisRecipientInfo;
 import com.vaannila.dao.ComentariDAO;
 import com.vaannila.dao.ComentariDAOImpl;
 import com.vaannila.dao.CupoDAO;
@@ -42,8 +41,6 @@ import com.vaannila.domain.Llibreria;
 import com.vaannila.domain.Puntuacio;
 import com.vaannila.domain.Usuari;
 import com.vaannila.domain.Vist;
-import com.vaannila.ws.BooksWS;;
-
 
 
 public class BookAction extends ActionSupport implements ModelDriven<Comentari>, SessionAware{
@@ -70,7 +67,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 	private Boolean voted =  (Boolean) session.get("voted");
 	private List<String>llibreriesNoms = (List<String>) session.get("llibreriesNoms");
 	private List<String>llibreriesCupons = (List<String>) session.get("llibreriesCupons");
-	private ParameterMap<String,String> distance = (ParameterMap<String, String>) session.get("distancias");
+	private ParameterMap<String,String> distances = (ParameterMap<String, String>) session.get("distancias");
 	
 	public String addMark(){
 		//Si ja ha votat, acabem!
@@ -172,7 +169,8 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 				ParameterMap<String,String> oferta = new ParameterMap<String,String>();
 				oferta.put("descompte",((Double)(Double.valueOf(valor)*100)).toString()+"%");
 				oferta.put("llibreria", nom);
-				if (distance!=null) oferta.put("distancia", distance.get(nom));
+				oferta.put("distancia", "100 Km");
+				if (distances!=null) oferta.put("distancia", distances.get(nom));
 				ofertes.add(oferta);
 			}
 		}
@@ -317,12 +315,12 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 
 
 	public ParameterMap<String, String> getDistance() {
-		return distance;
+		return distances;
 	}
 
 
 	public void setDistance(ParameterMap<String, String> distance) {
-		this.distance = distance;
+		this.distances = distance;
 	}
 
 
