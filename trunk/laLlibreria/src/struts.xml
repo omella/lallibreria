@@ -59,6 +59,10 @@
 			<result name="success" type="velocity">/WEB-INF/templates/infoLlibreria.vm</result>
 		</action>
 		
+		<action name="validaCodi" method="check" class="com.vaannila.web.LlibreriaAction">
+			<result name="success" type="velocity">/WEB-INF/templates/homeLlibreria.vm</result>
+		</action>
+		
 		<action name="puntuacionsAjax" method="addMark" class="com.vaannila.web.BookAction">
 			<result name="success" type="velocity">/WEB-INF/templates/puntuacioAjax.vm</result>
 		</action>
