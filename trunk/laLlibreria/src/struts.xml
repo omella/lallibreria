@@ -55,9 +55,11 @@
 			<result name="success" type="velocity">/WEB-INF/templates/infoLlibreria.vm</result>
 		</action>
 		
-		<action name="addPuntuacio" method="addMark" class="com.vaannila.web.BookAction">
-			<result name="success" type="velocity">/WEB-INF/templates/infoLlibre.vm</result>
+		<action name="puntuacionsAjax" method="addMark" class="com.vaannila.web.BookAction">
+			<result name="success" type="velocity">/WEB-INF/templates/puntuacioAjax.vm</result>
 		</action>
+		
+		
 		
 		<action name="addComentari" method="addComment" class="com.vaannila.web.BookAction">
 			<result name="success" type="velocity">/WEB-INF/templates/infoLlibre.vm</result>

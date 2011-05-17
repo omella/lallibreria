@@ -32,6 +32,7 @@
 			$('#comandes').load('http://localhost:8080/laLlibreria/comandesAjax.action?num='+num+'&idLlibreria='+lib);
 		}
 	};
+
 	function enviarAjax() {
 			var text = $("#comentariAjax").val();
 			if(text=="" || text==" ") {
@@ -111,31 +112,7 @@
 				</table>
 			</div>
 			<div id=contentPuntuacio>
-				<h1>Puntuacio</h1>
-				<center>				
-				#if (${llibre.puntuacio})
-					<h3> Puntuacio ${llibre.puntuacio} </h3>
-				#end
-				
-				#if (${logged} && !${voted})
-					#sform ("action=addPuntuacio")
-						#sradio ("name=punts" "list={'1','2','3','4','5'}")
-						#ssubmit ("value=Votar")
-					#end
-				#end
-				#if (${voted})
-					Ja has votat!
-					<br>
-				#end
-				
-				#if (${llibre.puntuacio})
-					Han votat ${llibre.numVots} persones
-				#else
-					Sigues el primer en votar
-					#if (!${logged}) (cal fer login)
-					#end
-				#end
-				</center>
+				#parse( "WEB-INF/templates/puntuacioAjax.vm" )
 			</div>
 			#if(${llibre.similars})
 
