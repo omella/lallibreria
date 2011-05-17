@@ -54,10 +54,8 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 	private Vist viewed = new Vist();
 	private LlibreriaDAO llibreriaDAO = new LlibreriaDAOImpl(); 
 	private List<Llibreria>llibreriaList = null;
-	private List<String>llibreriesNoms = null;
-	private List<String>llibreriesCupons = null;
+
 	private Puntuacio puntuacio = new Puntuacio();
-	private List llibreriaComanda= null;
 	private ComentariDAO comentariDAO = new ComentariDAOImpl();
 	private CupoDAO cupoDAO = new CupoDAOImpl();
 	private PuntuacioDAO puntuacioDAO = new PuntuacioDAOImpl();
@@ -65,10 +63,13 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 	private Double punts;
 	private String id = null;
 	private Map session = ActionContext.getContext().getSession();
+	private List<ParameterMap<String,String>> ofertes = (List<ParameterMap<String, String>>) session.get("ofertes");
 	private List<Comanda> comandes= (List<Comanda>) session.get("comandes");
 	private Llibre llibre = (Llibre) session.get("llibre");
 	private Usuari logged = (Usuari) session.get("user");
-
+	private Boolean voted =  (Boolean) session.get("voted");
+	private List<String>llibreriesNoms = (List<String>) session.get("llibreriesNoms");
+	private List<String>llibreriesCupons = (List<String>) session.get("llibreriesCupons");
 	
 	public String addMark(){
 		
@@ -90,7 +91,8 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 		puntuacioDAO.savePuntuacio(puntuacio);
 		
 		this.setLlibre(this.llibre);
-			
+		voted = true;
+		session.put("voted",voted);	
 		return SUCCESS;
 	}
 	
@@ -134,7 +136,10 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 		viewed.setData(data);
 		viewed.setIsbn(this.id);
 		vistDAO.saveVist(viewed);
-		
+		if (llibre != null)
+		{
+			if (llibre.getIsbn() != this.id) voted = false;
+		}
 		llibre = com.vaannila.ws.BooksWS.getBook(this.id);
 		List<Llibre> prova = com.vaannila.ws.BooksWS.getSimilarBook(this.id);
 		System.out.println("El llibre "+llibre.getTitle()+" te "+prova.size()+" llibres similars");
@@ -146,26 +151,26 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 		session.put("llibreries", llibreriaList);
 		llibreriesNoms = new ArrayList<String>();
 		llibreriesCupons = new ArrayList <String>();
-		llibreriaComanda = new ArrayList<LlistaLlibreria>();
+		ofertes = new ArrayList<ParameterMap<String,String>>();
 		for (int k = 0;k < llibreriaList.size();++k)
 		{
 			String nom = llibreriaList.get(k).getName();
 			llibreriesNoms.add(nom);
 			String valor = cupoDAO.getCupoValor(llibreriaList.get(k).getMail(),this.llibre.getGenre());
 			llibreriesCupons.add(valor);
-			LlistaLlibreria l = new LlistaLlibreria();
-			l.tag =nom+" ->(Descompte: "+((Double)(Double.valueOf(valor)*100)).toString()+"%)";
-			l.nom = nom;
-			llibreriaComanda.add(l);
-			//llibreriaComanda.put("text", nom+" ->(Descompte: "+((Double)(Double.valueOf(valor)*100)).toString()+"%)");
-			//llibreriaComanda.put("name", nom);
+			if (Double.valueOf(valor) > 0.0) 
+			{
+				ParameterMap<String,String> oferta = new ParameterMap<String,String>();
+				oferta.put("descompte",((Double)(Double.valueOf(valor)*100)).toString()+"%");
+				oferta.put("llibreria", nom);
+				ofertes.add(oferta);
+			}
 		}
 		session.put("llibreriesNoms", llibreriesNoms);
 		session.put("llibre", llibre);
 		session.put("llibreriesCupons", llibreriesCupons);
-		session.put("llibreriaComanda", llibreriaComanda);
-		System.out.println(llibreriaComanda.toString());
-		
+		session.put("ofertes",ofertes);
+				
 		return SUCCESS;
 	}
 	class LlistaLlibreria{
@@ -250,18 +255,6 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 		this.llibreriesNoms = llibreriesNoms;
 	}
 
-	
-	
-	public List<LlistaLlibreria> getLlibreriaComanda() {
-		return llibreriaComanda;
-	}
-
-
-	public void setLlibreriaComanda(List<LlistaLlibreria> llibreriaComanda) {
-		this.llibreriaComanda = llibreriaComanda;
-	}
-
-
 	@Override
 	public Comentari getModel() {
 		return this.comment;
@@ -271,6 +264,25 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 	public void setSession(Map<String, Object> arg0) {
 		this.session=arg0;
 		
+	}
+
+	public List<ParameterMap<String, String>> getOfertes() {
+		return ofertes;
+	}
+
+
+	public void setOfertes(List<ParameterMap<String, String>> ofertes) {
+		this.ofertes = ofertes;
+	}
+
+
+	public List<Comanda> getComandes() {
+		return comandes;
+	}
+
+
+	public void setComandes(List<Comanda> comandes) {
+		this.comandes = comandes;
 	}
 
 
@@ -283,5 +295,16 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 		this.logged = logged;
 	}
 
+
+	public Boolean getVoted() {
+		return voted;
+	}
+
+
+	public void setVoted(Boolean voted) {
+		this.voted = voted;
+	}
+
+	
 	
 }
