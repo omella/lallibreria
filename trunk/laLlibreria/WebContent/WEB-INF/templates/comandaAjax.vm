@@ -1,37 +1,39 @@
+
 #if (${comandes})
 	El teu carret de comandes:
 	<br>
-	<table border="1">
-		<tr>
-			<td>
-				<b>T&iacute;tol</b> 
-			</td>
-			<td>
-				<b>Quantitat</b> 
-			</td>
-			<td>
-				<b>Llibreria</b> 
-			</td>
-			<td>
-				<b>Descompte</b> 
-			</td>
+	<div id=ofertas>
+	<table id="cupons">
+     	<tr class="alt">
+ 			<th>
+ 				T&iacute;tol 
+ 		 	</th>
+ 			<th>
+ 				Quantitat
+ 		 	</th>
+  			<th>
+ 				Llibreria
+ 		 	</th>
+ 		 	<th>
+ 				Descompte
+ 		 	</th>
 		</tr>
 		#foreach ($comanda in ${comandes})
-			<tr>
-				<td>
-					<b>${comanda.llibre.title}</b> 
-				</td>
-				<td>
-					<b>${comanda.quantitat}</b> 
-				</td>
-				<td>
-					<b>${comanda.llibreria}</b> 
-				</td>
-				<td>
-					<b>${comanda.descompte}</b> 
-				</td>
-			</tr>
+			<tr class="alt">
+	 		 	<td>
+	 		 		${comanda.llibre.title}
+	 		 	</td>
+	 		 	<td>
+	 		 		${comanda.quantitat}
+	 		 	</td>
+	 		 	<td>
+	 		 		${comanda.llibreria}
+	 		 	</td>
+	 		 	<td>
+	 		 		${comanda.descompte}
+	 		 	</td>
+		    </tr> 
 		#end
-		
 	</table>
+	</div>
 #end
