@@ -21,6 +21,7 @@ public class Mail {
 	private String cos;
 	private Date data;
 	private String codiReserva;
+	private String vist;
 
 	@Id
 	@GeneratedValue
@@ -79,6 +80,14 @@ public class Mail {
 	}
 	public void setCodiReserva(String codiReserva) {
 		this.codiReserva = codiReserva;
+	}
+	
+	@Column(name="VIST")
+	public String getVist() {
+		return vist;
+	}
+	public void setVist(String vist) {
+		this.vist = vist;
 	}
 		
 }
