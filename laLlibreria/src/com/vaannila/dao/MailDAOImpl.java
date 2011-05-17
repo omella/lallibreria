@@ -26,13 +26,22 @@ public class MailDAOImpl implements MailDAO{
 			e.printStackTrace();
 		} 
 	}
-	public Boolean checkCodi(String codi, String llibreria) {
+	public String checkCodi(String codi, String llibreria) {
 		List<Mail> courses = null;
 		try{
 			courses = session.createQuery("from Mail where CODI='"+codi+"' AND DESTI='"+llibreria+"'").list();
 		} catch (Exception e) {
 			e.printStackTrace();
-		} 
-		return (courses != null && courses.size()>0);
+		}
+		Boolean trobat = (courses != null && courses.size()>0);
+		if (trobat)
+		{
+			Mail m = courses.get(0);
+			if (m.getVist() == null) m.setVist("SI");
+			else return "CODI JA UTILITZAT";
+			this.saveMail(m);
+			return "CODI CORRECTE";
+		}
+		return "CODI INCORRECTE";
 	}
 }
