@@ -35,7 +35,7 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	private Llibreria llibreria = new Llibreria();//(Llibreria)this.session.get("libreria");
 	private int idCupo;
 	private String codi = null;
-	private Boolean valid = null;
+	private String valid = null;
 	private String distance;
 	private ParameterMap<String,String>llistaDistance = (ParameterMap<String, String>) session.get("distancias");
 	private String lib = null;
@@ -213,11 +213,11 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 		this.codi = codi;
 	}
 
-	public Boolean getValid() {
+	public String getValid() {
 		return valid;
 	}
 
-	public void setValid(Boolean valid) {
+	public void setValid(String valid) {
 		this.valid = valid;
 	}
 
