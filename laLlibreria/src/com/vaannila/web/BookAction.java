@@ -135,6 +135,8 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 		
 		return SUCCESS;
 	}
+	
+
 
 	public String show() {
 		
@@ -310,6 +312,8 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 	public void setVoted(Boolean voted) {
 		this.voted = voted;
 	}
+
+
 
 	
 	
