@@ -11,7 +11,7 @@ function agregarEliminat(idEliminat) {
    <div id=page>
      <div id=top>
         <div id=buscador>
-        	<h1>Panel de Gesti&oacute;</h1>
+        	<h1>Panell de Gesti&oacute;</h1>
         </div>
      </div>
      <div id=leftContentHomeLlibreria>
@@ -64,7 +64,20 @@ function agregarEliminat(idEliminat) {
         	#end
      	</div>
 
-     	
+		<div id=check>
+			<br>
+			<h1>Validar Codi de Reserva</h1>
+	 	    #sform ("action=validaCodi")
+	 		    #stextfield ("label=Codi de reserva" "name=codi")
+				#ssubmit ("value=Validar")
+	    	#end
+	    	#if (${valid})
+	    		<h2> CODI CORRECTE </h2>
+	    	#end
+	    	#if(!${valid} && ${codi})
+	    		<h2> CODI INCORRECTE </h2>
+	    	#end
+     	</div>
      </div>
      <div id=foot>
      	#parse( "WEB-INF/templates/pie.vm" )

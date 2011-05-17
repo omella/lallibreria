@@ -13,6 +13,8 @@ import com.vaannila.dao.CupoDAO;
 import com.vaannila.dao.CupoDAOImpl;
 import com.vaannila.dao.LlibreriaDAO;
 import com.vaannila.dao.LlibreriaDAOImpl;
+import com.vaannila.dao.MailDAO;
+import com.vaannila.dao.MailDAOImpl;
 import com.vaannila.domain.Cupo;
 import com.vaannila.domain.Llibre;
 import com.vaannila.domain.Llibreria;
@@ -31,7 +33,9 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	private Map session = ActionContext.getContext().getSession();
 	private Llibreria llibreria = new Llibreria();//(Llibreria)this.session.get("libreria");
 	private int idCupo;
-
+	private String codi = null;
+	private Boolean valid = null;
+	private MailDAO maildao = new MailDAOImpl();
 	public int getIdCupo() {
 		return idCupo;
 	}
@@ -113,6 +117,12 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 		return SUCCESS;
 	}
 	
+	public String check() 
+	{
+		this.llibreria = (Llibreria) session.get("libreria");
+		this.valid = maildao.checkCodi(this.codi,this.llibreria.getMail());
+		return SUCCESS;
+	}
 	public Llibreria getLlibreria() {
 		return llibreria;
 	}
@@ -181,5 +191,22 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 		return llistaTematica;
 	}
 
+	public String getCodi() {
+		return codi;
+	}
+
+	public void setCodi(String codi) {
+		this.codi = codi;
+	}
+
+	public Boolean getValid() {
+		return valid;
+	}
+
+	public void setValid(Boolean valid) {
+		this.valid = valid;
+	}
+
+	
 
 }
