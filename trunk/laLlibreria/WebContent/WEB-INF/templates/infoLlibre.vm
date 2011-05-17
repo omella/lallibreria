@@ -163,6 +163,8 @@
 					<h4>${oferta.llibreria}</h5>
 					<br>
 					<h1>${oferta.descompte}</h1>
+					<br>
+					<h1>${oferta.distancia}</h1>
 					</div>
 					</div>
 				#end
