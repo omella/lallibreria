@@ -220,14 +220,6 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 		this.valid = valid;
 	}
 
-	public String getDistance() {
-		return distance;
-	}
-
-	public void setDistance(String distance) {
-		this.distance = distance;
-	}
-
 	
 
 }
