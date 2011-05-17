@@ -38,7 +38,7 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	private Boolean valid = null;
 	private String distance;
 	private ParameterMap<String,String>llistaDistance = (ParameterMap<String, String>) session.get("distancias");
-
+	private String lib = null;
 	private MailDAO maildao = new MailDAOImpl();
 	public int getIdCupo() {
 		return idCupo;
@@ -110,11 +110,11 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	}
 	public void novaDistance()
 	{
-		this.llibreria = (Llibreria) session.get("libreria");
+		this.llistaDistance = (ParameterMap<String, String>) session.get("distancias")
 		if(llistaDistance == null) {
 			llistaDistance = new ParameterMap<String,String>();
 		}
-		this.llistaDistance.put(this.llibreria.getName(),this.distance);
+		this.llistaDistance.put(this.lib,this.distance);
 		this.session.put("distancias", this.llistaDistance);
 		
 	}
@@ -203,6 +203,7 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	public String[] getLlistaTematica() {
 		return llistaTematica;
 	}
+
 
 	public String getCodi() {
 		return codi;
