@@ -47,6 +47,27 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 	private String token = null;
 	private Usuari usuari = new Usuari();
 	private String gender = "";
+	private Boolean loguejat=null;
+	private Boolean loginwithGoogle=null;
+	
+	public Boolean getLoginwithGoogle() {
+		session.put("loginwithGoogle", loginwithGoogle);
+		return loginwithGoogle;
+	}
+
+	public void setLoginwithGoogle(Boolean loginwithGoogle) {
+		this.loginwithGoogle = loginwithGoogle;
+	}
+
+	public Boolean getLoguejat() {
+		session.put("loguejat", loguejat);
+		return loguejat;
+	}
+
+	public void setLoguejat(Boolean loguejat) {
+		this.loguejat = loguejat;
+	}
+
 	public String getError() {
 		return error;
 	}
@@ -91,6 +112,10 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 				else{
 					usuari=userdao.getUser(serviceId, google);
 				}
+				loguejat=true;
+				loginwithGoogle = true;
+				session.put("loginwithGoogle", loginwithGoogle);
+				session.put("loguejat", loguejat);
 				session.put("user", usuari);
 				
 			} catch (RequestException e) {
@@ -126,6 +151,10 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 			else{
 				usuari=userdao.getUser(serviceId, google);
 			}
+			loguejat=true;
+			loginwithGoogle = false;
+			session.put("loginwithGoogle", loginwithGoogle);
+			session.put("loguejat", loguejat);
 			session.put("user", usuari);
 
 			return SUCCESS;
@@ -167,7 +196,10 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 			usuari.setMail(usermail);
 			
 			userdao.saveUser(usuari);
-			
+			loguejat=true;
+			loginwithGoogle = true;
+			session.put("loginwithGoogle", loginwithGoogle);
+			session.put("loguejat", loguejat);
 			session.put("user", usuari);
 			
 		} catch (RequestException e) {
@@ -188,6 +220,8 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 		serviceId = "";
 		token = "";
 		gender = "";
+		session.remove("loginwithGoogle");
+		session.remove("loguejat");
 		session.remove("user");
 
 		return SUCCESS;
