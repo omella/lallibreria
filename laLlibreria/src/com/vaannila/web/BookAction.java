@@ -72,8 +72,13 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 	private List<String>llibreriesCupons = (List<String>) session.get("llibreriesCupons");
 	
 	public String addMark(){
-		
+		//Si ja ha votat, acabem!
+		if (voted != null && voted == true) return SUCCESS;
 		this.puntuacio = puntuacioDAO.getPuntuacioIsbn(this.llibre.getIsbn());
+		
+		//Comprovació errors
+		if (punts < 1.0) punts = 1.0;
+		if (punts > 5.0) punts = 5.0;
 		
 		if (this.puntuacio == null)
 		{
@@ -103,6 +108,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 		comment.setData(data);
 	    String username = null;
 	    Usuari user= (Usuari) session.get("user");
+	    if (user == null) return ERROR;
 	    username = user.getName();
 	    if (username==null)username = "rodonako";
 		comment.setUsername(username);
