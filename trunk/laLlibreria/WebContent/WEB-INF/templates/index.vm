@@ -149,15 +149,15 @@ function addLibreriaMapa(posicionCliente){
        for (i=0;i<arrayAddress.length;i++){
       		aux(geocoder2, arrayName[i], arrayAddress[i], arrayTelf[i], arrayMail[i]);
       		stringDistance=getDistance(posicionCliente, arrayAddress[i]);
-      		$.get('http://localhost:8080/laLlibreria/addDistance.action?distance=50');
-		
+      		//$('#mini').load('http://localhost:8080/laLlibreria/addDistance.action?distance=50&lib='+arrayName[i]);
+
 	   } 
     }
 }
 
 function getDistance(posC,posL) {
 	var directionsService = new google.maps.DirectionsService();
-
+	
 	directionsDisplay = new google.maps.DirectionsRenderer(
 	{
 	   suppressMarkers: true,
@@ -172,15 +172,24 @@ function getDistance(posC,posL) {
 	};
 	var distance;
 	directionsService.route(request, function(response, status)
-	{
-		
+	{	
 	   if (status == google.maps.DirectionsStatus.OK)
 	   {      
 	       distance = response.routes[0].legs[0].distance.value;
-	       alert(distance);
-	   }
+			var text = 'distance='+distance+'&lib=' + arrayName[i];
+			$.ajax({
+      			type: "POST",
+      			url: "/laLlibreria/addDistance.action",
+      			data: text,
+      			cache: false,
+      			success: function(html) {
+      				alert(arrayName[i] +" "+ distance);
+      			}
+      		});	   }
 	  
-	});		
+	});	
+	alert("hola:"+distance);
+	//return distance;	
 }
 
 
@@ -193,6 +202,7 @@ function getDistance(posC,posL) {
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.js" type="text/javascript"></script> 
 <body>
+   <div id=mini></div>
    <div id=page>
      <div id=top>
      	<div id=login>

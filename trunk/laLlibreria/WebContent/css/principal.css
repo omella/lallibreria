@@ -55,7 +55,10 @@ a {
 #contentMaps{
 	color:black;
 }
-
+#mini{
+	width:1px;
+	height:1px;
+}
 
 #content{
 	color:white;	
