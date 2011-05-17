@@ -66,16 +66,16 @@ function agregarEliminat(idEliminat) {
 
 		<div id=check>
 			<br>
-			<h1>Validar Codi de Reserva</h1>
+			<h1>Codis de Reserva</h1>
 	 	    #sform ("action=validaCodi")
 	 		    #stextfield ("label=Codi de reserva" "name=codi")
 				#ssubmit ("value=Validar")
 	    	#end
 	    	#if (${valid})
-	    		<h2> CODI CORRECTE </h2>
-	    	#end
-	    	#if(!${valid} && ${codi})
-	    		<h2> CODI INCORRECTE </h2>
+				<h2> ${valid} </h2>
+				#if (${valid} == "CODI CORRECTE")
+					<h3> EL CODI HA ESTAT MARCAT COM A UTILITZAT </h3>
+				#end 
 	    	#end
      	</div>
      </div>
