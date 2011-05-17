@@ -47,7 +47,7 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 	private Map session = ActionContext.getContext().getSession();
 	
 	private List<Comanda> comandes =  (List<Comanda>) this.session.get("comandes");
-	
+	private List<ParameterMap<String,String>> ofertes = (List<ParameterMap<String, String>>) session.get("ofertes");
 	private Llibre llibre = (Llibre)this.session.get("llibre");
 	
 	@SuppressWarnings("unchecked")
@@ -58,10 +58,10 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 	
 	@SuppressWarnings("unchecked")
 	private List<String>llibreriesCupons = (List<String>) this.session.get("llibreriesCupons");
-
-	private List<LlistaLlibreria> llibreriaComanda = (List<LlistaLlibreria>) this.session.get("llibreriaComanda");
 	
 	private Usuari logged = (Usuari) session.get("user");
+	
+	private Boolean voted = (Boolean) session.get("voted");
 	
 	@SuppressWarnings("unchecked")
 	public String add()
@@ -263,14 +263,6 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 		this.llibreriesNoms = llibreriesNoms;
 	}
 
-	public void setLlibreriaComanda(List<LlistaLlibreria> llibreriaComanda) {
-		this.llibreriaComanda = llibreriaComanda;
-	}
-
-	public List<LlistaLlibreria> getLlibreriaComanda() {
-		return llibreriaComanda;
-	}
-
 	public List<Comanda> getComandes() {
 		return comandes;
 	}
@@ -287,7 +279,20 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 		this.logged = logged;
 	}
 
+	public List<ParameterMap<String, String>> getOfertes() {
+		return ofertes;
+	}
 
-	
+	public void setOfertes(List<ParameterMap<String, String>> ofertes) {
+		this.ofertes = ofertes;
+	}
+
+	public Boolean getVoted() {
+		return voted;
+	}
+
+	public void setVoted(Boolean voted) {
+		this.voted = voted;
+	}
 
 }

@@ -117,11 +117,15 @@
 					<h3> Puntuacio ${llibre.puntuacio} </h3>
 				#end
 				
-				#if (${logged})
+				#if (${logged} && !${voted})
 					#sform ("action=addPuntuacio")
 						#sradio ("name=punts" "list={'1','2','3','4','5'}")
 						#ssubmit ("value=Votar")
 					#end
+				#end
+				#if (${voted})
+					Ja has votat!
+					<br>
 				#end
 				
 				#if (${llibre.puntuacio})
@@ -174,7 +178,18 @@
 		</div>
 	</div>
 	<div id=rightContentLlibre>
-		
+		<div id=contentOfertes>
+			<h2>Ofertes</h2>
+				#foreach ($oferta in ${ofertes})
+					<div id="ofertes">
+					<div id="ofertes_text">
+					<h4>${oferta.llibreria}</h5>
+					<br>
+					<h1>${oferta.descompte}</h1>
+					</div>
+					</div>
+				#end
+				</div>
 		<div id=comanda>
 		#if ($logged.mail)
 			<br/>

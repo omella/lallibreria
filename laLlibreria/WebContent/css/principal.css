@@ -522,5 +522,29 @@ filter: alpha(opacity=81);
 		border-radius: 20px;
 	}
 
-
-
+#ofertes {
+		float: right;
+		display:block;
+		background: green;
+		padding:10px;
+		border:0px solid gray;
+		margin:5px;
+		height: 100px;
+	    vertical-align: middle;
+		-moz-border-radius: 20px;
+		border-radius: 20px;
+		-webkit-transition: background 1s linear;
+		-moz-transition: background 1s linear;
+		transition: background 1s linear;
+	}
+#ofertes_text {
+		float: left;
+		height: 80px;
+		width: 200px;
+		padding:10px;
+		margin:5px;
+		-moz-border-radius: 20px;
+		border-radius: 20px;
+		text-align: center;
+		color: white;
+	}
