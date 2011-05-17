@@ -70,6 +70,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 	private Boolean voted =  (Boolean) session.get("voted");
 	private List<String>llibreriesNoms = (List<String>) session.get("llibreriesNoms");
 	private List<String>llibreriesCupons = (List<String>) session.get("llibreriesCupons");
+	private ParameterMap<String,String> distance = (ParameterMap<String, String>) session.get("distancias");
 	
 	public String addMark(){
 		//Si ja ha votat, acabem!
@@ -171,6 +172,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 				ParameterMap<String,String> oferta = new ParameterMap<String,String>();
 				oferta.put("descompte",((Double)(Double.valueOf(valor)*100)).toString()+"%");
 				oferta.put("llibreria", nom);
+				if (distance!=null) oferta.put("distancia", distance.get(nom));
 				ofertes.add(oferta);
 			}
 		}
@@ -311,6 +313,16 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 
 	public void setVoted(Boolean voted) {
 		this.voted = voted;
+	}
+
+
+	public ParameterMap<String, String> getDistance() {
+		return distance;
+	}
+
+
+	public void setDistance(ParameterMap<String, String> distance) {
+		this.distance = distance;
 	}
 
 
