@@ -184,6 +184,22 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 		this.session.put("distancias", this.llistaDistance);
 		
 	}
+	public String getDistance() {
+		return distance;
+	}
+
+	public void setDistance(String distance) {
+		this.distance = distance;
+	}
+
+	public String getLib() {
+		return lib;
+	}
+
+	public void setLib(String lib) {
+		this.lib = lib;
+	}
+
 	public String eliminaCupo() {
 		this.llistaCupons=(List<Cupo>) session.get("llistaCupons");
 		for(int i = 0; i < llistaCupons.size(); ++i) {

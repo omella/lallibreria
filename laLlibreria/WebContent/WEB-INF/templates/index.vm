@@ -148,14 +148,14 @@ function addLibreriaMapa(posicionCliente){
     if (geocoder2) {
        for (i=0;i<arrayAddress.length;i++){
       		aux(geocoder2, arrayName[i], arrayAddress[i], arrayTelf[i], arrayMail[i]);
-      		stringDistance=getDistance(posicionCliente, arrayAddress[i]);
+      		stringDistance=getDistance(posicionCliente, arrayAddress[i], i);
       		//$('#mini').load('http://localhost:8080/laLlibreria/addDistance.action?distance=50&lib='+arrayName[i]);
 
 	   } 
     }
 }
 
-function getDistance(posC,posL) {
+function getDistance(posC,posL,ind) {
 	var directionsService = new google.maps.DirectionsService();
 	
 	directionsDisplay = new google.maps.DirectionsRenderer(
@@ -176,7 +176,8 @@ function getDistance(posC,posL) {
 	   if (status == google.maps.DirectionsStatus.OK)
 	   {      
 	       distance = response.routes[0].legs[0].distance.value;
-			var text = 'distance='+distance+'&lib=' + arrayName[i];
+			var text = 'distance='+distance+'&lib=' + arrayName[ind];
+			alert(text);
 			$.ajax({
       			type: "POST",
       			url: "/laLlibreria/addDistance.action",
