@@ -174,6 +174,13 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 			llistaDistance = new ParameterMap<String,String>();
 		}
 		this.llistaDistance.put(this.lib,this.distance);
+		System.out.println("\n");
+		System.out.println("\n");
+		System.out.println("\n");
+		System.out.println(this.distance);
+		System.out.println("\n");
+		System.out.println("\n");
+		System.out.println("\n");
 		this.session.put("distancias", this.llistaDistance);
 		
 	}

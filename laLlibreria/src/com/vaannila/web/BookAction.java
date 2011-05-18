@@ -170,6 +170,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 				oferta.put("descompte",((Double)(Double.valueOf(valor)*100)).toString()+"%");
 				oferta.put("llibreria", nom);
 				oferta.put("distancia", "100 Km");
+
 				if (distances!=null) oferta.put("distancia", distances.get(nom));
 				ofertes.add(oferta);
 			}
