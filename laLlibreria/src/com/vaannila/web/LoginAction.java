@@ -1,6 +1,7 @@
 package com.vaannila.web;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -9,6 +10,8 @@ import com.restfb.*;
 import com.restfb.types.User;
 import com.vaannila.dao.UserDAO;
 import com.vaannila.dao.UserDAOImpl;
+import com.vaannila.domain.Cupo;
+import com.vaannila.domain.Llibre;
 import com.vaannila.domain.Usuari;
 
 import org.apache.log4j.Logger;
@@ -47,8 +50,27 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 	private String token = null;
 	private Usuari usuari = new Usuari();
 	private String gender = "";
-	private Boolean loguejat=null;
-	private Boolean loginwithGoogle=null;
+	private Boolean loguejat = (Boolean) session.get("loguejat");
+	private Boolean loginwithGoogle=(Boolean) session.get("loginwithGoogle");
+	
+	private List<Llibre> populars = (List<Llibre>) session.get("populars");;
+	private List<Cupo> millorOfertes = (List<Cupo>) session.get("millorOfertes");
+	
+	public List<Cupo> getMillorOfertes() {
+		return millorOfertes;
+	}
+
+	public void setMillorOfertes(List<Cupo> millorOfertes) {
+		this.millorOfertes = millorOfertes;
+	}
+	
+	public List<Llibre> getPopulars() {
+		return populars;
+	}
+
+	public void setPopulars(List<Llibre> populars) {
+		this.populars = populars;
+	}
 	
 	public Boolean getLoginwithGoogle() {
 		session.put("loginwithGoogle", loginwithGoogle);
@@ -85,7 +107,9 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 			    break;
 	    	}	    	
 	    	if (token == null && c.getName().equals("fbs_" + FsiteId)) {
-			    token = c.getValue().replaceAll("%7C", "|").substring(13,112);
+	    		System.out.println(c.getValue().replaceAll("%7C", "|"));
+			    token = c.getValue().replaceAll("%7C", "|").substring(13,104);
+	    		System.out.println(token);
 			    google = "false";
 				break;
 	    	}
@@ -220,8 +244,10 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 		serviceId = "";
 		token = "";
 		gender = "";
-		session.remove("loginwithGoogle");
-		session.remove("loguejat");
+		loguejat=false;
+		loginwithGoogle = false;
+		session.put("loginwithGoogle", loginwithGoogle);
+		session.put("loguejat", loguejat);
 		session.remove("user");
 
 		return SUCCESS;

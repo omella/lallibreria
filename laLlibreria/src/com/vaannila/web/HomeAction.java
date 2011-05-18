@@ -2,7 +2,11 @@ package com.vaannila.web;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.struts2.interceptor.SessionAware;
+
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -17,7 +21,7 @@ import com.vaannila.domain.Llibre;
 import com.vaannila.domain.QueryPair;
 import com.vaannila.domain.Vist;
 
-public class HomeAction extends ActionSupport implements ModelDriven<Vist>{
+public class HomeAction extends ActionSupport implements ModelDriven<Vist>, SessionAware{
 
 	/**
 	 * 
@@ -27,10 +31,30 @@ public class HomeAction extends ActionSupport implements ModelDriven<Vist>{
 	private Vist viewed = new Vist();
 	private LlibreriaDAO llibreriaDAO = new LlibreriaDAOImpl();
 	private VistDAO vistDAO = new VistDAOImpl();
-	
+	private Map session = ActionContext.getContext().getSession();
+
 	List<Llibre> populars = null;
 	List<Cupo> millorOfertes = null;
+	private Boolean loguejat=false;
+	private Boolean loginwithGoogle=false;
 	
+	public Boolean getLoginwithGoogle() {
+		session.put("loginwithGoogle", loginwithGoogle);
+		return loginwithGoogle;
+	}
+
+	public void setLoginwithGoogle(Boolean loginwithGoogle) {
+		this.loginwithGoogle = loginwithGoogle;
+	}
+
+	public Boolean getLoguejat() {
+		session.put("loguejat", loguejat);
+		return loguejat;
+	}
+
+	public void setLoguejat(Boolean loguejat) {
+		this.loguejat = loguejat;
+	}
 	public List<Cupo> getMillorOfertes() {
 		return millorOfertes;
 	}
@@ -67,8 +91,9 @@ public class HomeAction extends ActionSupport implements ModelDriven<Vist>{
 		this.setLlibreriaList(llibreriaDAO.listLlibreria());
 		List<Cupo> llistaOfertes = getMillorsOfertes();
 		this.setMillorOfertes(llistaOfertes);
-		this.setPopulars(llistaLlibres);   
-
+		this.setPopulars(llistaLlibres); 
+		this.session.put("populars", populars);
+		this.session.put("millorOfertes", millorOfertes);
 		return SUCCESS;
 	}
 
@@ -105,4 +130,12 @@ public class HomeAction extends ActionSupport implements ModelDriven<Vist>{
 		// TODO Auto-generated method stub
 		return viewed;
 	}
+
+	@Override
+	public void setSession(Map<String, Object> arg0) {
+		this.session=arg0;
+		
+	}
+
+	
 }
