@@ -201,6 +201,21 @@ function getDistance(posC,posL) {
   google.load('friendconnect', '0.8');
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.js" type="text/javascript"></script> 
+<script type="text/javascript">
+ function fuckencio() {
+			$.ajax({
+      			type: "POST",
+      			url: "/laLlibreria/alexLogout.action",
+      			data: "",
+      			cache: false,
+      			success: function(html) {
+      				google.friendconnect.requestSignOut();
+      				return false;
+      			}
+      		});
+  };
+		
+</script>
 <body>
    <div id=mini></div>
    <div id=page>
@@ -247,6 +262,7 @@ function getDistance(posC,posL) {
 		}
 		function greet(){
 			FB.api('/me', function(response) {
+			
 			});
 		}
 
@@ -278,8 +294,7 @@ function getDistance(posC,posL) {
 			
 		}
 	</script>
-	<fb:login-button autologoutlink='true' perms='email,user_checkins,user_about_me'></fb:login-button>
-   <script type="text/javascript">
+    <script type="text/javascript">
     var SITE_ID = '06834717057300479661';
     var viewer, ownerFriends, activities;
     var logged;
@@ -318,7 +333,7 @@ function getDistance(posC,posL) {
         document.getElementById('profile').innerHTML =  
         '<img align="left" src="' + viewer.getField("thumbnailUrl")  + '">' +
         '<b>' + " WELLCOME " +  viewer.getField("displayName")+ " from Google" + '!</b><br>' +
-        '<a href=/laLlibreria/alexLogout.action onclick="google.friendconnect.requestSignOut(); return false;">Sign out</a><br>';
+        '<a href=# onclick="fuckencio();">Sign out</a><br>';
       } else {
         logged = 0;
         google.friendconnect.renderSignInButton({ 'id': 'profile', 'style': 'long' });
@@ -326,8 +341,15 @@ function getDistance(posC,posL) {
       }
     };
     </script>
-	<div id="profile"></div>  
-        	<a href=/laLlibreria/showRegistreLlibreria.action>Ets una llibreria?</a> 
+    #if (not ${loguejat} or (${loguejat} and ${loginwithGoogle}))
+    	login amb google <br>
+    	<div id="profile"></div>
+    #end
+    #if (not ${loguejat} or (${loguejat} and not ${loginwithGoogle}))
+    	login amb facebook <br>
+		<fb:login-button autologoutlink='true' perms='email,user_checkins,user_about_me'></fb:login-button>
+    #end
+      	<a href=/laLlibreria/showRegistreLlibreria.action>Ets una llibreria?</a> 
      	</div>
 	#sform ("action=searchLlibreries")
 		#ssubmit ("value=Busca Llibreries")
