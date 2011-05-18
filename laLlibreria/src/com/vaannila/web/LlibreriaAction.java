@@ -1,6 +1,7 @@
 package com.vaannila.web;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -10,20 +11,59 @@ import org.apache.struts2.interceptor.SessionAware;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+import com.vaannila.dao.ComentariDAO;
+import com.vaannila.dao.ComentariDAOImpl;
 import com.vaannila.dao.CupoDAO;
 import com.vaannila.dao.CupoDAOImpl;
 import com.vaannila.dao.LlibreriaDAO;
 import com.vaannila.dao.LlibreriaDAOImpl;
 import com.vaannila.dao.MailDAO;
 import com.vaannila.dao.MailDAOImpl;
+import com.vaannila.dao.PuntuacioDAO;
+import com.vaannila.dao.PuntuacioDAOImpl;
+import com.vaannila.domain.Comentari;
 import com.vaannila.domain.Cupo;
 import com.vaannila.domain.Llibre;
 import com.vaannila.domain.Llibreria;
+import com.vaannila.domain.Puntuacio;
+import com.vaannila.domain.Usuari;
 
 public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibreria>, SessionAware{
 
 	private static final long serialVersionUID = -6659925652584240539L;
+	private Comentari comment = new Comentari();
+	private ComentariDAO comentariDAO = new ComentariDAOImpl();
+	public Comentari getComment() {
+		return comment;
+	}
 
+	public void setComment(Comentari comment) {
+		this.comment = comment;
+	}
+	private Puntuacio puntuacio = new Puntuacio();
+	public Puntuacio getPuntuacio() {
+		return puntuacio;
+	}
+
+	public void setPuntuacio(Puntuacio puntuacio) {
+		this.puntuacio = puntuacio;
+	}
+	private PuntuacioDAO puntuacioDAO = new PuntuacioDAOImpl();
+	public PuntuacioDAO getPuntuacioDAO() {
+		return puntuacioDAO;
+	}
+
+	public void setPuntuacioDAO(PuntuacioDAO puntuacioDAO) {
+		this.puntuacioDAO = puntuacioDAO;
+	}
+	private Double punts;
+	public Double getPunts() {
+		return punts;
+	}
+
+	public void setPunts(Double punts) {
+		this.punts = punts;
+	}
 	private List<Llibreria> llibreriaList = new ArrayList<Llibreria>();
 	private LlibreriaDAO llibreriaDAO = new LlibreriaDAOImpl();
 	private CupoDAO cupoDAO = new CupoDAOImpl();
@@ -40,6 +80,25 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	private ParameterMap<String,String>llistaDistance = (ParameterMap<String, String>) session.get("distancias");
 	private String lib = null;
 	private MailDAO maildao = new MailDAOImpl();
+	private String idLlibMap = null;
+	private Boolean voted =  (Boolean) session.get("voted");
+	
+	public Boolean getVoted() {
+		return voted;
+	}
+
+	public void setVoted(Boolean voted) {
+		this.voted = voted;
+	}
+
+	public String getIdLlibMap() {
+		return idLlibMap;
+	}
+
+	public void setIdLlibMap(String idLlibMap) {
+		this.idLlibMap = idLlibMap;
+	}
+
 	public int getIdCupo() {
 		return idCupo;
 	}
@@ -170,8 +229,71 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 		return SUCCESS;
 	}
 	
+	public String addMark(){
+		//Si ja ha votat, acabem!
+		if (voted != null && voted == true) return SUCCESS;
+		this.puntuacio = puntuacioDAO.getPuntuacioIsbn(this.llibreria.getMail());
+		
+		//Comprovació errors
+		if (punts < 1.0) punts = 1.0;
+		if (punts > 5.0) punts = 5.0;
+		
+		if (this.puntuacio == null)
+		{
+			this.puntuacio = new Puntuacio();
+			this.puntuacio.setIsbn(this.llibreria.getMail());
+			this.puntuacio.setNumVots(1);
+			this.puntuacio.setPuntuacio(this.punts);
+		}
+		else
+		{
+			puntuacio.setPuntuacio(((puntuacio.getPuntuacio()*puntuacio.getNumVots())+this.punts)/(puntuacio.getNumVots()+1));
+			puntuacio.setNumVots(puntuacio.getNumVots()+1);
+		}
+		
+		puntuacioDAO.savePuntuacio(puntuacio);
+		
+		this.setLlibreria(this.llibreria);
+		voted = true;
+		session.put("voted",voted);	
+		return SUCCESS;
+	}
+	public String addComment(){
+		
+		Date data = new Date();		
+		comment.setData(data);
+	    String username = null;
+	    Usuari user= (Usuari) session.get("user");
+	    if (user == null) return ERROR;
+	    username = user.getName();
+	    if (username==null)username = "rodonako";
+		comment.setUsername(username);
+		comment.setIsbn(this.llibreria.getMail());
+		comentariDAO.saveComentari(comment);
+		
+		this.setLlibreria(this.llibreria);
+		
+		return SUCCESS;
+	}
+	
+	public String commentsAjax(){
+		Date data = new Date();		
+		comment.setData(data);
+	    String username = null;
+	    Usuari user= (Usuari) session.get("user");
+	    username = user.getName();
+	    if (username==null)username = "rodonako";
+		comment.setUsername(username);
+		comment.setIsbn(this.llibreria.getMail());
+		comentariDAO.saveComentari(comment);
+		
+		this.setLlibreria(this.llibreria);
+		
+		return SUCCESS;
+	}	
+	
 	public String show(){
-		this.llibreria = (Llibreria)this.session.get("libreria");
+		this.llibreria = this.llibreriaDAO.getLlibreriaMail(idLlibMap);
 		return SUCCESS;
 	}
 

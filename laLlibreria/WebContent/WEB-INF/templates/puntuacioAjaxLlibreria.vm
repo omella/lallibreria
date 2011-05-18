@@ -1,0 +1,30 @@
+<script type="text/javascript" >
+	function enviarPuntuacioAjax() {
+		var p = $('input:radio[name=punts]:checked').val();
+		$('#contentPuntuacio').load('http://localhost:8080/laLlibreria/puntuacionsAjaxLlibreria.action?punts='+p);
+	};
+</script>
+<h1>Puntuacio</h1>
+<center>				
+	#if (${llibreria.puntuacio})
+		<h3> Puntuacio ${llibreria.puntuacio} </h3>
+	#end
+	
+	#if (${logged} && !${voted})
+		#sradio ("name=punts" "list={'1','2','3','4','5'}")
+		<button type="button" onclick="enviarPuntuacioAjax()">Votar</button>
+	
+	#end
+	#if (${voted})
+		Ja has votat!
+		<br>
+	#end
+	
+	#if (${llibreria.puntuacio})
+		Han votat ${llibreria.numVots} persones
+	#else
+		Sigues el primer en votar
+		#if (!${logged}) (cal fer login)
+		#end
+	#end
+</center>
