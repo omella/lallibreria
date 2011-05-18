@@ -177,7 +177,7 @@ function getDistance(posC,posL,ind) {
 	   {      
 	       distance = response.routes[0].legs[0].distance.value;
 			var text = 'distance='+distance+'&lib=' + arrayName[ind];
-			alert(text);
+			//alert(text);
 			$.ajax({
       			type: "POST",
       			url: "/laLlibreria/addDistance.action",
