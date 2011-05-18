@@ -111,7 +111,7 @@ function aux(geocoder2, name, address, telf, mail) {
 				    '<b>Direccio:</b>'+address+'<br/>'+
 				    '<b>Telefon:</b>'+telf+'<br/>'+
 				    '<b>Mail:</b>'+mail+'<br/>'+
-				    '<a style=color:blue; href=/laLlibreria/showLlibreria.action?id='+mail+'>Mes informacio</a><br/>'
+				    '<a style=color:blue; href=/laLlibreria/showLlibreria.action?idLlibMap='+mail+'>Mes informacio</a><br/>'
 			    '</div>'+
 		    '</div>';
  
@@ -183,12 +183,12 @@ function getDistance(posC,posL) {
       			data: text,
       			cache: false,
       			success: function(html) {
-      				alert(arrayName[i] +" "+ distance);
+      				//alert(arrayName[i] +" "+ distance);
       			}
       		});	   }
 	  
 	});	
-	alert("hola:"+distance);
+	//alert("hola:"+distance);
 	//return distance;	
 }
 

@@ -72,8 +72,17 @@ public class HomeAction extends ActionSupport implements ModelDriven<Vist>{
 		return SUCCESS;
 	}
 
+	private List<Cupo> getMillorsN_Ofertes(int n, List<Cupo> mill){
+		List<Cupo> mill_N = new ArrayList<Cupo>();
+		for (int i = 0; i < n; ++i) {
+			if(mill.get(i) != null) mill_N.add(mill.get(i));
+		}
+		return mill_N;
+	}
+	
 	private List<Cupo> getMillorsOfertes() {
 		List<Cupo> millors = this.llibreriaDAO.getCuponsLlibreria();
+		millors = getMillorsN_Ofertes(6,millors);
 		millors = cupoMailToNom(millors);
 		return millors;
 	}

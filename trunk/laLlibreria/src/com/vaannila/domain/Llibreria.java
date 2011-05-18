@@ -1,5 +1,7 @@
 package com.vaannila.domain;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,6 +21,8 @@ public class Llibreria {
 	private String place;
 	private String cif;
 	private String password;
+   // private List<Comentari> commentList;
+   // private String puntuacio;
 
 	
 	@GeneratedValue
@@ -78,4 +82,20 @@ public class Llibreria {
 	public String getPassword() {
 		return password;
 	}
+	
+/*
+	public void setCommentList(List<Comentari> commentList) {
+		this.commentList = commentList;
+	}
+	public List<Comentari> getCommentList() {
+		return commentList;
+	}
+	
+
+	public void setPuntuacio(String puntuacio) {
+		this.puntuacio = puntuacio;
+	}
+	public String getPuntuacio() {
+		return puntuacio;
+	}*/
 }

@@ -47,6 +47,10 @@
 			<result name="success" type="velocity">/WEB-INF/templates/commentsAjax.vm</result>
 		</action>
 		
+		<action name="commentsAjaxLlibreria" method="commentsAjax" class="com.vaannila.web.LlibreriaAction">
+			<result name="success" type="velocity">/WEB-INF/templates/commentsAjaxLlibreria.vm</result>
+		</action>
+		
 		<action name="comandesAjax" method="add" class="com.vaannila.web.ComandaAction">
 			<result name="success" type="velocity">/WEB-INF/templates/comandaAjax.vm</result>
 		</action>
@@ -57,6 +61,7 @@
 		
 		<action name="showLlibreria" method="show" class="com.vaannila.web.LlibreriaAction">
 			<result name="success" type="velocity">/WEB-INF/templates/infoLlibreria.vm</result>
+			<result name="input" type="velocity">/WEB-INF/templates/infoLlibreria.vm</result>
 		</action>
 		
 		<action name="validaCodi" method="check" class="com.vaannila.web.LlibreriaAction">
@@ -67,10 +72,17 @@
 			<result name="success" type="velocity">/WEB-INF/templates/puntuacioAjax.vm</result>
 		</action>
 		
+		<action name="puntuacionsAjaxLlibreria" method="addMark" class="com.vaannila.web.LlibreriaAction">
+			<result name="success" type="velocity">/WEB-INF/templates/puntuacioAjaxLlibreria.vm</result>
+		</action>		
 		
 		
 		<action name="addComentari" method="addComment" class="com.vaannila.web.BookAction">
 			<result name="success" type="velocity">/WEB-INF/templates/infoLlibre.vm</result>
+		</action>
+		
+		<action name="addComentariLlibreria" method="addComment" class="com.vaannila.web.LlibreriaAction">
+			<result name="success" type="velocity">/WEB-INF/templates/infoLlibreria.vm</result>
 		</action>
 		
 		<action name="addCupo" method="addCupo" class="com.vaannila.web.LlibreriaAction">
