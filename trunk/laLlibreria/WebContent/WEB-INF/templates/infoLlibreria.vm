@@ -68,8 +68,8 @@
 		// getting the two address values
 		//address1 = document.getElementById("address1").value;
 		//address2 = document.getElementById("address2").value;
-		address1 = "Barcelona";
-		address2 = "Tarragona";
+		address1 = ${posUser};
+		address2 = ${posLlib};
 		// finding out the coordinates
 		if (geocoder) 
 		{

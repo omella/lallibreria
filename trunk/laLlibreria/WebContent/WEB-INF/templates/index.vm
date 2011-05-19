@@ -48,10 +48,14 @@ function errorFunction(pos){
 //INICIO:Localizar "manualmente"
 
 var geocoder;
+var addressUser;
 function localizar(){
     geocoder = new google.maps.Geocoder();
 
 	var address = document.getElementById("localizacion").value;
+	addressUser = address;
+	addressUser.replace(/ /g,"+");
+	
     if (geocoder) {
       geocoder.geocode( { 'address': address}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
@@ -103,6 +107,8 @@ while(curDate-date < millis);
     
 
 function aux(geocoder2, name, address, telf, mail) {
+	var addressLocal = address;
+	addressLocal = addressLocal.replace(/ /g,"+"); 
 	var contentString = '<div id="contentMaps">'+
 			'<div id="siteNotice">'+
 		    '</div>'+
@@ -111,7 +117,7 @@ function aux(geocoder2, name, address, telf, mail) {
 				    '<b>Direccio:</b>'+address+'<br/>'+
 				    '<b>Telefon:</b>'+telf+'<br/>'+
 				    '<b>Mail:</b>'+mail+'<br/>'+
-				    '<a style=color:blue; href=/laLlibreria/showLlibreria.action?idLlibMap='+mail+'>Mes informacio</a><br/>'
+				    '<a style=color:blue; href=/laLlibreria/showLlibreria.action?idLlibMap='+mail+'&posLlib='+addressLocal+'&posUser='+addressUser+'>Mes informacio</a><br/>'
 			    '</div>'+
 		    '</div>';
  
