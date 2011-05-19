@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.catalina.util.ParameterMap;
 import org.apache.struts2.interceptor.SessionAware;
+import org.hsqldb.lib.MD5;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -28,7 +29,7 @@ import com.vaannila.domain.Puntuacio;
 import com.vaannila.domain.Usuari;
 
 public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibreria>, SessionAware{
-
+	private Map session = ActionContext.getContext().getSession();
 	private static final long serialVersionUID = -6659925652584240539L;
 	private Comentari comment = new Comentari();
 	private ComentariDAO comentariDAO = new ComentariDAOImpl();
@@ -39,7 +40,7 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	public void setComment(Comentari comment) {
 		this.comment = comment;
 	}
-	private Puntuacio puntuacio = new Puntuacio();
+	private Puntuacio puntuacio = (Puntuacio) this.session.get("puntuacio");
 	public Puntuacio getPuntuacio() {
 		return puntuacio;
 	}
@@ -70,8 +71,8 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	private String[] llistaTematica = {"Ciencia","Generic","Drama"};
 	private String tematica = null;
 	private String valor = null;
-	private Map session = ActionContext.getContext().getSession();
-	private Llibreria llibreria = new Llibreria();//(Llibreria)this.session.get("libreria");
+
+	private Llibreria llibreria = (Llibreria)this.session.get("libreria");
 	private int idCupo;
 	private String codi = null;
 	private String valid = null;
@@ -82,9 +83,9 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	private String idLlibMap = null;
 	private String posLlib = null;
 	private String posUser = null;
-	private Boolean voted =  (Boolean) session.get("voted");
-
-	
+	private Boolean voted =  (Boolean) session.get("voted2");
+	private Usuari logged = (Usuari) session.get("user");
+	private List<Comentari> commentList = (List<Comentari>) this.session.get("commentList");
 	public String getPosLlib() {
 		return posLlib;
 	}
@@ -164,7 +165,8 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	}
 
 	public String login(){
-		String e = "error";	
+		String e = "error";
+//		llibreria.setPassword(MD5.encodeString(arg0, arg1));
 		if (llibreriaDAO.existLlibreria(llibreria.getMail(), llibreria.getPassword())){	
 			this.session.put("libreria", llibreria);
 			listCupons();
@@ -288,10 +290,9 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 		}
 		
 		puntuacioDAO.savePuntuacio(puntuacio);
-		
-		this.setLlibreria(this.llibreria);
+		this.session.put("puntuacio", puntuacio);
 		voted = true;
-		session.put("voted",voted);	
+		session.put("voted2",voted);	
 		return SUCCESS;
 	}
 	public String addComment(){
@@ -306,7 +307,8 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 		comment.setUsername(username);
 		comment.setIsbn(this.llibreria.getMail());
 		comentariDAO.saveComentari(comment);
-		
+		this.commentList = comentariDAO.getComentariList(this.llibreria.getMail());
+		this.session.put("commentList",this.commentList);
 		this.setLlibreria(this.llibreria);
 		
 		return SUCCESS;
@@ -329,7 +331,14 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	}	
 	
 	public String show(){
+		this.voted = false;
+		this.session.put("voted2", voted);
 		this.llibreria = this.llibreriaDAO.getLlibreriaMail(idLlibMap);
+		this.session.put("libreria", llibreria);
+		this.commentList = comentariDAO.getComentariList(this.llibreria.getMail());
+		this.session.put("commentList",this.commentList);
+		this.puntuacio=puntuacioDAO.getPuntuacioIsbn(this.llibreria.getMail());
+		this.session.put("puntuacio", puntuacio);
 		return SUCCESS;
 	}
 
@@ -385,6 +394,14 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 
 	public void setLlistaDistance(ParameterMap<String, String> llistaDistance) {
 		this.llistaDistance = llistaDistance;
+	}
+
+	public Usuari getLogged() {
+		return logged;
+	}
+
+	public void setLogged(Usuari logged) {
+		this.logged = logged;
 	}
 
 	

@@ -124,7 +124,7 @@ initializeMaps();
 		// create a new map object
 			// set the div id where it will be shown
 			// set the map options
-		map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+		map = new google.maps.Map(document.getElementById("map_canvasLlibreria"), mapOptions);
 		
 		// show route between the points
 		directionsService = new google.maps.DirectionsService();
@@ -234,7 +234,7 @@ initializeMaps();
 			<table>
 				<tr>
 					<td>	
-						<div id=map_canvas></div>
+						<div id=map_canvasLlibreria></div>
 					</td>
 					<td>
 						
@@ -252,11 +252,11 @@ initializeMaps();
 						#if(${llibreria.cif})
 							<p> CIF: ${llibreria.cif}</p>
 						#end
+						<center><div style="width:100%; height:10%" id="distance_direct"></div></center> 
+						<center><div style="width:100%; height:10%" id="distance_road"></div></center>						
 					</td>
 				</tr>
-				</table>
-				<center><div style="width:100%; height:10%" id="distance_direct"></div></center> 
-				<center><div style="width:100%; height:10%" id="distance_road"></div></center> 
+				</table> 
 			</div>
 			<div id=contentPuntuacio>
 				#parse( "WEB-INF/templates/puntuacioAjaxLlibreria.vm" )
