@@ -14,15 +14,26 @@ import org.hibernate.validator.NotEmpty;
 @Table(name="LLIBRERIA")
 public class Llibreria {
 
-	private Long id;
 	private String name;
 	private String mail;
 	private String phone;
 	private String place;
 	private String cif;
 	private String password;
-   // private List<Comentari> commentList;
-   // private String puntuacio;
+   /* private List<Comentari> commentList;
+    public List<Comentari> getCommentList() {
+		return commentList;
+	}
+	public void setCommentList(List<Comentari> commentList) {
+		this.commentList = commentList;
+	}
+	public String getPuntuacio() {
+		return puntuacio;
+	}
+	public void setPuntuacio(String puntuacio) {
+		this.puntuacio = puntuacio;
+	}
+	private String puntuacio;*/
 
 	@NotEmpty(message="Nom no pot ser buit")
 	@Column(name="LLIBRERIA_NAME")
