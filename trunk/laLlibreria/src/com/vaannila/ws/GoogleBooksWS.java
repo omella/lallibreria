@@ -203,12 +203,12 @@ private static Llibre fetchBook(VolumeEntry entry) {
     	//resultat.setCover(entry.getThumbnailLink().getHref().replace("zoom=5", "zoom=0"));
     	
     }
-    if (entry.getPreviewLink() != null) {
-    	resultat.setCover(entry.getPreviewLink().getHref());
+    if (entry.getThumbnailLink() != null) {
+    	resultat.setCover(entry.getThumbnailLink().getHref().replace("zoom=5", "zoom=0"));
     	//resultat.setCover(entry.getPreviewLink().getHref().replace("zoom=5", "zoom=0"));
     }
     if (entry.getPreviewLink() != null) {
-    	resultat.setPreview(entry.getPreviewLink().getHref().replace("f=false", "f=true"));
+    	resultat.setPreview(entry.getPreviewLink().getHref());
     }
     if (entry.hasLanguages()) {
     	String lang = entry.getLanguages().get(0).getValue();
