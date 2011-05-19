@@ -47,7 +47,7 @@
 			}
 	};
 	/***GOOGLE MAPS****/
- 
+initializeMaps(); 
 	var location1;
 	var location2;
 	
@@ -61,15 +61,19 @@
 	var distance;
 	
 	// finds the coordinates for the two locations and calls the showMap() function
-	function initialize()
+	function initializeMaps()
 	{
+	alert("${posUser}");
 		geocoder = new google.maps.Geocoder(); // creating a new geocode object
 		
 		// getting the two address values
 		//address1 = document.getElementById("address1").value;
 		//address2 = document.getElementById("address2").value;
-		address1 = ${posUser};
-		address2 = ${posLlib};
+		address1 = "${posUser}";
+		//alert("hola2");
+	    address2 = "${posLlib}";
+		//alert(address2);
+		
 		// finding out the coordinates
 		if (geocoder) 
 		{
@@ -222,7 +226,7 @@
 		return deg * Math.PI/180;
 	}
 </script>
-<body onload="initialize();">
+<body onload="initializeMaps();">
 <div id=page>
 <a href=/laLlibreria>Inici</a>
 	<div id=content>
