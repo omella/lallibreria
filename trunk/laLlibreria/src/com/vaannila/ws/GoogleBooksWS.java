@@ -211,26 +211,26 @@ private static Llibre fetchBook(VolumeEntry entry) {
     	
     }
     if (entry.getThumbnailLink() != null) {
-    	resultat.setCover("Valor Inicial");
-    	boolean trobat = false;
-    	for(int i=0; i<6 && trobat==false; i++) {
-	    	String imgHref = entry.getThumbnailLink().getHref().replace("zoom=5", "zoom="+i);
-	    	HttpClient cliente = new HttpClient();
-	        GetMethod g = new GetMethod(imgHref);
-	        try {
-				cliente.executeMethod(g);
-			} catch (HttpException e) {
-			} catch (IOException e) {
-			}
-			
-	        try {
-				BufferedImage img = ImageIO.read(g.getResponseBodyAsStream());
-				resultat.setCover(imgHref);
-				trobat=true;
-			} catch (IOException e) {
-			}
-    	}
-    	//resultat.setCover(entry.getThumbnailLink().getHref().replace("zoom=5", "zoom=0"));
+//    	resultat.setCover("Valor Inicial");
+//    	boolean trobat = false;
+//    	for(int i=0; i<6 && trobat==false; i++) {
+//	    	String imgHref = entry.getThumbnailLink().getHref().replace("zoom=5", "zoom="+i);
+//	    	HttpClient cliente = new HttpClient();
+//	        GetMethod g = new GetMethod(imgHref);
+//	        try {
+//				cliente.executeMethod(g);
+//			} catch (HttpException e) {
+//			} catch (IOException e) {
+//			}
+//			
+//	        try {
+//				BufferedImage img = ImageIO.read(g.getResponseBodyAsStream());
+//				resultat.setCover(imgHref);
+//				trobat=true;
+//			} catch (IOException e) {
+//			}
+//    	}
+    	resultat.setCover(entry.getThumbnailLink().getHref().replace("zoom=5", "zoom=0"));
     }
     if (entry.getPreviewLink() != null) {
     	resultat.setPreview(entry.getPreviewLink().getHref());
