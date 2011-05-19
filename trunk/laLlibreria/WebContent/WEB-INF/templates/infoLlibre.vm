@@ -167,7 +167,7 @@
 				#foreach ($oferta in ${ofertes})
 					<div id="ofertes">
 						<div id="ofertes_text">
-						<h4>${oferta.llibreria}</h5>
+						<h4>${oferta.llibreria}</h4>
 						
 						<h1>${oferta.descompte}</h1>
 						#if (${oferta.distancia})

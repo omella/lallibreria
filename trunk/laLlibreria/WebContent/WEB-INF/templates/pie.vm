@@ -1,3 +1,11 @@
 <div id=contenidoPie>
-	<p>Esto es el pie</p>
+	#if (${msg})
+		<p> $msg </p>
+		
+		<br>
+		<br>
+	#end
+	
+	
+	<p>Creadors de LA LLIBRERIA.CAT : Alex Alberti, David Castaño, Joaquin Omella i Marc Rodon</p>
 </div>
