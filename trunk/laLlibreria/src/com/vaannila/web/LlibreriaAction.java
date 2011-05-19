@@ -23,7 +23,6 @@ import com.vaannila.dao.PuntuacioDAO;
 import com.vaannila.dao.PuntuacioDAOImpl;
 import com.vaannila.domain.Comentari;
 import com.vaannila.domain.Cupo;
-import com.vaannila.domain.Llibre;
 import com.vaannila.domain.Llibreria;
 import com.vaannila.domain.Puntuacio;
 import com.vaannila.domain.Usuari;
@@ -170,17 +169,12 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	public void novaDistance()
 	{
 		this.llistaDistance = (ParameterMap<String, String>) session.get("distancias");
+		
 		if(llistaDistance == null) {
+			
 			llistaDistance = new ParameterMap<String,String>();
 		}
 		this.llistaDistance.put(lib,distance);
-		System.out.println("\n");
-		System.out.println("\n");
-		System.out.println("\n");
-		System.out.println(this.distance);
-		System.out.println("\n");
-		System.out.println("\n");
-		System.out.println("\n");
 		this.session.put("distancias", this.llistaDistance);
 		
 	}
@@ -364,6 +358,14 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 
 	public void setValid(String valid) {
 		this.valid = valid;
+	}
+
+	public ParameterMap<String, String> getLlistaDistance() {
+		return llistaDistance;
+	}
+
+	public void setLlistaDistance(ParameterMap<String, String> llistaDistance) {
+		this.llistaDistance = llistaDistance;
 	}
 
 	
