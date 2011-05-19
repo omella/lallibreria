@@ -14,8 +14,10 @@ alert('It seems like Geolocation, which is required for this page, is not enable
 }
 
 var map;
+var addressUser;
 //success callback function
 function displayPosition(pos){
+	addressUser = pos.coords.latitude+','+pos.coords.longitude;
 	var mylat = pos.coords.latitude;
 	var mylong = pos.coords.longitude;
 	var thediv = document.getElementById("map_canvas");
@@ -26,7 +28,6 @@ function displayPosition(pos){
 	      center: latlng,
 	      mapTypeId: google.maps.MapTypeId.HYBRID
 	    };
-	
 	map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 
 	//Add marker
@@ -34,8 +35,9 @@ function displayPosition(pos){
 		     position: latlng, 
 		     map: map, 
 		     title:"You are here"
-		 });    
+		 });   
 	 addLibreriaMapa(latlng);
+	
  }
 
 //error callback function
@@ -48,13 +50,13 @@ function errorFunction(pos){
 //INICIO:Localizar "manualmente"
 
 var geocoder;
-var addressUser;
+
 function localizar(){
     geocoder = new google.maps.Geocoder();
 
 	var address = document.getElementById("localizacion").value;
 	addressUser = address;
-	addressUser.replace(/ /g,"+");
+	addressUser = addressUser.replace(/ /g,"+");
 	
     if (geocoder) {
       geocoder.geocode( { 'address': address}, function(results, status) {
