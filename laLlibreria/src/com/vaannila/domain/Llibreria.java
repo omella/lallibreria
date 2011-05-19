@@ -24,16 +24,6 @@ public class Llibreria {
    // private List<Comentari> commentList;
    // private String puntuacio;
 
-	
-	@GeneratedValue
-	@Column(name="LLIBRERIA_ID")
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
 	@NotEmpty(message="Nom no pot ser buit")
 	@Column(name="LLIBRERIA_NAME")
 	public String getName() {

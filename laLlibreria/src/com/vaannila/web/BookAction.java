@@ -167,9 +167,13 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 			if (Double.valueOf(valor) > 0.0) 
 			{
 				ParameterMap<String,String> oferta = new ParameterMap<String,String>();
-				oferta.put("descompte",((Double)(Double.valueOf(valor)*100)).toString()+"%");
+				oferta.put("descompte",Double.valueOf(valor).toString()+"%");
 				oferta.put("llibreria", nom);
-				if (distances!=null) oferta.put("distancia", distances.get(nom));
+				if (distances!=null) {
+					Double km = (Double)Double.valueOf(distances.get(nom))/1000;
+					km = this.unDecimal(km);
+					oferta.put("distancia", km.toString()+" Km");
+				}
 				ofertes.add(oferta);
 			}
 		}
