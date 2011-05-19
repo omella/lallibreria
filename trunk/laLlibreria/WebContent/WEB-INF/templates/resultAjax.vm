@@ -4,9 +4,11 @@
 	</font>
 #end
 #if ($results)
+	#if ($totalPages)
 	<font size=+1>
 		Aquesta es la pagina <b>${page}</b> de <b>${totalPages}</b> pagines de resultats
 	</font>
+	#end
 	<table>
 		<tr>
 			#if ($previousPage)
@@ -30,7 +32,7 @@
 		#foreach ($result in $results)
 			<div id="entrada">
 				<div id="entrada_image">
-					<img src="${result.thumb}" alt=""/>
+					<img src="${result.thumb}" alt="" height="78px" width="78px" />
 				</div>
 				<div id="entrada_text">
 					<h1><a href=/laLlibreria/showBook.action?id=${result.isbn}> ${result.title}</a></h1>
