@@ -51,6 +51,10 @@
 <body>
 <div id=page>
 <font size='+1'><b><a href=/laLlibreria>Pagina principal</a></b></font>
+<form id="searchBookAjax" name="searchBookAjax" action="/laLlibreria/searchBookAjax.action" method="get">
+	<input type="text" name="key" value="" id="key"/>
+	<input type="submit" id="searchBookAjax_0" value="Cercar llibre"/>
+</form>
 #if ($llibre)
 	<div id=content>
 		<div id=contentLlibre>
