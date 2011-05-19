@@ -6,19 +6,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+import org.apache.struts2.interceptor.SessionAware;
+
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 //import com.opensymphony.xwork2.ModelDriven;
 //import com.vaannila.dao.searchDAO;
 //import com.vaannila.dao.searchDAOImpl;
 //import com.vaannila.domain.Cerca;
+import com.vaannila.domain.Cupo;
 import com.vaannila.domain.Llibre;
+import org.apache.struts2.interceptor.SessionAware;
 
 
 
 
 //public class SearchAction extends ActionSupport implements ModelDriven<Cerca>{
-public class SearchAction extends ActionSupport {
+public class SearchAction extends ActionSupport implements SessionAware{
 
 	private static final long serialVersionUID = -4978596336944380865L;
 	//private Cerca cerca = new Cerca();
@@ -34,6 +38,26 @@ public class SearchAction extends ActionSupport {
     private Integer totalPages = null;
     private Integer nextPage = null;
     private Integer previousPage = null;
+    private Map session = ActionContext.getContext().getSession();
+    
+	private List<Llibre> populars = (List<Llibre>) session.get("populars");;
+	private List<Cupo> millorOfertes = (List<Cupo>) session.get("millorOfertes");
+	
+	public List<Cupo> getMillorOfertes() {
+		return millorOfertes;
+	}
+
+	public void setMillorOfertes(List<Cupo> millorOfertes) {
+		this.millorOfertes = millorOfertes;
+	}
+	
+	public List<Llibre> getPopulars() {
+		return populars;
+	}
+
+	public void setPopulars(List<Llibre> populars) {
+		this.populars = populars;
+	}
     
 	public Integer getNextPage() {
 		return nextPage;
@@ -145,4 +169,9 @@ public class SearchAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
+	@Override
+	public void setSession(Map<String, Object> arg0) {
+		// TODO Auto-generated method stub
+		this.session = arg0;
+	}
 }
