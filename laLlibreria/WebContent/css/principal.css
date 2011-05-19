@@ -258,6 +258,13 @@ float:right;
 margin:2px 2px 2px 2px;
 }
 
+#map_canvasLlibreria{  
+height: 320px;
+width: 500px;
+float:right;
+margin:2px 2px 2px 2px;
+}
+
 #ubicacion{
 	width: 500px;
 	height: 80px;

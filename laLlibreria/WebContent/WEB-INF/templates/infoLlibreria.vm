@@ -63,7 +63,7 @@ initializeMaps();
 	// finds the coordinates for the two locations and calls the showMap() function
 	function initializeMaps()
 	{
-	alert("${posUser}");
+	//alert("${posUser}");
 		geocoder = new google.maps.Geocoder(); // creating a new geocode object
 		
 		// getting the two address values
@@ -144,8 +144,8 @@ initializeMaps();
 			if (status == google.maps.DirectionsStatus.OK) 
 			{
 				directionsDisplay.setDirections(response);
-				distance = "The distance between the two points on the chosen route is: "+response.routes[0].legs[0].distance.text;
-				distance += "<br/>The aproximative driving time is: "+response.routes[0].legs[0].duration.text;
+				distance = "La distancia entre la teva posici&oacute; i la llibreria es de: "+response.routes[0].legs[0].distance.text;
+				distance += "<br/>Conduint trigaras un temps de: "+response.routes[0].legs[0].duration.text;
 				document.getElementById("distance_road").innerHTML = distance;
 			}
 		});
@@ -189,20 +189,20 @@ initializeMaps();
 			'</div>';
 		
 		// create info boxes for the two markers
-		var infowindow1 = new google.maps.InfoWindow({
-			content: text1
-		});
-		var infowindow2 = new google.maps.InfoWindow({
-			content: text2
-		});
+		//var infowindow1 = new google.maps.InfoWindow({
+		//	content: text1
+		//});
+		//var infowindow2 = new google.maps.InfoWindow({
+		//	content: text2
+		//});
  
 		// add action events so the info windows will be shown when the marker is clicked
-		google.maps.event.addListener(marker1, 'click', function() {
-			infowindow1.open(map,marker1);
-		});
-		google.maps.event.addListener(marker2, 'click', function() {
-			infowindow2.open(map,marker1);
-		});
+		//google.maps.event.addListener(marker1, 'click', function() {
+		//	infowindow1.open(map,marker1);
+		//});
+		//google.maps.event.addListener(marker2, 'click', function() {
+		//	infowindow2.open(map,marker1);
+		//});
 		
 		// compute distance between the two points
 		var R = 6371; 
@@ -218,7 +218,7 @@ initializeMaps();
 		var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
 		var d = R * c;
 		
-		document.getElementById("distance_direct").innerHTML = "<br/>The distance between the two points (in a straight line) is: "+d;
+		//document.getElementById("distance_direct").innerHTML = "<br/>The distance between the two points (in a straight line) is: "+d;
 	}
 	
 	function toRad(deg) 
@@ -252,8 +252,8 @@ initializeMaps();
 						#if(${llibreria.cif})
 							<p> CIF: ${llibreria.cif}</p>
 						#end
-						<center><div style="width:100%; height:10%" id="distance_direct"></div></center> 
-						<center><div style="width:100%; height:10%" id="distance_road"></div></center>						
+						
+						<div style="width:100%; height:10%" id="distance_road"></div>					
 					</td>
 				</tr>
 				</table> 

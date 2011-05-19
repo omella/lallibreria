@@ -293,6 +293,8 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 		this.session.put("puntuacio", puntuacio);
 		voted = true;
 		session.put("voted2",voted);	
+		this.posLlib = (String) this.session.get("posLlib");
+		this.posUser = (String) this.session.get("posUser");
 		return SUCCESS;
 	}
 	public String addComment(){
@@ -310,6 +312,8 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 		this.commentList = comentariDAO.getComentariList(this.llibreria.getMail());
 		this.session.put("commentList",this.commentList);
 		this.setLlibreria(this.llibreria);
+		this.posLlib = (String) this.session.get("posLlib");
+		this.posUser = (String) this.session.get("posUser");
 		
 		return SUCCESS;
 	}
@@ -325,6 +329,8 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 		comment.setIsbn(this.llibreria.getMail());
 		comentariDAO.saveComentari(comment);
 		
+		this.posLlib = (String) this.session.get("posLlib");
+		this.posUser = (String) this.session.get("posUser");
 		this.setLlibreria(this.llibreria);
 		
 		return SUCCESS;
@@ -332,6 +338,8 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	
 	public String show(){
 		this.voted = false;
+		this.session.put("posLlib", this.posLlib);
+		this.session.put("posUser", this.posUser);
 		this.session.put("voted2", voted);
 		this.llibreria = this.llibreriaDAO.getLlibreriaMail(idLlibMap);
 		this.session.put("libreria", llibreria);
