@@ -182,6 +182,6 @@ public class Llibre {
     	if (this.getSeries()==null) this.setSeries(s.getSeries());
     	if (this.getThumb()==null) this.setThumb(s.getThumb());
     	//if (this.getCover()==null) this.setCover(s.getCover());
-    	if (s.getCover()==null) this.setCover(s.getCover());
+    	if (s.getCover()!=null) this.setCover(s.getCover());
     }
 }
