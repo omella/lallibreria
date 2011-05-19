@@ -177,6 +177,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Comentari>,
 				ofertes.add(oferta);
 			}
 		}
+		session.put("voted", voted);
 		session.put("llibreriesNoms", llibreriesNoms);
 		session.put("llibre", llibre);
 		session.put("llibreriesCupons", llibreriesCupons);
