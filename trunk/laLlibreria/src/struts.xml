@@ -1,4 +1,4 @@
-<!DOCTYPE struts PUBLIC
+ <!DOCTYPE struts PUBLIC
 "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
 "http://struts.apache.org/dtds/struts-2.0.dtd">
 
@@ -129,6 +129,7 @@
 		</action>
 		
 		<action name="alexLogin2"  method="segonaPart" class="com.vaannila.web.LoginAction">
+			<result name="input" type="velocity">/WEB-INF/templates/alex_prelogin.vm</result>
 			<result name="success" type="velocity">/WEB-INF/templates/index.vm</result>
 		</action>
 		
