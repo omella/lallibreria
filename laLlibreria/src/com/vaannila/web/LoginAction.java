@@ -3,6 +3,7 @@ package com.vaannila.web;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.*;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -52,10 +53,19 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 	private String gender = "";
 	private Boolean loguejat = (Boolean) session.get("loguejat");
 	private Boolean loginwithGoogle=(Boolean) session.get("loginwithGoogle");
+	private String errorFormulari = null;
 	
 	private List<Llibre> populars = (List<Llibre>) session.get("populars");;
 	private List<Cupo> millorOfertes = (List<Cupo>) session.get("millorOfertes");
-	
+
+	public String getErrorFormulari() {
+		return errorFormulari;
+	}
+
+	public void setErrorFormulari(String errorFormulari) {
+		this.errorFormulari = errorFormulari;
+	}
+
 	public List<Cupo> getMillorOfertes() {
 		return millorOfertes;
 	}
@@ -189,8 +199,25 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 	    }
 	    	
   }
-	
+    public boolean isEmail(String correo) {
+        Pattern pat = null;
+        Matcher mat = null;
+        pat = Pattern.compile("^([0-9a-zA-Z]([_.w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-w]*[0-9a-zA-Z].)+([a-zA-Z]{2,9}.)+[a-zA-Z]{2,3})$");
+        mat = pat.matcher(correo);
+        if (mat.find()) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 	public String segonaPart(){
+		
+		if(!isEmail(usermail)){
+			this.setErrorFormulari("El email introduit no és correcte!");
+			return INPUT;
+		}
+		
 		GsiteId = "06834717057300479661";
 	    for(Cookie c : servletRequest.getCookies()) {
 	    	if (token == null && c.getName().equals("fcauth" + GsiteId)) {
@@ -216,7 +243,7 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 			usuari.setName(username);
 			usuari.setIsGoogleAccount(google);
 			usuari.setServiceId(serviceId);
-			usuari.setGender(gender);
+			usuari.setGender("noNecessari");
 			usuari.setMail(usermail);
 			
 			userdao.saveUser(usuari);
