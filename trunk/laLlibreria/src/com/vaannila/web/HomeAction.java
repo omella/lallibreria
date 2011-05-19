@@ -107,9 +107,15 @@ public class HomeAction extends ActionSupport implements ModelDriven<Vist>, Sess
 	
 	private List<Cupo> getMillorsOfertes() {
 		List<Cupo> millors = this.llibreriaDAO.getCuponsLlibreria();
-		millors = getMillorsN_Ofertes(6,millors);
-		millors = cupoMailToNom(millors);
-		return millors;
+		if (millors != null){
+			int n = 6;
+			if (millors.size() < n) n = millors.size();
+				
+			millors = getMillorsN_Ofertes(n,millors);
+			millors = cupoMailToNom(millors);
+			return millors;
+		}
+		return null;
 	}
 	
 	private List<Cupo> cupoMailToNom(List<Cupo> lla) {
