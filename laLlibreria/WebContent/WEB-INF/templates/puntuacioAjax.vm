@@ -1,13 +1,8 @@
-<script type="text/javascript" >
-	function enviarPuntuacioAjax() {
-		var p = $('input:radio[name=punts]:checked').val();
-		$('#contentPuntuacio').load('http://localhost:8080/laLlibreria/puntuacionsAjax.action?punts='+p);
-	};
-</script>
-<h1>Puntuacio</h1>
+
+
 <center>				
 	#if (${llibre.puntuacio})
-		<h3> Puntuacio ${llibre.puntuacio} </h3>
+		<h1> Puntuacio ${llibre.puntuacio} </h1>
 	#end
 	
 	#if (${logged} && !${voted})

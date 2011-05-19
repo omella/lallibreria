@@ -26,7 +26,13 @@
             }
 			return false;
 	};
-	
+
+	function enviarPuntuacioAjax() {
+		var p = $('input:radio[name=punts]:checked').val();
+		
+		$('#contentPuntuacio').load('http://localhost:8080/laLlibreria/puntuacionsAjax.action?punts='+p);
+	};
+
 	function enviarComandaAjax() {
 		var num = $("#numAjax").val();
 		if (num > 0) {
