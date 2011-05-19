@@ -168,31 +168,32 @@
 	<div id=rightContentLlibre>
 		<div id=contentOfertes>
 			<h2>Ofertes</h2>
-				#foreach ($oferta in ${ofertes})
-					<div id="ofertes">
-					<h1>${oferta.llibreria}</h1>
-						<div id="ofertes_text">
-											
-						<h1>${oferta.descompte}</h1>
-						#if (${oferta.distancia})
-							<h4>Dist&agrave;ncia: ${oferta.distancia}</h4>
-						#end
-						</div>
+			#foreach ($oferta in ${ofertes})
+				<div id="ofertes">
+				<h1>${oferta.llibreria}</h1>
+					<div id="ofertes_text">
+										
+					<h1>${oferta.descompte}</h1>
+					#if (${oferta.distancia})
+						<h4>Dist&agrave;ncia: ${oferta.distancia}</h4>
+					#end
 					</div>
-				#end
 				</div>
-		<div id=comanda>
+			#end
+			<div id=comanda>
 		#if ($logged.mail)
-			<br/>
+			#*<br/>
 			Selecciona la quantitat i afegeix la comanda al teu carret
 		    #sform ("action=addBookComanda")
 				#stextfield ("label=Quantitat: " "name=num" "value=1")
 				#sselect  ("list=llibreriesNoms" "name=idLlibreria")
 				#ssubmit ("value=Afegir")
 		    #end
-		    Afegeix el llibre al carret de la comanda <br />
+		    *#
+		    <br>
+		    <h1>Afegeix el llibre al carret de la comanda</h1> <br />
 			<div id="error"></div>
-			#stextfield ("label=Quantitat: " "name=numAjax" "value=1")
+			<h4>Quantitat: </h4> #stextfield ( "name=numAjax" "value=1")
 			<br>
 			#sselect  ("list=llibreriesNoms" "name=llibreriaAjax" "label=Selecciona la llibreria: ")
 			<br>
@@ -208,8 +209,10 @@
 			<br/>
 		#end
 		</div>
+		</div>
+		
 	</div>
-
+	
 	#else
 		<h1> No hi ha resultats </h1>
 	#end
