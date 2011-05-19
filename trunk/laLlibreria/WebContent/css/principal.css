@@ -226,50 +226,6 @@ filter: alpha(opacity=68);
 	float: left;
 	background-color: grey;
 }
-#librosBuscados {
-	width: 500px;
-	margin-top: 10px;
-background: -moz-linear-gradient(top, #b3fc9c, transparent);
-background: -webkit-gradient(linear, center top, center bottom, from(#b3fc9c), to(transparent));
-background: -o-linear-gradient(top, #b3fc9c, transparent);
-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b3fc9c', endColorstr='transparent');
-/*INNER ELEMENTS MUST NOT BREAK THIS ELEMENTS BOUNDARIES*/
-/*Element must have a height (not auto)*/
-/*All filters must be placed together*/
--ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#b3fc9c', endColorstr='transparent')";
-/*Element must have a height (not auto)*/
-/*All filters must be placed together*/
-background: linear-gradient(top, #b3fc9c, transparent);
-/*--IE9 DOES NOT SUPPORT GRADIENT BACKGROUNDS--*/
-
-}
-
-#textoBlanco{
-	width: 97%;
-	background: #2D2722;
-	color: white;
-	padding: 0px 0px 0px 15px;
-	
-}
-#textBox{
-	padding: 0px 0px 0px 25px;
-}
-#imgLibroPopular{
-	border: 1px solid;
-	width:160px;
-	height:250px;
-	float:left;
-	padding: 1px 1px 1px 1px;
-	margin-bottom:12px; 
-	align:center;
-}
-#clear{
-	clear:both;
-}
-#textoLibroPopular{
-	float:left;
-	
-}
 
 #foot{
   width: 100%;
@@ -429,13 +385,79 @@ background-color:#EAF2D3;
 	font-weight: bold;
 	}
 	
-#entrada {
+#librosBuscados {
+	display:block;
+	margin-top: 10px;
+	background: -moz-linear-gradient(top, #b3fc9c, transparent);
+	background: -webkit-gradient(linear, center top, center bottom, from(#b3fc9c), to(transparent));
+	background: -o-linear-gradient(top, #b3fc9c, transparent);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b3fc9c', endColorstr='transparent');
+	/*INNER ELEMENTS MUST NOT BREAK THIS ELEMENTS BOUNDARIES*/
+	/*Element must have a height (not auto)*/
+	/*All filters must be placed together*/
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#b3fc9c', endColorstr='transparent')";
+	/*Element must have a height (not auto)*/
+	/*All filters must be placed together*/
+	background: linear-gradient(top, #b3fc9c, transparent);
+	/*--IE9 DOES NOT SUPPORT GRADIENT BACKGROUNDS--*/
+}
+
+#textoBlanco{
+	width: 97%;
+	background: #2D2722;
+	color: white;
+	padding: 0px 0px 0px 15px;
+	
+}
+#textBox{
+	padding: 0px 0px 0px 25px;
+}
+
+#imgLibroPopular{
+		float: left;
+		width:70px;
+		height: 80px;
+		width: 80px;
+		display: table-cell;
+	    text-align: center;
+	    vertical-align: middle;
+		border:1px solid white;
+		background: #2D2722;
+		padding:5px;
+		margin:5px;
+		-moz-border-radius: 20px;
+		border-radius: 20px;
+}
+#clear{
+	clear:both;
+}
+#textoLibroPopular{
+		padding:10px;
+		margin:5px;
+		-moz-border-radius: 20px;
+		border-radius: 20px;
+}
+
+#libroPopular {
 		display:block;
-		background: green;
+		background: #2D2722 url(images/img01.jpg) repeat-x left top;
 		padding:10px;
 		border:0px solid gray;
 		margin:5px;
-		height: 100px;
+	    vertical-align: middle;
+		-moz-border-radius: 20px;
+		border-radius: 20px;
+		-webkit-transition: background 1s linear;
+		-moz-transition: background 1s linear;
+		transition: background 1s linear;
+}
+
+#entrada {
+		display:block;
+		background: #2D2722 url(images/img01.jpg) repeat-x left top;
+		padding:10px;
+		border:0px solid gray;
+		margin:5px;
 	    vertical-align: middle;
 		-moz-border-radius: 20px;
 		border-radius: 20px;
@@ -451,15 +473,14 @@ background-color:#EAF2D3;
 		display: table-cell;
 	    text-align: center;
 	    vertical-align: middle;
-		background: white;
+		border:1px solid white;
+		background: #2D2722;
 		padding:5px;
 		margin:5px;
 		-moz-border-radius: 20px;
 		border-radius: 20px;
 	}
 #entrada_text {
-		float: left;
-		height: 80px;
 		padding:10px;
 		margin:5px;
 		-moz-border-radius: 20px;
@@ -484,7 +505,7 @@ background-color:#EAF2D3;
 #similars {
 		float: left;
 		display:block;
-		background: green;
+		background: #2D2722 url(images/img01.jpg) repeat-x left top;
 		padding:10px;
 		border:0px solid gray;
 		margin:5px;
@@ -524,7 +545,7 @@ background-color:#EAF2D3;
 #ofertes {
 		float: right;
 		display:block;
-		background: green;
+		background: #2D2722 url(images/img01.jpg) repeat-x left top;
 		padding:10px;
 		border:0px solid gray;
 		margin:5px;
