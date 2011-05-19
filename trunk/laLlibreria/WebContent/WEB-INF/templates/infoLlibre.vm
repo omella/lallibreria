@@ -200,8 +200,9 @@
 					</div>
 				</div>
 			#end
-		<div id=comanda>
+		
 		#if ($logged.mail)
+		<div id=comanda>
 			<br/>
 			<h1>GESTIO DE LA COMANDA </h1>
 		    #sform ("action=addBookComanda")
@@ -227,9 +228,9 @@
 			<div id=comandes>
 				#parse( "WEB-INF/templates/comandaAjax.vm" )
 			</div>
-			
-		#end
 		</div>
+		#end
+		
 		
 		</div>
 		
