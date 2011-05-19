@@ -117,6 +117,7 @@ public class SearchAction extends ActionSupport {
 
 	public String list()
 	{
+		if(this.key==null || this.key.equals("") || this.key.equals("")) return ERROR;
 		long start = System.currentTimeMillis();
 		Vector <HashMap<String,String> > results = new Vector <HashMap<String,String> >();
 		if (this.getPage() == null || this.getPage()<1) this.setPage(1);
