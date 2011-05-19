@@ -26,8 +26,6 @@ public class GestorFirma {
         File dir1 = new File(".");
         File dir2 = new File("..");
 		try {
-			System.out.println("Current dir : " + dir1.getCanonicalPath());
-	        System.out.println("Parent  dir : " + dir2.getCanonicalPath());
 			// Definition of Signature Request endpoint
 			SmartSignRequest ssr = new SmartSignRequest(host);
 
