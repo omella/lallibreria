@@ -194,35 +194,37 @@
 					</div>
 				</div>
 			#end
-			<div id=comanda>
+		<div id=comanda>
 		#if ($logged.mail)
-			#*<br/>
-			Selecciona la quantitat i afegeix la comanda al teu carret
+			<br/>
+			<h1>GESTIO DE LA COMANDA </h1>
 		    #sform ("action=addBookComanda")
 				#stextfield ("label=Quantitat: " "name=num" "value=1")
 				#sselect  ("list=llibreriesNoms" "name=idLlibreria")
 				#ssubmit ("value=Afegir")
 		    #end
-		    *#
-		    <br>
-		    <h1>Afegeix el llibre al carret de la comanda</h1> <br />
+		    #*Afegeix el llibre al carret de la comanda <br />
 			<div id="error"></div>
-			<h4>Quantitat: </h4> #stextfield ( "name=numAjax" "value=1")
+			#stextfield ("label=Quantitat: " "name=numAjax" "value=1")
 			<br>
 			#sselect  ("list=llibreriesNoms" "name=llibreriaAjax" "label=Selecciona la llibreria: ")
 			<br>
         	<button type="button" onclick="enviarComandaAjax()">Afegir</button>
+			*#
 			<br>
-		    <div id=comandes>
-				#parse( "WEB-INF/templates/comandaAjax.vm" )
-			</div>
-			Envia la teva comanda
+
+			<h1>Envia la teva comanda</h1>
 			#sform ("action=enviarMail")
 				#ssubmit ("value=Enviar")
 			#end
 			<br/>
+			<div id=comandes>
+				#parse( "WEB-INF/templates/comandaAjax.vm" )
+			</div>
+			
 		#end
 		</div>
+		
 		</div>
 		
 	</div>
