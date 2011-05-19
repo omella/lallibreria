@@ -12,7 +12,7 @@ body {
 	font-size: 14px;
 	color: #3C3D3F;
 }
-input {  
+input, button {  
     padding: 5px;  
     font-size: 15px;  
     text-shadow: 0px 1px 0px #fff;  
@@ -20,7 +20,8 @@ input {
     
     background: -moz-linear-gradient(top,  #bcbcbe,  #ffffff);  
 }
-input:focus {  
+
+input:focus, button:focus {  
     -webkit-box-shadow: 0px 0px 5px #007eff;  
     -moz-box-shadow: 0px 0px 5px #007eff;  
     box-shadow: 0px 0px 5px #007eff;  
@@ -29,7 +30,10 @@ h1, h2, h3 {
 	margin: 0;
 	padding: 0;
 	font-weight: normal;
+	/*
 	color: #2B2522;
+	*/
+	color: black;
 }
 p, ul, ol {
 	margin-top: 0;

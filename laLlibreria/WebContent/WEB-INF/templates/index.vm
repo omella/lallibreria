@@ -207,10 +207,10 @@ function getDistance(posC,posL,ind) {
 			var text = $("#key").val();
             var dataString = 'key='+ text;
            	if(text=="" || text==" ") {
-				$('#error').html("<div id='error'><font color='red' size='+1'><b>El camp de cerca no pot ser buit!</b></font></div>");
+				$('#foo').html("<font color='red' size='+1'><b>El camp de cerca no pot ser buit!</b></font>");
 			}
 			else {
-				$('#error').html("<div id='error'><font color='black' size='+1'>Cercant resultats...</font></div>");
+				$('#foo').html("<font color='black' size='+1'>Cercant resultats...</font>");
                 $.ajax({
                     type: "POST",
                     url: "/laLlibreria/searchBookAjax2",
@@ -218,8 +218,6 @@ function getDistance(posC,posL,ind) {
                     cache: false,
                     success: function(html){
                         $("#foo").html(html);
-                        $("#key").val("");
-						$('#error').html("<div id='error'></div>");
                     }
                 });
             }
@@ -379,7 +377,6 @@ function getDistance(posC,posL,ind) {
 	#end 
      	<div id=buscador>
      		<h1>Llibre</h1>
-     		<div id="error"></div>
 			#sform ("action=searchBookAjax" "method=get")
 				#stextfield ("name=key" "id=key")
 				##ssubmit ("value=Search")
