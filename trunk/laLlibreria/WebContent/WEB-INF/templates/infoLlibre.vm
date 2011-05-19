@@ -219,15 +219,17 @@
         	<button type="button" onclick="enviarComandaAjax()">Afegir</button>
 			*#
 			<br>
-
-			<h1>Envia la teva comanda</h1>
-			#sform ("action=enviarMail")
-				#ssubmit ("value=Enviar")
+			#if (${comandes})
+				<div id=comandes>
+				<h1>Envia la teva comanda</h1>
+				#sform ("action=enviarMail")
+					#ssubmit ("value=Enviar")
+				#end
+				<br/>
+				
+					#parse( "WEB-INF/templates/comandaAjax.vm" )
+				</div>
 			#end
-			<br/>
-			<div id=comandes>
-				#parse( "WEB-INF/templates/comandaAjax.vm" )
-			</div>
 		</div>
 		#end
 		

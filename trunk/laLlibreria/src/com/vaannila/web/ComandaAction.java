@@ -206,6 +206,7 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 			this.session.put("comanda", null);
 			this.session.put("listTo",null);
 			this.session.put("comandes", null);
+			this.comandes = null;
         }
         
 		return SUCCESS;
