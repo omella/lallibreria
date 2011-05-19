@@ -10,7 +10,7 @@
 			}
 			else {
                 $("#flash").show();
-                $("#flash").fadeIn(400).html('<img src="http://feelsynapsis.com/mod/folder/graphics/spinner.gif" />Loading Comment...');
+                $("#flash").fadeIn(400).html("<font color='red' size='+1'><b>Publicant comentari...</font>");
                 $.ajax({
                     type: "POST",
                     url: "/laLlibreria/commentsAjax.action",
@@ -19,6 +19,8 @@
                     success: function(html){
                         $("#comments").html(html);
                         $("#flash").hide();
+                        $("#comentariAjax").val("");
+						$('#error').html("<div id='error'></div>");
                     }
                 });
             }
@@ -48,18 +50,20 @@
 </script>
 <body>
 <div id=page>
-<a href=/laLlibreria>Inici</a>
+<font size='+1'><b><a href=/laLlibreria>Pagina principal</a></b></font>
 #if ($llibre)
 	<div id=content>
 		<div id=contentLlibre>
 			<table>
 				<tr>
+					#*
 					<td>	
 						<div style="float: rigth;">
 							<img src="http://covers.openlibrary.org/b/isbn/${llibre.isbn}-L.jpg" height=328 />
 							## <img src="${llibre.cover}" height=328 />
 						</div>
 					</td>
+					*#
 					<td>
 						<div style="float: rigth;">
 							##<img src="http://covers.openlibrary.org/b/isbn/${llibre.isbn}-L.jpg" height=328 />
@@ -136,18 +140,21 @@
 	</div>
 	<div id=clear></div>
 	<div id=leftContentLlibre>
+		<br/>
 		#if ($logged)
-			Afegeix el teu comentari
+			<font size=+1><b>Afegeix el teu comentari</b></font>
+			#*
 			#sform ("action=addComentari")
 				#stextarea ("name=text" "cols=40")
 				#ssubmit ("value=Publicar")
 			#end
 			Afegeix el teu comentari amb Ajax <br />
+			*#
 			<div id="error"></div>
-	        <textarea id="comentariAjax" cols="40"></textarea>
+	        <textarea id="comentariAjax" cols="40" rows="2" onfocus="this.rows='10'" onblur="this.rows='2'"></textarea>
 			<br />
-			<button type="button" onclick="enviarAjax()">Publicar amb Ajax per GET</button>
-			<button type="button" onclick="enviar()">Publicar amb Ajax per POST</button>
+			##<button type="button" onclick="enviarAjax()">Publicar amb Ajax per GET</button>
+			<button type="button" onclick="enviar()">Publicar comentari</button>
 			<div id="flash"></div>
 		#end
 		<div id="comments">

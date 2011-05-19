@@ -203,6 +203,28 @@ function getDistance(posC,posL,ind) {
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.js" type="text/javascript"></script> 
 <script type="text/javascript">
+    function buscarResultats(){
+			var text = $("#key").val();
+            var dataString = 'key='+ text;
+           	if(text=="" || text==" ") {
+				$('#error').html("<div id='error'><font color='red' size='+1'><b>El camp de cerca no pot ser buit!</b></font></div>");
+			}
+			else {
+				$('#error').html("<div id='error'><font color='black' size='+1'>Cercant resultats...</font></div>");
+                $.ajax({
+                    type: "POST",
+                    url: "/laLlibreria/searchBookAjax2",
+                    data: dataString,
+                    cache: false,
+                    success: function(html){
+                        $("#foo").html(html);
+                        $("#key").val("");
+						$('#error').html("<div id='error'></div>");
+                    }
+                });
+            }
+			return false;
+	};
  function fuckencio() {
 			$.ajax({
       			type: "POST",
@@ -356,11 +378,14 @@ function getDistance(posC,posL,ind) {
 		#ssubmit ("value=Busca Llibreries")
 	#end 
      	<div id=buscador>
-     		<h1>Llibre</h1> 
+     		<h1>Llibre</h1>
+     		<div id="error"></div>
 			#sform ("action=searchBookAjax" "method=get")
-				#stextfield ("name=key")
-				#ssubmit ("value=Search")
+				#stextfield ("name=key" "id=key")
+				##ssubmit ("value=Search")
+				
         	#end
+        	<button type="button" onclick="buscarResultats()">Cercar</button>
      	</div>
      	<div id=seccionOfertas>
      		Mejores ofertas:
