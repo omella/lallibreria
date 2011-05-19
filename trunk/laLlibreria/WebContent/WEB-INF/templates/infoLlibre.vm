@@ -47,6 +47,15 @@
 				$('#error').html("<div id='error'></div>");
 			}
 	};
+	
+	function imageLoad() {
+		var imageURL = "${llibre.cover}";
+		imageURL = imageURL.replace("zoom=0","zoom=5");
+		imageURL = imageURL.replace("zoom=1","zoom=5");
+		$('#recarregar').html('');
+		$('#coverImage').html('<img src='+imageURL+'height=328 />');
+		
+	}
 </script>
 <body>
 <div id=page>
@@ -69,9 +78,14 @@
 					</td>
 					*#
 					<td>
+						<div id="recarregar">
+							<button type="button" onclick="imageLoad()">Recarregar Imatge</button>
+						</div>
 						<div style="float: rigth;">
 							##<img src="http://covers.openlibrary.org/b/isbn/${llibre.isbn}-L.jpg" height=328 />
-							<img src="${llibre.cover}" height=328 />
+							<div id="coverImage">
+								<img src="${llibre.cover}" height=328 />
+							</div>
 						</div>
 					</td>
 					<td>
