@@ -20,11 +20,18 @@ import com.google.gdata.data.extensions.Rating;
 import com.google.gdata.util.AuthenticationException;
 import com.google.gdata.util.ServiceException;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.imageio.ImageIO;
+
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.methods.GetMethod;
 
 
 public class GoogleBooksWS {
@@ -204,8 +211,26 @@ private static Llibre fetchBook(VolumeEntry entry) {
     	
     }
     if (entry.getThumbnailLink() != null) {
-    	resultat.setCover(entry.getThumbnailLink().getHref().replace("zoom=5", "zoom=0"));
-    	//resultat.setCover(entry.getPreviewLink().getHref().replace("zoom=5", "zoom=0"));
+    	resultat.setCover("Valor Inicial");
+    	boolean trobat = false;
+    	for(int i=0; i<6 && trobat==false; i++) {
+	    	String imgHref = entry.getThumbnailLink().getHref().replace("zoom=5", "zoom="+i);
+	    	HttpClient cliente = new HttpClient();
+	        GetMethod g = new GetMethod(imgHref);
+	        try {
+				cliente.executeMethod(g);
+			} catch (HttpException e) {
+			} catch (IOException e) {
+			}
+			
+	        try {
+				BufferedImage img = ImageIO.read(g.getResponseBodyAsStream());
+				resultat.setCover(imgHref);
+				trobat=true;
+			} catch (IOException e) {
+			}
+    	}
+    	//resultat.setCover(entry.getThumbnailLink().getHref().replace("zoom=5", "zoom=0"));
     }
     if (entry.getPreviewLink() != null) {
     	resultat.setPreview(entry.getPreviewLink().getHref());
