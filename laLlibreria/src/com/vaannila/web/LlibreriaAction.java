@@ -80,7 +80,26 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	private String lib = null;
 	private MailDAO maildao = new MailDAOImpl();
 	private String idLlibMap = null;
+	private String posLlib = null;
+	private String posUser = null;
 	private Boolean voted =  (Boolean) session.get("voted");
+
+	
+	public String getPosLlib() {
+		return posLlib;
+	}
+
+	public void setPosLlib(String posLlib) {
+		this.posLlib = posLlib;
+	}
+
+	public String getPosUser() {
+		return posUser;
+	}
+
+	public void setPosUser(String posUser) {
+		this.posUser = posUser;
+	}	
 	
 	public Boolean getVoted() {
 		return voted;
