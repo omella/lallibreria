@@ -170,8 +170,9 @@
 						<h4>${oferta.llibreria}</h5>
 						
 						<h1>${oferta.descompte}</h1>
-						
-						<h1>${oferta.distancia}</h1>
+						#if (${oferta.distancia})
+							<h1>${oferta.distancia}</h1>
+						#end
 						</div>
 					</div>
 				#end
