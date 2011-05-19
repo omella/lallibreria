@@ -33,14 +33,17 @@
 		
 		<action name="searchBook" method="list" class="com.vaannila.web.SearchAction">
 			<result name="success" type="velocity">/WEB-INF/templates/index.vm</result>
+			<result name="error" type="velocity">/WEB-INF/templates/index.vm</result>
 		</action>
 		
 		<action name="searchBookAjax" method="list" class="com.vaannila.web.SearchAction">
 			<result name="success" type="velocity">/WEB-INF/templates/index.vm</result>
+			<result name="error" type="velocity">/WEB-INF/templates/index.vm</result>
 		</action>
 		
 		<action name="searchBookAjax2" method="list" class="com.vaannila.web.SearchAction">
 			<result name="success" type="velocity">/WEB-INF/templates/resultAjax.vm</result>
+			<result name="error" type="velocity">/WEB-INF/templates/index.vm</result>
 		</action>
 		
 		<action name="commentsAjax" method="commentsAjax" class="com.vaannila.web.BookAction">
