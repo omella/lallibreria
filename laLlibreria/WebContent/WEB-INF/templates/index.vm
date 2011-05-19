@@ -438,15 +438,18 @@ function getDistance(posC,posL,ind) {
      			<input name="localiza" type="button" value="Localizar" onclick="localizar()"></span>
      		</div>
      		<div id=librosBuscados>
-			   <div id=textoBlanco>Llibres mes populars</div>
+			   <div id=textoBlanco><h4>Llibres mes populars</h4></div>
 			   #foreach ($popular in $populars)
-					<div id=imgLibroPopular>
+			   		<div id=libroPopular>
+						<div id=imgLibroPopular>
 							<img src="${popular.thumb}" alt="${popular.title}" align="middle"/>
+						</div>
 						<div id=textoLibroPopular>
 							<b><a href=/laLlibreria/showBook.action?id=${popular.isbn}> ${popular.title}</a></b>
 							<br />
 							${popular.author}>
 						</div>
+						<div style="clear: both;"></div>
 					</div>
 			   #end
      		</div>
