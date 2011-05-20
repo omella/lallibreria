@@ -1,11 +1,11 @@
 <center>				
 	#if (${llibre.puntuacio})
-		<h1> Puntuacio ${llibre.puntuacio} </h1>
+		<div id=textoGrande> ${llibre.puntuacio} </div>
 	#end
 	<br/>
 
 	#if (${llibre.puntuacio})
-		Han votat ${llibre.numVots} persones
+		<span style=color:black;>Han votat ${llibre.numVots} persones</span>
 	#else
 		Sigues el primer en votar
 		#if (!${logged}) (cal fer login)
@@ -19,7 +19,7 @@
 	
 	#end
 	#if (${voted})
-		Ja has votat!
+		<span style=color:black;>Ja has votat!</span>
 		<br>
 	#end
 	

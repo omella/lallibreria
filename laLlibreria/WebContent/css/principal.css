@@ -91,10 +91,19 @@ a {
 	margin-top:75px;
 	padding-left:200px;
 }
+
+#textoGrande{
+	padding:14px 14px 14px 14px;
+	font-size:500%;	
+}
 	
 #contentPuntuacio{
 	float:right;
 	margin-right:40px;
+	background: #2D2722 url(images/img02.jpg) repeat-x left top;
+	border: 1px solid white;
+	padding: 5px;
+	
 }
 #contentOfertas{
 background-image: -moz-linear-gradient(top, #858585, #1b9612);
