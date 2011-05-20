@@ -12,12 +12,14 @@
 		#end
 	#end
 	<br/>
+	<div style=color:black;>
 	#if (${logged} && !${voted})
 		#sradio ("name=punts" "list={'1','2','3','4','5'}")
 		<br/>
 		<button type="button" onclick="enviarPuntuacioAjax()">Votar</button>
 	
 	#end
+	</div>
 	#if (${voted})
 		<span style=color:black;>Ja has votat!</span>
 		<br>
