@@ -291,6 +291,7 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 		}
 		
 		puntuacioDAO.savePuntuacio(puntuacio);
+		this.puntuacio.setPuntuacio(unDecimal(this.puntuacio.getPuntuacio()));
 		this.session.put("puntuacio", puntuacio);
 		voted = true;
 		session.put("voted2",voted);	
@@ -338,9 +339,22 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 		
 		return SUCCESS;
 	}	
-	
+	private Double unDecimal(Double x)
+	{
+		if (x!=null) {
+			Double p = x*10;
+			p = (double) Math.round(p);
+			p = p/10;
+			return p;
+		}
+		return null;
+	}
 	public String show(){
-		this.voted = false;
+		
+		if (this.llibreria != null) {
+			if (!this.llibreria.getMail().equals(idLlibMap)) this.voted = false;
+		}
+		
 		this.session.put("posLlib", this.posLlib);
 		this.session.put("posUser", this.posUser);
 		this.session.put("voted2", voted);
@@ -349,7 +363,7 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 		this.commentList = comentariDAO.getComentariList(this.llibreria.getMail());
 		this.session.put("commentList",this.commentList);
 		this.puntuacio=puntuacioDAO.getPuntuacioIsbn(this.llibreria.getMail());
-		System.out.println("PPPPPPPPPPPPPPPPP"+this.puntuacio.getPuntuacio());
+		this.puntuacio.setPuntuacio(unDecimal(this.puntuacio.getPuntuacio()));
 		this.session.put("puntuacio", puntuacio);
 		return SUCCESS;
 	}
