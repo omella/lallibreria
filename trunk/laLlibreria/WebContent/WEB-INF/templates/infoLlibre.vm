@@ -203,6 +203,7 @@
 					</div>
 				</div>
 			#end
+			<div id=clear></div>
 		</div>
 		#if ($logged.mail)
 		<div id=comanda>
