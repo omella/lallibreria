@@ -76,7 +76,7 @@ a {
 
 #contentLlibre{
 	float:left;
-	width:80%;
+	width:500px;
 	margin-top:20px;
 	position:absolute;
 	left:0px;
@@ -103,6 +103,7 @@ a {
 	background: #2D2722 url(images/img02.jpg) repeat-x left top;
 	border: 1px solid white;
 	padding: 5px;
+	z-index:1;
 	
 }
 #contentOfertas{
