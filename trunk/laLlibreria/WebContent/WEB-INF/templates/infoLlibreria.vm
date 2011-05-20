@@ -3,7 +3,7 @@
 <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
 <script type="text/javascript" >
 
-    function enviar(){
+    function enviar2(){
 			var text = $("#comentariAjax").val();
             var dataString = 'text='+ text;
            	if(text=="" || text==" ") {
@@ -18,7 +18,7 @@
                     data: dataString,
                     cache: false,
                     success: function(html){
-                        $("#comments").html(html);
+                        $("#comments2").html(html);
                         $("#flash").hide();
                     }
                 });
@@ -295,10 +295,10 @@ initializeMaps();
 	        <textarea id="comentariAjax" cols="40"></textarea>
 			<br />
 			<button type="button" onclick="enviarAjax()">Publicar amb Ajax per GET</button>
-			<button type="button" onclick="enviar()">Publicar amb Ajax per POST</button>
+			<button type="button" onclick="enviar2()">Publicar amb Ajax per POST</button>
 			<div id="flash"></div>
 		#end
-		<div id="comments">
+		<div id="comments2">
 			#parse( "WEB-INF/templates/commentsAjaxLlibreria.vm" )
 		</div>
 	</div>
