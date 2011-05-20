@@ -35,8 +35,8 @@ public class HomeAction extends ActionSupport implements ModelDriven<Vist>, Sess
 
 	List<Llibre> populars = null;
 	List<Cupo> millorOfertes = null;
-	private Boolean loguejat=false;
-	private Boolean loginwithGoogle=false;
+	private Boolean loguejat = (Boolean) session.get("loguejat");
+	private Boolean loginwithGoogle=(Boolean) session.get("loginwithGoogle");
 	
 	public Boolean getLoginwithGoogle() {
 		session.put("loginwithGoogle", loginwithGoogle);
@@ -94,6 +94,11 @@ public class HomeAction extends ActionSupport implements ModelDriven<Vist>, Sess
 		this.setPopulars(llistaLlibres); 
 		this.session.put("populars", populars);
 		this.session.put("millorOfertes", millorOfertes);
+		if (loguejat == null) loguejat = false;
+		if (loginwithGoogle == null) loginwithGoogle = false;		
+		this.session.put("loguejat", loguejat);
+		this.session.put("loginwithGoogle", loginwithGoogle);
+
 		return SUCCESS;
 	}
 

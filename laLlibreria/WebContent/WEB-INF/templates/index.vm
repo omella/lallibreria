@@ -360,11 +360,11 @@ function getDistance(posC,posL,ind) {
 		      viewer = data.get('viewer').getData();
 		      if (viewer) {
 		      	if (${loguejat}) {
-		      	
+		      		logged=1;
 			        document.getElementById('profile').innerHTML =  
 			        '<img align="left" src="' + viewer.getField("thumbnailUrl")  + '">' +
 			        '<b>' + " WELLCOME " +  viewer.getField("displayName")+ " from Google" + '!</b><br>' +
-			        '<a href=# onclick="fuckencio();">Sign out</a><br>';
+			        '<a href=alexLogout.action onclick="fuckencio();">Sign out</a><br>';
 			     } 
 			     else {
 			     	fuckencio();
@@ -387,11 +387,10 @@ function getDistance(posC,posL,ind) {
 		    	login amb facebook <br>
 				<fb:login-button autologoutlink='true' perms='email,user_checkins,user_about_me'></fb:login-button>
 		    #end
-		      	<a href=/laLlibreria/showRegistreLlibreria.action>Ets una llibreria?</a> 
+		    <br>
+		    <br>
+		    <a href=/laLlibreria/showRegistreLlibreria.action>Ets una llibreria?</a> 
 		</div>
-		#sform ("action=searchLlibreries")
-			#ssubmit ("value=Busca Llibreries")
-		#end 
      	<div id=buscador>
      		<h1>Llibre</h1>
 			#sform ("action=searchBookAjax" "method=get")

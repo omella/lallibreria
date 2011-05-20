@@ -42,7 +42,25 @@ public class SearchAction extends ActionSupport implements SessionAware{
     
 	private List<Llibre> populars = (List<Llibre>) session.get("populars");;
 	private List<Cupo> millorOfertes = (List<Cupo>) session.get("millorOfertes");
-	
+	private Boolean loguejat = (Boolean) session.get("loguejat");
+	private Boolean loginwithGoogle=(Boolean) session.get("loginwithGoogle");
+	public Boolean getLoginwithGoogle() {
+		session.put("loginwithGoogle", loginwithGoogle);
+		return loginwithGoogle;
+	}
+
+	public void setLoginwithGoogle(Boolean loginwithGoogle) {
+		this.loginwithGoogle = loginwithGoogle;
+	}
+
+	public Boolean getLoguejat() {
+		session.put("loguejat", loguejat);
+		return loguejat;
+	}
+
+	public void setLoguejat(Boolean loguejat) {
+		this.loguejat = loguejat;
+	}
 	public List<Cupo> getMillorOfertes() {
 		return millorOfertes;
 	}
