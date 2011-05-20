@@ -191,7 +191,7 @@
 	</div>
 	<div id=rightContentLlibre>
 		<div id=contentOfertas>
-			<h2>Ofertes</h2>
+			<h2 style=color:black;>Ofertes</h2>
 			#foreach ($oferta in ${ofertes})
 				<div id="ofertes">
 				<h1>${oferta.llibreria}</h1>

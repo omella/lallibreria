@@ -1,12 +1,20 @@
-
-
 <center>				
 	#if (${llibre.puntuacio})
 		<h1> Puntuacio ${llibre.puntuacio} </h1>
 	#end
-	
+	<br/>
+
+	#if (${llibre.puntuacio})
+		Han votat ${llibre.numVots} persones
+	#else
+		Sigues el primer en votar
+		#if (!${logged}) (cal fer login)
+		#end
+	#end
+	<br/>
 	#if (${logged} && !${voted})
 		#sradio ("name=punts" "list={'1','2','3','4','5'}")
+		<br/>
 		<button type="button" onclick="enviarPuntuacioAjax()">Votar</button>
 	
 	#end
@@ -15,11 +23,4 @@
 		<br>
 	#end
 	
-	#if (${llibre.puntuacio})
-		Han votat ${llibre.numVots} persones
-	#else
-		Sigues el primer en votar
-		#if (!${logged}) (cal fer login)
-		#end
-	#end
 </center>
