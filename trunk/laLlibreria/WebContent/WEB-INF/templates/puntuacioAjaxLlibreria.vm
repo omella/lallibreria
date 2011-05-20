@@ -4,14 +4,15 @@
 		$('#contentPuntuacio').load('http://localhost:8080/laLlibreria/puntuacionsAjaxLlibreria.action?punts='+p);
 	};
 </script>
-<h1>Puntuacio</h1>
 <center>				
 	#if (${puntuacio})
-		<h3> Puntuacio ${puntuacio.puntuacio} </h3>
+		<div id=textoGrande>${puntuacio.puntuacio} </div>
+		<br/>
 	#end
-	
+	<div style=color:black;>
 	#if (${logged} && !${voted})
 		#sradio ("name=punts" "list={'1','2','3','4','5'}")
+		<br/>
 		<button type="button" onclick="enviarPuntuacioAjax()">Votar</button>
 	
 	#end
@@ -19,9 +20,10 @@
 		Ja has votat!
 		<br>
 	#end
-	
+	</div>
+	<br/>
 	#if (${puntuacio})
-		Han votat ${puntuacio.numVots} persones
+		<span style=color:black;>Han votat ${puntuacio.numVots} persones</span>
 	#else
 		Sigues el primer en votar
 		#if (!${logged}) (cal fer login)

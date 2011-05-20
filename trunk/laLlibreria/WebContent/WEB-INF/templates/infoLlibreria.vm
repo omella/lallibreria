@@ -228,7 +228,9 @@ initializeMaps();
 </script>
 <body onload="initializeMaps();">
 <div id=page>
-<a href=/laLlibreria>Inici</a>
+<div id=enlaceHome>
+	<a href=/laLlibreria>Inici</a>
+</div>
 	<div id=content>
 		<div id=contentLlibre>
 			<table>
