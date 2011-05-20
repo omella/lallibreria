@@ -1,7 +1,7 @@
 
-#if (${llibreria.commentList.size()}>0)
+#if (${commentList.size()}>0)
 	<h1>Comentaris:</h1>
-	#foreach ($comment in ${llibreria.commentList})
+	#foreach ($comment in ${commentList})
 		<div id="comment">
 				<b>${comment.username}</b> <i>${comment.data}</i>
 			<p>

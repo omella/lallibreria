@@ -6,8 +6,8 @@
 </script>
 <h1>Puntuacio</h1>
 <center>				
-	#if (${llibreria.puntuacio})
-		<h3> Puntuacio ${llibreria.puntuacio} </h3>
+	#if (${puntuacio})
+		<h3> Puntuacio ${puntuacio.puntuacio} </h3>
 	#end
 	
 	#if (${logged} && !${voted})
@@ -20,8 +20,8 @@
 		<br>
 	#end
 	
-	#if (${llibreria.puntuacio})
-		Han votat ${llibreria.numVots} persones
+	#if (${puntuacio})
+		Han votat ${puntuacio.numVots} persones
 	#else
 		Sigues el primer en votar
 		#if (!${logged}) (cal fer login)
