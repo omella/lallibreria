@@ -71,16 +71,45 @@ a {
 #contentSimilars{
 	float:left;
 	top:350px;
+	position:absolute;
 }
 
 #contentLlibre{
 	float:left;
 	width:80%;
+	margin-top:20px;
+	position:absolute;
+	left:0px;
+	top:0px;
+}
+
+#contentLlibreIMG{
+	float:left;
+}
+	
+#TXTLlibre{
+	margin-top:75px;
+	padding-left:200px;
 }
 	
 #contentPuntuacio{
 	float:right;
 }
+#contentOfertas{
+background-image: -moz-linear-gradient(top, #858585, #1b9612);
+background-image: -webkit-gradient(linear, center top, center bottom, from(#858585), to(#1b9612));
+background-image: -o-linear-gradient(top, #858585, #1b9612);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#858585', endColorstr='#1b9612');
+/*INNER ELEMENTS MUST NOT BREAK THIS ELEMENTS BOUNDARIES*/
+/*Element must have a height (not auto)*/
+/*All filters must be placed together*/
+-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#858585', endColorstr='#1b9612')";
+/*Element must have a height (not auto)*/
+/*All filters must be placed together*/
+background-image: linear-gradient(top, #858585, #1b9612);
+		height:100%;
+}
+
 #ofertas{
   border-top: 1px #3C3D3F solid;
   border-left: 2px #3C3D3F solid;
@@ -183,6 +212,7 @@ filter: alpha(opacity=68);
 #rightContentLlibre{
   width: 30%;
   float:left;
+    margin-top:500px;
   margin-left:4px;
 }
 #leftContentLlibre{
@@ -190,6 +220,7 @@ filter: alpha(opacity=68);
   width: 65%;
   background-color: grey;
   float:left;
+  margin-top:500px;
   padding-left: 4%;
 }
 #leftContentHomeLlibreria{
@@ -259,10 +290,11 @@ margin:2px 2px 2px 2px;
 }
 
 #map_canvasLlibreria{  
-height: 320px;
-width: 500px;
-float:right;
-margin:2px 2px 2px 2px;
+	height: 320px;
+	width: 500px;
+	float:right;
+	margin:2px 2px 2px 2px;
+	border: 1px solid black;
 }
 
 #ubicacion{
@@ -273,6 +305,51 @@ margin:2px 2px 2px 2px;
 	background: #2D2722 url(images/img01.jpg) repeat-x left top;
 	margin-bottom:15px;
 }
+#enlaceHome{
+	float: left;
+	width:200px;
+}
+#buscadorLlibreContenedor{
+	margin-left: 500px;
+	padding-top: 10px;
+	padding-left: 50px;
+	padding-right: 50px;
+	padding-bottom: 10px;	
+	width: 190px;
+	height: 75px;
+ -moz-border-radius:39px;
+-webkit-border-radius:39px;
+border-radius:39px;
+/*IE DOES NOT SUPPORT BORDER RADIUS*/
+-moz-box-shadow:0px 0px 20px #000000;
+-webkit-box-shadow:0px 0px 20px #000000;
+box-shadow:0px 0px 20px #000000;
+/*IE DOES NOT SUPPORT BLUR PROPERTY OF SHADOWS*/
+background-image: -moz-linear-gradient(top, transparent, #237323);
+background-image: -webkit-gradient(linear, center top, center bottom, from(transparent), to(#237323));
+background-image: -o-linear-gradient(top, transparent, #237323);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='transparent', endColorstr='#237323');
+/*INNER ELEMENTS MUST NOT BREAK THIS ELEMENTS BOUNDARIES*/
+/*Element must have a height (not auto)*/
+/*All filters must be placed together*/
+-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='transparent', endColorstr='#237323')";
+/*Element must have a height (not auto)*/
+/*All filters must be placed together*/
+background-image: linear-gradient(top, transparent, #237323);
+-moz-background-clip: padding-box;
+-webkit-background-clip: padding-box;
+background-clip: padding-box;
+/*Use "background-clip: padding-box" when using rounded corners to avoid the gradient bleeding through the corners*/
+/*--IE9 WILL PLACE THE FILTER ON TOP OF THE ROUNDED CORNERS--*/
+
+}
+
+#buscadorLlibre{
+	margin-top: 2px;
+	margin-left: 10px;
+	margin-bottom: 2px;	
+}
+
 #cupons
 {
 font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -551,17 +628,28 @@ background-color:#EAF2D3;
 
 #ofertes {
 		float: right;
-		display:block;
-		background: #2D2722 url(images/img01.jpg) repeat-x left top;
+		
+-moz-box-shadow:0px 0px 20px #000000;
+-webkit-box-shadow:0px 0px 20px #000000;
+box-shadow:0px 0px 20px #000000;
+/*IE DOES NOT SUPPORT BLUR PROPERTY OF SHADOWS*/
+background-image: -moz-linear-gradient(top, #ffffff, #ffffff);
+background-image: -webkit-gradient(linear, center top, center bottom, from(#ffffff), to(#ffffff));
+background-image: -o-linear-gradient(top, #ffffff, #ffffff);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ffffff');
+/*INNER ELEMENTS MUST NOT BREAK THIS ELEMENTS BOUNDARIES*/
+/*Element must have a height (not auto)*/
+/*All filters must be placed together*/
+-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ffffff')";
+/*Element must have a height (not auto)*/
+/*All filters must be placed together*/
+background-image: linear-gradient(top, #ffffff, #ffffff);
+
 		padding:10px;
 		border:0px solid gray;
 		margin:5px;
 	    vertical-align: middle;
-		-moz-border-radius: 20px;
-		border-radius: 20px;
-		-webkit-transition: background 1s linear;
-		-moz-transition: background 1s linear;
-		transition: background 1s linear;
+
 	}
 #ofertes_text {
 		float: left;

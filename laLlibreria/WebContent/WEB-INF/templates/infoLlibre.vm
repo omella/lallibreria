@@ -65,36 +65,40 @@
 </script>
 <body>
 <div id=page>
-<font size='+1'><b><a href=/laLlibreria>Pagina principal</a></b></font>
-<form id="searchBookAjax" name="searchBookAjax" action="/laLlibreria/searchBookAjax.action" method="get">
-	<input type="text" name="key" value="" id="key"/>
-	<input type="submit" id="searchBookAjax_0" value="Cercar llibre"/>
-</form>
+<div id=enlaceHome>
+	<b><a href=/laLlibreria>Pagina principal</a></b>
+</div>
+<div id=buscadorLlibreContenedor>
+	<div=buscadorLlibre>
+		<form id="searchBookAjax" name="searchBookAjax" action="/laLlibreria/searchBookAjax.action" method="get">
+			<input type="text" name="key" value="" id="key"/>
+			<br/><br/>
+			<center><input type="submit" id="searchBookAjax_0" value="Cercar llibre"/></center>
+		</form>
+	</div>
+</div>
 #if ($llibre)
 	<div id=content>
 		<div id=contentLlibre>
-			<table>
-				<tr>
+			<div id=contentLlibreIMG>
 					#*
-					<td>	
-						<div style="float: rigth;">
+					<div style="float: rigth;">
 							<img src="http://covers.openlibrary.org/b/isbn/${llibre.isbn}-L.jpg" height=328 />
 							## <img src="${llibre.cover}" height=328 />
-						</div>
-					</td>
+					</div>
 					*#
-					<td>
-						<div id="recarregar">
+					<div style="float: rigth;">
+						##<img src="http://covers.openlibrary.org/b/isbn/${llibre.isbn}-L.jpg" height=328 />
+						<div id="coverImage">
+							<img src="${llibre.cover}" height=328 />
+						</div>
+					</div>					
+			</div>
+			<div id=contentLlibreTXT>
+					<div id="recarregar">
 							<button type="button" onclick="imageLoad()">Recarregar Imatge</button>
-						</div>
-						<div style="float: rigth;">
-							##<img src="http://covers.openlibrary.org/b/isbn/${llibre.isbn}-L.jpg" height=328 />
-							<div id="coverImage">
-								<img src="${llibre.cover}" height=328 />
-							</div>
-						</div>
-					</td>
-					<td>
+					</div>
+					<div id=TXTLlibre>
 						#if(${llibre.title})
 							<h1> ${llibre.title} </h1>
 						#end
@@ -135,9 +139,9 @@
 							</script>
 							<a href="JavaScript:newPopup('${llibre.preview}');">Preview</a>
 						#end
-					</td>
-				</tr>
-				</table>
+					</div>
+					<div id=clear></div>
+			</div>
 			</div>
 			<div id=contentPuntuacio>
 				#parse( "WEB-INF/templates/puntuacioAjax.vm" )
@@ -148,13 +152,13 @@
 				<h2>Et recomanem els seguents llibres</h2>
 				#foreach ($sim in ${llibre.similars})
 					<div id="similars">
-					<div id="similars_image">
-					<img src="${sim.thumb}" />
-					</div>
-					<div id="similars_text">
-					<a href=/laLlibreria/showBook.action?id=${sim.isbn}> ${sim.title}</a><br />
-					${sim.author}
-					</div>
+						<div id="similars_image">
+						<img src="${sim.thumb}" />
+						</div>
+						<div id="similars_text">
+						<a href=/laLlibreria/showBook.action?id=${sim.isbn}> ${sim.title}</a><br />
+						${sim.author}
+						</div>
 					</div>
 				#end
 				</div>
@@ -186,13 +190,12 @@
 		</div>
 	</div>
 	<div id=rightContentLlibre>
-		<div id=contentOfertes>
+		<div id=contentOfertas>
 			<h2>Ofertes</h2>
 			#foreach ($oferta in ${ofertes})
 				<div id="ofertes">
 				<h1>${oferta.llibreria}</h1>
-					<div id="ofertes_text">
-										
+					<div id="ofertes_text">			
 					<h1>${oferta.descompte}</h1>
 					#if (${oferta.distancia})
 						<h4>Dist&agrave;ncia: ${oferta.distancia}</h4>
@@ -200,7 +203,7 @@
 					</div>
 				</div>
 			#end
-		
+		</div>
 		#if ($logged.mail)
 		<div id=comanda>
 			<br/>
