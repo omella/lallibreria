@@ -33,6 +33,7 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	private static final long serialVersionUID = -6659925652584240539L;
 	private Comentari comment = new Comentari();
 	private ComentariDAO comentariDAO = new ComentariDAOImpl();
+	private String text = null;
 	public Comentari getComment() {
 		return comment;
 	}
@@ -321,6 +322,7 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	public String commentsAjax(){
 		Date data = new Date();		
 		comment.setData(data);
+		comment.setText(this.text);
 	    String username = null;
 	    Usuari user= (Usuari) session.get("user");
 	    username = user.getName();
@@ -328,10 +330,11 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 		comment.setUsername(username);
 		comment.setIsbn(this.llibreria.getMail());
 		comentariDAO.saveComentari(comment);
-		
+		this.commentList = comentariDAO.getComentariList(this.llibreria.getMail());
+		this.session.put("commentList",this.commentList);
 		this.posLlib = (String) this.session.get("posLlib");
 		this.posUser = (String) this.session.get("posUser");
-		this.setLlibreria(this.llibreria);
+		//this.setLlibreria(this.llibreria);
 		
 		return SUCCESS;
 	}	
@@ -346,6 +349,7 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 		this.commentList = comentariDAO.getComentariList(this.llibreria.getMail());
 		this.session.put("commentList",this.commentList);
 		this.puntuacio=puntuacioDAO.getPuntuacioIsbn(this.llibreria.getMail());
+		System.out.println("PPPPPPPPPPPPPPPPP"+this.puntuacio.getPuntuacio());
 		this.session.put("puntuacio", puntuacio);
 		return SUCCESS;
 	}
@@ -410,6 +414,22 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 
 	public void setLogged(Usuari logged) {
 		this.logged = logged;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public List<Comentari> getCommentList() {
+		return commentList;
+	}
+
+	public void setCommentList(List<Comentari> commentList) {
+		this.commentList = commentList;
 	}
 
 	

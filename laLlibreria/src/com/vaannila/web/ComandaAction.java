@@ -191,7 +191,6 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 	    		
 	    		
 	    		mail.setOrigen(usuari.getMail());
-	    		//mail.setOrigen("mrodon536@gmail.com");
 	    		mail.setCos(body);
 	    		mail.setCodiReserva(codi.toString());
 	    		mailDAO.saveMail(mail);
