@@ -33,7 +33,7 @@ public class PuntuacioDAOImpl implements PuntuacioDAO {
 	public Puntuacio getPuntuacioIsbn(String isbn) {
 		List <Puntuacio> result= null;
 		try {
-			result = session.createQuery("from Puntuacio where ISBN="+isbn).list();
+			result = session.createQuery("from Puntuacio where ISBN='"+isbn+"'").list();
 			if (result != null) return result.get(0);
 			return null;
 		}
