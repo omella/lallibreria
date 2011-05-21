@@ -198,7 +198,7 @@ filter: alpha(opacity=68);
   width: 60%;
   height: auto !important;
   min-heigth:350px;  
-  background-color: grey;
+  /*background-color: grey;*/
   position:absolute;
   top:350px;
   float:left;
@@ -567,20 +567,26 @@ background-color:#EAF2D3;
 	
 #librosBuscados {
 	display:block;
-	margin-top: 10px;
+	/*margin-top: 10px;*/
 	background: -moz-linear-gradient(top, #b3fc9c, transparent);
 	background: -webkit-gradient(linear, center top, center bottom, from(#b3fc9c), to(transparent));
 	background: -o-linear-gradient(top, #b3fc9c, transparent);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b3fc9c', endColorstr='transparent');
-	/*INNER ELEMENTS MUST NOT BREAK THIS ELEMENTS BOUNDARIES*/
-	/*Element must have a height (not auto)*/
-	/*All filters must be placed together*/
+
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#b3fc9c', endColorstr='transparent')";
-	/*Element must have a height (not auto)*/
-	/*All filters must be placed together*/
+
 	background: linear-gradient(top, #b3fc9c, transparent);
-	/*--IE9 DOES NOT SUPPORT GRADIENT BACKGROUNDS--*/
 }
+
+#columnes {
+	/*text-align: justify;*/
+	-moz-column-count: 2;
+	-moz-column-gap: 0.5em;
+	-moz-column-rule: 0px solid #c4c8cc;
+	-webkit-column-count: 2;
+	-webkit-column-gap: 0.5em;
+	-webkit-column-rule: 0px solid #c4c8cc;
+	}
 
 #textoBlanco{
 	width: 100%;
@@ -621,8 +627,10 @@ background-color:#EAF2D3;
 #libroPopular {
 		display:block;
 		background: #2D2722 url(images/img01.jpg) repeat-x left top;
+		border:1px solid white;
 		padding:10px;
-		border:0px solid gray;
+		heigth: 120px;
+		border:1px solid white;
 		margin:5px;
 	    vertical-align: middle;
 		-moz-border-radius: 20px;
@@ -636,7 +644,7 @@ background-color:#EAF2D3;
 		display:block;
 		background: #2D2722 url(images/img01.jpg) repeat-x left top;
 		padding:10px;
-		border:0px solid gray;
+		border:1px solid white;
 		margin:5px;
 	    vertical-align: middle;
 		-moz-border-radius: 20px;

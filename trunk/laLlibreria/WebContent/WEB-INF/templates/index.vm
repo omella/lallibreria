@@ -218,6 +218,7 @@ function getDistance(posC,posL,ind) {
 				$('#foo').html("<font color='red' size='+1'><b>El camp de cerca no pot ser buit!</b></font>");
 			}
 			else {
+				$('#librosBuscados2').append( $('#librosBuscados') );
 				$('#foo').html("<font color='black' size='+1'>Cercant resultats...</font>");
                 $.ajax({
                     type: "POST",
@@ -433,19 +434,21 @@ function getDistance(posC,posL,ind) {
      <div id=leftContent>
      	 	<div id=librosBuscados>
 			   <div id=textoBlanco><h4>Llibres m&eacute;s populars</h4></div>
-			   #foreach ($popular in $populars)
-			   		<div id=libroPopular>
-						<div id=imgLibroPopular>
-							<img src="${popular.thumb}" alt="${popular.title}" align="middle"/>
-						</div>
-						<div id=textoLibroPopular>
-							<b><a href=/laLlibreria/showBook.action?id=${popular.isbn}> ${popular.title}</a></b>
-							<br />
-							${popular.author}>
-						</div>
-						<div style="clear: both;"></div>
-					</div>
-			   #end
+			   <div id=columnes>  
+    			   #foreach ($popular in $populars)
+    			   		<div id=libroPopular>
+    						<div id=imgLibroPopular>
+    							<img src="${popular.thumb}" alt="${popular.title}" align="middle"/>
+    						</div>
+    						<div id=textoLibroPopular>
+    							<b><a href=/laLlibreria/showBook.action?id=${popular.isbn}> ${popular.title}</a></b>
+    							<br />
+    							${popular.author}
+    						</div>
+    						<div style="clear: both;"></div>
+    					</div>
+				   #end
+			   </div>
      		</div>
 		<div id="foo">
 			#parse("WEB-INF/templates/resultAjax.vm")
@@ -461,7 +464,7 @@ function getDistance(posC,posL,ind) {
      			<input name="localiza" type="button" value="Localizar" onclick="localizar()"></span>
      		</div>
      	</div>
-     	<div id=librosBuscados></div>
+     	<div id=librosBuscados2></div>
      	        
 
      </div>
