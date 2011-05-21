@@ -20,20 +20,6 @@ public class Llibreria {
 	private String place;
 	private String cif;
 	private String password;
-   /* private List<Comentari> commentList;
-    public List<Comentari> getCommentList() {
-		return commentList;
-	}
-	public void setCommentList(List<Comentari> commentList) {
-		this.commentList = commentList;
-	}
-	public String getPuntuacio() {
-		return puntuacio;
-	}
-	public void setPuntuacio(String puntuacio) {
-		this.puntuacio = puntuacio;
-	}
-	private String puntuacio;*/
 
 	@NotEmpty(message="Nom no pot ser buit")
 	@Column(name="LLIBRERIA_NAME")
@@ -84,19 +70,4 @@ public class Llibreria {
 		return password;
 	}
 	
-/*
-	public void setCommentList(List<Comentari> commentList) {
-		this.commentList = commentList;
-	}
-	public List<Comentari> getCommentList() {
-		return commentList;
-	}
-	
-
-	public void setPuntuacio(String puntuacio) {
-		this.puntuacio = puntuacio;
-	}
-	public String getPuntuacio() {
-		return puntuacio;
-	}*/
 }
