@@ -163,12 +163,13 @@ initializeMaps();
 		var marker1 = new google.maps.Marker({
 			map: map, 
 			position: location1,
-			title: "First location"
+			title: "Ets aqui"	
 		});
 		var marker2 = new google.maps.Marker({
 			map: map, 
 			position: location2,
-			title: "Second location"
+			title: "Llibreria",
+			icon: 'http://google-maps-icons.googlecode.com/files/library.png'
 		});
 		
 		// create the text to be shown in the infowindows
@@ -232,14 +233,9 @@ initializeMaps();
 	<a href=/laLlibreria>Inici</a>
 </div>
 	<div id=content>
-		<div id=contentLlibre>
-			<table>
-				<tr>
-					<td>	
-						<div id=map_canvasLlibreria></div>
-					</td>
-					<td>
-						
+		<div id=contentLlibreriaInfo>
+					<div id=map_canvasLlibreria></div>
+					<div id=contentLlibreriaTXT></div>	
 					    <h1> ${llibreria.name} </h1>
 						
 						#if(${llibreria.mail})
@@ -256,36 +252,15 @@ initializeMaps();
 						#end
 						
 						<div style="width:100%; height:10%" id="distance_road"></div>					
-					</td>
-				</tr>
-				</table> 
+					</div>
+					<div id=clear></div>
 			</div>
 			<div id=contentPuntuacio>
 				#parse( "WEB-INF/templates/puntuacioAjaxLlibreria.vm" )
 			</div>
-			#if(${llibre.similars})
-			<div id=contentSimilars>
-					<h2>Et recomanem els seguents llibres</h2>
-					<table>
-						<tr>
-							#foreach ($sim in ${llibre.similars})
-									<td>
-										<img src="${sim.thumb}" />
-									</td>
-									<td>
-										<a href=/laLlibreria/showBook.action?id=${sim.isbn}> ${sim.title}</a><br />
-										${sim.author}
-									</td>
-							#end
-						<tr>
-					</table>
-				</td>
-			</tr>
-			#end
-			</div>
 	</div>
 	<div id=clear></div>
-	<div id=leftContentLlibre>
+	<div id=leftContentInfoLLibreria>
 		#if ($logged)
 			Afegeix el teu comentari
 			#*
@@ -309,9 +284,18 @@ initializeMaps();
 			#parse( "WEB-INF/templates/commentsAjaxLlibreria.vm" )
 		</div>
 	</div>
-	<div id=rightContentLlibre>
-		<div id=comanda>
-			
+	<div id=rightContentInfoLLibreria>
+		<div id=comandaLlibreria>
+			<h2 style=color:black;>Ofertes</h2>
+			#foreach ($cupons in ${llistaCupons})
+				<div id="ofertesLlibreria">
+					<div id="ofertes_textLlibreria">			
+						<span style="font-size:200%;">${cupons.valor}%</span>
+						<br/>
+						<span style="font-size:100%;color:black;float:right;">${cupons.tematica}</span>
+					</div>
+				</div>
+			#end
 		</div>
 	</div>
 

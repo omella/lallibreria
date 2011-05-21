@@ -365,6 +365,7 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 		this.puntuacio=puntuacioDAO.getPuntuacioIsbn(this.llibreria.getMail());
 		this.puntuacio.setPuntuacio(unDecimal(this.puntuacio.getPuntuacio()));
 		this.session.put("puntuacio", puntuacio);
+		this.llistaCupons = this.cupoDAO.listCupoLlibreria(this.llibreria.getMail());
 		return SUCCESS;
 	}
 
