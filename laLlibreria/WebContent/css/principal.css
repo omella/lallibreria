@@ -1,8 +1,9 @@
 @CHARSET "ISO-8859-1";
 
 #page{
+	float:left;
   width: 100%;
-  height: 100%;
+  max-height: 100%;
 }
 body {
 	margin: 0;
@@ -504,7 +505,7 @@ background-color:#EAF2D3;
 }
 
 #textoBlanco{
-	width: 97%;
+	width: 100%%;
 	background: #2D2722;
 	color: white;
 	padding: 0px 0px 0px 15px;
