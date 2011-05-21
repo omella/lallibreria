@@ -13,6 +13,7 @@ import com.vaannila.dao.UserDAO;
 import com.vaannila.dao.UserDAOImpl;
 import com.vaannila.domain.Cupo;
 import com.vaannila.domain.Llibre;
+import com.vaannila.domain.Llibreria;
 import com.vaannila.domain.Usuari;
 
 import org.apache.log4j.Logger;
@@ -54,7 +55,7 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 	private Boolean loguejat = (Boolean) session.get("loguejat");
 	private Boolean loginwithGoogle=(Boolean) session.get("loginwithGoogle");
 	private String errorFormulari = null;
-	
+	private List<Llibreria> llibreriaList = (List<Llibreria>) session.get("llibreriaList");
 	private List<Llibre> populars = (List<Llibre>) session.get("populars");;
 	private List<Cupo> millorOfertes = (List<Cupo>) session.get("millorOfertes");
 
@@ -319,6 +320,14 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 	@Override
 	public void setServletRequest(HttpServletRequest servletRequest) {
 	    this.servletRequest = servletRequest;
+	}
+
+	public void setLlibreriaList(List<Llibreria> llibreriaList) {
+		this.llibreriaList = llibreriaList;
+	}
+
+	public List<Llibreria> getLlibreriaList() {
+		return llibreriaList;
 	}
 
 

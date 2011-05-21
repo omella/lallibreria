@@ -394,8 +394,7 @@ function getDistance(posC,posL,ind) {
      		<h1>Llibre</h1>
 			#sform ("action=searchBookAjax" "method=get")
 				#stextfield ("name=key" "id=key")
-				##ssubmit ("value=Search")
-				
+				##ssubmit ("value=Search")				
         	#end
         	<button type="button" onclick="buscarResultats()">Cercar</button>
      	</div>
@@ -433,7 +432,7 @@ function getDistance(posC,posL,ind) {
      </div>
      <div id=leftContent>
      	 	<div id=librosBuscados>
-			   <div id=textoBlanco><h4>Llibres mes populars</h4></div>
+			   <div id=textoBlanco><h4>Llibres m&eacute;s populars</h4></div>
 			   #foreach ($popular in $populars)
 			   		<div id=libroPopular>
 						<div id=imgLibroPopular>
@@ -451,10 +450,7 @@ function getDistance(posC,posL,ind) {
 		<div id="foo">
 			#parse("WEB-INF/templates/resultAjax.vm")
 		</div>
-		<div style="clear: both;"></div>
-		   <div id=foot>
-     	#parse( "WEB-INF/templates/pie.vm" )
-   </div>
+
      </div>
      <div id=rightContent>
      	<div id=map_canvas></div>

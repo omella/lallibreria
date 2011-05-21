@@ -89,6 +89,7 @@ public class HomeAction extends ActionSupport implements ModelDriven<Vist>, Sess
 			llistaLlibres.add(com.vaannila.ws.BooksWS.getBook(vistes.get(i).ISBN));
 		}
 		this.setLlibreriaList(llibreriaDAO.listLlibreria());
+		this.session.put("llibreriaList", this.llibreriaList);
 		List<Cupo> llistaOfertes = getMillorsOfertes();
 		this.setMillorOfertes(llistaOfertes);
 		this.setPopulars(llistaLlibres); 
