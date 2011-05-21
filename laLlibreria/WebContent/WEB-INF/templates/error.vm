@@ -5,7 +5,7 @@
      <div id=top>
      	<div id=errorContent>
      		<div id=erroMsg>
-     			<h1>Login Incorrecte!</h1>
+     			<h1>${errorMSG}</h1>
      		</div>
      	</div>
      </div>

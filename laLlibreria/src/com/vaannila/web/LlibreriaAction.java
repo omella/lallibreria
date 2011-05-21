@@ -72,8 +72,8 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	private String[] llistaTematica = {"Ciencia","Generic","Drama"};
 	private String tematica = null;
 	private String valor = null;
-
-	private Llibreria llibreria = (Llibreria)this.session.get("libreria");
+//OJO: si se pone la parte comentada de siguiente linea, no se registran las librerias
+	private Llibreria llibreria = new Llibreria();//(Llibreria)this.session.get("libreria");
 	private int idCupo;
 	private String codi = null;
 	private String valid = null;
@@ -133,10 +133,8 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	}
 	
 	public String add()
-	{
-		
+	{	
 		llibreriaDAO.saveLlibreria(llibreria);
-	
 		this.session.put("libreria", llibreria);
 		//list();	
 		return SUCCESS;
