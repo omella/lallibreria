@@ -214,8 +214,77 @@ filter: alpha(opacity=68);
   margin-left:60%
 }
 
+#leftContentInfoLLibreria{
+	float:left;
+	max-width:700px;
+	background-color: grey;
+	margin-top:155px;
+	padding-top: 10px;
+	padding-left:20px;
+	padding-right:20px;
+}
 
+#rightContentInfoLLibreria{
+	float:left;
+	margin-top:150px;
+	margin-left:10px;
+	padding-top: 10px;
+	padding-left:20px;
+	padding-right:20px;
+}
 
+#ofertes_textLlibreria{
+	color:grey;	
+	padding:18px;
+}
+
+#ofertesLlibreria{
+	float: right;
+		
+-moz-box-shadow:0px 0px 20px #000000;
+-webkit-box-shadow:0px 0px 20px #000000;
+box-shadow:0px 0px 20px #000000;
+/*IE DOES NOT SUPPORT BLUR PROPERTY OF SHADOWS*/
+background-image: -moz-linear-gradient(top, #ffffff, #ffffff);
+background-image: -webkit-gradient(linear, center top, center bottom, from(#ffffff), to(#ffffff));
+background-image: -o-linear-gradient(top, #ffffff, #ffffff);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ffffff');
+/*INNER ELEMENTS MUST NOT BREAK THIS ELEMENTS BOUNDARIES*/
+/*Element must have a height (not auto)*/
+/*All filters must be placed together*/
+-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ffffff')";
+/*Element must have a height (not auto)*/
+/*All filters must be placed together*/
+background-image: linear-gradient(top, #ffffff, #ffffff);
+
+		border:0px solid gray;
+		margin-right:20px;
+}
+
+#comandaLlibreria{
+		float: right;
+		display:block;
+		width:100%;
+		background: green;
+		padding:10px;
+		border:0px solid gray;
+		margin-left:10px;
+		-moz-border-radius: 20px;
+		border-radius: 20px;
+		-webkit-transition: background 1s linear;
+		-moz-transition: background 1s linear;
+		transition: background 1s linear;
+}
+
+#contentLlibreriaInfo{
+	float:left;
+	width:80%;
+	margin-top:20px;
+	padding:2px;
+	position:absolute;
+	left:0px;
+	top:0px;
+}
 #leftContentLlibreria{
   width: 50%;
   height: 350px;
@@ -310,9 +379,18 @@ margin:2px 2px 2px 2px;
 #map_canvasLlibreria{  
 	height: 320px;
 	width: 500px;
-	float:right;
-	margin:2px 2px 2px 2px;
+	float: left;
+	margin:0px 2px 2px 2px;
 	border: 1px solid black;
+}
+
+#contentLlibreriaTXT{
+	float:left;	
+	height:320px;
+	width:400px;
+	left:321px;
+	margin-top:10px;
+	position:absolute;
 }
 
 #ubicacion{
@@ -505,7 +583,7 @@ background-color:#EAF2D3;
 }
 
 #textoBlanco{
-	width: 100%%;
+	width: 100%;
 	background: #2D2722;
 	color: white;
 	padding: 0px 0px 0px 15px;
