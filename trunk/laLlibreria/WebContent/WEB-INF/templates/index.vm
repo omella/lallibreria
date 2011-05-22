@@ -442,7 +442,7 @@ function getDistance(posC,posL,ind) {
 		    <a href=/laLlibreria/showRegistreLlibreria.action>Ets una llibreria?</a> 
 		</div>
      	<div id=buscador>
-     		Benvingut a <a href=/laLlibreria><h1><div id=titolWeb>LaLlibreria.cat</div></h1></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Una llibreria 2.0<br /><br /> &nbsp;&nbsp;Per qu&egrave;  no proves a buscar un llibre?.
+     		Benvingut a <a href=/laLlibreria><h1><div id=titolWeb>LaLlibreria.cat</div></h1></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Una llibreria 2.0<br /><br /> &nbsp;&nbsp;Per qu&egrave;  no proves a buscar un llibre?
 			#sform ("action=searchBookAjax" "method=get")
 				#stextfield ("name=key" "id=key")
 				##ssubmit ("value=Search")				
