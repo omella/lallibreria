@@ -235,7 +235,8 @@
 			<br />
 			<br />
 			#sselect  ("list=llibreriesNoms" "name=llibreriaAjax" "label=Selecciona la llibreria")
-			<br>
+			<br />
+			<br />
         	<button type="button" onclick="enviarComandaAjax()">Afegir</button>
 			<br />		
 			<br>

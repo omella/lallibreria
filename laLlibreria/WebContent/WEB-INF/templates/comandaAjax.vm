@@ -42,8 +42,10 @@
 	 		 	<th align='center'>
  		 			<a href=/laLlibreria/eliComanda?idDel=${comanda.id}>Elimina</a>
  		 		</th>
-		    </tr> 
+		    </tr>
+			<div style="clear: both;"></div>
 		#end
 	</table>
+	<div style="clear: both;"></div>
 	</div>
 #end
