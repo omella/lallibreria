@@ -37,7 +37,7 @@
 	 		 		${comanda.descompte}
 	 		 	</td>
 	 		 	<th>
- 		 			<a href=/laLlibreria/eliComanda?titol=${comanda.llibre.title}&nomLlibreria=${comanda.llibreria}>Elimina</a>
+ 		 			<a href=/laLlibreria/eliComanda?idDel=${comanda.id}>Elimina</a>
  		 		</th>
 		    </tr> 
 		#end
