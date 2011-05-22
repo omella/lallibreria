@@ -37,8 +37,20 @@ public class HomeAction extends ActionSupport implements ModelDriven<Vist>, Sess
 	List<Cupo> millorOfertes = null;
 	private Boolean loguejat = (Boolean) session.get("loguejat");
 	private Boolean loginwithGoogle=(Boolean) session.get("loginwithGoogle");
+	private String token=(String) session.get("token");
 	
+	public String getToken() {
+		token=null;
+		session.put("token",token);
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
 	public Boolean getLoginwithGoogle() {
+		if (loginwithGoogle == null) loginwithGoogle = false;
 		session.put("loginwithGoogle", loginwithGoogle);
 		return loginwithGoogle;
 	}
@@ -48,6 +60,7 @@ public class HomeAction extends ActionSupport implements ModelDriven<Vist>, Sess
 	}
 
 	public Boolean getLoguejat() {
+		if (loguejat == null) loguejat = false;
 		session.put("loguejat", loguejat);
 		return loguejat;
 	}
