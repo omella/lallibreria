@@ -49,7 +49,8 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 	private List<Comanda> comandes =  (List<Comanda>) this.session.get("comandes");
 	private List<ParameterMap<String,String>> ofertes = (List<ParameterMap<String, String>>) session.get("ofertes");
 	private Llibre llibre = (Llibre)this.session.get("llibre");
-	
+	private String titol = null;
+	private String nomLlibreria = null;
 	@SuppressWarnings("unchecked")
 	private List<Llibreria>llibreriaList = (List<Llibreria>) this.session.get("llibreries");
 	
@@ -211,6 +212,26 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 		return SUCCESS;
 	}
 
+	public String eliminaComanda() {
+		
+		comandes = (List<Comanda>) session.get("comandes");
+		if (comandes!=null){
+			for (int i =0; i< comandes.size();i++)
+			{
+				if (comandes.get(i).getLlibreria().equals(this.nomLlibreria) && comandes.get(i).getLlibre().getTitle().equals(this.titol)) comandes.remove(i);
+			}
+			if (comandes.size() == 0)comandes = null;
+			session.put("comandes", comandes);
+			Vector<ParameterMap<String,String> > comanda = (Vector<ParameterMap<String, String>>) session.get("comanda");
+			for (int i =0; i< comanda.size();i++)
+			{
+				if (comanda.get(i).get("llibreria").equals(this.nomLlibreria) && comanda.get(i).get("titol").equals(this.titol)) comanda.remove(i);
+			}
+			if (comanda.size() == 0)comanda = null;
+			session.put("comanda", comanda);
+		}
+		return SUCCESS;
+	}
 	public String getNum() {
 		return num;
 	}
@@ -296,4 +317,21 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 		this.voted = voted;
 	}
 
+	public String getTitol() {
+		return titol;
+	}
+
+	public void setTitol(String titol) {
+		this.titol = titol;
+	}
+
+	public String getNomLlibreria() {
+		return nomLlibreria;
+	}
+
+	public void setNomLlibreria(String nomLlibreria) {
+		this.nomLlibreria = nomLlibreria;
+	}
+
+	
 }
