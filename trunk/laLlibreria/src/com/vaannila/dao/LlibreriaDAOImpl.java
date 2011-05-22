@@ -58,7 +58,9 @@ public class LlibreriaDAOImpl implements LlibreriaDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return result.get(0);
+		if (result != null && result.size()>0)
+			return result.get(0);
+		return null;
 	}
 	
 	public List<Cupo> getCuponsLlibreria(){
