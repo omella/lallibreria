@@ -27,19 +27,31 @@
 			return false;
 	};
 
+	function enviarComandaAjax() {
+		var num = $("#numAjax").val();
+		if (num > 0) {
+			var lib = $("#llibreriaAjax").val();
+            var dataString = 'num='+ num + '&idLlibreria='+lib;
+            $.ajax({
+                type: "POST",
+                url: "/laLlibreria/comandesAjax.action",
+                data: dataString,
+                cache: false,
+                success: function(html){
+                    $("#comandes").html(html);
+           		}
+            });
+        }
+		return false;
+	};
+	
 	function enviarPuntuacioAjax() {
 		var p = $('input:radio[name=punts]:checked').val();
 		
 		$('#contentPuntuacio').load('http://localhost:8080/laLlibreria/puntuacionsAjax.action?punts='+p);
 	};
 
-	function enviarComandaAjax() {
-		var num = $("#numAjax").val();
-		if (num > 0) {
-			var lib = $("#llibreriaAjax").val();
-			$('#comandes').load('http://localhost:8080/laLlibreria/comandesAjax.action?num='+num+'&idLlibreria='+lib);
-		}
-	};
+
 
 	function enviarAjax() {
 			var text = $("#comentariAjax").val();
@@ -210,31 +222,28 @@
 		<div id=comanda>
 			<br/>
 			<h1>GESTI&Oacute; DE LA COMANDA </h1>
+		    #*
 		    #sform ("action=addBookComanda")
 				#stextfield ("label=Quantitat: " "name=num" "value=1")
 				#sselect  ("list=llibreriesNoms" "name=idLlibreria")
 				#ssubmit ("value=Afegir")
 		    #end
-		    #*Afegeix el llibre al carret de la comanda <br />
+		    *#
+		    Afegeix el llibre al carret de la comanda <br />
 			<div id="error"></div>
 			#stextfield ("label=Quantitat: " "name=numAjax" "value=1")
 			<br>
 			#sselect  ("list=llibreriesNoms" "name=llibreriaAjax" "label=Selecciona la llibreria: ")
 			<br>
-        	<button type="button" onclick="enviarComandaAjax()">Afegir</button>
-			*#
 			<br>
-			#if (${comandes})
+        	<button type="button" onclick="enviarComandaAjax()">Afegir</button>
+			
+			<br>
+			
 				<div id=comandes>
-				<h1>Envia la teva comanda</h1>
-				#sform ("action=enviarMail")
-					#ssubmit ("value=Enviar")
-				#end
-				<br/>
-				
-					#parse( "WEB-INF/templates/comandaAjax.vm" )
+					#parse( "WEB-INF/templates/comandaAjax.vm" )			
 				</div>
-			#end
+			
 		</div>
 		#end
 		
