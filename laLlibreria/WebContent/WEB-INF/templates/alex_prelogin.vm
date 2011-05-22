@@ -7,25 +7,22 @@
 	<title>La llibreria 2.0</title>
 	<link rel="stylesheet" type="text/css" media="screen" href="css/principal.css" />
 </head>
-
-<title>Complete Missing Data</title>
-
-<body class="blogbody">
+<body>
 <div id=mini></div>
    <div id=page></div>
 <center>
 <br>
 <br>
-<h1 class="blogtitle">User Login</h1>
-</center>
+
 
 <table border="0" cellpadding="8">
 	<tbody>
-		<tr>
-		<b>Si introdueixes un email fals, no rebras cap dels avantatges del nostre lloc web</b>
-		<br>
-		<b>Si t'equivoques, contacta amb nosaltres per posar-hi solucio</b>
-		<br>
+		<tr />
+		<br />
+		<br />
+		<b>Si introdueixes un email fals, no podr&agrave;s gaudir dels nostres avantatges</b>
+		<br />
+		<br />
 		#if (${errorFormulari})
 			<font color="red"><b>${errorFormulari}</b></font>
 		#end	
@@ -42,6 +39,7 @@
 <br><br>
 #end
 <br><br><br><br>
+</center>
 <div id=foot>
      	#parse( "WEB-INF/templates/pie.vm" )
      </div>

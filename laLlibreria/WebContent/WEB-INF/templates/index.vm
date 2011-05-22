@@ -10,7 +10,7 @@ if (navigator.geolocation){
 navigator.geolocation.getCurrentPosition(displayPosition, errorFunction);
  }
 else{
-alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
+	//alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
 }
 
 var map;
@@ -42,7 +42,7 @@ function displayPosition(pos){
 
 //error callback function
 function errorFunction(pos){
-	alert('Error!');
+	//alert('Error!');
 }
 
 //FIN: Geolocalizacion Google
@@ -69,7 +69,7 @@ function localizar(){
           });
           addLibreriaMapa(results[0].geometry.location);
         } else {
-          alert("Geocode was not successful for the following reason: " + status);
+          //alert("Geocode was not successful for the following reason: " + status);
         }
       });
     }
@@ -145,7 +145,7 @@ function aux(geocoder2, name, address, telf, mail) {
 		  		 //FIN Info Window
  
 		        } else {
-		          alert("Geocode was not successful for the following reason: " + status);
+		          //alert("Geocode was not successful for the following reason: " + status);
 		        }
 
 	      });
@@ -283,7 +283,7 @@ function getDistance(posC,posL,ind) {
 		
 				function login(){
 					FB.api('/me', function(response) {
-						alert('You have successfully logged in, with facebook, '+response.name+"!");
+						//alert('You have successfully logged in, with facebook, '+response.name+"!");
 					   	window.location = "alexLogin.action"
 					});
 				}
@@ -309,15 +309,15 @@ function getDistance(posC,posL,ind) {
 							  },
 							  function(response) {
 								if (response == 0){
-									alert('Your facebook status not updated. Give Status Update Permission.');
+									//alert('Your facebook status not updated. Give Status Update Permission.');
 								}
 								else{
-									alert('Your facebook status updated');
+									//alert('Your facebook status updated');
 								}
 							  }
 							);
 					  } else {
-							alert('please log in first :)');
+							//alert('please log in first :)');
 					  }
 					});
 				
@@ -351,7 +351,7 @@ function getDistance(posC,posL,ind) {
 		      viewer = data.get('viewer').getData();
 		      if (viewer) {
 		      	if(logged == 0){
-		      	    alert('Welcome, with google ' + viewer.getField("displayName")+ " " + viewer.getId("")+"!");
+		      	    //alert('Welcome, with google ' + viewer.getField("displayName")+ " " + viewer.getId("")+"!");
 		      	    window.location = "alexLogin.action"
 		      	}
 		      	logged=1;
@@ -364,8 +364,8 @@ function getDistance(posC,posL,ind) {
 		      		logged=1;
 			        document.getElementById('profile').innerHTML =  
 			        '<img align="left" src="' + viewer.getField("thumbnailUrl")  + '">' +
-			        '<b>' + " WELLCOME " +  viewer.getField("displayName")+ " from Google" + '!</b><br>' +
-			        '<a href=alexLogout.action onclick="fuckencio();">Sign out</a><br>';
+			        '<b>' + " Benvingut, " +  viewer.getField("displayName")+ '!</b><br>' +
+			        '<a href=alexLogout.action onclick="fuckencio();">Tancar sessi&oacute;</a><br>';
 			     } 
 			     else {
 			     	fuckencio();
@@ -390,7 +390,7 @@ function getDistance(posC,posL,ind) {
 		    <a href=/laLlibreria/showRegistreLlibreria.action>Ets una llibreria?</a> 
 		</div>
      	<div id=buscador>
-     		Benvingut a <h1><div id=titolWeb>LaLlibreria.cat</div></h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Una llibreria 2.0<br /><br /> &nbsp;&nbsp;Per qu&egrave;  no proves a buscar un llibre?.
+     		Benvingut a <a href=/laLlibreria><h1><div id=titolWeb>LaLlibreria.cat</div></h1></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Una llibreria 2.0<br /><br /> &nbsp;&nbsp;Per qu&egrave;  no proves a buscar un llibre?.
 			#sform ("action=searchBookAjax" "method=get")
 				#stextfield ("name=key" "id=key")
 				##ssubmit ("value=Search")				
@@ -460,9 +460,9 @@ function getDistance(posC,posL,ind) {
      	<div id=map_canvas></div>
      	<div id=ubicacion>
      		<div id=inputCalle>
-     			<span id=textoBlanco>&iquest;Estas bien localizado?</span><br/><br/>
-     			<span id=textBox><input id="localizacion" type="text" value="Calle, Ciudad" style="color:grey; width:350px" onfocus="if(this.value==this.defaultValue) this.value=''">
-     			<input name="localiza" type="button" value="Localizar" onclick="localizar()"></span>
+     			<span id=textoBlanco>Est&agrave;s ben localitzat? Si no, indicans la teva posici&oacute;.</span><br/><br/>
+     			<span id=textBox><input id="localizacion" type="text" value="Carrer, Ciutat" style="color:grey; width:350px" onfocus="if(this.value==this.defaultValue) this.value=''">
+     			<input name="localiza" type="button" value="Localitzar" onclick="localizar()"></span>
      		</div>
      	</div>
 		#if($results)
@@ -490,6 +490,5 @@ function getDistance(posC,posL,ind) {
      </div>
 
    </div>
-
  </body>
 </html>
