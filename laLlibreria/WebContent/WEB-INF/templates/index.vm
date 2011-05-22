@@ -295,6 +295,16 @@ function getDistance(posC,posL,ind) {
       				return false;
       			}
       		});
+  }; 
+  function fuckencioRefresh() {
+			$.ajax({
+      			type: "POST",
+      			url: "/laLlibreria/",
+      			data: "",
+      			cache: false,
+      			success: function(html) {
+      			}
+      		});
   };
 		
 </script>
@@ -413,6 +423,9 @@ function getDistance(posC,posL,ind) {
 		      viewer = data.get('viewer').getData();
 		      if (viewer) {
 		      	if (${loguejat}) {
+		      		if(logged == 0){
+			      	    fuckencioRefresh();
+		      		}
 		      		logged=1;
 			        document.getElementById('profile').innerHTML =  
 			        '<img align="left" src="' + viewer.getField("thumbnailUrl")  + '">' +
