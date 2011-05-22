@@ -60,6 +60,7 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 	private List<Cupo> millorOfertes = (List<Cupo>) session.get("millorOfertes");
 
 	public String getToken() {
+		session.put("token", token);
 		return token;
 	}
 
@@ -271,13 +272,23 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 	    username = "";
 	    usermail = "";
 		serviceId = "";
-		token = "";
+		token = null;
 		gender = "";
 		loguejat=false;
 		loginwithGoogle = false;
+		session.put("token", token);
 		session.put("loginwithGoogle", loginwithGoogle);
 		session.put("loguejat", loguejat);
 		session.remove("user");
+		
+		for(Cookie c : servletRequest.getCookies()) {
+	    	if (c.getName().equals("fcauth" + GsiteId)) {
+			    c.setValue(null);
+	    	}    	
+	    	if (c.getName().equals("fbs_" + FsiteId)) {
+			    c.setValue(null);
+	    	}
+	    }
 
 		return SUCCESS;
 	}
