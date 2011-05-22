@@ -126,26 +126,78 @@ function aux(geocoder2, name, address, telf, mail) {
 	geocoder2.geocode( { 'address': address}, function(results2, status2) {
 			   var marker2;
 		        if (status2 == google.maps.GeocoderStatus.OK) {
-		          marker2 = new google.maps.Marker({
-		              map: map, 
-		              position: results2[0].geometry.location,
-		              icon: 'http://google-maps-icons.googlecode.com/files/library.png'
-		          });
- 
-		          //Info window
- 
-				var infowindow = new google.maps.InfoWindow({
-			    	content: contentString
-				});
- 
-				google.maps.event.addListener(marker2, 'click', function() {
-				  infowindow.open(map,marker2);
-				});
+			          marker2 = new google.maps.Marker({
+			              map: map, 
+			              position: results2[0].geometry.location,
+			              icon: 'http://google-maps-icons.googlecode.com/files/library.png'
+			          });
+	 
+			          //Info window
+	 
+					var infowindow = new google.maps.InfoWindow({
+				    	content: contentString
+					});
+	 
+					google.maps.event.addListener(marker2, 'click', function() {
+					  infowindow.open(map,marker2);
+					});
  
 		  		 //FIN Info Window
  
 		        } else {
-		          //alert("Geocode was not successful for the following reason: " + status);
+		         // alert("1 Geocode was not successful for the following reason: " + status);
+					geocoder2.geocode( { 'address': address}, function(results2, status2) {
+							   var marker2;
+						        if (status2 == google.maps.GeocoderStatus.OK) {
+							          marker2 = new google.maps.Marker({
+							              map: map, 
+							              position: results2[0].geometry.location,
+							              icon: 'http://google-maps-icons.googlecode.com/files/library.png'
+							          });
+					 
+							          //Info window
+					 
+									var infowindow = new google.maps.InfoWindow({
+								    	content: contentString
+									});
+					 
+									google.maps.event.addListener(marker2, 'click', function() {
+									  infowindow.open(map,marker2);
+									});
+				 
+						  		 //FIN Info Window
+				 
+						        } else {
+						        	  // alert("2 Geocode was not successful for the following reason: " + status);
+						        		geocoder2.geocode( { 'address': address}, function(results2, status2) {
+									   var marker2;
+								        if (status2 == google.maps.GeocoderStatus.OK) {
+									          marker2 = new google.maps.Marker({
+									              map: map, 
+									              position: results2[0].geometry.location,
+									              icon: 'http://google-maps-icons.googlecode.com/files/library.png'
+									          });
+							 
+									          //Info window
+							 
+											var infowindow = new google.maps.InfoWindow({
+										    	content: contentString
+											});
+							 
+											google.maps.event.addListener(marker2, 'click', function() {
+											  infowindow.open(map,marker2);
+											});
+						 
+								  		 //FIN Info Window
+						 
+								        } else {
+								          //alert("3 Geocode was not successful for the following reason: " + status);
+								        }
+						
+							      });	
+						       }
+				
+					      });		         
 		        }
 
 	      });
