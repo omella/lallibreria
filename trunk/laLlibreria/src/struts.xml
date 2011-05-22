@@ -17,6 +17,11 @@
 			<result name="success" type="velocity">/WEB-INF/templates/homeLlibreria.vm</result>
 		</action>
 		
+		<action name="eliComanda" method="eliminaComanda" class="com.vaannila.web.ComandaAction">	
+			<result name="input" type="velocity">/WEB-INF/templates/infoLlibre.vm</result>
+			<result name="success" type="velocity">/WEB-INF/templates/infoLlibre.vm</result>
+		</action>
+		
 		<action name="addLlibreria" method="add" class="com.vaannila.web.LlibreriaAction">
 			<result name="input" type="velocity">/WEB-INF/templates/error.vm</result>
 			<result name="error" type="velocity">/WEB-INF/templates/error.vm</result>
