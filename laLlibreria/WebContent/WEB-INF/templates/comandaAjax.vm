@@ -1,5 +1,9 @@
-
 #if (${comandes})
+	<h1>Envia la teva comanda</h1>
+	#sform ("action=enviarMail")
+		#ssubmit ("value=Enviar")
+	#end
+	<br/>
 	El teu carret de comandes:
 	<br>
 	<div id=ofertas>
@@ -32,6 +36,9 @@
 	 		 	<td>
 	 		 		${comanda.descompte}
 	 		 	</td>
+	 		 	<th>
+ 		 			<a href="blablabla">Elimina</button>
+ 		 		</th>
 		    </tr> 
 		#end
 	</table>
