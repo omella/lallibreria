@@ -49,7 +49,7 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 	private String serviceId = "";
 	private String GsiteId = "06834717057300479661";
 	private String FsiteId = "177068509007802";
-	private String token = null;
+	private String token= (String) session.get("token");
 	private Usuari usuari = new Usuari();
 	private String gender = "";
 	private Boolean loguejat = (Boolean) session.get("loguejat");
@@ -58,6 +58,14 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 	private List<Llibreria> llibreriaList = (List<Llibreria>) session.get("llibreriaList");
 	private List<Llibre> populars = (List<Llibre>) session.get("populars");;
 	private List<Cupo> millorOfertes = (List<Cupo>) session.get("millorOfertes");
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
 
 	public String getErrorFormulari() {
 		return errorFormulari;
@@ -115,12 +123,11 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 	    	if (token == null && c.getName().equals("fcauth" + GsiteId)) {
 			    token = c.getValue();
 			    google = "true";
+			    this.session.put("token", token);
 			    break;
 	    	}	    	
 	    	if (token == null && c.getName().equals("fbs_" + FsiteId)) {
-	    		System.out.println(c.getValue().replaceAll("%7C", "|"));
 			    token = c.getValue().replaceAll("%7C", "|").substring(13,104);
-	    		System.out.println(token);
 			    google = "false";
 				break;
 	    	}
@@ -219,14 +226,8 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 			return INPUT;
 		}
 		
-		GsiteId = "06834717057300479661";
-	    for(Cookie c : servletRequest.getCookies()) {
-	    	if (token == null && c.getName().equals("fcauth" + GsiteId)) {
-			    token = c.getValue();
-			    google = "true";
-			    break;
-	    	}	
-	    }
+		google = "true";
+
 		Provider Gprovid = new FriendConnectProvider();
 		AuthScheme scheme = new FCAuthScheme(token);
 		
