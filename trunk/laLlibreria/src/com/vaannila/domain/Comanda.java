@@ -6,7 +6,7 @@ public class Comanda {
 	private String llibreria;
 	private String quantitat;
 	private String descompte;
-	
+	private Integer id;
 	
 	public Llibre getLlibre() {
 		return llibre;
@@ -31,6 +31,12 @@ public class Comanda {
 	}
 	public void setDescompte(String descompte) {
 		this.descompte = descompte;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
 	

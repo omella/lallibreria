@@ -41,16 +41,15 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 	private String idLlibreria = null;
 	
 	private String num = null;
-	
+
 	private String msg = null;
 	private LlibreriaDAO libdao = new LlibreriaDAOImpl();
 	private Map session = ActionContext.getContext().getSession();
-	
+	private Integer contador = (Integer) session.get("contador");
 	private List<Comanda> comandes =  (List<Comanda>) this.session.get("comandes");
 	private List<ParameterMap<String,String>> ofertes = (List<ParameterMap<String, String>>) session.get("ofertes");
 	private Llibre llibre = (Llibre)this.session.get("llibre");
-	private String titol = null;
-	private String nomLlibreria = null;
+	private String idDel = null;
 	@SuppressWarnings("unchecked")
 	private List<Llibreria>llibreriaList = (List<Llibreria>) this.session.get("llibreries");
 	
@@ -72,6 +71,7 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 		List<String> listTo = (List<String>) session.get("listTo");
 		if (comanda == null)
 		{
+			this.contador = 0;
 			comandes = new ArrayList<Comanda>();
 			comanda = new Vector<ParameterMap<String,String>>();
 			listTo = new ArrayList<String>();
@@ -82,6 +82,7 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 		llibre.put("isbn", this.llibre.getIsbn());
 		llibre.put("titol", this.llibre.getTitle());
 		llibre.put("num", this.num);
+		llibre.put("contador", contador.toString());
 		//AGAFAR DE LA LLIBREIA ESCOLLIDA EL DESCOMPTE CORRESPONENT
 		llibre.put("llibreria", this.idLlibreria);
 		//llibre.put("descompte", "0.0");
@@ -89,6 +90,9 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 		comandaVista.setLlibre(this.llibre);
 		comandaVista.setQuantitat(this.num);
 		comandaVista.setLlibreria(this.idLlibreria);
+		comandaVista.setId(contador);
+		contador++;
+		session.put("contador", contador);
 		
 		
 		
@@ -218,14 +222,14 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 		if (comandes!=null){
 			for (int i =0; i< comandes.size();i++)
 			{
-				if (comandes.get(i).getLlibreria().equals(this.nomLlibreria) && comandes.get(i).getLlibre().getTitle().equals(this.titol)) comandes.remove(i);
+				if (comandes.get(i).getId() == Integer.valueOf(idDel)) comandes.remove(i);
 			}
 			if (comandes.size() == 0)comandes = null;
 			session.put("comandes", comandes);
 			Vector<ParameterMap<String,String> > comanda = (Vector<ParameterMap<String, String>>) session.get("comanda");
 			for (int i =0; i< comanda.size();i++)
 			{
-				if (comanda.get(i).get("llibreria").equals(this.nomLlibreria) && comanda.get(i).get("titol").equals(this.titol)) comanda.remove(i);
+				if (comanda.get(i).get("contador").equals(idDel)) comanda.remove(i);
 			}
 			if (comanda.size() == 0)comanda = null;
 			session.put("comanda", comanda);
@@ -317,20 +321,12 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 		this.voted = voted;
 	}
 
-	public String getTitol() {
-		return titol;
+	public String getIdDel() {
+		return idDel;
 	}
 
-	public void setTitol(String titol) {
-		this.titol = titol;
-	}
-
-	public String getNomLlibreria() {
-		return nomLlibreria;
-	}
-
-	public void setNomLlibreria(String nomLlibreria) {
-		this.nomLlibreria = nomLlibreria;
+	public void setIdDel(String idDel) {
+		this.idDel = idDel;
 	}
 
 	
