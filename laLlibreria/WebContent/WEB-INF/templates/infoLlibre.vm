@@ -10,7 +10,7 @@
 			}
 			else {
                 $("#flash").show();
-                $("#flash").fadeIn(400).html("<font color='red' size='+1'><b>Publicant comentari...</font>");
+                $("#flash").fadeIn(400).html("<font color='#2D2722' size='+1'><b>Publicant comentari...</font>");
                 $.ajax({
                     type: "POST",
                     url: "/laLlibreria/commentsAjax.action",
@@ -190,7 +190,7 @@
 			Afegeix el teu comentari amb Ajax <br />
 			*#
 			<div id="error"></div>
-	        <textarea id="comentariAjax" cols="40" rows="2" onfocus="this.rows='10'" onblur="this.rows='2'"></textarea>
+	        <textarea id="comentariAjax" cols='80' rows='2'"></textarea>
 			<br />
 			##<button type="button" onclick="enviarAjax()">Publicar amb Ajax per GET</button>
 			<button type="button" onclick="enviar()">Publicar comentari</button>
@@ -221,7 +221,7 @@
 		#if ($logged.mail)
 		<div id=comanda>
 			<br/>
-			<h1>GESTI&Oacute; DE LA COMANDA </h1>
+			<h1>Gesti&oacute; de la comanda</h1>
 		    #*
 		    #sform ("action=addBookComanda")
 				#stextfield ("label=Quantitat: " "name=num" "value=1")
@@ -231,13 +231,13 @@
 		    *#
 		    Afegeix el llibre al carret de la comanda <br />
 			<div id="error"></div>
-			#stextfield ("label=Quantitat: " "name=numAjax" "value=1")
-			<br>
-			#sselect  ("list=llibreriesNoms" "name=llibreriaAjax" "label=Selecciona la llibreria: ")
-			<br>
+			#stextfield ("label=Quantitat" "name=numAjax" "value=1")
+			<br />
+			<br />
+			#sselect  ("list=llibreriesNoms" "name=llibreriaAjax" "label=Selecciona la llibreria")
 			<br>
         	<button type="button" onclick="enviarComandaAjax()">Afegir</button>
-			
+			<br />		
 			<br>
 			
 				<div id=comandes>

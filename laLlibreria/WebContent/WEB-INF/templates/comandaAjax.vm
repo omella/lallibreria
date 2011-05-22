@@ -4,39 +4,42 @@
 		#ssubmit ("value=Enviar")
 	#end
 	<br/>
+	<h1>Carret</h1>
 	El teu carret de comandes:
 	<br>
 	<div id=ofertas>
 	<table id="cupons">
      	<tr class="alt">
- 			<th>
+ 			<th align='center'>
  				T&iacute;tol 
  		 	</th>
- 			<th>
+ 			<th align='center'>
  				Quantitat
  		 	</th>
-  			<th>
+  			<th align='center'>
  				Llibreria
  		 	</th>
- 		 	<th>
- 				Descompte
+ 		 	<th align='center'>
+ 				Dte.
+ 		 	</th>
+			<th align='center'>
  		 	</th>
 		</tr>
 		#foreach ($comanda in ${comandes})
 			<tr class="alt">
-	 		 	<td>
+	 		 	<td align='center'>
 	 		 		${comanda.llibre.title}
 	 		 	</td>
-	 		 	<td>
+	 		 	<td align='center'>
 	 		 		${comanda.quantitat}
 	 		 	</td>
-	 		 	<td>
+	 		 	<td align='center'>
 	 		 		${comanda.llibreria}
 	 		 	</td>
-	 		 	<td>
-	 		 		${comanda.descompte}
+	 		 	<td align='center'>
+	 		 		${comanda.descompte}%
 	 		 	</td>
-	 		 	<th>
+	 		 	<th align='center'>
  		 			<a href=/laLlibreria/eliComanda?idDel=${comanda.id}>Elimina</a>
  		 		</th>
 		    </tr> 
