@@ -1,13 +1,14 @@
 #if ($numberResults)
-	<font size=+1>
+	<font size=+1 color="white">
 		<b>${numberResults}</b> resultats trobats per la paraula clau <b>"${key}"</b>, en <b>${time}</b> segons</font><br />
 	</font>
 #end
 #if ($results)
 	#if ($totalPages)
-	<font size=+1>
+	<font size=+1 color="white">
 		Aquesta es la pagina <b>${page}</b> de <b>${totalPages}</b> pagines de resultats
 	</font>
+	<br />
 	#end
 	<table>
 		<tr>

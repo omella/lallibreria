@@ -381,37 +381,35 @@ function getDistance(posC,posL,ind) {
 		    };
 		    </script>
 		    #if (not ${loguejat} or (${loguejat} and ${loginwithGoogle}))
-		    	login amb google <br>
 		    	<div id="profile"></div>
 		    #end
 		    #if (not ${loguejat} or (${loguejat} and not ${loginwithGoogle}))
-		    	login amb facebook <br>
 				<fb:login-button autologoutlink='true' perms='email,user_checkins,user_about_me'></fb:login-button>
 		    #end
-		    <br>
+		    <br />
 		    <a href=/laLlibreria/showRegistreLlibreria.action>Ets una llibreria?</a> 
 		</div>
      	<div id=buscador>
-     		<h1>Llibre</h1>
+     		Benvingut a <h1><div id=titolWeb>LaLlibreria.cat</div></h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Una llibreria 2.0<br /><br /> &nbsp;&nbsp;Per qu&egrave;  no proves a buscar un llibre?.
 			#sform ("action=searchBookAjax" "method=get")
 				#stextfield ("name=key" "id=key")
 				##ssubmit ("value=Search")				
         	#end
-        	<button type="button" onclick="buscarResultats()">Cercar</button>
+        	&nbsp;&nbsp;<button type="button" onclick="buscarResultats()">Cercar</button>
      	</div>
      	<div id=seccionOfertas>
-     		Mejores ofertas:
+			<div id=textoBlanco>Millors ofertes</div>
 	     	<div id=ofertas>
 	     		<table id="cupons">
 			     	<tr class="alt">
 		     			<th>
 		     				Nom 
 		     		 	</th>
-		     			<th>
+		     			<th align='center'>
 		     				Tematica
 		     		 	</th>
-		      			<th>
-		     				Valor
+		      			<th align='center'>
+		     				Descompte
 		     		 	</th>
      				</tr>
 	     		#foreach ($oferta in $millorOfertes) 
@@ -419,11 +417,11 @@ function getDistance(posC,posL,ind) {
 		     		 	<td>
 		     		 		${oferta.llibreria_name}
 		     		 	</td>
-		     		 	<td>
+		     		 	<td align='center'>
 		     		 		${oferta.tematica}
 		     		 	</td>
-		     		 	<td>
-		     		 		${oferta.valor}
+		     		 	<td align='center'>
+		     		 		${oferta.valor}%
 		     		 	</td>
 	     		    </tr> 
 	     		#end
@@ -432,6 +430,8 @@ function getDistance(posC,posL,ind) {
 	    </div>
      </div>
      <div id=leftContent>
+		#if($results)
+		#else
      	 	<div id=librosBuscados>
 			   <div id=textoBlanco><h4>Llibres m&eacute;s populars</h4></div>
 			   <div id=columnes>  
@@ -449,7 +449,8 @@ function getDistance(posC,posL,ind) {
     					</div>
 				   #end
 			   </div>
-     		</div>
+			</div>
+		 #end
 		<div id="foo">
 			#parse("WEB-INF/templates/resultAjax.vm")
 		</div>
@@ -464,9 +465,28 @@ function getDistance(posC,posL,ind) {
      			<input name="localiza" type="button" value="Localizar" onclick="localizar()"></span>
      		</div>
      	</div>
-     	<div id=librosBuscados2></div>
-     	        
-
+		#if($results)
+			<div id=librosBuscados>
+			   <div id=textoBlanco><h4>Llibres m&eacute;s populars</h4></div>
+			   <div id=columnes>  
+    			   #foreach ($popular in $populars)
+    			   		<div id=libroPopular>
+    						<div id=imgLibroPopular>
+    							<img src="${popular.thumb}" alt="${popular.title}" align="middle"/>
+    						</div>
+    						<div id=textoLibroPopular>
+    							<b><a href=/laLlibreria/showBook.action?id=${popular.isbn}> ${popular.title}</a></b>
+    							<br />
+    							${popular.author}
+    						</div>
+    						<div style="clear: both;"></div>
+    					</div>
+				   #end
+			   </div>
+			</div>
+		#else
+			<div id=librosBuscados2></div>
+     	#end       
      </div>
 
    </div>

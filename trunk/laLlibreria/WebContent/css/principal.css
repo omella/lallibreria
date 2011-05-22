@@ -125,9 +125,9 @@ background-image: linear-gradient(top, #858585, #1b9612);
 }
 
 #ofertas{
-  border-top: 1px #3C3D3F solid;
-  border-left: 2px #3C3D3F solid;
-  border-right: 2px #3C3D3F solid;
+  border-top: 0px #3C3D3F solid;
+  border-left: 0px #3C3D3F solid;
+  border-right: 0px #3C3D3F solid;
   height: 79px;
   width:100%;
 }
@@ -592,9 +592,16 @@ background-color:#EAF2D3;
 	width: 100%;
 	background: #2D2722;
 	color: white;
-	padding: 0px 0px 0px 15px;
+	/*padding: 0px 0px 0px 15px;*/
 	
 }
+
+#titolWeb {
+		color: #2D2722;
+		font-style: italic;
+		font-weight: bold;
+	}
+	
 #textBox{
 	padding: 0px 0px 0px 25px;
 }
@@ -629,7 +636,9 @@ background-color:#EAF2D3;
 		background: #2D2722 url(images/img01.jpg) repeat-x left top;
 		border:1px solid white;
 		padding:10px;
-		heigth: 120px;
+		min-height: 120px;
+		height: auto !important;
+		height: 120px;
 		border:1px solid white;
 		margin:5px;
 	    vertical-align: middle;
