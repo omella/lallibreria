@@ -121,6 +121,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#858585', endC
 background-image: linear-gradient(top, #858585, #1b9612);
 		height:100%;
 		padding-bottom:10px;
+		border: 0px solid red;
 }
 
 #ofertas{
@@ -473,16 +474,13 @@ background-color:#EAF2D3;
 }
 #comanda
 {
-
+		margin-top: 10px;
 		float: right;
 		display:block;
 		background: green;
 		padding:10px;
-		border:0px solid gray;
-		margin:5px;
+		border:0px solid red;
 	    vertical-align: middle;
-		-moz-border-radius: 20px;
-		border-radius: 20px;
 		-webkit-transition: background 1s linear;
 		-moz-transition: background 1s linear;
 		transition: background 1s linear;
