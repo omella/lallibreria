@@ -34,6 +34,7 @@ public class GestorXML {
         	llibreElement.addContent(new Element("isbn").addContent(ll.get("isbn")));
         	llibreElement.addContent(new Element("titol").addContent(ll.get("titol")));
         	llibreElement.addContent(new Element("quantitat").addContent(ll.get("num")));
+        	llibreElement.addContent(new Element("descompte").addContent(ll.get("descompte")));
         	comandaElement.addContent(llibreElement);
         }
 
