@@ -268,6 +268,7 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	
 	public String addMark(){
 		//Si ja ha votat, acabem!
+		this.llibreria = (Llibreria)this.session.get("libreria");
 		if (voted != null && voted == true) return SUCCESS;
 		this.puntuacio = puntuacioDAO.getPuntuacioIsbn(this.llibreria.getMail());
 		
@@ -298,7 +299,7 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 		return SUCCESS;
 	}
 	public String addComment(){
-		
+		this.llibreria = (Llibreria)this.session.get("libreria");
 		Date data = new Date();		
 		comment.setData(data);
 	    String username = null;
@@ -319,6 +320,7 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	}
 	
 	public String commentsAjax(){
+		this.llibreria = (Llibreria)this.session.get("libreria");
 		Date data = new Date();		
 		comment.setData(data);
 		comment.setText(this.text);
@@ -349,8 +351,11 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	}
 	public String show(){
 		
+		this.llibreria = (Llibreria)this.session.get("libreria");
 		if (this.llibreria != null) {
-			if (!this.llibreria.getMail().equals(idLlibMap)) this.voted = false;
+			String mail = this.llibreria.getMail();
+			System.out.println("MAIL: "+mail+" "+idLlibMap);
+			if (!mail.equals(idLlibMap)) this.voted = false;
 		}
 		
 		this.session.put("posLlib", this.posLlib);
@@ -359,10 +364,13 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 		this.llibreria = this.llibreriaDAO.getLlibreriaMail(idLlibMap);
 		this.session.put("libreria", llibreria);
 		this.commentList = comentariDAO.getComentariList(this.llibreria.getMail());
-		this.session.put("commentList",this.commentList);
+		if (this.commentList!=null)	this.session.put("commentList",this.commentList);
 		this.puntuacio=puntuacioDAO.getPuntuacioIsbn(this.llibreria.getMail());
-		this.puntuacio.setPuntuacio(unDecimal(this.puntuacio.getPuntuacio()));
-		this.session.put("puntuacio", puntuacio);
+		if (this.puntuacio!= null) {
+			this.puntuacio.setPuntuacio(unDecimal(this.puntuacio.getPuntuacio()));
+			this.session.put("puntuacio", puntuacio);
+		}
+		
 		this.llistaCupons = this.cupoDAO.listCupoLlibreria(this.llibreria.getMail());
 		return SUCCESS;
 	}
