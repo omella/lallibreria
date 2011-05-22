@@ -37,7 +37,7 @@
 	 		 		${comanda.descompte}
 	 		 	</td>
 	 		 	<th>
- 		 			<a href="blablabla">Elimina</button>
+ 		 			<a href=/laLlibreria/eliComanda?titol=${comanda.llibre.title}&nomLlibreria=${comanda.llibreria}>Elimina</a>
  		 		</th>
 		    </tr> 
 		#end
