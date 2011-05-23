@@ -5,6 +5,7 @@
 
 //INICIO: Geolocalizacion Google
 //determine support for geolocation
+
 if (navigator.geolocation){
 //locate position
 navigator.geolocation.getCurrentPosition(displayPosition, errorFunction);
@@ -12,6 +13,7 @@ navigator.geolocation.getCurrentPosition(displayPosition, errorFunction);
 else{
 	//alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
 }
+
 
 var map;
 var addressUser;
@@ -62,7 +64,6 @@ function localizar(){
       geocoder.geocode( { 'address': address}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
           //alert(results[0].geometry.location);
-          map.setCenter(results[0].geometry.location);
           var marker = new google.maps.Marker({
               map: map, 
               position: results[0].geometry.location
@@ -108,8 +109,11 @@ while(curDate-date < millis);
     var stringDistance; 					
     
 
-function nuevaLlibreria(geocoder2,contentString,address) {
-        	geocoder2.geocode( { 'address': address}, function(results2, status2) {
+function nuevaLlibreria(contentString,address3) {    
+   // alert("nuevaLlibreria");
+	var geocoder2 = new google.maps.Geocoder();
+    if (geocoder2) {
+        	geocoder2.geocode( { 'address': address3}, function(results2, status2) {
 			   var marker2;
 		        if (status2 == google.maps.GeocoderStatus.OK) {
 			          marker2 = new google.maps.Marker({
@@ -129,21 +133,25 @@ function nuevaLlibreria(geocoder2,contentString,address) {
 					});
  
 		  		 //FIN Info Window
- 
 		        } else {
-		          // alert(address);
-		           nuevaLlibreria2(geocoder2,contentString,address);
+		       
+		          //nuevaLlibreria2(contentString,address);
 		        }
 
 	      });
+	 }
 }
-function nuevaLlibreria2(geocoder2,contentString,address) {
-        	geocoder2.geocode( { 'address': address}, function(results2, status2) {
-			   var marker2;
-		        if (status2 == google.maps.GeocoderStatus.OK) {
-			          marker2 = new google.maps.Marker({
+
+function nuevaLlibreria2(contentString,address4) {
+    // alert("nuevaLlibreria2");
+	var geocoder3 = new google.maps.Geocoder();
+    if (geocoder3) {
+        	geocoder3.geocode( { 'address': address4}, function(results3, status3) {
+			   var marker3;
+		        if (status3 == google.maps.GeocoderStatus.OK) {
+			          marker3 = new google.maps.Marker({
 			              map: map, 
-			              position: results2[0].geometry.location,
+			              position: results3[0].geometry.location,
 			              icon: 'http://google-maps-icons.googlecode.com/files/library.png'
 			          });
 	 
@@ -153,47 +161,46 @@ function nuevaLlibreria2(geocoder2,contentString,address) {
 				    	content: contentString
 					});
 	 
-					google.maps.event.addListener(marker2, 'click', function() {
-					  infowindow.open(map,marker2);
+					google.maps.event.addListener(marker3, 'click', function() {
+					  infowindow.open(map,marker3);
 					});
  
 		  		 //FIN Info Window
  
 		        } else {
-		          // alert(address);
-		           nuevaLlibreria(geocoder2,contentString,address);
+
+		           //nuevaLlibreria(contentString,address);
 		        }
 
 	      });
+	 }
 }
 
-function aux(geocoder2, name, address, telf, mail) {
-	var addressLocal = address;
+function aux(name, address2, telf, mail, indi) {
+	var addressLocal = address2;
 	addressLocal = addressLocal.replace(/ /g,"+"); 
 	var contentString = '<div id="contentMaps">'+
 			'<div id="siteNotice">'+
 		    '</div>'+
 		    '<h1 id="firstHeading" class="firstHeading">'+name+'</h1>'+
 			    '<div id="bodyContent">'+
-				    '<b>Direccio:</b>'+address+'<br/>'+
+				    '<b>Direccio:</b>'+address2+'<br/>'+
 				    '<b>Telefon:</b>'+telf+'<br/>'+
 				    '<b>Mail:</b>'+mail+'<br/>'+
 				    '<a style=color:blue; href=/laLlibreria/showLlibreria.action?idLlibMap='+mail+'&posLlib='+addressLocal+'&posUser='+addressUser+'>Mes informacio</a><br/>'
 			    '</div>'+
 		    '</div>';
-		    
- 	nuevaLlibreria(geocoder2,contentString,address);
+
+ 	 if(indi%2 == 0) nuevaLlibreria(contentString,address2);
+ 	 else nuevaLlibreria2(contentString,address2);
 }
 
 function addLibreriaMapa(posicionCliente){
-	geocoder2 = new google.maps.Geocoder();
-    if (geocoder2) {
-       for (i=0;i<arrayAddress.length;i++){
-      		aux(geocoder2, arrayName[i], arrayAddress[i], arrayTelf[i], arrayMail[i]);
-      		stringDistance=getDistance(posicionCliente, arrayAddress[i], i);
 
-	   } 
-    }
+       for (i=0;i<arrayAddress.length;i++){
+      		aux(arrayName[i], arrayAddress[i], arrayTelf[i], arrayMail[i],i);
+      		stringDistance=getDistance(posicionCliente, arrayAddress[i], i);
+	   }
 }
 
 function getDistance(posC,posL,ind) {
@@ -289,6 +296,7 @@ function getDistance(posC,posL,ind) {
   };
 		
 </script>
+</head>
 <body>
    <div id=mini></div>
    <div id=page>

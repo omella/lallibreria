@@ -1,9 +1,13 @@
 package com.vaannila.web;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.catalina.util.ParameterMap;
 import org.apache.struts2.interceptor.SessionAware;
@@ -87,6 +91,8 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 	private Boolean voted =  (Boolean) session.get("voted2");
 	private Usuari logged = (Usuari) session.get("user");
 	private List<Comentari> commentList = (List<Comentari>) this.session.get("commentList");
+	private String errorMSG;
+	
 	public String getPosLlib() {
 		return posLlib;
 	}
@@ -132,12 +138,46 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 		return llibreria;
 	}
 	
+    public boolean isEmail(String correo) {
+        Pattern pat = null;
+        Matcher mat = null;        
+        pat = Pattern.compile("^([0-9a-zA-Z]([_.w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-w]*[0-9a-zA-Z].)+([a-zA-Z]{2,9}.)+[a-zA-Z]{2,3})$");
+        mat = pat.matcher(correo);
+        if (mat.find()) {
+            System.out.println("[" + mat.group() + "]");
+            return true;
+        }else{
+            return false;
+        }        
+    }	
+    public String getEncoded(String texto, String algoritmo) {
+        String output="";
+       try {
+          
+           byte[] textBytes = texto.getBytes();
+           MessageDigest md = MessageDigest.getInstance(algoritmo);
+           md.update(textBytes);
+           byte[] codigo = md.digest();            
+           output = new String(codigo);
+           
+       } catch (NoSuchAlgorithmException ex) {
+           ex.getMessage();
+       }
+       return output;
+   }    
 	public String add()
 	{	
-		llibreriaDAO.saveLlibreria(llibreria);
-		this.session.put("libreria", llibreria);
-		//list();	
-		return SUCCESS;
+		if (isEmail(llibreria.getMail())) {
+			llibreria.setPassword(getEncoded(this.llibreria.getPassword(),"MD5"));
+			llibreriaDAO.saveLlibreria(llibreria);
+			this.session.put("libreria", llibreria);
+			return SUCCESS;
+		}
+		else {
+			this.errorMSG = "Direccio de mail incorrecte.";
+			return "error";
+		}
+		
 	}
 	
 	public String list()
@@ -165,13 +205,16 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 
 	public String login(){
 		String e = "error";
-//		llibreria.setPassword(MD5.encodeString(arg0, arg1));
-		if (llibreriaDAO.existLlibreria(llibreria.getMail(), llibreria.getPassword())){	
+		String pass_local = this.getEncoded(llibreria.getPassword(), "MD5");
+		if (llibreriaDAO.existLlibreria(llibreria.getMail(), pass_local)){	
 			this.session.put("libreria", llibreria);
 			listCupons();
 			return SUCCESS;
 		}
-		else return e;		
+		else {
+			this.errorMSG = "Login incorrecte";
+			return e;		
+		}
 	}
 	
 	public String addCupo()
@@ -451,6 +494,14 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 
 	public void setCommentList(List<Comentari> commentList) {
 		this.commentList = commentList;
+	}
+
+	public void setErrorMSG(String errorMSG) {
+		this.errorMSG = errorMSG;
+	}
+
+	public String getErrorMSG() {
+		return errorMSG;
 	}
 
 	

@@ -141,10 +141,14 @@ background-image: linear-gradient(top, #858585, #1b9612);
 
 #errorContent{
 	margin-top: 40px;
-	margin-left: 30%;
+	margin-left: 15%;
+	margin-bottom: 200px;
 	float:left;
 	width: 40%;
 	height: 100px;
+	padding-left:40px;
+	padding-right:10px;
+	padding-top:10px;
 -moz-border-radius:42px;
 -webkit-border-radius:42px;
 border-radius:42px;
@@ -218,7 +222,7 @@ filter: alpha(opacity=68);
 	float:left;
 	max-width:700px;
 	background-color: grey;
-	margin-top:155px;
+	margin-top:268px;
 	padding-top: 10px;
 	padding-left:20px;
 	padding-right:20px;
@@ -226,7 +230,7 @@ filter: alpha(opacity=68);
 
 #rightContentInfoLLibreria{
 	float:left;
-	margin-top:150px;
+	margin-top:268px;
 	margin-left:10px;
 	padding-top: 10px;
 	padding-left:20px;

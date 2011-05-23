@@ -2,6 +2,9 @@
 
 <body>
    <div id=page>
+   <div id=enlaceHome>
+	<a href=/laLlibreria>Inici</a>
+</div>
      <div id=top></div>
      <div id=leftContentLlibreria>
        <h1>Registra't</h1>
