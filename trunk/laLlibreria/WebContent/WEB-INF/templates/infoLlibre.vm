@@ -210,7 +210,8 @@
 					<div id="ofertes_text">			
 					<h1>${oferta.descompte}</h1>
 					#if (${oferta.distancia})
-						<h4>Dist&agrave;ncia: ${oferta.distancia}</h4>
+						<br>
+						<h1>Est&agrave; a ${oferta.distancia}</h1>
 					#end
 					</div>
 				</div>
