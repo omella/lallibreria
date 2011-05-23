@@ -21,9 +21,6 @@ function agregarEliminat(idEliminat) {
      				Selecciona
      			</td>
      			<td>
-     				Nom 
-     		 	</td>
-     			<td>
      				Tematica
      		 	</td>
       			<td>
@@ -34,9 +31,6 @@ function agregarEliminat(idEliminat) {
 	     		<tr class="alt">
 	     		 	<td>
 	     		 		<a href=/laLlibreria/eliCupo?idCupo=${cup.id}>Elimina</a> 
-	     		 	</td>
-	     		 	<td>
-	     		 		${cup.id}
 	     		 	</td>
 	     		 	<td>
 	     		 		${cup.tematica}
