@@ -10,10 +10,10 @@
 			#end
 
      		#sform ("action=addLlibreria")
-				#stextfield ("label=Nombre"  "name=name")
+				#stextfield ("label=Nom"  "name=name")
 				#stextfield ("label=E-mail"  "name=mail")
-				#stextfield ("label=Telefono"  "name=phone")
-				#stextfield ("label=Direccion"  "name=place")
+				#stextfield ("label=Telefon"  "name=phone")
+				#stextfield ("label=Direccio"  "name=place")
 				#stextfield ("label=CIF"  "name=cif")
 				#spassword  ("label=Password" "name=password")
 				#ssubmit ("value=Enviar")
