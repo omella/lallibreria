@@ -6,7 +6,7 @@
 #if ($results)
 	#if ($totalPages)
 	<font size=+1 color="white">
-		Aquesta es la pagina <b>${page}</b> de <b>${totalPages}</b> pagines de resultats
+		Aquesta es la P&agrave;gina <b>${page}</b> de <b>${totalPages}</b> pagines de resultats
 	</font>
 	<br />
 	#end
@@ -16,7 +16,7 @@
 				<td>
             		<div id="addPage">
             			##<a href=/laLlibreria/searchBookAjax?key=${key}&page=${previousPage}><-- Previous</a>
-						<button type="button" onclick="$('#foo').html('<font color=black size=+1>Cercant resultats...</font>').load('/laLlibreria/searchBookAjax2?key=${keyword}&page=${previousPage}');"><-- Pagina anterior</button>
+						<button type="button" onclick="$('#foo').html('<font color=white size=+1>Cercant resultats...</font>').load('/laLlibreria/searchBookAjax2?key=${keyword}&page=${previousPage}');"><-- P&agrave;gina anterior</button>
             		</div>
 				</td>
         	#end
@@ -24,7 +24,7 @@
 				<td>
             		<div id="addPage">
             			##<a href=/laLlibreria/searchBookAjax?key=${key}&page=${nextPage}>Next --></a>
-						<button type="button" onclick="$('#foo').html('<font color=black size=+1>Cercant resultats...</font>').load('/laLlibreria/searchBookAjax2?key=${keyword}&page=${nextPage}');">Pagina seguent --></button>
+						<button type="button" onclick="$('#foo').html('<font color=white size=+1>Cercant resultats...</font>').load('/laLlibreria/searchBookAjax2?key=${keyword}&page=${nextPage}');">P&agrave;gina seg&uuml;ent --></button>
             		</div>
 				</td>
         	#end
@@ -48,7 +48,7 @@
 				<td>
             		<div id="addPage">
             			##<a href=/laLlibreria/searchBookAjax?key=${key}&page=${previousPage}><-- Previous</a>
-						<button type="button" onclick="$('#foo').html('<font color=black size=+1>Cercant resultats...</font>').load('/laLlibreria/searchBookAjax2?key=${keyword}&page=${previousPage}');"><-- Pagina anterior</button>
+						<button type="button" onclick="$('#foo').html('<font color=white size=+1>Cercant resultats...</font>').load('/laLlibreria/searchBookAjax2?key=${keyword}&page=${previousPage}');"><-- P&agrave;gina anterior</button>
             		</div>
 				</td>
         	#end
@@ -56,7 +56,7 @@
 				<td>
             		<div id="addPage">
             			##<a href=/laLlibreria/searchBookAjax?key=${key}&page=${nextPage}>Next --></a>
-						<button type="button" onclick="$('#foo').html('<font color=black size=+1>Cercant resultats...</font>').load('/laLlibreria/searchBookAjax2?key=${keyword}&page=${nextPage}');">Pagina seguent --></button>
+						<button type="button" onclick="$('#foo').html('<font color=white size=+1>Cercant resultats...</font>').load('/laLlibreria/searchBookAjax2?key=${keyword}&page=${nextPage}');">P&agrave;gina seg&uuml;ent --></button>
             		</div>
 				</td>
         	#end

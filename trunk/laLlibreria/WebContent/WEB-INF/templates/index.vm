@@ -259,7 +259,7 @@ function getDistance(posC,posL,ind) {
 			}
 			else {
 				$('#librosBuscados2').append( $('#librosBuscados') );
-				$('#foo').html("<font color='black' size='+1'>Cercant resultats...</font>");
+				$('#foo').html("<font color='white' size='+1'>Cercant resultats...</font>");
                 $.ajax({
                     type: "POST",
                     url: "/laLlibreria/searchBookAjax2",
