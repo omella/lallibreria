@@ -164,10 +164,53 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
            ex.getMessage();
        }
        return output;
-   }    
+   }
+    public String eliminaCaractersEspecials(String in){
+    	String out = "";
+    	out = in.replace('"', ' ');
+		return out; 
+    }
+    public boolean esNumero(String in){
+    	if (in.isEmpty()) return false;
+    	in = in.replace(" ", "");
+    	int n = in.length();
+    	for (int i = 0; i < n; ++i) {
+    		if (in.charAt(i) < '0' || in.charAt(i) > '9') return false;
+    	}
+    	return true;
+    }
+    
+    public boolean esCIF(String in){
+    	if (in.isEmpty()) return false;/*
+    	if (in.charAt(0) > '0' || in.charAt(0) < '9') return false;
+    	else {
+    		int n = in.length();
+    		return esNumero(in.substring(1, n-1));
+    	}*/
+    	return true;
+    }
 	public String add()
 	{	
-		if (isEmail(llibreria.getMail())) {
+		if (!esNumero(llibreria.getPhone())){
+			this.errorMSG = "Telefon incorrecte";
+			return "error";
+		}
+		else if(!esCIF(llibreria.getCif())){
+			this.errorMSG = "CIF incorrecte";
+			return "error";
+		}
+		if (isEmail(llibreria.getMail()) && !llibreria.getMail().isEmpty()) {
+			if(!llibreria.getName().isEmpty()) {
+				llibreria.setName(eliminaCaractersEspecials(this.llibreria.getName()));
+			}
+			else {
+				this.errorMSG = "Nom de la llibreria no pot ser buit";
+				return "error";
+			}
+			if(llibreria.getPlace().isEmpty()) {
+				this.errorMSG = "Direccio de la llibreria no pot ser buit";
+				return "error";
+			}
 			llibreria.setPassword(getEncoded(this.llibreria.getPassword(),"MD5"));
 			llibreriaDAO.saveLlibreria(llibreria);
 			this.session.put("libreria", llibreria);
@@ -205,15 +248,21 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 
 	public String login(){
 		String e = "error";
-		String pass_local = this.getEncoded(llibreria.getPassword(), "MD5");
-		if (llibreriaDAO.existLlibreria(llibreria.getMail(), pass_local)){	
-			this.session.put("libreria", llibreria);
-			listCupons();
-			return SUCCESS;
+		if (isEmail(llibreria.getMail())) {
+			String pass_local = this.getEncoded(llibreria.getPassword(), "MD5");
+			if (llibreriaDAO.existLlibreria(llibreria.getMail(), pass_local)){	
+				this.session.put("libreria", llibreria);
+				listCupons();
+				return SUCCESS;
+			}
+			else {
+				this.errorMSG = "No existeix aques E-mail o password";
+				return e;		
+			}
 		}
 		else {
-			this.errorMSG = "Login incorrecte";
-			return e;		
+			this.errorMSG = "E-mail incorrecte";
+			return e;
 		}
 	}
 	
