@@ -57,6 +57,7 @@ function localizar(){
     geocoder = new google.maps.Geocoder();
 
 	var address = document.getElementById("localizacion").value;
+	
 	addressUser = address;
 	addressUser = addressUser.replace(/ /g,"+");
 	
