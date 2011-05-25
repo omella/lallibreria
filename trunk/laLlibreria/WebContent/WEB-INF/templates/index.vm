@@ -7,15 +7,14 @@
 //determine support for geolocation
 
 if (navigator.geolocation){
-//locate position
-navigator.geolocation.getCurrentPosition(displayPosition, errorFunction);
+	navigator.geolocation.getCurrentPosition(displayPosition, errorFunction);
  }
 else{
 	//alert('It seems like Geolocation, which is required for this page, is not enabled in your browser. Please use a browser which supports it.');
 }
 
 
-var map;
+
 var addressUser;
 //success callback function
 function displayPosition(pos){
@@ -37,9 +36,12 @@ function displayPosition(pos){
 		     position: latlng, 
 		     map: map, 
 		     title:"You are here"
-		 });   
-	 addLibreriaMapa(latlng);
-	
+		 });
+	#if (${posicio})
+		localizar2();
+	#else   
+		addLibreriaMapa(latlng);
+	#end
  }
 
 //error callback function
@@ -57,7 +59,16 @@ function localizar(){
     geocoder = new google.maps.Geocoder();
 
 	var address = document.getElementById("localizacion").value;
-	
+	var text = 'posicio='+address;
+	$.ajax({
+      			type: "POST",
+      			url: "/laLlibreria/actualitzaPosicio.action",
+      			data: text,
+      			cache: false,
+      			success: function(html) {
+      				//alert(arrayName[i] +" "+ distance);
+      			}
+      		});
 	addressUser = address;
 	addressUser = addressUser.replace(/ /g,"+");
 	
@@ -79,6 +90,33 @@ function localizar(){
 
 }
 //FIN:Localizar "manualmente"
+
+//locate position
+function localizar2(){
+    geocoder = new google.maps.Geocoder();
+
+	address = "${posicio}";
+	address = address.replace(/ /g,"+");
+	
+    if (geocoder) {
+      geocoder.geocode( { 'address': address}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          //alert(results[0].geometry.location);
+          map.setCenter(results[0].geometry.location);
+          var marker = new google.maps.Marker({
+              map: map, 
+              position: results[0].geometry.location
+          });
+          addLibreriaMapa(results[0].geometry.location);
+        } else {
+          //alert("Geocode was not successful for the following reason: " + status);
+        }
+      });
+    }
+
+}
+	
+
 //INICIO: Situar librerias
 
 function pausecomp(millis)
@@ -449,10 +487,13 @@ function getDistance(posC,posL,ind) {
 		</div>
      	<div id=buscador>
      		Benvingut a <a href=/laLlibreria><h1><div id=titolWeb>LaLlibreria.cat</div></h1></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Una llibreria 2.0<br /><br /> &nbsp;&nbsp;Per qu&egrave;  no proves a buscar un llibre?
-			#sform ("action=searchBookAjax" "method=get")
+			<br>
+			<br>
+			##sform ("action=searchBookAjax" "method=get")
 				#stextfield ("name=key" "id=key")
 				##ssubmit ("value=Search")				
-        	#end
+        	##end
+        	
         	&nbsp;&nbsp;<button type="button" onclick="buscarResultats()">Cercar</button>
      	</div>
      	<div id=seccionOfertas>
