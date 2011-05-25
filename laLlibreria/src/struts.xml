@@ -30,8 +30,10 @@
 
 		<action name="addDistance" method="novaDistance" class="com.vaannila.web.LlibreriaAction">
 		</action>
-
-			
+		
+		<action name="actualitzaPosicio" method="updatePosicio" class="com.vaannila.web.HomeAction">
+		</action>
+					
 		<action name="listUser" method="list" class="com.vaannila.web.UserAction">
 			<result name="success">/web/register.jsp</result>
 		</action>

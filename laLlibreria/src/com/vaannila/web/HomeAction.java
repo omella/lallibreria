@@ -38,7 +38,7 @@ public class HomeAction extends ActionSupport implements ModelDriven<Vist>, Sess
 	private Boolean loguejat = (Boolean) session.get("loguejat");
 	private Boolean loginwithGoogle=(Boolean) session.get("loginwithGoogle");
 	private String token=(String) session.get("token");
-	
+	private String posicio = (String) session.get("posicio");
 	public String getToken() {
 		token=null;
 		session.put("token",token);
@@ -161,6 +161,19 @@ public class HomeAction extends ActionSupport implements ModelDriven<Vist>, Sess
 		this.session=arg0;
 		
 	}
+	
+	public void updatePosicio()
+	{
+		session.put("posicio", this.posicio);
+	}
 
+	public String getPosicio() {
+		return posicio;
+	}
+
+	public void setPosicio(String posicio) {
+		this.posicio = posicio;
+	}
+	
 	
 }
