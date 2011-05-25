@@ -204,11 +204,11 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 				llibreria.setName(eliminaCaractersEspecials(this.llibreria.getName()));
 			}
 			else {
-				this.errorMSG = "Nom de la llibreria no pot ser buit";
+				this.errorMSG = "El nom de la llibreria no pot ser buit";
 				return "error";
 			}
 			if(llibreria.getPlace().isEmpty()) {
-				this.errorMSG = "Direccio de la llibreria no pot ser buit";
+				this.errorMSG = "La direccio de la llibreria no pot ser buida";
 				return "error";
 			}
 			llibreria.setPassword(getEncoded(this.llibreria.getPassword(),"MD5"));
@@ -256,7 +256,7 @@ public class LlibreriaAction extends ActionSupport implements ModelDriven<Llibre
 				return SUCCESS;
 			}
 			else {
-				this.errorMSG = "No existeix aques E-mail o password";
+				this.errorMSG = "No existeix aquest E-mail o password";
 				return e;		
 			}
 		}
