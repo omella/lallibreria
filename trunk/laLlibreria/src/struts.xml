@@ -128,6 +128,7 @@
 		
 		<action name="addBookComanda" method="add" class="com.vaannila.web.ComandaAction">
 			<result name="success" type="velocity">/WEB-INF/templates/infoLlibre.vm</result>
+			<result name="error" type="velocity">/WEB-INF/templates/infoLlibre.vm</result>
 		</action>
 		
 		<action name="alexLogin"  method="primeraPart" class="com.vaannila.web.LoginAction">
