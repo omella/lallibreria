@@ -41,7 +41,6 @@
 
 		<!-- Class Mapping -->
 		<mapping class="com.vaannila.domain.Usuari" />
-		<mapping class="com.vaannila.domain.Cerca" />
 		<mapping class="com.vaannila.domain.Cupo" />
 		<mapping class="com.vaannila.domain.Comentari" />
 		<mapping class="com.vaannila.domain.Puntuacio" />
