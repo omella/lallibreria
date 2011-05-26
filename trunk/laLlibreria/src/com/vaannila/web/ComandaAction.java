@@ -62,13 +62,24 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 	private Usuari logged = (Usuari) session.get("user");
 	
 	private Boolean voted = (Boolean) session.get("voted");
-	
+    private static boolean isNumeric(String cadena){
+        try {
+        Integer.parseInt(cadena);
+        return true;
+        } catch (NumberFormatException nfe){
+        return false;
+        }
+    }
 	@SuppressWarnings("unchecked")
 	public String add()
 	{
 		comandes = (List<Comanda>) session.get("comandes");
 		Vector<ParameterMap<String,String> > comanda = (Vector<ParameterMap<String, String>>) session.get("comanda");
 		List<String> listTo = (List<String>) session.get("listTo");
+		if (!isNumeric(num)) return "ERROR";
+		if (Integer.valueOf(num) < 0) return "ERROR";
+		if (this.idLlibreria == null)return "ERROR";
+		
 		if (comanda == null)
 		{
 			this.contador = 0;
@@ -77,7 +88,8 @@ public class ComandaAction extends ActionSupport implements SessionAware{
 			listTo = new ArrayList<String>();
 			
 		}
-		if (Integer.valueOf(num) < 0) return "ERROR";
+		
+		
 		ParameterMap<String,String> llibre = new ParameterMap <String, String>();
 		llibre.put("isbn", this.llibre.getIsbn());
 		llibre.put("titol", this.llibre.getTitle());
