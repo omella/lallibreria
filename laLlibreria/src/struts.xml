@@ -114,13 +114,6 @@
 		<action name="showLogin">
 			<result type="velocity">/WEB-INF/templates/index.vm</result>
 		</action>
-
-		<action name="doLogin" method="primeraPart" class="com.vaannila.web.LoginAction">
-			<result name="input" type="velocity">/WEB-INF/templates/index.vm</result>
-			<result name="error" type="velocity">/WEB-INF/templates/index.vm</result>
-			<result type="velocity">/WEB-INF/templates/loginsuccess.vm</result>
-		</action>
-
 		
 		<action name="enviarMail" method="send" class="com.vaannila.web.ComandaAction">
 			<result name="success" type="velocity">/WEB-INF/templates/infoLlibre.vm</result>
