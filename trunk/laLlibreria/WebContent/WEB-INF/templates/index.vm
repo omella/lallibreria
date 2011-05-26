@@ -14,7 +14,7 @@ else{
 }
 
 
-
+var map
 var addressUser;
 //success callback function
 function displayPosition(pos){
