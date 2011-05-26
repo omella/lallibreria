@@ -19,12 +19,7 @@ import com.vaannila.domain.Usuari;
 import org.apache.log4j.Logger;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.SessionAware;
-
 import org.opensocial.*;
-import org.opensocial.auth.*;
-import org.opensocial.models.*;
-import org.opensocial.providers.*;
-import org.opensocial.services.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Cookie;

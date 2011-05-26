@@ -13,10 +13,9 @@
  * limitations under the License.
  */
 
-package org.opensocial.providers;
+package org.opensocial;
 
 import org.opensocial.Request;
-import org.opensocial.Response;
 
 import java.io.Serializable;
 import java.util.HashMap;

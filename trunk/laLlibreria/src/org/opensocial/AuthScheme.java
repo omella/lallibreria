@@ -13,12 +13,10 @@
  * limitations under the License.
  */
  
-package org.opensocial.auth;
+package org.opensocial;
 
 import net.oauth.http.HttpMessage;
 
-import org.opensocial.RequestException;
-import org.opensocial.providers.Provider;
 
 import java.io.IOException;
 import java.util.Map;

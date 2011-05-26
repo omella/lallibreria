@@ -13,10 +13,10 @@
  * limitations under the License.
  */
 
-package org.opensocial.services;
+package org.opensocial;
 
 import org.opensocial.Request;
-import org.opensocial.models.Person;
+import org.opensocial.services.Service;
 
 /**
  * OpenSocial API class for people requests; contains static methods for
