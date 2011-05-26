@@ -13,9 +13,11 @@
  * limitations under the License.
  */
 
-package org.opensocial.models;
+package org.opensocial;
 
 import java.util.Map;
+
+import org.opensocial.models.Model;
 
 /**
  * OpenSocial model class representing a person/user. For reference:

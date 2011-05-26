@@ -19,10 +19,8 @@ import net.oauth.http.HttpMessage;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.opensocial.auth.AuthScheme;
 import org.opensocial.http.HttpClient;
 import org.opensocial.http.HttpResponseMessage;
-import org.opensocial.providers.Provider;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

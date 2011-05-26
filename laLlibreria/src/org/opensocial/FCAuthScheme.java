@@ -13,18 +13,19 @@
  * limitations under the License.
  */
 
-package org.opensocial.parsers;
+package org.opensocial;
 
-import java.util.Map;
 
-import org.opensocial.Response;
-import org.opensocial.models.Model;
+/**
+ * Authentication class that uses a security token to authenticate Google
+ * Friend Connect requests specifically by appending ?fcauth={token} to the
+ * request URL.
+ *
+ * @author Jason Cooper
+ */
+public class FCAuthScheme extends SecurityTokenScheme {
 
-public interface Parser {
-
-  public Response getResponseObject(String in,
-      final Class<? extends Model> modelClass, String version);
-
-  public Map<String, Response> getResponseMap(String in,
-      Map<String, Class<? extends Model>> modelClasses, String version);
+  public FCAuthScheme(String token) {
+    super("fcauth", token);
+  }
 }

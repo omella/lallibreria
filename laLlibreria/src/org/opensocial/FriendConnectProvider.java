@@ -13,19 +13,22 @@
  * limitations under the License.
  */
 
-package org.opensocial.providers;
+package org.opensocial;
 
-public class PartuzaProvider extends Provider {
+public class FriendConnectProvider extends Provider {
 
-  public PartuzaProvider() {
+  public FriendConnectProvider() {
+    this(false);
+  }
+
+  public FriendConnectProvider(boolean useRest) {
     super();
 
-    setName("Partuza");
+    setName("Google Friend Connect");
     setVersion("0.8");
-    setRestEndpoint("http://modules.partuza.nl/social/rest/");
-    setAuthorizeUrl("http://www.partuza.nl/oauth/authorize");
-    setAccessTokenUrl("http://www.partuza.nl/oauth/access_token");
-    setRequestTokenUrl("http://www.partuza.nl/oauth/request_token");
-    setSignBodyHash(false);
+    setRestEndpoint("http://www.google.com/friendconnect/api/");
+    if (!useRest) {
+      setRpcEndpoint("http://www.google.com/friendconnect/api/rpc/");
+    }
   }
 }
