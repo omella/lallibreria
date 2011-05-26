@@ -29,7 +29,7 @@
 
 	function enviarComandaAjax() {
 		var num = $("#numAjax").val();
-		if (num > 0) {
+		if (num > 0 && num < 101) {
 			var lib = $("#llibreriaAjax").val();
             var dataString = 'num='+ num + '&idLlibreria='+lib;
             $.ajax({
