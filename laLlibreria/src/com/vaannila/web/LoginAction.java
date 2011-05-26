@@ -53,7 +53,7 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 	private List<Llibreria> llibreriaList = (List<Llibreria>) session.get("llibreriaList");
 	private List<Llibre> populars = (List<Llibre>) session.get("populars");;
 	private List<Cupo> millorOfertes = (List<Cupo>) session.get("millorOfertes");
-
+	private String posicio = (String) session.get("posicio");
 	public String getToken() {
 		session.put("token", token);
 		return token;
@@ -335,6 +335,14 @@ public  class LoginAction extends ActionSupport implements SessionAware, Servlet
 
 	public List<Llibreria> getLlibreriaList() {
 		return llibreriaList;
+	}
+
+	public String getPosicio() {
+		return posicio;
+	}
+
+	public void setPosicio(String posicio) {
+		this.posicio = posicio;
 	}
 
 
